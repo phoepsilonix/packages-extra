@@ -1,0 +1,32 @@
+#
+# maintainer: Phil Miller <philm[at]manjarolinux[dog]org>
+
+pkgbase=manjaroiso
+pkgname=('manjaroiso' 'manjaroiso-profiles')
+pkgver=0.0.2
+pkgrel=1
+arch=('any')
+url="https://gitorious.org/chakra/manjaroiso"
+license=('GPL')
+makedepends=('git')
+pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
+depends=('mkinitcpio>=0.8.2' 'mkinitcpio-nfs-utils' 'nbd' 'cdrkit' 'squashfs-tools' 'syslinux')
+optdepends=('qemu: quickly test isos')
+source=(core-${pkgname}-${pkgver}.tar.gz)
+md5sums=('61ffaee233f0124613265fc1402cbf83')
+
+package_manjaroiso() {
+  pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
+  depends=('mkinitcpio' 'mkinitcpio-nfs-utils' 'nbd' 'cdrkit' 'squashfs-tools' 'syslinux')
+  optdepends=('qemu: quickly test isos' 'manjaroiso-profiles: Manjaro Linux ISO-Image profiles')
+  cd ${srcdir}/core-${pkgbase}/src
+  make DESTDIR="$pkgdir" install
+}
+
+package_manjaroiso-profiles() {
+  pkgdesc="Manjaroiso Profiles"
+  depends=('manjaroiso')
+  cd ${srcdir}/core-${pkgbase}/
+  mkdir -p $pkgdir/usr/share/manjaroiso/
+  cp -r configs $pkgdir/usr/share/manjaroiso/configs
+}
