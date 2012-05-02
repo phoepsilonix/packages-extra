@@ -1,0 +1,43 @@
+# Maintainer: Philip Müller <philm[at]manjarolinux[dot]org>
+
+pkgname=lightdm-gtk-greeter
+pkgver=1.1.5
+pkgrel=1
+pkgdesc="GTK+ greeter for LightDM"
+arch=('i686' 'x86_64')
+license=('GPL3' 'LGPL3')
+
+url="https://launchpad.net/lightdm-gtk-greeter"
+source=("https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.gz"
+lightdm-gtk-greeter.conf)
+depends=('lightdm>=1.2.0' 'gtk3')
+makedepends=('gtk-doc' 'gnome-common' 'gnome-doc-utils' 'gobject-introspection' 'intltool')
+optdepends=('xorg-server-xephyr: run lightdm in test mode')
+install=lightdm-gtk-greeter.install
+
+conflicts=('lightdm-gtk-greeter-osk' 'lightdm-gtk-greeter-bzr')
+provides=('lightdm-gtk-greeter')
+
+backup=('etc/lightdm/lightdm-gtk-greeter.conf')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  ./autogen.sh --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/lightdm \
+    --disable-static
+    
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  make DESTDIR="${pkgdir}" install
+
+  cp ../lightdm-gtk-greeter.conf $pkgdir/etc/lightdm
+}
+
+md5sums=('e42cedadbebd5b45733b32db54b83a44'
+         'd8b7a9bb10dee7597af9e8d310446829')
