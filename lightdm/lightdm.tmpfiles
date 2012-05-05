@@ -1,1 +1,1 @@
-d /usr/sbin/lightdm 0770 lightdm lightdm -
+d /var/run/lightdm 0770 lightdm lightdm -
