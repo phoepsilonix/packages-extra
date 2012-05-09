@@ -3,25 +3,28 @@
 
 pkgname=('manjaro-firmware')
 pkgver=0.1
-pkgrel=1
+pkgrel=2
 _acx=20060207
 _b43=5.100.138
 _legacy=3.130.20.0
 _nouveau=20091212
+_carl9170=1.9.5
 arch=('any')
 url="http://manjarolinux.org"
 license=('GPL' 'MPL')
 makedepends=('b43-fwcutter')
 pkgdesc="Extra firmwares for Manjaro Linux"
-provides=('nouveau-firmware' 'b43-firmware' 'b43-firmware-legacy')
-conflicts=('nouveau-firmware' 'b43-firmware' 'b43-firmware-legacy')
+provides=('nouveau-firmware' 'b43-firmware' 'b43-firmware-legacy' 'carl9170-fw')
+conflicts=('nouveau-firmware' 'b43-firmware' 'b43-firmware-legacy''carl9170-fw')
 
 source=("http://www.lwfinger.com/b43-firmware/broadcom-wl-${_b43}.tar.bz2"
         "http://downloads.openwrt.org/sources/wl_apsta-${_legacy}.o"
-        "http://people.freedesktop.org/~pq/nouveau-drm/nouveau-firmware-$_nouveau.tar.gz")
+        "http://people.freedesktop.org/~pq/nouveau-drm/nouveau-firmware-$_nouveau.tar.gz"
+        "carl9170-1.fw::http://linuxwireless.org/en/users/Drivers/carl9170/fw${_carl9170}?action=AttachFile&do=get&target=carl9170-1.fw")
 sha256sums=('f1e7067aac5b62b67b8b6e4c517990277804339ac16065eb13c731ff909ae46f'
             '7dba610b1d96dd14e901bcbce14cd6ecd1b1ac6f5c0035b0d6b6dc46a7c3ef90'
-            '4eaeb2044c1da95b50ea4f1facb0effc74d65d8b13dc10893c26e4fe9fe23fb8')
+            '4eaeb2044c1da95b50ea4f1facb0effc74d65d8b13dc10893c26e4fe9fe23fb8'
+            'baa93f47f76281b4b73c07f097dce334a8975ca9be5c28bb14833253ecba57c7')
 
 package() {
   install -d ${pkgdir}/lib/firmware/
@@ -33,8 +36,11 @@ package() {
   b43-fwcutter -w "${pkgdir}/lib/firmware/" ${srcdir}/wl_apsta-${_legacy}.o
 
   # install nouveau firmwares
-  cd $srcdir/nouveau
+  cd ${srcdir}/nouveau
   for i in `ls`; do
    install -D -m644 $i ${pkgdir}/lib/firmware/nouveau/$i
   done
+  
+  # install carl9170 firmware
+  cp ${srcdir}/carl9170-1.fw ${pkgdir}/lib/firmware
 }
