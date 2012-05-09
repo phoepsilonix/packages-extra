@@ -2,7 +2,7 @@
 
 pkgname=lightdm
 pkgver=1.2.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A lightweight display manager"
 arch=('i686' 'x86_64')
 url="https://launchpad.net/lightdm"
@@ -17,7 +17,7 @@ sha256sums=('772cc6a4e7da670352f6a38c05470b8fcfe50a2c1d3d424be1c9309afb0c541b'
             '027dbb8a30d1905e07534540a7f548203cdaee55fd04bf2238d0d3d9957fcd71'
             '191a006b09908f10779739250efdee578a60b7930bd49e14b4143374080e2cd1'
             '68986b4d2f72c96bf6f96a70309f80cb2bb316170f48e19ac05279a5bd6e35a2'
-            '154adaedb16ca612a933f3dbf3533a1a78d2a21fbb0c518b093320cec129c674'
+            '5bd4e9e48b25f2397ef4aede596b79036aec6ecb995521d8230f0e1c92292601'
             'fb38b265420e55b2fd96f003ab00ad2a2d2cd1902984c84239c8ca84eb9b66a9')
         
 depends=('libwebkit' 'dbus-glib' 'gtk3' 'libxklavier' 'accountsservice')
