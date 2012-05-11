@@ -1,0 +1,86 @@
+# Based on the file created for Arch Linux by:
+# Brett Lempereur <sordidpanda at gmail dot com>
+# Flamelab <panosfilip at gmail dot com>
+
+# Maintainer: Guinux <nuxgui@gmail.com>
+
+pkgname="gnome-shell-extensions"
+pkgver=3.4.0
+pkgrel=1
+pkgdesc="Extensions for the GNOME Shell environment"
+arch=('i686' 'x86_64')
+url="http://live.gnome.org/GnomeShell/Extensions"
+license=('GPL2')
+depends=(
+    "gnome-shell"
+    "gtk3"
+)
+makedepends=(
+    "git"
+    "gnome-common"
+    "intltool"
+    "perl"
+    "pkg-config"
+)
+provides=(
+    "gnome-shell-extension-alternate-tab"
+    "gnome-shell-extension-alternative-status-menu"
+    "gnome-shell-extension-apps-menu"
+    "gnome-shell-extension-dock"
+    "gnome-shell-extension-drive-menu"
+    "gnome-shell-extension-native-window-placement"
+    "gnome-shell-extension-places-menu"
+    "gnome-shell-extension-user-theme"
+)
+options=(!libtool !emptydirs)
+install=gnome-shell-extensions.install
+
+# Repository configuration.
+_repository='git://git.gnome.org/gnome-shell-extensions'
+_reponame='gnome-shell-extensions'
+_repoversion='c13b400f4098ae9b6902afe8e8a703d7ccea5e2d'
+
+# The set of extensions to build.  If you are changing this setting manually,
+# ensure that the provides array is up-to-date.
+_enabled_extensions='alternate-tab alternative-status-menu apps-menu dock drive-menu native-window-placement places-menu user-theme'
+
+build()
+{
+
+    cd ${srcdir}/
+
+    # Ensure we have a clean copy of the latest GIT tree.
+    msg "Cloning repository..."
+    if [[ -d ${srcdir}/${_reponame} ]]; then
+        cd ${_reponame}
+        git pull origin
+    else
+        git clone ${_repository} ${_reponame}
+    fi
+    msg "Updated repositories."
+
+    # Remove any remnants of a previous build.
+    if [[ -d ${srcdir}/${_reponame}-build ]]; then
+        msg "Cleaning previous build..."
+        rm -rf ${srcdir}/${_reponame}-build
+    fi
+
+    # Clone the repository and revert to the correct version.
+    git clone ${srcdir}/${_reponame} ${srcdir}/${_reponame}-build
+    cd ${srcdir}/${_reponame}-build
+    git checkout -b ${_reponame}-stable ${_repoversion}
+
+    # Configure the package.
+    ./autogen.sh --prefix=/usr --disable-schemas-compile --enable-extensions="${_enabled_extensions}"
+
+    # Build.
+    make
+
+}
+
+package()
+{
+    cd ${srcdir}/${_reponame}-build
+    make DESTDIR="${pkgdir}" install
+}
+

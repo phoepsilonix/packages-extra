@@ -6,4 +6,5 @@ encrypt_install
 *.pkg.*
 *.src.*
 *.tar.*
+*.zip
 *~

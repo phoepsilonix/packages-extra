@@ -1,0 +1,25 @@
+# Based on the file created for Arch Linux by:
+# Lucain
+
+# Maintainer: Guinux <nuxgui@gmail.com>
+
+pkgname=zukitwo-colors
+pkgver=2012.04.27
+pkgrel=1
+pkgdesc="Zukitwo Gtk2.0/Gtk3.0/Metacity with Shiki-Colors color scheme."
+url=http:"//gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
+license=('LGPL')
+arch=('any')
+depends=('gtk-engine-murrine')
+source=("http://www.gnome-look.org/CONTENT/content-files/146290-Zukitwo-Colors%20(2012-04-27).tar.gz")
+
+DLAGENTS=('http::/usr/bin/wget -c -t 3 --waitretry=3 -H -U Mozilla -O %o %u')
+sha256sums=('5d450b883730078a51d6937e8fe3d01ec269007b90d14fd4e0653fc035ea5b7c')
+
+package() {
+  mkdir -p ${pkgdir}/usr/share/themes/
+  cp -R ${srcdir}/Zukitwo** ${pkgdir}/usr/share/themes/
+  chmod -R 755 ${pkgdir}/usr/share/themes/
+}
+ 
+ 
