@@ -10,7 +10,7 @@ pkgdesc="Zukitwo Gtk2.0/Gtk3.0/Metacity with Shiki-Colors color scheme."
 url=http:"//gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
 license=('LGPL')
 arch=('any')
-depends=('gtk-engine-murrine')
+depends=('gtk-engine-murrine' 'gtk-engine-unico')
 source=("http://www.gnome-look.org/CONTENT/content-files/146290-Zukitwo-Colors%20(2012-04-27).tar.gz")
 
 DLAGENTS=('http::/usr/bin/wget -c -t 3 --waitretry=3 -H -U Mozilla -O %o %u')
