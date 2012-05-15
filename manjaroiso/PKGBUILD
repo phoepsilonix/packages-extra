@@ -3,7 +3,7 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles')
-pkgver=0.0.9
+pkgver=0.1.1
 pkgrel=1
 arch=('any')
 url="https://gitorious.org/chakra/manjaroiso"
@@ -21,7 +21,7 @@ build() {
   msg "Connecting to GIT server...."
 
   if [ -d $_gitname ] ; then
-    cd $_gitname && git pull origin && git checkout -b $pkgver $pkgver
+    cd $_gitname && git pull origin master && git checkout -b $pkgver $pkgver
     msg "The local files are updated."
   else
     git clone $gitroot $_gitname
