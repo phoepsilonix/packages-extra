@@ -1,16 +1,16 @@
 #
-# maintainer: Phil Miller <philm[at]manjarolinux[dog]org>
+# maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles')
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 arch=('any')
 url="https://gitorious.org/chakra/manjaroiso"
 license=('GPL')
 makedepends=('git')
 pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
-depends=('mkinitcpio>=0.8.2' 'mkinitcpio-nfs-utils' 'nbd' 'cdrkit' 'squashfs-tools' 'syslinux')
+depends=('mkinitcpio>=0.8.8' 'mkinitcpio-nfs-utils' 'nbd' 'cdrkit' 'squashfs-tools' 'syslinux' 'aufs3-util')
 optdepends=('qemu: quickly test isos')
 
 gitroot="git://git.manjaro.org/core/manjaroiso.git"
@@ -21,7 +21,7 @@ build() {
   msg "Connecting to GIT server...."
 
   if [ -d $_gitname ] ; then
-    cd $_gitname && git pull origin master && git checkout -b $pkgver $pkgver
+    cd $_gitname && git pull origin master && git checkout -b $pkgver
     msg "The local files are updated."
   else
     git clone $gitroot $_gitname
