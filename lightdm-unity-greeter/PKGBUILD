@@ -1,0 +1,57 @@
+# Based on the file created for Arch Linux by:
+# Xiao-Long Chen <chenxiaolong@cxl.epac.to>
+# M0Rf30 morf3089 at gmail dot com
+
+# Maintainer: Guinux <nuxgui@gmail.com>
+
+pkgname=lightdm-unity-greeter
+pkgver=0.2.8
+pkgrel=1
+pkgdesc="The greeter (login screen) application for Unity. It is implemented as a LightDM greeter."
+arch=('i686' 'x86_64')
+url="https://launchpad.net/unity-greeter"
+license=('GPL3' 'LGPL3')
+depends=('gnome-doc-utils' 'lightdm' 'gnome-common' 'libindicator3')
+makedepends=('gnome-settings-daemon' 'pkg-config' 'vala>=0.16.0' 'autoconf')
+options=('!libtool')
+install=unity-greeter.install
+source=("https://launchpad.net/unity-greeter/0.2/$pkgver/+download/unity-greeter-$pkgver.tar.gz"
+		manjaro-theming.patch
+		cof.png
+		logo.png
+		manjaro_badge.png)
+sha256sums=('095dcb378d85d5b61b2819569097fee8d69cf4a0786fc8f5b18bd2cc6b27eb96'
+            '5bf38223e70259a772a2167fae9f425ecfd72796468872d6b5ff57c748dc5409'
+            '1fe4471cb2ffb0858c37015083b0f9fd0c1a688cd9ffa62dd8ad4ec36a06076b'
+            'c4e00a519da4eb8cb0c411927b0224cbbcdee40c6d5ee846882856c4b662f1f7'
+            '27f0219ef59dd73bde9c958978bf8e40ba3f0ed3bf86646de09fde6395e8f3d1')
+            
+build() {
+  cd "${srcdir}/unity-greeter-${pkgver}"
+
+  # Apply Manjaro theming patch
+  patch -Np1 -i "${srcdir}/manjaro-theming.patch"
+
+  # Use Manjaro logos 
+  cp $srcdir/{cof,logo,manjaro_badge}.png data
+
+  # Link against libm and libx11
+  CFLAGS="${CFLAGS} -lm -lX11"
+
+  autoreconf -vfi
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/lightdm
+
+   make ${MAKEFLAGS}
+}
+
+package() {
+  cd "${srcdir}/unity-greeter-${pkgver}"
+
+  make DESTDIR="${pkgdir}" install
+}
+
+# vim:set ts=2 sw=2 et:
