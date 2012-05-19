@@ -43,10 +43,9 @@ diff -Nur a/data/com.canonical.unity-greeter.gschema.xml b/data/com.canonical.un
        <summary>Whether to play sound when greeter is ready</summary>
      </key>
    </schema>
-Les fichiers binaires a/data/manjaro_badge.png et b/data/manjaro_badge.png sont différents
 diff -Nur a/src/session-chooser.c b/src/session-chooser.c
 --- a/src/session-chooser.c	2012-04-17 09:08:57.000000000 +0200
-+++ b/src/session-chooser.c	2012-05-19 15:16:53.194606831 +0200
++++ b/src/session-chooser.c	2012-05-19 16:30:18.517407815 +0200
 @@ -412,7 +412,7 @@
  			default:
  			{
@@ -56,10 +55,35 @@ diff -Nur a/src/session-chooser.c b/src/session-chooser.c
  				result = _tmp4_;
  				return result;
  			}
+@@ -446,6 +446,16 @@
+ 				result = _tmp7_;
+ 				return result;
+ 			}
++		}
++	} else if (_tmp3_ == ((0 != _tmp2_label8) ? _tmp2_label8 : (_tmp2_label8 = g_quark_from_static_string ("xfce")))) {
++		switch (0) {
++			default:
++			{
++				gchar* _tmp7_;
++				_tmp7_ = g_strdup ("xfce_badge.png");
++				result = _tmp7_;
++				return result;
++			}
+ 		}
+ 	} else {
+ 		switch (0) {
 diff -Nur a/src/session-chooser.vala b/src/session-chooser.vala
 --- a/src/session-chooser.vala	2012-03-18 23:38:33.000000000 +0100
-+++ b/src/session-chooser.vala	2012-05-19 15:15:46.731633559 +0200
-@@ -115,7 +115,7 @@
++++ b/src/session-chooser.vala	2012-05-19 16:32:02.613510544 +0200
+@@ -34,6 +34,7 @@
+             add_session ("gnome", "Ubuntu");
+             add_session ("gnome-shell", "GNOME");
+             add_session ("kde", "KDE");
++            add_session ("xfce", "XFCE");
+         }
+         else
+         {
+@@ -115,7 +116,7 @@
          case "ubuntu-2d":
          /* NOTE: For legacy reasons 'gnome' is actually Ubuntu */
          case "gnome":
@@ -68,3 +92,12 @@ diff -Nur a/src/session-chooser.vala b/src/session-chooser.vala
          case "gnome-classic":
          case "gnome-fallback":
          case "gnome-shell":
+@@ -124,6 +125,8 @@
+             return "kde_badge.png";
+         case "xterm":
+             return "recovery_console_badge.png";
++        case "xfce":
++            return "xfce_badge.png";
+         default:
+             return null;
+         }
