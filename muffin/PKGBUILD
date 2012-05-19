@@ -1,0 +1,47 @@
+# Based on the file created for Arch Linux by:
+# Xiao-Long Chen <chenxiaolong@cxl.epac.to>
+
+# Maintainer: Guinux <nuxgui@gmail.com>
+
+pkgname=muffin
+pkgver=1.0.3
+pkgrel=2
+pkgdesc="A window manager for GNOME"
+arch=('i686' 'x86_64')
+url="https://github.com/linuxmint/muffin"
+license=('GPL')
+depends=('clutter' 'gconf' 'gobject-introspection' 'libcanberra' 'startup-notification' 'zenity' 'libxxf86vm')
+makedepends=('git' 'intltool' 'gnome-doc-utils')
+conflicts=('muffin-git' 'muffin-wm')
+options=('!libtool' '!emptydirs')
+install=$pkgname.install
+source=("$pkgname.tar.gz::$url/tarball/$pkgver"
+        '0001-frame-initialize-style-contexts.patch')
+sha256sums=('537fc1cd194be72807674174cc4f5a8bb12b107cd7adea13856d8c20d2114ea4'
+            '4675db95f964c4def9c3c29023af36a57e6c26c141e542fa067b2d8c2332382e')
+
+build() {
+  cd "${srcdir}"
+  cd linuxmint-muffin-10abba0 
+  
+  # https://bugzilla.gnome.org/show_bug.cgi?id=671796
+  patch -Np0 -i "$srcdir/0001-frame-initialize-style-contexts.patch"
+
+  CFLAGS="$CFLAGS -Wno-deprecated-declarations"
+  autoreconf -vfi
+  ./configure --prefix=/usr --sysconfdir=/etc \
+              --localstatedir=/var --libexecdir=/usr/lib/muffin \
+              --enable-compile-warnings=yes --disable-static
+  make ${MAKEFLAGS}
+}
+
+package() {
+  cd "${srcdir}"
+  cd linuxmint-muffin-10abba0
+
+  make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install
+
+  install -m755 -d "${pkgdir}/usr/share/gconf/schemas"
+  gconf-merge-schema "${pkgdir}/usr/share/gconf/schemas/${pkgname%-*}.schemas" --domain muffin "${pkgdir}"/etc/gconf/schemas/*.schemas
+  rm "${pkgdir}"/etc/gconf/schemas/*.schemas
+}

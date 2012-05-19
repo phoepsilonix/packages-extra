@@ -1,0 +1,68 @@
+# Based on the file created for Arch Linux by:
+# M0Rf30
+
+# Maintainer: Guinux <nuxgui@gmail.com>
+
+pkgname=cinnamon
+pkgver=1.4UP1
+pkgrel=1
+pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
+arch=('i686' 'x86_64')
+url="https://github.com/linuxmint/Cinnamon"
+license=('GPL')
+depends=('gnome-menus' 'libpulse' 'gnome-desktop' 'python2' 'gnome-bluetooth' 'gjs' 'libcroco' 'folks' 
+		'telepathy-logger' 'networkmanager' 'caribou' 'nautilus' 'gnome-session' 'muffin' 'python2-gconf' 
+		'libgnomekbd' 'metacity' 'notification-daemon' 'gnome-panel' 'gnome-settings-daemon'
+		'accountsservice')
+makedepends=('git' 'intltool' 'gnome-common')
+conflicts=('cinnamon-git')
+options=('!libtool' '!emptydirs')
+install=${pkgname}.install
+check=('aur|$pkgname|${pkgver}-${pkgrel}')
+source=("cinnamon-$pkgver.tar.gz::$url/tarball/1.4-UP1"
+		fix-build-with-gnome-bluetooth-3.4.patch
+		fix-cinnamon-settings.patch)
+sha256sums=('a684d479729879fe257704eb7466e2b194fb534d931adceb32679ced4cc51ef9'
+            '96b98611c2c36ff1c43841a3255297d1928820d2dc04f3dc9e01918d665a1eaa'
+            '0269b970411da4dffa0edebb621d80e45163514bc0c2db9a527cb5ce681b5fd2')
+
+build() {
+  cd ${srcdir}
+  cd linuxmint-Cinnamon-af1653f
+  
+  patch -Np1 -i ../fix-build-with-gnome-bluetooth-3.4.patch
+  patch -Np0 -i ../fix-cinnamon-settings.patch
+
+  sed -i 's/-DG_DISABLE_DEPRECATED//g' src/Makefile.in browser-plugin/Makefile.in
+
+  CFLAGS="${CFLAGS} -Wno-deprecated-declarations $(pkg-config --libs gmodule-2.0)"
+  ./autogen.sh --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib/cinnamon --localstatedir=/var --disable-static --disable-schemas-compile --disable-schemas-install --enable-compile-warnings=yes
+  make GLIB_COMPILE_SCHEMAS=glib-compile-schemas
+}
+
+package() {
+  cd ${srcdir}
+  cd linuxmint-Cinnamon-af1653f
+  
+  make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install
+  
+  # Python2 fix
+  sed -i \
+    -e 's|^\(#!.*python\)$|\12|g' \
+    -e '/python[ \t]\+[-a-zA-Z0-9]\+$/ s|^\(#!.*python\)[ \t]*\(.*\)$|\12 \2|g' \
+    "${pkgdir}/usr/bin/$pkgname-extension-tool" \
+    "${pkgdir}/usr/lib/$pkgname-settings/$pkgname-settings.py" \
+    "${pkgdir}/usr/bin/$pkgname-settings" \
+    "${pkgdir}/usr/bin/$pkgname-menu-editor"
+    
+  # Kdm fix
+  mkdir -p  $pkgdir/usr/share/apps/kdm/sessions/
+  cp $pkgdir/usr/share/xsessions/$pkgname.desktop $pkgdir/usr/share/apps/kdm/sessions/
+  
+  # GConf2 stuff
+  install -dm755 "${pkgdir}/usr/share/gconf/schemas/"
+  gconf-merge-schema "${pkgdir}/usr/share/gconf/schemas/${pkgname%-*}.schemas" --domain cinnamon "${pkgdir}"/etc/gconf/schemas/*.schemas
+  rm "${pkgdir}"/etc/gconf/schemas/*.schemas
+  rm -r "${pkgdir}/etc/gconf/"
+}
+
