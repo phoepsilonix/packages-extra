@@ -7,6 +7,16 @@ pkgdesc="A lightweight display manager"
 arch=('i686' 'x86_64')
 url="https://launchpad.net/lightdm"
 license=('GPL3' 'LGPL3')
+options=(!libtool)
+install=lightdm.install
+backup=(etc/apparmor.d/lightdm-guest-session
+	etc/dbus-1/system.d/org.freedesktop.DisplayManager.conf
+	etc/lightdm/keys.conf
+	etc/lightdm/lightdm.conf
+	etc/lightdm/users.conf
+	etc/pam.d/lightdm)
+depends=('dbus-glib' 'gtk3' 'libxklavier' 'accountsservice')
+makedepends=('gtk-doc' 'gnome-common' 'gnome-doc-utils' 'gobject-introspection' 'pkg-config' 'intltool' 'patch')
 source=("https://launchpad.net/lightdm/1.2/$pkgver/+download/$pkgname-$pkgver.tar.gz"
         'lightdm.service'
         'lightdm.pam'
@@ -16,25 +26,9 @@ source=("https://launchpad.net/lightdm/1.2/$pkgver/+download/$pkgname-$pkgver.ta
 sha256sums=('772cc6a4e7da670352f6a38c05470b8fcfe50a2c1d3d424be1c9309afb0c541b'
             '027dbb8a30d1905e07534540a7f548203cdaee55fd04bf2238d0d3d9957fcd71'
             '191a006b09908f10779739250efdee578a60b7930bd49e14b4143374080e2cd1'
-            '68986b4d2f72c96bf6f96a70309f80cb2bb316170f48e19ac05279a5bd6e35a2'
+            'ed9b10facfc3bd3588d9ce716b0545eda1e21118b2ae39f3e49c0e57773c235f'
             '5bd4e9e48b25f2397ef4aede596b79036aec6ecb995521d8230f0e1c92292601'
             'fb38b265420e55b2fd96f003ab00ad2a2d2cd1902984c84239c8ca84eb9b66a9')
-        
-depends=('libwebkit' 'dbus-glib' 'gtk3' 'libxklavier' 'accountsservice')
-options=(!libtool)
-install=lightdm.install
-
-optdepends=('lightdm-gtk-greeter: You need this package to test the default greeter'
-            'xorg-server-xephyr: run lightdm in test mode')
-
-makedepends=('gtk-doc' 'gnome-common' 'gnome-doc-utils' 'gobject-introspection' 'pkg-config' 'intltool' 'patch')
-
-backup=(etc/apparmor.d/lightdm-guest-session
-	etc/dbus-1/system.d/org.freedesktop.DisplayManager.conf
-	etc/lightdm/keys.conf
-	etc/lightdm/lightdm.conf
-	etc/lightdm/users.conf
-	etc/pam.d/lightdm)
 
 build() {
   cd $srcdir/$pkgname-$pkgver
