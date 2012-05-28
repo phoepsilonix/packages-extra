@@ -7,7 +7,7 @@ pkgname=zukitwo-colors
 pkgver=2012.05.15
 pkgrel=1
 pkgdesc="Zukitwo Gtk2.0/Gtk3.0/Metacity with Shiki-Colors color scheme."
-url=http:"//gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
+url="http://gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
 license=('LGPL')
 arch=('any')
 depends=('gtk-engine-murrine' 'gtk-engine-unico')
