@@ -1,0 +1,91 @@
+diff -Nur a/Zukitwo-Brave/gtk-2.0/widgets/panel.rc b/Zukitwo-Brave/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Brave/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Brave/gtk-2.0/widgets/panel.rc	2012-06-02 12:21:43.344652158 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
+diff -Nur a/Zukitwo-Dust/gtk-2.0/widgets/panel.rc b/Zukitwo-Dust/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Dust/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Dust/gtk-2.0/widgets/panel.rc	2012-06-02 12:22:03.477876474 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
+diff -Nur a/Zukitwo-Human/gtk-2.0/widgets/panel.rc b/Zukitwo-Human/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Human/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Human/gtk-2.0/widgets/panel.rc	2012-06-02 12:22:16.551138984 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
+diff -Nur a/Zukitwo-Illustrious/gtk-2.0/widgets/panel.rc b/Zukitwo-Illustrious/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Illustrious/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Illustrious/gtk-2.0/widgets/panel.rc	2012-06-02 12:22:35.184371373 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
+diff -Nur a/Zukitwo-Noble/gtk-2.0/widgets/panel.rc b/Zukitwo-Noble/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Noble/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Noble/gtk-2.0/widgets/panel.rc	2012-06-02 12:22:57.464250671 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
+diff -Nur a/Zukitwo-Wine/gtk-2.0/widgets/panel.rc b/Zukitwo-Wine/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Wine/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Wine/gtk-2.0/widgets/panel.rc	2012-06-02 12:23:12.334170114 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
+diff -Nur a/Zukitwo-Wise/gtk-2.0/widgets/panel.rc b/Zukitwo-Wise/gtk-2.0/widgets/panel.rc
+--- a/Zukitwo-Wise/gtk-2.0/widgets/panel.rc	2011-10-23 18:13:06.000000000 +0200
++++ b/Zukitwo-Wise/gtk-2.0/widgets/panel.rc	2012-06-02 12:23:28.717414694 +0200
+@@ -8,6 +8,9 @@
+ 	fg[NORMAL]	= "#f5f5f5"
+ 	fg[PRELIGHT]	= "#ffffff"
+ 	fg[ACTIVE]	= "#f5f5f5"
++	bg[NORMAL]	= "#3a3a3a"
++	bg[PRELIGHT]	= "#ffffff"
++	bg[ACTIVE]	= "#3a3a3a"
+ 	text[NORMAL]	= "#f5f5f5"
+ 	text[PRELIGHT]	= "#ffffff"
+ 	text[ACTIVE]	= "#f5f5f5"
