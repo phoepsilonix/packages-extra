@@ -5,23 +5,27 @@
 
 pkgname=zukitwo-colors
 pkgver=2012.05.15
-pkgrel=2
+pkgrel=3
 pkgdesc="Zukitwo Gtk2.0/Gtk3.0/Metacity with Shiki-Colors color scheme."
 url="http://gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
 license=('LGPL')
 arch=('any')
 depends=('gtk-engine-murrine' 'gtk-engine-unico')
 source=("http://www.gnome-look.org/CONTENT/content-files/146290-Zukitwo-Colors%20(2012-05-15).tar.gz"
-        set_dark_bg_to_xfce_panel.patch)
-
-DLAGENTS=('http::/usr/bin/wget -c -t 3 --waitretry=3 -H -U Mozilla -O %o %u')
+		'set_dark_bg_to_xfce_panel.patch'
+		'start1.png'
+		'start2.png')
 sha256sums=('6e50acf848b61cf9302a61bf827e5b74e111b9aa662d724676f44d22392a5432'
-            'c34b865a278f0329282ac647c9dd33150f4ddd0f335c0ce85e617b68ed24d6a7')
+            'c34b865a278f0329282ac647c9dd33150f4ddd0f335c0ce85e617b68ed24d6a7'
+            '19245091f7e0191d050a16a66fd4627d86f99b443c97c58dd84956b46d90bf22'
+            '399cbc7342ca1dd3803f57be5baf98a8b7953257260344be043879c44634a336')
 
 package() {
   patch -Np1 -i ${srcdir}/set_dark_bg_to_xfce_panel.patch
   mkdir -p ${pkgdir}/usr/share/themes/
-  cp -R ${srcdir}/Zukitwo* ${pkgdir}/usr/share/themes/
+  cp -R ${srcdir}/Zukitwo-* ${pkgdir}/usr/share/themes/
+  for i in `ls -1 ${pkgdir}/usr/share/themes`
+     do cp ${srcdir}/start{1,2}.png ${pkgdir}/usr/share/themes/$i/gnome-shell; done
   chmod -R 755 ${pkgdir}/usr/share/themes/
 }
  
