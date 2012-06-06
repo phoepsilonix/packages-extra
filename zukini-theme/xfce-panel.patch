@@ -1,0 +1,13 @@
+--- Zukini/gtk-2.0/widgets/panel.rc	2011-10-16 14:09:36.000000000 +0000
++++ Zukini/gtk-2.0/widgets/panel.rc	2012-06-06 20:45:50.929918700 +0000
+@@ -117,8 +117,8 @@ widget_class "*Notif*Beagle*"	style "the
+ widget_class "*Notif*Brasero*"	style "theme-panel-light"
+ 
+ # XFCE panel theming.
+-widget "*Xfce*Panel*"	style "theme-panel"
+-class "*Xfce*Panel*"	style "theme-panel"
++widget "*Xfce*Panel*"	style "theme-panel-light"
++class "*Xfce*Panel*"	style "theme-panel-light"
+ 
+ # lxpanel and fbpanel
+ widget "*.tclock.*"		style "theme-panel"
