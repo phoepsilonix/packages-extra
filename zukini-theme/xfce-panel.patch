@@ -1,6 +1,28 @@
 --- Zukini/gtk-2.0/widgets/panel.rc	2011-10-16 14:09:36.000000000 +0000
 +++ Zukini/gtk-2.0/widgets/panel.rc	2012-06-06 20:45:50.929918700 +0000
-@@ -117,8 +117,8 @@ widget_class "*Notif*Beagle*"	style "the
+@@ -68,6 +68,21 @@ style "theme-panel-light"
+ 	}
+ }
+ 
++style "theme-panel-text-light"
++{
++	xthickness = 1
++	ythickness = 0
++
++	fg[NORMAL] = @fg_color
++        fg[PRELIGHT] = "#000000"
++        text[PRELIGHT] = "#000000"
++
++	engine "murrine" {
++		textstyle = 0
++		roundness = 0
++	}
++}
++
+ style "theme-panel-text"
+ {
+ 	fg[NORMAL]	= "#f5f5f5"
+@@ -117,8 +132,12 @@ widget_class "*Notif*Beagle*"	style "the
  widget_class "*Notif*Brasero*"	style "theme-panel-light"
  
  # XFCE panel theming.
@@ -8,6 +30,10 @@
 -class "*Xfce*Panel*"	style "theme-panel"
 +widget "*Xfce*Panel*"	style "theme-panel-light"
 +class "*Xfce*Panel*"	style "theme-panel-light"
++
++# XFCE notify theming.
++widget "*Xfce*Notify*"	style "theme-panel-text-light"
++class "*Xfce*Notify*"	style "theme-panel-text-light"
  
  # lxpanel and fbpanel
  widget "*.tclock.*"		style "theme-panel"

@@ -2,7 +2,7 @@
 
 pkgname=zukini-theme
 pkgver=20120602
-pkgrel=1
+pkgrel=2
 pkgdesc="A gtk2, gtk3, metacity, gnome-shell and unity theme..."
 arch=('any')
 url="http://gnome-look.org/content/show.php/Zukini?content=147431"
@@ -11,13 +11,13 @@ depends=('gtk-engines' 'gtk-engine-murrine' 'gtk-engine-unico>=1.0.2')
 source=("${pkgname}-${pkgver}.zip::http://gnome-look.org/CONTENT/content-files/147431-Zukini.zip"
         "openbox-themerc"
         "xfce-panel.patch")
-md5sums=('3f36ea80f97fc383c223a999ef104892'
+md5sums=('1397201cdaeed475406f331c374a7bc4'
          '7bf71e74108aaf1d7338b876664b6cd8'
-         '5908889ecf806dcffaf5aabb28d651ae')
+         '4a6a02feace155869e1e11018756a688')
 
 
 package() {
-  # patch xfce-panel
+  # patches for xfce
   patch -Np0 -i xfce-panel.patch
 
   # install theme
