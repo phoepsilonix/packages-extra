@@ -88,4 +88,7 @@ package() {
   install -Dm644 "${srcdir}/plymouth.functions" "${pkgdir}/etc/rc.d/functions.d/plymouth.functions"
   install -Dm644 "${srcdir}/manjaro-logo.png" "${pkgdir}/usr/share/plymouth/manjaro-logo.png"
   install -Dm644 "${srcdir}/plymouthd.conf" "${pkgdir}/etc/plymouth/plymouthd.conf"
+
+  # fix file conflicts with systemd
+  rm -R "${pkgdir}/usr/lib/systemd"
 }
