@@ -2,7 +2,7 @@
 
 pkgname=manjaro-release
 pkgver=0.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Manjaro's release definition"
 arch=("any")
 url="http://manjarolinux.org/"
@@ -10,7 +10,7 @@ license=('GPL2')
 depends=('lsb-release')
 source=('lsb-release')
 install="manjaro-release.install"
-sha256sums=('6029b5397b193ac1a22a7c4c7152714b7461b4d24be526770f0d48331c3929ce')
+sha256sums=('dbfa3cc061eac0fa0df2efa5a199394d03520c4226e7a9f74b8ca5f6daca2c29')
 
 package() {
     # Copy files
