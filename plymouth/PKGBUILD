@@ -49,6 +49,17 @@ build() {
   sed -e 's:png_set_gray_1_2_4_to_8:png_set_expand_gray_1_2_4_to_8:g' \
        -i src/libply-splash-graphics/ply-image.c
 
+  # edit systemd-unit-dir
+  sed -e 's:SYSTEMD_UNIT_DIR=/lib/systemd/system:SYSTEMD_UNIT_DIR=/usr/lib/systemd/system:g' \
+       -i configure.ac
+
+  # force /usr/lib
+  sed -e 's:$(subst /usr/lib,/lib,$(libdir)):$(subst /usr/lib,/usr/lib,$(libdir)):g' \
+       -i src/libply/Makefile.in
+
+  sed -e 's|$(libdir:/usr%=%)|$(libdir)|g' \
+       -i src/libply-splash-core/Makefile.in
+
   msg "Starting make..."
 
   ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
