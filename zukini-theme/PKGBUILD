@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=zukini-theme
-pkgver=20120602
-pkgrel=2
+pkgver=20120607.2
+pkgrel=1
 pkgdesc="A gtk2, gtk3, metacity, gnome-shell and unity theme..."
 arch=('any')
 url="http://gnome-look.org/content/show.php/Zukini?content=147431"

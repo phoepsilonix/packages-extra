@@ -2,8 +2,8 @@
 # maintainer: Phil Miller <philm[at]manjarolinux[dog]org>
 
 pkgname=('manjaro-firmware')
-pkgver=0.1
-pkgrel=2
+pkgver=0.2
+pkgrel=1
 _acx=20060207
 _b43=5.100.138
 _legacy=3.130.20.0
@@ -27,20 +27,20 @@ sha256sums=('f1e7067aac5b62b67b8b6e4c517990277804339ac16065eb13c731ff909ae46f'
             'baa93f47f76281b4b73c07f097dce334a8975ca9be5c28bb14833253ecba57c7')
 
 package() {
-  install -d ${pkgdir}/lib/firmware/
+  install -d ${pkgdir}/usr/lib/firmware/
 
   # install b43-firmware
-  b43-fwcutter -w "${pkgdir}/lib/firmware/" ${srcdir}/broadcom-wl-${_b43}/linux/wl_apsta.o
+  b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/broadcom-wl-${_b43}/linux/wl_apsta.o
 
   # install b43-legacy-firmware
-  b43-fwcutter -w "${pkgdir}/lib/firmware/" ${srcdir}/wl_apsta-${_legacy}.o
+  b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/wl_apsta-${_legacy}.o
 
   # install nouveau firmwares
   cd ${srcdir}/nouveau
   for i in `ls`; do
-   install -D -m644 $i ${pkgdir}/lib/firmware/nouveau/$i
+   install -D -m644 $i ${pkgdir}/usr/lib/firmware/nouveau/$i
   done
   
   # install carl9170 firmware
-  cp ${srcdir}/carl9170-1.fw ${pkgdir}/lib/firmware
+  cp ${srcdir}/carl9170-1.fw ${pkgdir}/usr/lib/firmware
 }
