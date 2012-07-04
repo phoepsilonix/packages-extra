@@ -21,7 +21,7 @@ cat <<EOT
        sudo plymouth-set-default-theme <theme>
 
    To rebuild initrd image:
-       sudo mkinitcpio -p linux-manjaro
+       sudo mkinitcpio -g
 
 4. For more information please visit the Wiki page:
    https://wiki.archlinux.org/index.php/Plymouth
