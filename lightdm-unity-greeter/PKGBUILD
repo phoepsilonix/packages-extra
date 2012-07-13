@@ -6,12 +6,12 @@
 
 pkgname=lightdm-unity-greeter
 pkgver=0.2.8
-pkgrel=2
+pkgrel=3
 pkgdesc="The greeter (login screen) application for Unity. It is implemented as a LightDM greeter."
 arch=('i686' 'x86_64')
 url="https://launchpad.net/unity-greeter"
 license=('GPL3' 'LGPL3')
-depends=('gnome-doc-utils' 'lightdm' 'gnome-common' 'libindicator3')
+depends=('gnome-doc-utils' 'lightdm' 'gnome-common' 'libindicator3' 'indicator-session')
 makedepends=('gnome-settings-daemon' 'pkg-config' 'vala>=0.16.0' 'autoconf')
 options=('!libtool')
 install=unity-greeter.install
