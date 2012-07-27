@@ -1,10 +1,10 @@
 [Unit]
 Description=LightDM Display Manager
-After=rc-local.service systemd-user-sessions.service plymouth-transition.service
+After=systemd-user-sessions.service
 
 [Service]
 ExecStart=/usr/sbin/lightdm
+StandardOutput=syslog
 
 [Install]
 WantedBy=graphical.target
-Also=plymouth-transition.service

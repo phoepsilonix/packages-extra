@@ -1,41 +1,41 @@
-# Maintainer: Philip Müller <philm[at]manjarolinux[dot]org>
+# Maintainer: Philip Müller <philm[at]manjaro[dot]org>
 
 pkgname=lightdm
-pkgver=1.2.2
-pkgrel=4
+pkgver=1.3.1
+pkgrel=1
 pkgdesc="A lightweight display manager"
 arch=('i686' 'x86_64')
 url="https://launchpad.net/lightdm"
 license=('GPL3' 'LGPL3')
+source=("https://launchpad.net/lightdm/1.4/$pkgver/+download/$pkgname-$pkgver.tar.gz"
+	lightdm.rc
+	lightdm.service
+	lightdm.tmpfiles
+	xsession
+	lightdm-autologin)
+depends=('dbus-glib' 'libxklavier' 'accountsservice')
 options=(!libtool)
 install=lightdm.install
+
+optdepends=('lightdm-gtk-greeter: You need this package to test the default greeter'
+            'xorg-server-xephyr: run lightdm in test mode' 
+	    'lightdm-webkit-greeter: webkit lightdm greeter')
+
+makedepends=('gobject-introspection' 'pkg-config' 'intltool' 'patch' 'itstool')
+
 backup=(etc/apparmor.d/lightdm-guest-session
 	etc/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 	etc/lightdm/keys.conf
 	etc/lightdm/lightdm.conf
 	etc/lightdm/users.conf
 	etc/pam.d/lightdm)
-depends=('dbus-glib' 'gtk3' 'libxklavier' 'accountsservice')
-makedepends=('gtk-doc' 'gnome-common' 'gnome-doc-utils' 'gobject-introspection' 'pkg-config' 'intltool' 'patch')
-source=("https://launchpad.net/lightdm/1.2/$pkgver/+download/$pkgname-$pkgver.tar.gz"
-        'lightdm.service'
-        'lightdm.pam'
-        'lightdm-autologin.pam'
-        'lightdm.tmpfiles'
-        'xsession')
-sha256sums=('772cc6a4e7da670352f6a38c05470b8fcfe50a2c1d3d424be1c9309afb0c541b'
-            '027dbb8a30d1905e07534540a7f548203cdaee55fd04bf2238d0d3d9957fcd71'
-            '191a006b09908f10779739250efdee578a60b7930bd49e14b4143374080e2cd1'
-            'ed9b10facfc3bd3588d9ce716b0545eda1e21118b2ae39f3e49c0e57773c235f'
-            '5bd4e9e48b25f2397ef4aede596b79036aec6ecb995521d8230f0e1c92292601'
-            'fb38b265420e55b2fd96f003ab00ad2a2d2cd1902984c84239c8ca84eb9b66a9')
 
 build() {
   cd $srcdir/$pkgname-$pkgver
    ./configure --prefix=/usr \
      --sysconfdir=/etc --disable-static --libexecdir=/usr/lib/lightdm \
      --localstatedir=/var --with-greeter-user=lightdm \
-     --with-greeter-session=lightdm-gtk-greeter --disable-tests     
+     --with-greeter-session=lightdm-gtk-greeter --disable-tests
    make || return 1
 }
 
@@ -44,19 +44,29 @@ package() {
   make DESTDIR=$pkgdir install
 
 # init services file 
+  install -D -m755 ../lightdm.rc $pkgdir/etc/rc.d/lightdm
   install -D -m644 ../lightdm.service $pkgdir/usr/lib/systemd/system/lightdm.service
   install -D -m644 ../lightdm.tmpfiles $pkgdir/usr/lib/tmpfiles.d/lightdm.conf
-
-# pam file for gnome-keyring
-  install -D -m644 ../lightdm.pam $pkgdir/etc/pam.d/lightdm
-  install -D -m644 ../lightdm-autologin.pam $pkgdir/etc/pam.d/lightdm-autologin
 
 # some tweaks  
   rm -rf $pkgdir/etc/init
   chmod +x ../xsession 
   install -D -m755 ../xsession $pkgdir/etc/lightdm
+  sed -i -e "s|#run-directory=/var/run/lightdm|run-directory=/run/lightdm|g" $pkgdir/etc/lightdm/lightdm.conf
   sed -i -e "s|minimum-uid=500|minimum-uid=1000|g" $pkgdir/etc/lightdm/users.conf  
   sed -i -e "s|/usr/sbin/nologin|/sbin/nologin|g" $pkgdir/etc/lightdm/users.conf
   sed -i -e "s|#session-wrapper=lightdm-session|session-wrapper=/etc/lightdm/xsession|g" $pkgdir/etc/lightdm/lightdm.conf
   sed -i -e "s|#autologin-session=UNIMPLEMENTED|#autologin-session=UNIMPLEMENTED\n#pam-service=lightdm-autologin|g" $pkgdir/etc/lightdm/lightdm.conf
+  install -d -m770 $pkgdir/run/lightdm
+
+# Doing Autologin
+  cp ../lightdm-autologin $pkgdir/etc/pam.d
 }
+
+
+md5sums=('802ca25e115cc81f844874df9a7288b9'
+         '6699eb35f65ff498d1d05e6782f4f902'
+         '6ed3e3917948334c217cc62956aaa8ae'
+         'b1e1baf7351ff58c7b3b9b204472f6bb'
+         '683bc8bc3f423157065dc6295f9fecef'
+         '9e39da461e36f9d3fdd4447a80ebd878')

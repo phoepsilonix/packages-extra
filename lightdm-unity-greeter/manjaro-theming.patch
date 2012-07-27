@@ -83,15 +83,6 @@ diff -Nur a/src/session-chooser.vala b/src/session-chooser.vala
          }
          else
          {
-@@ -115,7 +116,7 @@
-         case "ubuntu-2d":
-         /* NOTE: For legacy reasons 'gnome' is actually Ubuntu */
-         case "gnome":
--            return "ubuntu_badge.png";
-+            return "gnome_badge.png";
-         case "gnome-classic":
-         case "gnome-fallback":
-         case "gnome-shell":
 @@ -124,6 +125,8 @@
              return "kde_badge.png";
          case "xterm":
