@@ -12,8 +12,8 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=plymouth
-pkgver=0.8.5.1
-pkgrel=2
+pkgver=0.8.6.1
+pkgrel=1
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -34,7 +34,7 @@ source=('manjaro-logo.png'
 sha256sums=('1a57879fa142e83853f92362668fab00e7959d3dadd185eac9dec230661199d3'
             'e0cbcabb81233b4d465833dca0faf1e762dc3cb6611597a25fe24e5d7209f316'
             'cfe465bdad3d958bb2332a05e04f2e1e884422a5714dfd1a0a3b9b74bf7dc6ae'
-            '5bf94a53c090e646436e6750e8e228fcd166bc04e34a7fd62189bdf9e450937c'
+            '87f9126bb80457c3c9966df765115ea2ebb10b42660be37ede73350bc0f01d1d'
             '83ffd4aa52ca6a77423ab7edc2c2369808c7abffe68d97e134176c4592a81cc6'
             '19c14656385444f51ce5ad2f3b768b0c0e9b090ccd62841677b63090ebc05d7f'
             'bc8c2485891974717c6941aae586009d26421e0cca96a7d3eca47838692ef6e8'
@@ -88,7 +88,4 @@ package() {
   install -Dm644 "${srcdir}/plymouth.functions" "${pkgdir}/etc/rc.d/functions.d/plymouth.functions"
   install -Dm644 "${srcdir}/manjaro-logo.png" "${pkgdir}/usr/share/plymouth/manjaro-logo.png"
   install -Dm644 "${srcdir}/plymouthd.conf" "${pkgdir}/etc/plymouth/plymouthd.conf"
-
-  # fix file conflicts with systemd
-  rm -R "${pkgdir}/usr/lib/systemd"
 }
