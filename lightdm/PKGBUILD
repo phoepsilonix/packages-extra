@@ -2,7 +2,7 @@
 
 pkgname=lightdm
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight display manager"
 arch=('i686' 'x86_64')
 url="https://launchpad.net/lightdm"
@@ -19,7 +19,7 @@ install=lightdm.install
 
 optdepends=('lightdm-gtk-greeter: You need this package to test the default greeter'
             'xorg-server-xephyr: run lightdm in test mode' 
-	    'lightdm-webkit-greeter: webkit lightdm greeter')
+	    'lightdm-unity-greeter: unity lightdm greeter')
 
 makedepends=('gobject-introspection' 'pkg-config' 'intltool' 'patch' 'itstool')
 
@@ -66,7 +66,7 @@ package() {
 
 md5sums=('802ca25e115cc81f844874df9a7288b9'
          '6699eb35f65ff498d1d05e6782f4f902'
-         '6ed3e3917948334c217cc62956aaa8ae'
+         '0dc12adf992739b33652edf2f6f8794a'
          'b1e1baf7351ff58c7b3b9b204472f6bb'
          '683bc8bc3f423157065dc6295f9fecef'
          '9e39da461e36f9d3fdd4447a80ebd878')
