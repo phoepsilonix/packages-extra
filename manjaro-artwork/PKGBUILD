@@ -1,4 +1,5 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
+# Co-Maintainer: Clittle <philm@manjaro.org>
 
 pkgname=manjaro-artwork
 pkgver=1.0
@@ -8,22 +9,29 @@ arch=('any')
 url="http://manjaro.org"
 license=('GPL')
 source=('logo1.png'
-		'logo2.png'
-		'logo3.png'
-		'logo4.png'
-		'eco-green.jpg')
+	'logo2.png'
+	'logo3.png'
+	'logo4.png'
+	'logo5.png'
+	'eco-green.jpg'
+	'leather-dark.jpg')
 sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '4561bed2ad2e01d8a0782da0b86df2208c30670ca8892791550d5cec4089ca48'
             'caf992c3211ec684fc397e206e10a3d3c35a65157fdab416303b0c23d78c51e8'
             '00e3453ccc259c4c97587bab8e20a8ec71bb7fd539f5290103af5cdb5dfc8399'
-            'ed1e13e846b15a178085add96211e3d1a75d269256fe754dd76f360a6b1d6132')
+            'd99a7bbf996730a495f7c7f0dadf90b48c7c469b65f4f33852578e204a62cb5d'
+            'ed1e13e846b15a178085add96211e3d1a75d269256fe754dd76f360a6b1d6132'
+            '31070ff7ec7a2cd5a5ef2c308718e7200add952edac0e4041195cc48b9620d30')
 
 package() {
   install -Dm644 "${srcdir}/logo1.png" "${pkgdir}/usr/share/icons/logo1.png"
   install -Dm644 "${srcdir}/logo2.png" "${pkgdir}/usr/share/icons/logo2.png"
   install -Dm644 "${srcdir}/logo3.png" "${pkgdir}/usr/share/icons/logo3.png"
   install -Dm644 "${srcdir}/logo4.png" "${pkgdir}/usr/share/icons/logo4.png"
+  install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
   install -Dm644 "${srcdir}/eco-green.jpg" "${pkgdir}/usr/share/backgrounds/eco-green.jpg"
-  ln -s "${pkgdir}/usr/share/icons/logo4.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
-  ln -s "${pkgdir}/usr/share/backgrounds/eco-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  install -Dm644 "${srcdir}/leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/leather-dark.jpg"
+  ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
+  ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
+  ln -s "leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
 }
