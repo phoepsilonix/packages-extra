@@ -6,7 +6,7 @@
 
 pkgname=lightdm-unity-greeter
 pkgver=12.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The greeter (login screen) application for Unity. It is implemented as a LightDM greeter."
 arch=('i686' 'x86_64')
 url="https://launchpad.net/unity-greeter"
@@ -26,9 +26,9 @@ source=(#"https://launchpad.net/unity-greeter/0.2/$pkgver/+download/unity-greete
 sha256sums=('d2162e8e60f270193ef7ac39acd7f27b25dec68b88184c21ddfd29f5f524fa52'
             '8b0760c31255f303c21a1f4251d2bb3593d626aebb3fa07f8e95cfdad4c66910'
             'd518ee58fdc37a191ace6684a55f026af76ff2c7b48529d662176ae9064e8ca7'
-            'bdf2eaff456d188b5ebade2905109421255c5b17404d5d3f89162c5d4b9b67b2'
-            'c4e00a519da4eb8cb0c411927b0224cbbcdee40c6d5ee846882856c4b662f1f7'
-            'd347590dbf9ae95dfd114d4868a352c8c428e5694118701e9daf92fe5a4ca3b8'
+            '5c22846fff201ae87bbc737dd3f3099b3bb41e5812667f294cadd1dfe19cd7b0'
+            '88f29b268162cdf5377bec5888b1e2c6e2d4059526b83bba2d7d3339620374d1'
+            '7ac0effe19b542a267e6c5bb4ae09f228817c68875f9d26f3644729179261cc9'
             '4832c1a09dda9e888400433edf7156204ef85e74aedddd0304ef62f5377c44c3')
             
 build() {

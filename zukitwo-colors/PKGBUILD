@@ -4,24 +4,21 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=zukitwo-colors
-pkgver=2012.05.15
-pkgrel=3
+pkgver=2012.08.01
+pkgrel=1
 pkgdesc="Zukitwo Gtk2.0/Gtk3.0/Metacity with Shiki-Colors color scheme."
 url="http://gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
 license=('LGPL')
 arch=('any')
 depends=('gtk-engine-murrine' 'gtk-engine-unico')
-source=("http://www.gnome-look.org/CONTENT/content-files/146290-Zukitwo-Colors%20(2012-05-15).tar.gz"
-		'set_dark_bg_to_xfce_panel.patch'
+source=("http://www.deviantart.com/download/310434222/zukitwo_colors_by_karashata-d54toku.zip"
 		'start1.png'
 		'start2.png')
-sha256sums=('6e50acf848b61cf9302a61bf827e5b74e111b9aa662d724676f44d22392a5432'
-            'c34b865a278f0329282ac647c9dd33150f4ddd0f335c0ce85e617b68ed24d6a7'
-            '19245091f7e0191d050a16a66fd4627d86f99b443c97c58dd84956b46d90bf22'
-            '399cbc7342ca1dd3803f57be5baf98a8b7953257260344be043879c44634a336')
+sha256sums=('ca2532ff5e6d8244281c42adcd828befd98084ac0c81e3a33cf924fd7d8d72df'
+            '994ab7b438cc9a04bda511a7dbf5a8cc651af3228406fac9b6fb320ca8e87640'
+            '641f00b2683ef8dd138e05086375ae1bbed8107a88b5001a5b4f36969c25b8b2')
 
 package() {
-  patch -Np1 -i ${srcdir}/set_dark_bg_to_xfce_panel.patch
   mkdir -p ${pkgdir}/usr/share/themes/
   cp -R ${srcdir}/Zukitwo-* ${pkgdir}/usr/share/themes/
   for i in `ls -1 ${pkgdir}/usr/share/themes`
