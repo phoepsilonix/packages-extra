@@ -34,4 +34,7 @@ package() {
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
   ln -s "leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  # link for xfce
+  mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
+  ln -s "../eco-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/eco-green.jpg"
 }
