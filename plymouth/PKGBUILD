@@ -61,6 +61,10 @@ build() {
   sed -e 's:SYSTEMD_UNIT_DIR=/lib/systemd/system:SYSTEMD_UNIT_DIR=/usr/lib/systemd/system:g' \
        -i configure.ac
 
+  # aclocal
+  sed -e 's:^.*am__api_version=.*:am__api_version=1.12:' \
+       -i configure
+
   msg "Starting make..."
 
   ./configure --prefix=/usr --exec-prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
@@ -68,7 +72,6 @@ build() {
     --without-rhgb-compat-link \
     --with-gdm-autostart-file=yes \
     --enable-gdm-transition \
-    --enable-drm-renderer \
     --enable-systemd-integration \
     --with-gdm-autostart-file=yes \
     --with-release-file=/etc/manjaro-release \
