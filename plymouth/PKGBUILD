@@ -13,7 +13,7 @@
 
 pkgname=plymouth
 pkgver=0.8.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -23,8 +23,10 @@ options=('!libtool' '!emptydirs')
 install=plymouth.install
 backup=('etc/plymouth/plymouthd.conf')
 source=('manjaro-logo.png'
-        "http://projects.archlinux.org/svntogit/packages.git/plain/cryptsetup/repos/core-${CARCH}/encrypt_hook"
-        "http://projects.archlinux.org/svntogit/packages.git/plain/cryptsetup/repos/core-${CARCH}/encrypt_install"
+        "http://projects.archlinux.org/svntogit/packages.git/plain/cryptsetup/repos/core-$CARCH/encrypt_hook"
+        'encrypt_hook.patch'
+        "http://projects.archlinux.org/svntogit/packages.git/plain/cryptsetup/repos/core-$CARCH/encrypt_install"
+        'encrypt_install.patch'
         "http://www.freedesktop.org/software/plymouth/releases/plymouth-$pkgver.tar.bz2"
         'plymouthd.conf'
         'plymouth.functions'
@@ -33,16 +35,22 @@ source=('manjaro-logo.png'
         'plymouth-update-initrd.patch')
 sha256sums=('1a57879fa142e83853f92362668fab00e7959d3dadd185eac9dec230661199d3'
             'e0cbcabb81233b4d465833dca0faf1e762dc3cb6611597a25fe24e5d7209f316'
+            'dc8317d823d939cc3c7d09c877c4ea07257e7c45facec991d5c36d73d3fccaa0'
             'cfe465bdad3d958bb2332a05e04f2e1e884422a5714dfd1a0a3b9b74bf7dc6ae'
+            '2b4910ca8afc449b3deb63b954e24485194f0d9df7aeb51d1a97cde0888f5cf8'
             '87f9126bb80457c3c9966df765115ea2ebb10b42660be37ede73350bc0f01d1d'
             '83ffd4aa52ca6a77423ab7edc2c2369808c7abffe68d97e134176c4592a81cc6'
-            '19c14656385444f51ce5ad2f3b768b0c0e9b090ccd62841677b63090ebc05d7f'
-            'bc8c2485891974717c6941aae586009d26421e0cca96a7d3eca47838692ef6e8'
-            'c2a69f4243e52d026d58ced86caa17e476054d29f7ce766d6f13ed251e69a817'
+            'f9caa93e784ed1f045c6c12d39c0f89f5391ecfa8e12ba3f021a0a4d55234815'
+            'f37639a3e6f0410593f871722928bda1a78cf775119e57990dca708f4120ddc3'
+            'dbde9ea5659291a010874a9be436c01926e8a70a03f799ec6ac7166db290c6fd'
             'f965d311bd66e426723fae20161a152af59adc1831549d92bef874d868c50f31')
 
 build() {
   msg "Applying Patches..."
+
+  patch -p0 -i encrypt_hook.patch
+  patch -p0 -i encrypt_install.patch
+
   cd "${srcdir}/plymouth-$pkgver"
   patch -p0 -i "${srcdir}/plymouth-update-initrd.patch"
 
@@ -53,25 +61,21 @@ build() {
   sed -e 's:SYSTEMD_UNIT_DIR=/lib/systemd/system:SYSTEMD_UNIT_DIR=/usr/lib/systemd/system:g' \
        -i configure.ac
 
-  # force /usr/lib
-  sed -e 's:$(subst /usr/lib,/lib,$(libdir)):$(subst /usr/lib,/usr/lib,$(libdir)):g' \
-       -i src/libply/Makefile.in
-
-  sed -e 's|$(libdir:/usr%=%)|$(libdir)|g' \
-       -i src/libply-splash-core/Makefile.in
-
   msg "Starting make..."
 
-  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
+  ./configure --prefix=/usr --exec-prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
     --enable-tracing \
-    --with-system-root-install \
+    --without-rhgb-compat-link \
+    --with-gdm-autostart-file=yes \
     --enable-gdm-transition \
+    --enable-drm-renderer \
     --enable-systemd-integration \
     --with-gdm-autostart-file=yes \
     --with-release-file=/etc/manjaro-release \
     --with-logo=/usr/share/plymouth/manjaro-logo.png \
     --with-background-start-color-stop=0x000000 \
-    --with-background-end-color-stop=0x4D4D4D
+    --with-background-end-color-stop=0x4D4D4D \
+    --without-system-root-install
 
   make
 }

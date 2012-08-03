@@ -3,7 +3,7 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles')
-pkgver=0.7.92
+pkgver=0.7.92.1
 pkgrel=1
 arch=('any')
 url="https://gitorious.org/chakra/manjaroiso"
