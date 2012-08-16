@@ -4,17 +4,22 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=zukitwo-themes
-pkgver=20120526
+pkgver=20120708
 pkgrel=1
 pkgdesc="Themes for gtk3, gtk2, metacity, xfwm4, gnome-shell and emerald..."
 arch=('any')
 url="http://gnome-look.org/content/show.php/Zukitwo?content=140562"
 license=('GPL')
-depends=('gtk-engines' 'gtk-engine-murrine>=0.98.1.1' 'gtk-engine-unico>=1.0.2')
-source=("Zukitwo-$pkgver.zip::http://gnome-look.org/CONTENT/content-files/140562-Zukitwo.zip")
-sha256sums=('b7bf6e516fd058407ff86173d144f3ba3774e36ada6b617d8873887971a9efad')
+depends=('gtk-engines' 'gtk-engine-murrine' 'gtk-engine-unico>=1.0.2')
+source=("Zukitwo-$pkgver.zip::http://gnome-look.org/CONTENT/content-files/140562-Zukitwo.zip"
+        "xfce-panel.patch")
+sha256sums=('76df9ed0df989713ee5998299f19e7b644ed78182dc17829f9f4f4c1a1a571b8'
+            '4067090b0f9d97ed659af7f05c329f4bf83b0474aff03493948f1f9d0b4056f4')
 
 package() {
+  # patches for xfce
+  patch -Np0 -i xfce-panel.patch
+
   # fix font definitions
   sed 's/font:/font-size:/g' -i Zukitwo-Shell/gnome-shell/gnome-shell.css
 
