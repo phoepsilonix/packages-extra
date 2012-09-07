@@ -4,7 +4,7 @@
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles')
 pkgver=0.8.0
-pkgrel=1
+pkgrel=5
 arch=('any')
 url="https://gitorious.org/chakra/manjaroiso"
 license=('GPL')
@@ -12,7 +12,7 @@ makedepends=('git')
 pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
 depends=('mkinitcpio>=0.8.8' 'mkinitcpio-nfs-utils' 'nbd' 'cdrkit' 'squashfs-tools' 'syslinux')
 optdepends=('qemu: quickly test isos')
-_git=no
+_git=yes
 
 getsource() {
   cd "$srcdir"
