@@ -13,7 +13,7 @@
 
 pkgname=plymouth
 pkgver=0.8.6.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -32,7 +32,12 @@ source=('manjaro-logo.png'
         'plymouth.functions'
         'plymouth.initcpio_hook'
         'plymouth.initcpio_install'
-        'plymouth-update-initrd.patch')
+        'plymouth-update-initrd.patch'
+        'gdm-plymouth.service'
+        'kdm-plymouth.service'
+        'kdm-unpatched-plymouth.service'
+        'lxdm-plymouth.service'
+        'plymouth-quit.service')
 sha256sums=('1a57879fa142e83853f92362668fab00e7959d3dadd185eac9dec230661199d3'
             'e0cbcabb81233b4d465833dca0faf1e762dc3cb6611597a25fe24e5d7209f316'
             'dc8317d823d939cc3c7d09c877c4ea07257e7c45facec991d5c36d73d3fccaa0'
@@ -43,7 +48,12 @@ sha256sums=('1a57879fa142e83853f92362668fab00e7959d3dadd185eac9dec230661199d3'
             'f9caa93e784ed1f045c6c12d39c0f89f5391ecfa8e12ba3f021a0a4d55234815'
             'f37639a3e6f0410593f871722928bda1a78cf775119e57990dca708f4120ddc3'
             'dbde9ea5659291a010874a9be436c01926e8a70a03f799ec6ac7166db290c6fd'
-            'f965d311bd66e426723fae20161a152af59adc1831549d92bef874d868c50f31')
+            'f965d311bd66e426723fae20161a152af59adc1831549d92bef874d868c50f31'
+            'cb69f873cf95b294428c7c3dcdb36cbf38d738d8ee43cec7e7e84e5254c4eead'
+            'e82ba28fb582f7dca54f4647fa62db627dc8f834de77e5389d70b4d0e4f5a33e'
+            '41d20d510eeec8aa1ee7a2cc6eb6134a2535bc47d2ade465b55dc06f1a3d9640'
+            '3040f4e3055b6c0b68777fb33061ecd2c781162e09fdeed15da8bd4fcc494520'
+            '00e2e9971eee8575652c7a505abe16a8de90607d821619a409162a58c1b44f4d')
 
 build() {
   msg "Applying Patches..."
@@ -95,4 +105,9 @@ package() {
   install -Dm644 "${srcdir}/plymouth.functions" "${pkgdir}/etc/rc.d/functions.d/plymouth.functions"
   install -Dm644 "${srcdir}/manjaro-logo.png" "${pkgdir}/usr/share/plymouth/manjaro-logo.png"
   install -Dm644 "${srcdir}/plymouthd.conf" "${pkgdir}/etc/plymouth/plymouthd.conf"
+
+  # Plymouth<->systemd integration, including units for DMs
+  for i in {{gdm,kdm{,-unpatched},lxdm}-plymouth,plymouth-quit}.service; do
+    install -Dm644 "$srcdir/$i" "$pkgdir/usr/lib/systemd/system/$i"
+  done
 }
