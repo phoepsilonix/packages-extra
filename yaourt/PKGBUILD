@@ -3,7 +3,7 @@
 
 pkgname=yaourt
 pkgver=1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
 url="http://www.archlinux.fr/yaourt-en/"
@@ -25,7 +25,8 @@ package() {
   cd $srcdir/$pkgname-$pkgver/
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var DESTDIR=$pkgdir install
   sed -i -e 's/PACMAN="pacman"/PACMAN="pacman-bin"/g' $pkgdir/etc/yaourtrc
-
+  sed -i -e 's|PACMAN=${PACMAN:-pacman}|PACMAN=${PACMAN:-pacman-bin}|g' $pkgdir/usr/lib/yaourt/util.sh
+  sed -i -e 's|LC_ALL=C pacman|LC_ALL=C pacman-bin|g' $pkgdir/usr/lib/yaourt/util.sh
 }
 
 md5sums=('e8c0d29828ba21eafc27490fb786d14c')
