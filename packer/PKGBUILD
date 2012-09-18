@@ -1,5 +1,5 @@
 pkgname=packer
-pkgver=20120823
+pkgver=20120918
 pkgrel=1
 pkgdesc="Bash wrapper for pacman and aur"
 url="http://github.com/bruenig/packer"
@@ -30,4 +30,8 @@ build() {
     mkdir -p "$pkgdir/usr/share/man/man8/"
     install -m 755 packer "$pkgdir/usr/bin/packer"
     install -m 644 packer.8 "$pkgdir/usr/share/man/man8/packer.8"
+
+    # fix pacman to pacman-bin move
+    sed -i -e 's/PACMAN="pacman"/PACMAN="pacman-bin"/g' $pkgdir/usr/bin/packer
+    sed -i -e 's/pacman -/pacman-bin -/g' $pkgdir/usr/bin/packer
 }
