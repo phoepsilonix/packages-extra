@@ -2,8 +2,8 @@
 # Co-Maintainer: Clittle <philm@manjaro.org>
 
 pkgname=manjaro-artwork
-pkgver=1.0
-pkgrel=1
+pkgver=1.0.1
+pkgrel=2
 pkgdesc="Artwork for Manjaro"
 arch=('any')
 url="http://manjaro.org"
@@ -14,14 +14,16 @@ source=('logo1.png'
 	'logo4.png'
 	'logo5.png'
 	'eco-green.jpg'
-	'leather-dark.jpg')
+	'leather-dark.jpg'
+	'leaf-green.jpg')
 sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '4561bed2ad2e01d8a0782da0b86df2208c30670ca8892791550d5cec4089ca48'
             'caf992c3211ec684fc397e206e10a3d3c35a65157fdab416303b0c23d78c51e8'
             '00e3453ccc259c4c97587bab8e20a8ec71bb7fd539f5290103af5cdb5dfc8399'
             'd99a7bbf996730a495f7c7f0dadf90b48c7c469b65f4f33852578e204a62cb5d'
             'ed1e13e846b15a178085add96211e3d1a75d269256fe754dd76f360a6b1d6132'
-            '31070ff7ec7a2cd5a5ef2c308718e7200add952edac0e4041195cc48b9620d30')
+            '31070ff7ec7a2cd5a5ef2c308718e7200add952edac0e4041195cc48b9620d30'
+            '077a9401121b1bf7c0d52276682d0f6108613b84e2528c2c3fc39d30311246f0')
 
 package() {
   install -Dm644 "${srcdir}/logo1.png" "${pkgdir}/usr/share/icons/logo1.png"
@@ -31,10 +33,13 @@ package() {
   install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
   install -Dm644 "${srcdir}/eco-green.jpg" "${pkgdir}/usr/share/backgrounds/eco-green.jpg"
   install -Dm644 "${srcdir}/leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/leather-dark.jpg"
+  install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
-  ln -s "leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  ln -s "leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
   # link for xfce
   mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
   ln -s "../eco-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/eco-green.jpg"
+  ln -s "../leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leather-dark.jpg"
+  ln -s "../leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leaf-green.jpg"
 }
