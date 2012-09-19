@@ -1,10 +1,10 @@
 # Maintainer: Gen2ly <dirk.r.gently@gmail.com>
 
 pkgname=pyparted-git
-pkgver=20120917
+pkgver=20120919
 pkgrel=1
 pkgdesc="Python bindings for libparted"
-arch=('any')
+arch=('i686' 'x86_64')
 url="https://fedorahosted.org/pyparted/"
 license=('GPL2')
 depends=('python2' 'parted')

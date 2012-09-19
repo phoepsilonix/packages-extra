@@ -1,6 +1,6 @@
 # Maintainer: David Campbell <davekong@archlinux.us>
 pkgname=cparted
-pkgver=20120917
+pkgver=20120919
 pkgrel=1
 pkgdesc="Curses based disk partition manipulation program"
 arch=('any')
