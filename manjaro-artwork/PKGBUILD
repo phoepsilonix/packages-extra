@@ -2,8 +2,8 @@
 # Co-Maintainer: Clittle <philm@manjaro.org>
 
 pkgname=manjaro-artwork
-pkgver=1.0.1
-pkgrel=2
+pkgver=1.0.2
+pkgrel=1
 pkgdesc="Artwork for Manjaro"
 arch=('any')
 url="http://manjaro.org"
@@ -36,7 +36,7 @@ package() {
   install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
-  ln -s "leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  ln -s "leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
   # link for xfce
   mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
   ln -s "../eco-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/eco-green.jpg"

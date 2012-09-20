@@ -13,7 +13,7 @@
 
 pkgname=plymouth
 pkgver=0.8.6.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -51,6 +51,7 @@ sha256sums=('1a57879fa142e83853f92362668fab00e7959d3dadd185eac9dec230661199d3'
             '44815f2c1f5ce5594fb3ec939a96642adf08ef8aeceb7d88536f1b67f4716115'
             'dbde9ea5659291a010874a9be436c01926e8a70a03f799ec6ac7166db290c6fd'
             '20dc6462c89f721c4ec91fc407f62db836b83edef091630caf29c1a1ae81393b'
+            '1292cc3ac2b73020f2a94a0ec53b238ec7c7321b66e59d243d6b645f794499fb'
             'f965d311bd66e426723fae20161a152af59adc1831549d92bef874d868c50f31'
             'cb69f873cf95b294428c7c3dcdb36cbf38d738d8ee43cec7e7e84e5254c4eead'
             'e82ba28fb582f7dca54f4647fa62db627dc8f834de77e5389d70b4d0e4f5a33e'
