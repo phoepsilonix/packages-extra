@@ -1,0 +1,26 @@
+*** src/lxdm.c.orig	2011-07-29 15:42:33.000000000 +0200
+--- src/lxdm.c	2012-09-20 13:02:18.406078365 +0200
+***************
+*** 1186,1191 ****
+--- 1186,1206 ----
+  
+  	lxsession_stop(s);
+  
++ 	// Restart X server if set in config
++ 	if (g_key_file_get_integer(config,"server","restart_after_logout",NULL) == 1)
++ 	{
++ 		stop_pid(s->server);
++ 		s->server = -1;
++ 
++ 		if(s->dpy)
++ 		{
++ 			xconn_close(s->dpy);
++ 			s->dpy=NULL;
++ 		}
++ 
++ 		lxdm_startx(s);
++ 	}
++ 
+  	level=get_run_level();
+  	if(level=='0' || level=='6')
+  	{
