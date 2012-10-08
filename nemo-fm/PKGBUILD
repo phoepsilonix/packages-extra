@@ -2,7 +2,7 @@
 # Ner0
 # Maintainer: Guinux <nuxgui@gmail.com>
 
-pkgname=nemo-fm
+pkgname=nemo
 pkgver=1.0.3
 pkgrel=1
 pkgdesc="Cinnamon file manager (Nautilus fork)"

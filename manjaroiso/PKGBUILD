@@ -4,7 +4,7 @@
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles')
 pkgver=0.8.1.92
-pkgrel=2
+pkgrel=4
 arch=('any')
 url="https://gitorious.org/chakra/manjaroiso"
 license=('GPL')
