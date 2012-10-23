@@ -4,7 +4,7 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=zukitwo-colors
-pkgver=2012.08.06
+pkgver=2012.09.20
 pkgrel=1
 pkgdesc="Zukitwo Gtk2.0/Gtk3.0/Metacity with Shiki-Colors color scheme."
 url="http://gnome-look.org/content/show.php/Zukitwo-Colors?content=146290"
@@ -13,16 +13,18 @@ arch=('any')
 depends=('gtk-engine-murrine' 'gtk-engine-unico')
 source=("http://www.deviantart.com/download/310434222/zukitwo_colors_by_karashata-d54toku.zip"
 		'start1.png'
-		'start2.png')
-sha256sums=('4e49d7e3c995a5c5cd9205fad5bed9200a692af4775453284fd6ee6b0b406db6'
+		'start2.png'
+		'start3.png')
+sha256sums=('3ea4699a8b7b1603fed10df37f84752c5976e5dbe9a6dbccc0a1386bff1d6b0c'
             '994ab7b438cc9a04bda511a7dbf5a8cc651af3228406fac9b6fb320ca8e87640'
-            '641f00b2683ef8dd138e05086375ae1bbed8107a88b5001a5b4f36969c25b8b2')
+            '641f00b2683ef8dd138e05086375ae1bbed8107a88b5001a5b4f36969c25b8b2'
+            '170bc81819be0a22d8940e804c94ff3060d307eb7fcf324d7ba42c7292cc58b0')
 
 package() {
   mkdir -p ${pkgdir}/usr/share/themes/
   cp -R ${srcdir}/Zukitwo-* ${pkgdir}/usr/share/themes/
   for i in `ls -1 ${pkgdir}/usr/share/themes`
-     do cp ${srcdir}/start{1,2}.png ${pkgdir}/usr/share/themes/$i/gnome-shell; done
+     do cp ${srcdir}/start{1,2,3}.png ${pkgdir}/usr/share/themes/$i/gnome-shell; done
   chmod -R 755 ${pkgdir}/usr/share/themes/
 }
  
