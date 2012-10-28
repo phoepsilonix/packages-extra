@@ -1483,11 +1483,11 @@ diff -Npur kalu-1.2.1.orig/kalu.h kalu-1.2.1/kalu.h
  #undef PACKAGE_VERSION
  #define PACKAGE_VERSION GIT_VERSION
  #endif
--#define PACKAGE_TAG         "Keeping Arch Linux Up-to-date"
-+#define PACKAGE_TAG         "Keeping Manjaro Linux Up-to-date"
+-#define PACKAGE_TAG             "Keeping Arch Linux Up-to-date"
++#define PACKAGE_TAG             "Keeping Manjaro Linux Up-to-date"
  
- #define MAX_PATH            255
- 
+ #define MAX_PATH                255
+ #ifndef DISABLE_GUI
 diff -Npur kalu-1.2.1.orig/kalu.pod kalu-1.2.1/kalu.pod
 --- kalu-1.2.1.orig/kalu.pod	2012-10-21 21:17:27.000000000 +0200
 +++ kalu-1.2.1/kalu.pod	2012-10-23 09:02:17.166963979 +0200
@@ -1534,7 +1534,7 @@ diff -Npur kalu-1.2.1.orig/kalu.pod kalu-1.2.1/kalu.pod
  =head1 ARTWORK
  
 -Icon by Painless Rob (L<https://bbs.archlinux.org/viewtopic.php?id=130839>)
-+Icon by Roland Singer (L<http://git.manjaro.org/manjaro-linux-graphics/manjaro-logo>)
++Icon by Roland Singer (<http://git.manjaro.org/manjaro-linux-graphics/manjaro-logo>)
 Binärdateien kalu-1.2.1.orig/manjaro48.png and kalu-1.2.1/manjaro48.png sind verschieden.
 diff -Npur kalu-1.2.1.orig/news.c kalu-1.2.1/news.c
 --- kalu-1.2.1.orig/news.c	2012-10-21 21:07:12.000000000 +0200

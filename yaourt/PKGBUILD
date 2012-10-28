@@ -2,8 +2,8 @@
 # Author: tuxce <tuxce.net@gmail.com>
 
 pkgname=yaourt
-pkgver=1.1
-pkgrel=4
+pkgver=1.2
+pkgrel=1
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
 url="http://www.archlinux.fr/yaourt-en/"
@@ -26,5 +26,6 @@ package() {
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var DESTDIR=$pkgdir install
 }
 
-md5sums=('e8c0d29828ba21eafc27490fb786d14c')
+md5sums=('9e2837cf7a1dffa524472961006903c3')
 # vim:set ts=2 sw=2 et:
+

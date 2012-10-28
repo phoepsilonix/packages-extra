@@ -1,6 +1,6 @@
 pkgname=packer
-pkgver=20120918
-pkgrel=2
+pkgver=20121028
+pkgrel=1
 pkgdesc="Bash wrapper for pacman and aur"
 url="http://github.com/bruenig/packer"
 license="GPL"
