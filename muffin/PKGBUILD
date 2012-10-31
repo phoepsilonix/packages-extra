@@ -4,7 +4,7 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=muffin
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Cinnamon window manager based on Mutter"
 arch=('i686' 'x86_64')
@@ -18,7 +18,7 @@ conflicts=('muffin-git' 'muffin-wm')
 options=('!libtool' '!emptydirs')
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/muffin/tarball/$pkgver")
-sha256sums=('fc69e23faf08549d87b974d253bae350d16b5d96eeea07e95e7cb602b1d7f75c')
+sha256sums=('19523f5286e937d9be0649bcbec49f65ab1e4378b844b408dff70be9fb43dce0')
 
 build() {
   cd linuxmint-*
