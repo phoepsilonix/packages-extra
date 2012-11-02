@@ -1,0 +1,18 @@
+# maintainer: Philip Müller <philm[at]manjaro[dog]org>
+
+pkgname=pacman-gui
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="a gtkdialog frontend gui for the package manager, inspired by pacmind"
+arch=('any')
+url="http://www.manjaro.org"
+license=('GPL')
+depends=('gtkdialog' 'zenity' 'pacman' 'xterm' 'pkgbrowser' 'gksu')
+
+package() {
+	rm -R $srcdir/
+	mkdir -p $srcdir/
+	cp -R $srcdir/../source-code $srcdir/$pkgname
+	cd $srcdir/$pkgname
+	make DESTDIR=${pkgdir} install
+}

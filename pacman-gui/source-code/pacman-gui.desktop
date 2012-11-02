@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=0.1
+Name=pacman-gui
+Comment=
+Exec=/usr/bin/pacman-gui
+Icon=/usr/share/pixmaps/pacman-gui.svg
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=System;Application;
