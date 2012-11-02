@@ -3,135 +3,132 @@ msgstr ""
 "Project-Id-Version: pacman-gui 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 18:54+0200\n"
-"PO-Revision-Date: 2012-11-02 14:32+0100\n"
+"PO-Revision-Date: 2012-11-03 00:25+0100\n"
 "Last-Translator: \n"
-"Language-Team: 415richard14 <losmontoya93@gmail.com>\n"
+"Language-Team: philm <philm@manjaro.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
 
 #: ../pacman-gui:37
 msgid "pacman-gui - Gtk Frontend for pacman"
-msgstr "pacman-gui Interfaz GTK para pacman"
+msgstr "pacman-gui - Interfață Gtk pentru pacman"
 
 #: ../pacman-gui:41
 msgid "Sync DB"
-msgstr ""
+msgstr "Sync DB"
 
 #: ../pacman-gui:44
 msgid "Update System"
-msgstr "Actualización del Sistema"
+msgstr "Actualizează sistemul"
 
 #: ../pacman-gui:48
 msgid "Update force mode"
-msgstr "Forzar actualización"
+msgstr "Forțează actualizarea"
 
 #: ../pacman-gui:53
 msgid "Install Packages"
-msgstr "Instalar paquete"
+msgstr "Instalează pachete"
 
 #: ../pacman-gui:58
 msgid "Remove Packages"
-msgstr "Desinstalar paquete"
+msgstr "Elimină pachete"
 
 #: ../pacman-gui:63
 msgid "Search Packages"
-msgstr "Buscar paquete"
+msgstr "Caută pachete"
 
 #: ../pacman-gui:66
 msgid "Search Installed"
-msgstr "Buscar paquetes instalados"
+msgstr "Caută instalate"
 
 #: ../pacman-gui:70
 msgid "Search File"
-msgstr "Buscar archivo"
+msgstr "Caută fișier"
 
 #: ../pacman-gui:75
 msgid "Package Details"
-msgstr "Detalles del paquete"
+msgstr "Detalii pachete"
 
 #: ../pacman-gui:79
 msgid "Install local Package"
-msgstr "Instalar paquete local"
+msgstr "Instalează pachete locale"
 
 #: ../pacman-gui:84
 msgid "Remove Orphaned Packages"
-msgstr "Remover paquetes huérfanos"
+msgstr "Elimină pachete orfane"
 
 #: ../pacman-gui:89
 msgid "Clear Cache"
-msgstr "Limpiar Cache"
+msgstr "Elimină cache"
 
 #: ../pacman-gui:108
 msgid "Open PkgBrowser"
-msgstr "Abrir PkgBrowser"
+msgstr "Deschide PkgBrowser"
 
 #: ../pacman-gui:119
 msgid "Exit"
-msgstr "Salir"
+msgstr "Ieșire"
 
 #: ../pacman-gui:119
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Revocare"
 
 # to pacman-gui-lunch.sh
 msgid "Remove"
-msgstr "Remover"
+msgstr "Elimină"
 
 msgid "Upgrade successfully"
-msgstr "Actualización completa"
+msgstr "Actualizare cu succes"
 
 msgid "Force upgrade"
-msgstr "Forzar actualización del sistema"
+msgstr "Actualizează forțat"
 
 msgid "Upgrade"
-msgstr "Actualizar el Sistema"
+msgstr "Actualizează"
 
 msgid ""
 "Pacman-Gui is a Gtk Frontend for pacman, based on GTK-Dialog and inspired by "
 "pacmind"
 msgstr ""
-"Pacman-Gui es una interfaz GTK para pacman, basada en GTK-Diolog e inspirada "
-"en pacmind"
+"Pacman-Gui este o interfață Gtk pentru pacman, bazată pe GTK-Dialog și "
+"inspirată de pacmind"
 
 msgid "Install one or more packages"
-msgstr "Instalar uno o más paquetes"
+msgstr "Instalează unul sau mai multe pachete"
 
 msgid "In case of multiple-choice enter a space between the one and the other"
-msgstr ""
-"En caso de elegir múltiples opciones introduzca un espacio entre cada una de "
-"ellas"
+msgstr "În caz de alegere multiplă introduceți un spațiu între elemente"
 
 msgid "Insert package/s name"
-msgstr "Introduzca el nombre del ó los paquete(s)"
+msgstr "Inserați numele pachetului/elor"
 
 msgid "Remove one or more packages"
-msgstr "Remover uno o más paquetes"
+msgstr "Elimină unul sau mai multe pachete"
 
 msgid "Search for installed packages"
-msgstr "Buscar paquetes instalados"
+msgstr "Caută pachete instalate"
 
 msgid "Search packages by name or keyword"
-msgstr "Buscar paquetes por nombre o palabras claves"
+msgstr "Caută pachete utilizând numele sau un cuvânt cheie"
 
 msgid "For example, for search a pdf reader type pdf"
-msgstr "Por ejemplo, para buscar un lector de pdf escriba pdf"
+msgstr "De exemplu, pentru a căuta un cititor pdf scrieți pdf"
 
 msgid "Type keyword"
-msgstr "Escriba la palabra clave"
+msgstr "Scrieți chuvântul cheie"
 
 msgid "Upgrade packages"
-msgstr "Actualizar paquetes"
+msgstr "Actualizează pachete"
 
 msgid "Update"
-msgstr "Actualizar"
+msgstr "Actualizează"
 
 msgid "Update repo"
-msgstr "Actualizar repositorios"
+msgstr "Actualizează repo"
 
 msgid "Manually install one local package"
-msgstr "Instalar manualmente un paquete"
+msgstr "Instalează manual un pachet local"
 
 msgid "Press Enter to close the window"
-msgstr "Presione Enter para cerrar la ventana"
+msgstr "Apăsați Enter pentru a închide fereastra"
