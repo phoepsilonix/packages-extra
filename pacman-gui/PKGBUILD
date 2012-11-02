@@ -1,7 +1,7 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=pacman-gui
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="a gtkdialog frontend gui for the package manager, inspired by pacmind"
 arch=('any')
