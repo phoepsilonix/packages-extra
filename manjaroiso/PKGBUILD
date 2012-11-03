@@ -19,7 +19,7 @@ getsource() {
     if [ "$_git" == "yes" ] ; then
        cd $1 && git pull origin master
     else
-       cd $1 && git pull origin master && git checkout -b $pkgver
+       cd $1 && git pull origin master && git checkout -b $pkgver $pkgver
     fi
     msg "The local files are updated."
   else
