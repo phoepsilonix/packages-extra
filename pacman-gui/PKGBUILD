@@ -1,13 +1,13 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=pacman-gui
-pkgver=0.1.4
+pkgver=0.1.6
 pkgrel=1
 pkgdesc="a gtkdialog frontend gui for the package manager, inspired by pacmind"
 arch=('any')
 url="http://www.manjaro.org"
 license=('GPL')
-depends=('gtkdialog' 'zenity' 'pacman' 'xterm' 'pkgbrowser' 'gksu')
+depends=('gtkdialog' 'zenity' 'pacman' 'xterm' 'pkgbrowser' 'gksu' 'faenza-icon-theme')
 
 package() {
 	rm -R $srcdir/
