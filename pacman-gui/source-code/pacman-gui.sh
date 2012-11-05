@@ -40,22 +40,11 @@ export MAIN_DIALOG='
 <label>'$(gettext 'Update System')'</label>
 <action signal="clicked">'$UPGRADE' &</action></button>
 <button>
-<input file icon="gtk-dialog-warning"></input>
-<label>'$(gettext 'Update force mode')'</label>
-<action signal="clicked">'$FORCE' &</action>
-</button>
-<button>
 <input file icon="gtk-clear"></input>
 <label>'$(gettext 'Clear Cache')'</label>
 <action>'$CACHE' &</action></button>
 </frame>
 <frame>
-<button><input file icon="gtk-info"></input>
-<label>'$(gettext 'Search Packages')'</label>
-<action signal="clicked">'$SEARCH' &</action></button>
-<button><input file icon="redo"></input>
-<label>'$(gettext 'Search Installed')'</label>
-<action signal="clicked">'$SEARCHINSTALL' &</action></button>
 <button>
 <input file icon="redo"></input>
 <label>'$(gettext 'Install Packages')'</label>
@@ -65,8 +54,15 @@ export MAIN_DIALOG='
 <input file icon="redo"></input>
 <label>'$(gettext 'Install local Package')'</label>
 <action>'$UPPACK' &</action></button>
+<button>
+<input file icon="gtk-remove"></input>
+<label>'$(gettext 'Remove Packages')'</label>
+<action>'$REMOVE' &</action></button>
 </frame>
 <frame>
+<button><input file icon="gtk-info"></input>
+<label>'$(gettext 'Search Packages')'</label>
+<action signal="clicked">'$SEARCH' &</action></button>
 <button>
 <input file icon="gtk-info"></input>
 <label>'$(gettext 'Search File')'</label>
@@ -76,14 +72,7 @@ export MAIN_DIALOG='
 <input file icon="gtk-info"></input>
 <label>'$(gettext 'Package Details')'</label>
 <action>'$INFOPAC' &</action></button>
-<button>
-<input file icon="gtk-remove"></input>
-<label>'$(gettext 'Remove Packages')'</label>
-<action>'$REMOVE' &</action></button>
-<button><input file icon="gtk-clear"></input>
-<label>'$(gettext 'Remove Orphaned Packages')'</label>
-<action signal="clicked">'$DEPPAC' &</action>
-</button>
+
 </frame>
 </hbox>
 <frame>
