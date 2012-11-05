@@ -2,7 +2,7 @@
 # Co-Maintainer: Clittle <philm@manjaro.org>
 
 pkgname=manjaro-artwork
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="Artwork for Manjaro"
 arch=('any')
@@ -15,7 +15,15 @@ source=('logo1.png'
 	'logo5.png'
 	'eco-green.jpg'
 	'leather-dark.jpg'
-	'leaf-green.jpg')
+	'leaf-green.jpg'
+	'manjaro01.png'
+	'manjaro02.png'
+	'manjaro03.png'
+	'manjaro04.png'
+	'manjaro05.png'
+	'manjaro06.png'
+	'manjaro07.png'
+)
 sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '4561bed2ad2e01d8a0782da0b86df2208c30670ca8892791550d5cec4089ca48'
             'caf992c3211ec684fc397e206e10a3d3c35a65157fdab416303b0c23d78c51e8'
@@ -23,7 +31,15 @@ sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             'd99a7bbf996730a495f7c7f0dadf90b48c7c469b65f4f33852578e204a62cb5d'
             'ed1e13e846b15a178085add96211e3d1a75d269256fe754dd76f360a6b1d6132'
             '31070ff7ec7a2cd5a5ef2c308718e7200add952edac0e4041195cc48b9620d30'
-            '077a9401121b1bf7c0d52276682d0f6108613b84e2528c2c3fc39d30311246f0')
+            '077a9401121b1bf7c0d52276682d0f6108613b84e2528c2c3fc39d30311246f0'
+            '9efb180126037b7214aa873f03473a19859a81fb258d81392f87295d3cfba0d1'
+            'c1d54e47a861a7cd6574a369f97daa3f58b9826a51cf077628fdcec76a0809ac'
+            'da05aadf0e8aa76b305f2555be39c3b22e63fc03a9f2e444a3d7b24fe4ab4b0b'
+            '971f14501f45e204d5a6a8bed894778280e6188402f525f3116711ee3f355c0f'
+            '9712b324c27bb11113f7f4de42983fe34293c77062e139a380c1471db31156fc'
+            'bb17ddf24b6b1bf349c2f6bdb367dc1921e8b2058466b319432d29fcabfbe215'
+            '114d6fa64f64f2cc0e9da5749c10542c04b7271b12a4ccf38c1c535e87e91d91'
+)
 
 package() {
   install -Dm644 "${srcdir}/logo1.png" "${pkgdir}/usr/share/icons/logo1.png"
@@ -34,12 +50,26 @@ package() {
   install -Dm644 "${srcdir}/eco-green.jpg" "${pkgdir}/usr/share/backgrounds/eco-green.jpg"
   install -Dm644 "${srcdir}/leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/leather-dark.jpg"
   install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
+  install -Dm644 "${srcdir}/manjaro01.png" "${pkgdir}/usr/share/backgrounds/manjaro01.png"
+  install -Dm644 "${srcdir}/manjaro02.png" "${pkgdir}/usr/share/backgrounds/manjaro02.png"
+  install -Dm644 "${srcdir}/manjaro03.png" "${pkgdir}/usr/share/backgrounds/manjaro03.png"
+  install -Dm644 "${srcdir}/manjaro04.png" "${pkgdir}/usr/share/backgrounds/manjaro04.png"
+  install -Dm644 "${srcdir}/manjaro05.png" "${pkgdir}/usr/share/backgrounds/manjaro05.png"
+  install -Dm644 "${srcdir}/manjaro06.png" "${pkgdir}/usr/share/backgrounds/manjaro06.png"
+  install -Dm644 "${srcdir}/manjaro07.png" "${pkgdir}/usr/share/backgrounds/manjaro07.png"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
-  ln -s "leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  ln -s "leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
   # link for xfce
   mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
   ln -s "../eco-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/eco-green.jpg"
   ln -s "../leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leather-dark.jpg"
   ln -s "../leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leaf-green.jpg"
+  ln -s "../manjaro01.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro01.png"
+  ln -s "../manjaro02.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro02.png"
+  ln -s "../manjaro03.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro03.png"
+  ln -s "../manjaro04.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro04.png"
+  ln -s "../manjaro05.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro05.png"
+  ln -s "../manjaro06.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro06.png"
+  ln -s "../manjaro07.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro07.png"
 }

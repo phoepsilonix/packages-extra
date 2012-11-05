@@ -20,7 +20,7 @@ conflicts=('cinnamon-git')
 options=('!libtool' '!emptydirs')
 install=${pkgname}.install
 source=("$pkgname.tar.gz::https://github.com/linuxmint/Cinnamon/tarball/$pkgver")
-sha256sums=('905783fb3e12bc159f6a715800e974e292fb31478a3478eb2775670f2d4db4f3')
+sha256sums=('80ea4ca9c202dda9df36af766b48232f0bb56253591be08c015f0346df9e5ec9')
 
 build() {
   cd ${srcdir}/linuxmint-Cinnamon*

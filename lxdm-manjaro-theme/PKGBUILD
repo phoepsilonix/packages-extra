@@ -1,9 +1,10 @@
 #Maintainer: Roland Singer
 
 pkgname=lxdm-manjaro-theme
-pkgver=20120920
+pkgver=20121105
 pkgrel=1
 pkgdesc="Manjaro Linux LXDM Theme"
+dependes=('manjaro-artwork')
 arch=(any)
 license=('GPL')
 url="git://git.manjaro.org/manjaro-linux-graphics/lxdm-manjaro-theme.git"
@@ -36,6 +37,7 @@ package () {
 
 	mkdir -p ${pkgdir}/usr/share/lxdm/themes/
 	cp -r ${srcdir}/${pkgname}/Manjaro ${pkgdir}/usr/share/lxdm/themes/
+	ln -sf "/usr/share/backgrounds/manjaro.jpg" "${pkgdir}/usr/share/lxdm/themes/Manjaro/background-image"
 }
 
 
