@@ -23,6 +23,10 @@ install: all
 	$(INSTALL) -m644 pacman-gui.png $(DESTDIR)$(icons)
 	$(INSTALL) -m644 pacman-gui.svg $(DESTDIR)$(icons)
 	$(INSTALL) -m644 pacman-gui.desktop $(DESTDIR)$(deskdir)
+	for file in *.png; \
+	do \
+		$(INSTALL) -m644 $$file $(DESTDIR)$(icons)/pacman-gui-$$file; \
+	done
 	for file in po/*.po; \
 	do \
 		lang=$$(echo $$file | $(SED) -e 's#.*/\([^/]\+\).po#\1#'); \
