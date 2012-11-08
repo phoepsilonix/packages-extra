@@ -8,4 +8,4 @@ path=/usr/share/pacman-gui
 export TEXTDOMAINDIR=/usr/share/locale
 export TEXTDOMAIN=pacman-gui
 
-pkexec "$path/pacman-gui.sh" "$@"
+gksu "$path/pacman-gui.sh"
