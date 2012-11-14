@@ -117,7 +117,7 @@ function_info () {
 	      <input file>'$info_img'</input>
 	    </pixmap>
 	  <text use-markup="true">
-	    <label>"<b>Pacman-Gui 0.1.0</b>"</label>
+	    <label>"<b>Pacman-Gui 0.1.14</b>"</label>
 	  </text>
 	  <text wrap="true" width-chars="50">
 	    <label>'$(gettext 'Pacman-Gui is a Gtk Frontend for pacman, based on GTK-Dialog and inspired by pacmind')'</label>

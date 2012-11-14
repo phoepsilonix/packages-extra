@@ -33,7 +33,7 @@ export MAIN_DIALOG='
 <text><label>'$(gettext 'pacman-gui - Gtk Frontend for pacman')'</label></text>
 <hbox>
 <frame>
-<button><input file>'$PIXMAP/pacman-gui-refresh.png'</input>
+<button xalign="0" yalign="0"><input file>'$PIXMAP/pacman-gui-refresh.png'</input>
 <label>'$(gettext 'Sync DB')'</label>
 <action signal="clicked">'$UPDATE' &</action></button>
 <button><input file>'$PIXMAP/pacman-gui-package-upgrade.png'</input>
