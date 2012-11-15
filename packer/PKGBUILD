@@ -1,5 +1,5 @@
 pkgname=packer
-pkgver=20121028
+pkgver=20121114
 pkgrel=1
 pkgdesc="Bash wrapper for pacman and aur"
 url="http://github.com/bruenig/packer"

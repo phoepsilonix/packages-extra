@@ -5,7 +5,7 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname="gnome-shell-extensions"
-pkgver=3.4.0
+pkgver=3.6.0
 pkgrel=1
 pkgdesc="Extensions for the GNOME Shell environment"
 arch=('i686' 'x86_64')
@@ -38,7 +38,7 @@ install=gnome-shell-extensions.install
 # Repository configuration.
 _repository='git://git.gnome.org/gnome-shell-extensions'
 _reponame='gnome-shell-extensions'
-_repoversion='c13b400f4098ae9b6902afe8e8a703d7ccea5e2d'
+_repoversion='043dcb57dd0b051b058bf220b86cb99d33d5fbc0'
 
 # The set of extensions to build.  If you are changing this setting manually,
 # ensure that the provides array is up-to-date.

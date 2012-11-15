@@ -8,6 +8,9 @@ pkgdesc="Digital distribution client - closed beta - bootstrap package"
 arch=("i686" "x86_64")
 url="http://steampowered.com/"
 license=('custom')
+conflicts=('steam')
+replaces=('steam')
+provides=('steam')
 depends=(
       'bash' 'desktop-file-utils' 'hicolor-icon-theme' 'curl'
       'dbus' 'freetype2'  'gdk-pixbuf2' 'ttf-liberation'
