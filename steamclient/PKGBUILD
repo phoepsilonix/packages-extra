@@ -3,7 +3,7 @@
 # Contributor: K900 <k0009000@gmail.com>
 pkgname=steamclient
 pkgver=1.0.0.14
-pkgrel=1
+pkgrel=2
 pkgdesc="Digital distribution client - closed beta - bootstrap package"
 arch=("i686" "x86_64")
 url="http://steampowered.com/"
@@ -33,37 +33,12 @@ else
   depends+=(
   'mesa' 'libpng12' 'sdl' 'libpulse' 'alsa-lib' 'libvorbis'
   'libgcrypt' 'nss' 'openal' 'gtk2'
+  'wget' 'binutils' 'libarchive' 'coreutils'
   )
 fi
 # 'libtheora'
 
 install=steam.install
 
-md5sums=('7a076d134ba360337dd6611ac059de87')
 
-source=("http://media.steampowered.com/client/installer/steam.deb")
-
-build() {
-  cd "$srcdir"
-
-  bsdtar xf "$srcdir/data.tar.gz"
-
-  # Replace [ ] with [[ ]] in /usr/bin/steam
-  sed 's:\[:\[\[:g' -i "$srcdir/usr/bin/steam"
-  sed 's:\]:\]\]:g' -i "$srcdir/usr/bin/steam"
-}
-
-package() {
-
-  cp -dpr --no-preserve=ownership "$srcdir/usr" "$pkgdir"
-  # Install license
-  install -Dm644 "$srcdir/usr/share/doc/steam/copyright" "$pkgdir/usr/share/licenses/steam/LICENSE"
-
-  mv $pkgdir/usr/bin/steam $pkgdir/usr/bin/steamclient
-  cat <<EOF > "$pkgdir/usr/bin/steam"
-#!/bin/sh
-steamclient steam://store
-EOF
-  chmod 755 "$pkgdir/usr/bin/steam"
-}
 #vim: set ft=PKGBUILD sw=2 ts=2 et
