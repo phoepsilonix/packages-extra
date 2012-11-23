@@ -3,7 +3,7 @@
 # Contributor: K900 <k0009000@gmail.com>
 pkgname=steamclient
 pkgver=1.0.0.14
-pkgrel=2
+pkgrel=3
 pkgdesc="Digital distribution client - closed beta - bootstrap package"
 arch=("i686" "x86_64")
 url="http://steampowered.com/"
