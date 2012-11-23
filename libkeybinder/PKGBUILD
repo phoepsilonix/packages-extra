@@ -1,31 +1,38 @@
 # Maintainer: SpepS <dreamspepser at yahoo dot it>
 
-_name=keybinder
-pkgname=lib$_name
+_pkg=libkeybinder
+pkgname=${_pkg}
 pkgver=0.2.2
-pkgrel=2
-pkgdesc="A library for registering global keyboard shortcuts"
+pkgrel=3
+pkgdesc="A library for registering global keyboard shortcuts. Gtk3 version."
 arch=(i686 x86_64)
-url="http://kaizer.se/wiki/$_name/"
+url="http://kaizer.se/wiki/keybinder/"
 license=('GPL')
-depends=('gtk2')
-conflicts=("$_name")
+depends=('gtk3')
+makedepends=('gnome-common' 'gtk-doc')
+optdepends=('lgi-git: lua bindings')
+conflicts=('keybinder3')
+provides=('libkeybinder3')
+replaces=('libkeybinder3')
 options=('!libtool')
-source=("http://kaizer.se/publicfiles/$_name/$_name-$pkgver.tar.gz")
-md5sums=('b4ccd4bd19f3ae3f0ab2cbda11fcd3ac')
+source=("https://github.com/engla/keybinder/tarball/keybinder-3.0")
+md5sums=(`wget --no-check-certificate -qO- $source | md5sum | cut -c -32`)
 
 build() {
-  cd "$srcdir/$_name-$pkgver"
+  cd `find "$srcdir" -maxdepth 1 -mindepth 1 -type d`
 
-  ./configure --prefix=/usr \
-              --disable-python \
-              --disable-lua
+  ./autogen.sh --prefix=/usr \
+               --disable-lua \
+               --enable-gtk-doc
+
   make
 }
 
 package() {
-  cd "$srcdir/$_name-$pkgver"
+  cd `find "$srcdir" -maxdepth 1 -mindepth 1 -type d`
+
   make DESTDIR="$pkgdir/" install
 }
 
 # vim:set ts=2 sw=2 et:
+
