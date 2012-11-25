@@ -2,16 +2,17 @@
 # M0Rf30
 
 # Maintainer: Guinux <nuxgui@gmail.com>
+# Contributor: Alex Filgueira
 
 pkgname=cinnamon
-pkgver=1.6.4
+pkgver=1.6.7
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=('i686' 'x86_64')
 url="http://cinnamon.linuxmint.com/"
 license=('GPL')
-depends=('accountsservice' 'caribou' 'dbus-glib' 'folks' 'gjs' 'gnome-bluetooth' 'gnome-desktop' 'gnome-themes-standard' 'gnome-menus' 
-'gnome-panel' 'gnome-session' 'gnome-settings-daemon' 'libcroco' 'libgnomekbd' 'libpulse' 'muffin-wm' 'networkmanager' 
+depends=('accountsservice' 'caribou' 'python2-dbus' 'dbus-glib' 'folks' 'gjs' 'gnome-bluetooth' 'gnome-desktop' 'gnome-themes-standard' 'gnome-menus' 
+'gnome-panel' 'gnome-session' 'gnome-settings-daemon' 'libcroco' 'libgnomekbd' 'libpulse' 'muffin' 'networkmanager' 
 'notification-daemon' 'python2' 'python2-gconf' 'telepathy-logger' 'gnome-menus2' 'gnome-control-center' 'python2-lxml' 'python-imaging')
 makedepends=('gnome-common' 'intltool')
 optdepends=('nemo-fm: the official Cinnamon file manager (a Nautilus fork)'
@@ -19,10 +20,16 @@ optdepends=('nemo-fm: the official Cinnamon file manager (a Nautilus fork)'
 conflicts=('cinnamon-git')
 options=('!libtool' '!emptydirs')
 install=${pkgname}.install
-source=("$pkgname.tar.gz::https://github.com/linuxmint/Cinnamon/tarball/$pkgver")
-sha256sums=('80ea4ca9c202dda9df36af766b48232f0bb56253591be08c015f0346df9e5ec9')
+source=("$pkgname.tar.gz::https://github.com/linuxmint/Cinnamon/tarball/$pkgver"
+        cinnamon-screensaver.desktop
+        cinnamon2d-screensaver.desktop)
+sha256sums=('283d8ec894831df5c062e88196c5f0191daa99b1da1cbfada1547a700f50ab24'
+            '1c21bf237618d68a2f5f834f6602ca002bef1d69daa2fc6af74fc7ef9bfc96ac'
+            'ce9172af04758a4078079e6bcb7b1117bfce02e3a9a7f794f32d7359612a3aa0')
 
 build() {
+  LDFLAGS="/usr/lib/libgthread-2.0.so"
+  CFLAGS="${CFLAGS} -Wno-deprecated-declarations"
   cd ${srcdir}/linuxmint-Cinnamon*
  
   ./autogen.sh --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib/cinnamon  \
@@ -48,4 +55,8 @@ package() {
   # Kdm fix
   mkdir -p  $pkgdir/usr/share/apps/kdm/sessions/
   cp $pkgdir/usr/share/xsessions/*.desktop $pkgdir/usr/share/apps/kdm/sessions/
+
+  # Screensaver gnome 3.6 fix
+  mkdir -p $pkgdir/etc/xdg/autostart
+  cp $srcdir/cinnamon*-screensaver.desktop $pkgdir/etc/xdg/autostart
 }

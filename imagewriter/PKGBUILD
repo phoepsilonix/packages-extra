@@ -1,0 +1,47 @@
+# Maintainer: Xiao-Long Chen <chenxiaolong@cxl.epac.to>
+
+pkgname=imagewriter
+pkgver=1.9
+_opensuse_rel=9.4
+pkgrel=8
+pkgdesc="SUSE Studio Imagewriter - Graphical image writer application"
+url="http://kiwi.berlios.de"
+arch=('x86_64' 'i686')
+license=('GPLv2')
+depends=('qt')
+optdepends=('gksu: for Gnome/XFCE'
+            'kdesu: for KDE')
+source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/imagewriter-${pkgver}-${_opensuse_rel}.src.rpm"
+        'build_fix.patch')
+install=imagewriter.install
+sha512sums=('3f8351501011bc6556642a339a0c30a197414fed5b3c2f925bbc7a735ba7a4e03a1b0fdd8bc937d41dc3eec50c8af35b136f3cfd848be009f6db8234c2f1cd2a'
+            '42034f630d0cd097a94e16ea6428c558ec00f16051330cb1bbaf0a2c5c496a6ece997328fba5ffed79cf13aa13299e787c1b82e4a29a7b92438bc63b36d278e0')
+
+build() {
+  cd "${srcdir}"
+  rm -vf imagewriter.spec
+  tar zxvf imagewriter-${pkgver}.tar.gz
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -Np1 -i "${srcdir}/build_fix.patch"
+  qmake PREFIX=/usr imagewriter.pro
+  make CFLAGS="${CFLAGS} -DKIOSKHACK -Wno-unused-parameter"
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make INSTALL_ROOT="${pkgdir}" install
+  mv ${pkgdir}/usr/bin/imagewriter ${pkgdir}/usr/bin/imagewriter-bin
+  cat <<EOF > "$pkgdir/usr/bin/imagewriter"
+#!/bin/sh
+xhost +local:root > /dev/null 2>&1
+if [ -e "/usr/bin/gksu" ]; then
+   gksu imagewriter-bin %F
+elif [ -e "/usr/bin/kdesu" ]; then
+   kdesu imagewriter-bin %F
+fi
+EOF
+  chmod 755 "$pkgdir/usr/bin/imagewriter"
+
+}
+
+# vim:set ts=2 sw=2 et:

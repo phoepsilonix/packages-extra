@@ -3,7 +3,7 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=nemo
-pkgver=1.0.7
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Cinnamon file manager (Nautilus fork)"
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ provides=('nemo-fm')
 options=('!emptydirs' '!libtool')
 install=nemo.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/nemo/tarball/$pkgver")
-sha256sums=('90e571d574ebf8dd2e92a702c0595d20590fbf7f9b26f3cfee9d99c728048f93')
+sha256sums=('a186524779b370ddb1a7afbbce564d6d117cd7594a77078b81ebdc0167f54483')
 
 build() {
   cd linuxmint-nemo-*

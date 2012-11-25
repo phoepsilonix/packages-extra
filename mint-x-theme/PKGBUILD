@@ -1,0 +1,31 @@
+pkgname=mint-x-theme
+pkgver=20121116
+pkgrel=1
+pkgdesc="Linux Mint theme"
+arch=('any')
+url="http://github.com/linuxmint/mint-theme"
+license=('GPL3')
+depends=('gtk-engine-murrine' 'gtk-engine-unico')
+makedepends=('git')
+
+_gitroot="git://github.com/linuxmint/mint-themes.git"
+_gitname="mint-theme"
+
+build() {
+    cd ${srcdir}
+    msg "Connecting to the GIT server..."
+    if [[ -d ${srcdir}/${_gitname} ]] ; then
+        cd ${_gitname}
+        git pull origin
+        msg "The local files are updated..."
+    else
+        git clone ${_gitroot} ${_gitname}
+        cd ${_gitname}
+    fi
+    msg "GIT checkout done."
+}
+
+package() {
+    cd $srcdir/${_gitname}/
+    cp -r ./usr $pkgdir/
+}

@@ -1,0 +1,19 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dot]org
+
+pkgname=shiki-nouveau-fall-colors
+pkgver=20120917
+pkgrel=1
+pkgdesc="Shiki-Nouveau-Fall-Colors - Openbox Theme"
+url="http://box-look.org/content/show.php/Shiki-Nouveau-Fall-Colors?content=154072"
+license=('GPL')
+arch=('any')
+depends=('gtk-engine-murrine' 'gtk-engine-unico')
+source=("http://box-look.org/CONTENT/content-files/154072-Shiki-Nouveau-Fall-Colors.tar.bz2")
+DLAGENTS=('http::/usr/bin/wget -c -t 3 --waitretry=3 -H -U Mozilla -O %o %u')
+sha256sums=('b43605f0d1619efaef7692d8d26825e24d7018ff780f9763df29ad9cf483a460')
+
+package() {
+ mkdir -p ${pkgdir}/usr/share/themes/
+ cp -R ${srcdir}/Shiki**/Shiki** ${pkgdir}/usr/share/themes/
+ chmod -R 755 ${pkgdir}/usr/share/themes/
+}
