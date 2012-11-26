@@ -1,10 +1,10 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 # Co-Maintainer: Clittle <philm@manjaro.org>
 
-pkgname=manjaro-artwork
-pkgver=1.0.3
+pkgbase=manjaro-artwork
+pkgname=('manjaro-artwork' 'manjaro-artwork-extra')
+pkgver=1.0.5
 pkgrel=1
-pkgdesc="Artwork for Manjaro"
 arch=('any')
 url="http://manjaro.org"
 license=('GPL')
@@ -23,6 +23,7 @@ source=('logo1.png'
 	'manjaro05.png'
 	'manjaro06.png'
 	'manjaro07.png'
+	"http://mirror.vinzv.de/manjaro/aur/pkg-src/manjaro-clean-colored-wallpapers.tar.bz2"
 )
 sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '4561bed2ad2e01d8a0782da0b86df2208c30670ca8892791550d5cec4089ca48'
@@ -39,17 +40,32 @@ sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '9712b324c27bb11113f7f4de42983fe34293c77062e139a380c1471db31156fc'
             'bb17ddf24b6b1bf349c2f6bdb367dc1921e8b2058466b319432d29fcabfbe215'
             '114d6fa64f64f2cc0e9da5749c10542c04b7271b12a4ccf38c1c535e87e91d91'
+            '228d968a0fea17092fed89efb1780dd18041af4ea6f8ea39942e099acb56b913'
 )
 
-package() {
+package_manjaro-artwork() {
+  pkgdesc="Artwork for Manjaro (default)"
+  optdepends=('manjaro-artwork-extra: extra wallpapers')
+  install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
+  install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
+  ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
+  ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
+  ln -s "leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  # link for xfce
+  mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
+  ln -s "../leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leaf-green.jpg"
+}
+
+package_manjaro-artwork-extra() {
+  pkgdesc="Artwork for Manjaro (extra)"
+  provides=('manjaro-clean-colored-wallpapers')
+  replaces=('manjaro-clean-colored-wallpapers')
   install -Dm644 "${srcdir}/logo1.png" "${pkgdir}/usr/share/icons/logo1.png"
   install -Dm644 "${srcdir}/logo2.png" "${pkgdir}/usr/share/icons/logo2.png"
   install -Dm644 "${srcdir}/logo3.png" "${pkgdir}/usr/share/icons/logo3.png"
   install -Dm644 "${srcdir}/logo4.png" "${pkgdir}/usr/share/icons/logo4.png"
-  install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
   install -Dm644 "${srcdir}/eco-green.jpg" "${pkgdir}/usr/share/backgrounds/eco-green.jpg"
   install -Dm644 "${srcdir}/leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/leather-dark.jpg"
-  install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
   install -Dm644 "${srcdir}/manjaro01.png" "${pkgdir}/usr/share/backgrounds/manjaro01.png"
   install -Dm644 "${srcdir}/manjaro02.png" "${pkgdir}/usr/share/backgrounds/manjaro02.png"
   install -Dm644 "${srcdir}/manjaro03.png" "${pkgdir}/usr/share/backgrounds/manjaro03.png"
@@ -57,19 +73,11 @@ package() {
   install -Dm644 "${srcdir}/manjaro05.png" "${pkgdir}/usr/share/backgrounds/manjaro05.png"
   install -Dm644 "${srcdir}/manjaro06.png" "${pkgdir}/usr/share/backgrounds/manjaro06.png"
   install -Dm644 "${srcdir}/manjaro07.png" "${pkgdir}/usr/share/backgrounds/manjaro07.png"
-  ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
-  ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
-  ln -s "leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  cp -r manjaro-clean-colored-wallpapers/*/* "${pkgdir}/usr/share/backgrounds/"
   # link for xfce
   mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
-  ln -s "../eco-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/eco-green.jpg"
-  ln -s "../leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leather-dark.jpg"
-  ln -s "../leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leaf-green.jpg"
-  ln -s "../manjaro01.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro01.png"
-  ln -s "../manjaro02.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro02.png"
-  ln -s "../manjaro03.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro03.png"
-  ln -s "../manjaro04.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro04.png"
-  ln -s "../manjaro05.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro05.png"
-  ln -s "../manjaro06.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro06.png"
-  ln -s "../manjaro07.png" "${pkgdir}/usr/share/backgrounds/xfce/manjaro07.png"
+  for i in $(ls ${pkgdir}/usr/share/backgrounds/*.* | awk -F"/" '{print $NF}')
+  do
+      ln -s "../${i}" "${pkgdir}/usr/share/backgrounds/xfce/${i}"
+  done
 }
