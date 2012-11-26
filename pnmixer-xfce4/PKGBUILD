@@ -5,7 +5,7 @@
 
 pkgname=pnmixer-xfce4
 pkgver=22
-pkgrel=2
+pkgrel=3
 pkgdesc="PNMixer is a GTK volume mixer applet.[Includes fixes: Fixed: Child Process pavucontrol becomes to a zombie process after close. Fixed: improve mouse wheel speed.]"
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -42,5 +42,7 @@ build() {
 
 package(){
   cd ${srcdir}/${_svnmod-build}
+  mkdir -p $pkgdir/usr/share/icons
+  ln -sf /usr/share/pnmixer/pixmaps/pnmixer-about.png $pkgdir/usr/share/icons/pnmixer.png
   make DESTDIR=${pkgdir} install
 }
