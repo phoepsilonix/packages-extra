@@ -7,7 +7,6 @@ pkgver=1.0.5
 pkgrel=1
 arch=('any')
 url="http://manjaro.org"
-license=('GPL')
 source=('logo1.png'
 	'logo2.png'
 	'logo3.png'
@@ -45,6 +44,7 @@ sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
 
 package_manjaro-artwork() {
   pkgdesc="Artwork for Manjaro (default)"
+  license=('GPL')
   optdepends=('manjaro-artwork-extra: extra wallpapers')
   install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
   install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
@@ -58,6 +58,7 @@ package_manjaro-artwork() {
 
 package_manjaro-artwork-extra() {
   pkgdesc="Artwork for Manjaro (extra)"
+  license=('GPL' 'CC-BY-SA 3.0')
   provides=('manjaro-clean-colored-wallpapers')
   replaces=('manjaro-clean-colored-wallpapers')
   install -Dm644 "${srcdir}/logo1.png" "${pkgdir}/usr/share/icons/logo1.png"
