@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Pamac
+GenericName=Pamac
+Comment=A user-interface for pacman
+Exec=pamac
+Terminal=false
+Type=Application
+Icon=pamac
+StartupNotify=false
+Categories=System;Application;

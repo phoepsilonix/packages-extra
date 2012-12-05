@@ -1,0 +1,27 @@
+# maintainer: Philip Müller <philm[at]manjaro[dog]org>
+
+pkgname=pamac
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="a python gtk3 frontend gui for the package manager"
+arch=('any')
+url="http://www.manjaro.org"
+license=('GPL')
+depends=('python' 'python-gobject' 'gtk3' 'pyalpm' 'gksu')
+source=('pamac.tar.xz' 'pamac.sh' 'pamac.desktop' 'pamac.png')
+sha256sums=('4ddc97b5b821e2a33b52c87e78b89df7d3060650cec0dfa7e2a9d4e0b144cf61'
+           '95ff51be7d1fa54896d49cb47f895823f5fc2ab9956eca5d321c19de670e98d4'
+           'ebf7adecb36c7bee4b109f88de97416e7c86786421d3c5e609ff871078a99e32'
+           '14fd8b29c420a89d3e997189c0026e74db713b273c7442085eb7ed17cdb16e04')
+
+package() {
+	cd $srcdir/$pkgname
+        mkdir -p $pkgdir/usr/share
+	cp -dpr --no-preserve=ownership $srcdir/$pkgname $pkgdir/usr/share/$pkgname
+        mkdir -p $pkgdir/usr/bin
+        install -Dm755 $srcdir/pamac.sh $pkgdir/usr/bin/pamac
+        mkdir -p $pkgdir/usr/share/applications
+        install -Dm644 $srcdir/pamac.desktop $pkgdir/usr/share/applications/pamac.desktop
+        mkdir -p $pkgdir/usr/share/icons
+        install -Dm644 $srcdir/pamac.png $pkgdir/usr/share/icons/pamac.png
+}
