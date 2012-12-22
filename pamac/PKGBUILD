@@ -1,18 +1,46 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=pamac
-pkgver=0.0.1
-pkgrel=1
+pkgver=0.1.1
+pkgrel=2
 pkgdesc="a python gtk3 frontend gui for the package manager"
 arch=('any')
 url="http://www.manjaro.org"
 license=('GPL')
+_git="yes"
 depends=('python' 'python-gobject' 'gtk3' 'pyalpm' 'gksu')
-source=('pamac.tar.xz' 'pamac.sh' 'pamac.desktop' 'pamac.png')
-sha256sums=('4ddc97b5b821e2a33b52c87e78b89df7d3060650cec0dfa7e2a9d4e0b144cf61'
+source=('pamac-update.desktop' 'pamac-update.svg' 'pamac-update.sh' 'pamac.sh' 'pamac.desktop' 'pamac.svg')
+sha256sums=('12498e905468397768b65f56bf2a4a14cfb510301985e7675f1dbd4e2e2095f4'
+           '4597ad7e13e5822649c38f1f77bcd8cae2400424ed5073e1ea52d9eaf8ea886c'
+           'fec218c6a7c582f319b81319c862733553fed4b340fa9a92b9066f80754e5df7'
            '95ff51be7d1fa54896d49cb47f895823f5fc2ab9956eca5d321c19de670e98d4'
            'ebf7adecb36c7bee4b109f88de97416e7c86786421d3c5e609ff871078a99e32'
-           '14fd8b29c420a89d3e997189c0026e74db713b273c7442085eb7ed17cdb16e04')
+           '32fa65b3afbde7d343f434a306f1a028c3432fcb47fbd5b3c0afd459a5b140c8')
+
+getsource() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [ -d $1 ] ; then
+    if [ "$_git" == "yes" ] ; then
+       cd $1 && git pull origin master
+    else
+       cd $1 && git pull origin master && git checkout -b $pkgver
+    fi
+    msg "The local files are updated."
+  else
+    git clone $2 $1
+    if [ "$_git" != "yes" ] ; then
+       cd $1 && git checkout -b $pkgver $pkgver
+    fi
+  fi
+
+  msg "GIT checkout done or server timeout"
+}
+
+build() {
+	getsource "$pkgname" "git://git.manjaro.org/core/$pkgname.git"
+}
 
 package() {
 	cd $srcdir/$pkgname
@@ -20,8 +48,11 @@ package() {
 	cp -dpr --no-preserve=ownership $srcdir/$pkgname $pkgdir/usr/share/$pkgname
         mkdir -p $pkgdir/usr/bin
         install -Dm755 $srcdir/pamac.sh $pkgdir/usr/bin/pamac
+        install -Dm755 $srcdir/pamac-update.sh $pkgdir/usr/bin/pamac-update
         mkdir -p $pkgdir/usr/share/applications
         install -Dm644 $srcdir/pamac.desktop $pkgdir/usr/share/applications/pamac.desktop
+        install -Dm644 $srcdir/pamac-update.desktop $pkgdir/usr/share/applications/pamac-update.desktop
         mkdir -p $pkgdir/usr/share/icons
-        install -Dm644 $srcdir/pamac.png $pkgdir/usr/share/icons/pamac.png
+        install -Dm644 $srcdir/pamac.svg $pkgdir/usr/share/icons/pamac.svg
+        install -Dm644 $srcdir/pamac-update.svg $pkgdir/usr/share/icons/pamac-update.svg
 }

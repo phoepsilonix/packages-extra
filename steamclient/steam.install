@@ -16,11 +16,7 @@ package() {
   msg "Extracting package"
   ar x /tmp/steam/src/steam.deb
   bsdtar xf /tmp/steam/src/data.tar.gz
-
-  # Replace [ ] with [[ ]] in /usr/bin/steam
-  msg "Modifing steam"
-  sed 's:\[:\[\[:g' -i "/tmp/steam/src/usr/bin/steam"
-  sed 's:\]:\]\]:g' -i "/tmp/steam/src/usr/bin/steam"
+  sed -i '/jockey-common/d' "/tmp/steam/src/usr/bin/steam"
 
   # package steam
   msg "Package steam"
@@ -29,12 +25,6 @@ package() {
 
   # Install license
   install -Dm644 "/tmp/steam/src/usr/share/doc/steam/copyright" "/tmp/steam/pkg/usr/share/licenses/steam/LICENSE"
-
-  cat <<EOF > "/tmp/steam/pkg/usr/bin/steamhack"
-#!/bin/sh
-steam steam://store
-EOF
-  chmod 755 "/tmp/steam/pkg/usr/bin/steamhack"
 
   # Install to the system
   msg "Installing steam to your system"
@@ -48,10 +38,10 @@ post_install() {
   package
   update-desktop-database -q
   gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor
+  chattr -i /usr/bin/steam
   if [[ -z $2 ]]; then
       msg "YOU DO NEED TO INSTALL ONE OF THE OPT DEPENDS FOR YOUR VIDEO CARD"
   fi
-  msg "You might use 'steamhack' instead of 'steam' ;)"
 }
 
 post_upgrade() {
