@@ -1,0 +1,129 @@
+#!/bin/sh
+# License GPL
+# by rodofr - Voyager Live
+# modified by Philip - Manjaro Linux
+
+	# Clean .conkyrc
+	echo "# Overwrite this file if you want to have a permanent setting" > ~/.conkyrc
+
+	# Clean autostart-script
+	echo "#!/bin/sh" > ~/.scripts/Conky/conkyrc
+	echo "sleep 3" >> ~/.scripts/Conky/conkyrc
+	# Display the action selector
+	RET=`zenity --list --title "Conky" --checklist --width=330 --height=440 \
+		--column "Select" --column "Conky" \
+		FALSE	"Conky-all-Stop" \
+		FALSE 	"Clementine-OV - 1" \
+		FALSE 	"Clementine-WV - 2" \
+		FALSE	"HD-Orange - 3" \
+		FALSE	"HD-Gray - 4" \
+		FALSE	"Delta-Orange - 5" \
+		FALSE	"HUD - 6" \
+		FALSE	"ConkyNotes - 7" \
+		FALSE	"ConkyZoe - 8" \
+		FALSE	"ConkyBox - 9" \
+		FALSE	"DateHD - 10" \
+		FALSE	"Date-Hour - 11"\
+		FALSE	"ConkyRss - 12"\
+		FALSE	"ConkyRss2 - 13"\
+		FALSE	"ConkyCercle - 14" \
+		FALSE	"Conky-all-gray - 15" \
+		FALSE	"ConkyBar - 16" \
+		FALSE	"ConkyLarge - 17" \
+		FALSE	"ConkyCore - 18" \
+		FALSE	"ConkyManjaro - 19" \
+		FALSE	"ConkyCore2 - 20" \
+		FALSE	"Conky-all-Stop"`
+	
+	if echo "$RET" | grep "Conky-all-Stop"; then
+		exec ~/.scripts/Conky/Conky-all-Stop &
+	fi
+	if echo "$RET" | grep "Clementine-OV - 1"; then
+		exec ~/.scripts/Conky/Clementine-OV &
+		echo "exec ~/.scripts/Conky/Clementine-OV &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "Clementine-WV - 2"; then
+		exec ~/.scripts/Conky/Clementine-WV &
+		echo "exec ~/.scripts/Conky/Clementine-WV &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "HD-Orange - 3"; then
+		exec ~/.scripts/Conky/HD-Orange &
+		echo "exec ~/.scripts/Conky/HD-Orange &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "HD-Gray - 4"; then
+		exec ~/.scripts/Conky/HD-Gray &
+		echo "exec ~/.scripts/Conky/HD-Gray &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "Delta-Orange - 5"; then
+		exec ~/.scripts/Conky/Delta-Orange &
+		echo "exec ~/.scripts/Conky/Delta-Orange &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "HUD - 6"; then
+		exec ~/.scripts/Conky/HUD &
+		echo "exec ~/.scripts/Conky/HUD &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyNotes - 7"; then
+		exec ~/.scripts/Conky/ConkyNotes &
+		echo "exec ~/.scripts/Conky/ConkyNotes &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyZoe - 8"; then
+		exec ~/.scripts/Conky/ConkyZoe &
+		echo "exec ~/.scripts/Conky/ConkyZoe &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyBox - 9"; then
+		exec ~/.scripts/Conky/ConkyBox &
+		echo "exec ~/.scripts/Conky/ConkyBox &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "DateHD - 10"; then
+		exec ~/.scripts/Conky/DateHD &
+		echo "exec ~/.scripts/Conky/DateHD &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "Date-Hour - 11"; then
+		exec ~/.scripts/Conky/Date-Hour &
+		echo "exec ~/.scripts/Conky/Date-Hour &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyRss - 12"; then
+		exec ~/.scripts/Conky/ConkyRss &
+		echo "exec ~/.scripts/Conky/ConkyRss &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyRss2 - 13"; then
+		exec ~/.scripts/Conky/ConkyRss2 &
+		echo "exec ~/.scripts/Conky/ConkyRss2 &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyCercle - 14"; then
+		exec ~/.scripts/Conky/ConkyCercle &
+		echo "exec ~/.scripts/Conky/ConkyCercle &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "Conky-all-gray - 15"; then
+		exec ~/.scripts/Conky/Conky-all-gray &
+		echo "exec ~/.scripts/Conky/Conky-all-gray &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyBar - 16"; then
+		exec ~/.scripts/Conky/ConkyBar &
+		echo "exec ~/.scripts/Conky/ConkyBar &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyLarge - 17"; then
+		exec ~/.scripts/Conky/ConkyLarge &
+		echo "exec ~/.scripts/Conky/ConkyLarge &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyCore - 18"; then
+		exec ~/.scripts/Conky/ConkyCore &
+		echo "exec ~/.scripts/Conky/ConkyCore &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyManjaro - 19"; then
+		exec ~/.scripts/Conky/ConkyManjaro &
+		echo "exec ~/.scripts/Conky/ConkyManjaro &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "ConkyCore2 - 20"; then
+		exec ~/.scripts/Conky/ConkyCore2 &
+		echo "exec ~/.scripts/Conky/ConkyCore2 &" >> ~/.scripts/Conky/conkyrc
+	fi
+	if echo "$RET" | grep "Conky-all-Stop"; then
+		exec ~/.scripts/Conky/Conky-all-Stop &
+	if [ $? -eq 1 ];then exit; fi; fi
+
+	echo "exit" >> ~/.scripts/Conky/conkyrc
+	echo "fi" >> ~/.scripts/Conky/conkyrc
+	chmod a+x ~/.scripts/Conky/conkyrc
+
+# Finish

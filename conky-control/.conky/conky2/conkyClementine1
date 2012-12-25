@@ -1,0 +1,99 @@
+if_running clementine}# Use Xft?
+use_xft yes
+xftfont Trebuchet MS:size=8
+xftalpha 0.8
+text_buffer_size 2048
+background yes
+# Update interval in seconds
+update_interval 1
+xftalpha 0.8
+own_window_argb_visual yes
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 180 0
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 5
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+# default_color white
+# own_window_colour white
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer none
+
+#position
+gap_x 5
+gap_y 15
+alignment bottom_left
+
+default_color FFFFFF
+color1 FF6600
+color2 AAAAAA
+color3 28AF63
+color4 EF5A29
+color5 ED6E21
+color6 575652
+color7 b20000
+color8 FFFFFF
+color9 8370FF
+
+TEXT
+${if_running clementine}
+${image /tmp/cover -p 15, 28 -s 75x75 -f 6 }
+
+
+
+
+
+
+${execi 10 conkyClementine -d CA > /dev/null}
+${color8}Title: ${color8}${exec conkyClementine --datatype=TI --maxlength=32}
+${color8}Artist: ${color8}${exec conkyClementine --datatype=AR --maxlength=32}
+${color8}Album: ${color8}${exec conkyClementine --datatype=AL --maxlength=32}
+${color8}Piste: ${color9}${exec conkyClementine --datatype=TN --maxlength=32} ${color8}Time: ${color9}${exec conkyClementine --datatype=PT --maxlength=32} / ${exec conkyClementine --datatype=LE --maxlength=32}  ${color #8370FF}${execibar 2 conkyClementine --datatype=PP}
+$else${color #696969}${alignc}${font sans:size=6:bold}No Activity${font}$endif
