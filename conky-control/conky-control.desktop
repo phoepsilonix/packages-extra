@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Conky-Control
+Comment=Customize the look of conky
+Exec=conky-control
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
+StartupNotify=false

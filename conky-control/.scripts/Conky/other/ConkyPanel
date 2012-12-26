@@ -1,0 +1,5 @@
+#!/bin/sh
+# click to start, click to stop
+
+sh -c "conky -c ~/.conky11/ConkyPanel;"
+exit

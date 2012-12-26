@@ -1,0 +1,8 @@
+#!/bin/sh
+# click to start, click to stop
+
+if pgrep conky | grep [0-9] > /dev/null
+then
+    exec killall conky
+exit
+fi
