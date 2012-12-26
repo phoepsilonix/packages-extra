@@ -4,4 +4,4 @@
 path=/usr/share/pamac
 
 cd $path
-gksu "./pamac.py"
+gksu "./pamac"

@@ -1,8 +1,8 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=pamac
-pkgver=0.1.1
-pkgrel=2
+pkgver=0.2.2
+pkgrel=1
 pkgdesc="a python gtk3 frontend gui for the package manager"
 arch=('any')
 url="http://www.manjaro.org"
@@ -12,8 +12,8 @@ depends=('python' 'python-gobject' 'gtk3' 'pyalpm' 'gksu')
 source=('pamac-update.desktop' 'pamac-update.svg' 'pamac-update.sh' 'pamac.sh' 'pamac.desktop' 'pamac.svg')
 sha256sums=('12498e905468397768b65f56bf2a4a14cfb510301985e7675f1dbd4e2e2095f4'
            '4597ad7e13e5822649c38f1f77bcd8cae2400424ed5073e1ea52d9eaf8ea886c'
-           'fec218c6a7c582f319b81319c862733553fed4b340fa9a92b9066f80754e5df7'
-           '95ff51be7d1fa54896d49cb47f895823f5fc2ab9956eca5d321c19de670e98d4'
+           '906638d5b504b1780ce0ba924e7c4a70bac73534a18d5f7ae4d775446aea0505'
+           '7635af5ec910ba2a49bd3f572828c7a6405c7b52995f1dd838bf5b75380ed292'
            'ebf7adecb36c7bee4b109f88de97416e7c86786421d3c5e609ff871078a99e32'
            '32fa65b3afbde7d343f434a306f1a028c3432fcb47fbd5b3c0afd459a5b140c8')
 
