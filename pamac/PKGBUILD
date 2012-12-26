@@ -1,58 +1,32 @@
-# maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.2.2
+pkgver=0.2.4
 pkgrel=1
-pkgdesc="a python gtk3 frontend gui for the package manager"
-arch=('any')
-url="http://www.manjaro.org"
+pkgdesc="A gtk3 frontend for pyalpm"
+arch=(any)
+url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-_git="yes"
-depends=('python' 'python-gobject' 'gtk3' 'pyalpm' 'gksu')
-source=('pamac-update.desktop' 'pamac-update.svg' 'pamac-update.sh' 'pamac.sh' 'pamac.desktop' 'pamac.svg')
-sha256sums=('12498e905468397768b65f56bf2a4a14cfb510301985e7675f1dbd4e2e2095f4'
-           '4597ad7e13e5822649c38f1f77bcd8cae2400424ed5073e1ea52d9eaf8ea886c'
-           '906638d5b504b1780ce0ba924e7c4a70bac73534a18d5f7ae4d775446aea0505'
-           '7635af5ec910ba2a49bd3f572828c7a6405c7b52995f1dd838bf5b75380ed292'
-           'ebf7adecb36c7bee4b109f88de97416e7c86786421d3c5e609ff871078a99e32'
-           '32fa65b3afbde7d343f434a306f1a028c3432fcb47fbd5b3c0afd459a5b140c8')
-
-getsource() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [ -d $1 ] ; then
-    if [ "$_git" == "yes" ] ; then
-       cd $1 && git pull origin master
-    else
-       cd $1 && git pull origin master && git checkout -b $pkgver
-    fi
-    msg "The local files are updated."
-  else
-    git clone $2 $1
-    if [ "$_git" != "yes" ] ; then
-       cd $1 && git checkout -b $pkgver $pkgver
-    fi
-  fi
-
-  msg "GIT checkout done or server timeout"
-}
-
-build() {
-	getsource "$pkgname" "git://git.manjaro.org/core/$pkgname.git"
-}
+depends=('python' 'pyalpm' 'gtk3' 'python-gobject' 'gksu')
+makedepends=('git')
+options=(!emptydirs)
+install=
+source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
+sha256sums=('c14fa3dc66f250aa8d0ce91d762e0f449cdda9bdb2f39dfd84ef6ee0560e01d9')
 
 package() {
-	cd $srcdir/$pkgname
-        mkdir -p $pkgdir/usr/share
-	cp -dpr --no-preserve=ownership $srcdir/$pkgname $pkgdir/usr/share/$pkgname
-        mkdir -p $pkgdir/usr/bin
-        install -Dm755 $srcdir/pamac.sh $pkgdir/usr/bin/pamac
-        install -Dm755 $srcdir/pamac-update.sh $pkgdir/usr/bin/pamac-update
-        mkdir -p $pkgdir/usr/share/applications
-        install -Dm644 $srcdir/pamac.desktop $pkgdir/usr/share/applications/pamac.desktop
-        install -Dm644 $srcdir/pamac-update.desktop $pkgdir/usr/share/applications/pamac-update.desktop
-        mkdir -p $pkgdir/usr/share/icons
-        install -Dm644 $srcdir/pamac.svg $pkgdir/usr/share/icons/pamac.svg
-        install -Dm644 $srcdir/pamac-update.svg $pkgdir/usr/share/icons/pamac-update.svg
+	cd "$srcdir/core-$pkgname"
+	python setup.py install --root="$pkgdir/" --optimize=1
+	install -Dm755 "gui/dialogs.glade" "${pkgdir}/usr/share/pamac/dialogs.glade"
+	install -Dm755 "gui/pamac.glade" "${pkgdir}/usr/share/pamac/pamac.glade"
+	install -Dm755 "gui/pamac_update.glade" "${pkgdir}/usr/share/pamac/pamac_update.glade"
+	install -Dm755 "pamac" "${pkgdir}/usr/bin/pamac"
+	install -Dm755 "pamac-update" "${pkgdir}/usr/bin/pamac-update"
+	mkdir -p "${pkgdir}/usr/share/applications"
+	install -Dm644 "data/pamac.desktop" "${pkgdir}/usr/share/applications"
+	install -Dm644 "data/pamac-update.desktop" "${pkgdir}/usr/share/applications"
+	mkdir -p "${pkgdir}/usr/share/icons"
+	cp -r "data/icons" "${pkgdir}/usr/share/icons/hicolor"
 }
+
+# vim:set ts=2 sw=2 et:
