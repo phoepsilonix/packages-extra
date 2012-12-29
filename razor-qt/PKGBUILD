@@ -1,5 +1,5 @@
 pkgname=razor-qt
-pkgver=0.5.0
+pkgver=0.5.1
 pkgrel=1
 pkgdesc="Razor is a toolbox-like desktop-environment"
 url="http://razor-qt.org"

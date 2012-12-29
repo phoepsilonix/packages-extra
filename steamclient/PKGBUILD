@@ -13,7 +13,7 @@ replaces=('steam')
 provides=('steam')
 depends=(
       'bash' 'desktop-file-utils' 'hicolor-icon-theme' 'curl'
-      'dbus' 'freetype2'  'gdk-pixbuf2' 'ttf-liberation'
+      'dbus' 'freetype2'  'gdk-pixbuf2' 'ttf-liberation' 'binutils'
       )
 if [[ "$CARCH" == "x86_64" ]]; then
   depends+=(
