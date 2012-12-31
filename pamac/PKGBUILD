@@ -1,7 +1,7 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.2.5
+pkgver=0.2.6
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
@@ -12,7 +12,7 @@ makedepends=('git')
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('c1d15a8ebe3c4144e5a0499ca236d2fd676ebd14697873bac6e2c46a2364ae47')
+sha256sums=('e17f0a15de1a1a2b17e5e157ad11f14b3f167cb8ea6657e4fee00965465240db')
 
 package() {
 	cd "$srcdir/core-$pkgname"
