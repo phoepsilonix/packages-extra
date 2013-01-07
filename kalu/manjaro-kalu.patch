@@ -1414,7 +1414,7 @@ diff -Npur kalu-1.2.1.orig/configure.ac kalu-1.2.1/configure.ac
 -        AC_HELP_STRING([--with-news-rss-url=URL], [set the RSS URL for Arch Linux News]),
 -        [NEWS_RSS_URL=$withval], [NEWS_RSS_URL="https://www.archlinux.org/feeds/news/"])
 +        AC_HELP_STRING([--with-news-rss-url=URL], [set the RSS URL for Manjaro Linux News]),
-+        [NEWS_RSS_URL=$withval], [NEWS_RSS_URL="http://blog.manjaro.org/feed/"])
++        [NEWS_RSS_URL=$withval], [NEWS_RSS_URL="http://manjaro.org/feed/"])
  
  # Options for AUR URL
  AC_ARG_WITH([url-aur-prefix],
