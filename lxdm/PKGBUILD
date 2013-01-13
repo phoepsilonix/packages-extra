@@ -6,7 +6,7 @@
 
 pkgname=lxdm
 pkgver=0.4.1
-pkgrel=21
+pkgrel=22
 pkgdesc='Lightweight X11 Display Manager'
 arch=('i686' 'x86_64')
 url="http://sourceforge.net/projects/lxdm/"
@@ -89,7 +89,8 @@ package() {
 
     # Install launcher script
     echo '#!/bin/sh' > ${pkgdir}/usr/bin/lxdm-config-pkexec
-    echo 'pkexec "/usr/bin/lxdm-config" "$@"' >> ${pkgdir}/usr/bin/lxdm-config-pkexec
+    echo 'user=$(whoami)' >> ${pkgdir}/usr/bin/lxdm-config-pkexec
+    echo 'pkexec "/usr/bin/lxdm-config" --user "$user" "$@"' >> ${pkgdir}/usr/bin/lxdm-config-pkexec
     chmod 755 ${pkgdir}/usr/bin/lxdm-config-pkexec
 
     # Install desktop file
