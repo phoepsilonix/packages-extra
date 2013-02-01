@@ -1,32 +1,34 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.2.7
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python' 'pyalpm' 'gtk3' 'python-gobject' 'gksu')
-makedepends=('git')
+depends=('python' 'pyalpm' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome')
+makedepends=()
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('f8ad14bcba66c3cc1a4bcf4ffafe37224d19e4849e41852ef27bb39e44136491')
+sha256sums=('dfbd261836c4aaa9e1910975293c657b49dbf938011a3ae2e1cc4000ab9463c4')
 
 package() {
 	cd "$srcdir/core-$pkgname"
 	python setup.py install --root="$pkgdir/" --optimize=1
-	install -Dm755 "gui/dialogs.glade" "${pkgdir}/usr/share/pamac/dialogs.glade"
-	install -Dm755 "gui/pamac.glade" "${pkgdir}/usr/share/pamac/pamac.glade"
-	install -Dm755 "gui/pamac_update.glade" "${pkgdir}/usr/share/pamac/pamac_update.glade"
-	install -Dm755 "pamac" "${pkgdir}/usr/bin/pamac"
-	install -Dm755 "pamac-update" "${pkgdir}/usr/bin/pamac-update"
-	mkdir -p "${pkgdir}/usr/share/applications"
-	install -Dm644 "data/pamac.desktop" "${pkgdir}/usr/share/applications"
-	install -Dm644 "data/pamac-update.desktop" "${pkgdir}/usr/share/applications"
-	mkdir -p "${pkgdir}/usr/share/icons"
-	cp -r "data/icons" "${pkgdir}/usr/share/icons/hicolor"
+	for i in `ls ${pkgdir}/usr/lib/python3.3/site-packages/pamac/*.py`;
+	do chmod +x $i; done;
+	mkdir -p "${pkgdir}/usr/share/pamac"
+	cp -r "gui" "${pkgdir}/usr/share/pamac"
+	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
+	cp -r "data/applications" "${pkgdir}/usr/share/"
+	install -Dm755 "pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
+	install -Dm755 "pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
+	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
+	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
+	install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
+	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
 }
 
 # vim:set ts=2 sw=2 et:
