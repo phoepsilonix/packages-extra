@@ -2,7 +2,7 @@
 # Co-Maintainer: Clittle <philm@manjaro.org>
 
 pkgbase=manjaro-artwork
-pkgname=('manjaro-artwork' 'manjaro-artwork-extra')
+pkgname=('manjaro-artwork' 'manjaro-artwork-extra' 'manjaro-artwork-openbox')
 pkgver=1.0.5
 pkgrel=1
 arch=('any')
@@ -23,6 +23,36 @@ source=('logo1.png'
 	'manjaro06.png'
 	'manjaro07.png'
 	"http://mirror.vinzv.de/manjaro/aur/pkg-src/manjaro-clean-colored-wallpapers.tar.bz2"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07blue.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07gray.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07green.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07orange.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07pink.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07purple.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07red.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07sky-blue.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro07yellow.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08black.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08blue.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08gray.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08green.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08lightgreen.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08orange.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08red.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08white.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro08yellow.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10blue.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10brown.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10cyan.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10gray.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10green.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10green2.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10green3.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10orange.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10pink.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10purple.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10red.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10yellow.jpg"
 )
 sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '4561bed2ad2e01d8a0782da0b86df2208c30670ca8892791550d5cec4089ca48'
@@ -40,6 +70,36 @@ sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             'bb17ddf24b6b1bf349c2f6bdb367dc1921e8b2058466b319432d29fcabfbe215'
             '114d6fa64f64f2cc0e9da5749c10542c04b7271b12a4ccf38c1c535e87e91d91'
             '228d968a0fea17092fed89efb1780dd18041af4ea6f8ea39942e099acb56b913'
+            'd3ca6e4eafc7c03e5c1dfdb1d9f6f084f7281edab0108877b936b1731aea23e2'  # manjaro07blue.jpg
+            '8ed8f7bde78f849a45bad7d3a28a3488990a41accbd9515473530c5f760d12b7'  # manjaro07gray.jpg
+            'c6cea8f26e1e1e533a7298fe47d23224a2caddbc7169c939bc644a17f9dd5335'  # manjaro07green.jpg
+            '44a4789a3767e3136d2e8be2fe89cf7911e687d5965f56149fdd92c135bde82a'  # manjaro07orange.jpg
+            '6e20982681345c7a531e7cfd77bb6496d6e510bd8723717b8aeb79ad892a342a'  # manjaro07pink.jpg
+            'a6ce83d1cab7e998e81bc47d9a6bdfddce259c4fd8318cd1007f9fa2427eb01a'  # manjaro07purple.jpg
+            '3e8350a74c37e0654d40cf51e98bee6c8ceb3e33e38aa228349cd0b058185844'  # manjaro07red.jpg
+            'df34a3ef5e95649bf8cd9e3f2bedd8cc67efa059fdb32f3cc483cf32ae4e9231'  # manjaro07sky-blue.jpg
+            'f25ae2a6f5333e2741ce513a240d026c9a68e84e1e49558431b7dc1b9d666467'  # manjaro07yellow.jpg
+            '46f8c36e543e4aa0e785de8042e919ba791314cf29df8de977862c7f5c8cc1ec'  # manjaro08black.jpg
+            'c490a24de59c7cf2c5efe0d3a2cd7c5120d7d78895cce749a989ec69bd1d973b'  # manjaro08blue.jpg
+            '24893c3898be5234bf817b9b743073f55118cc594c52dc9f16fe6fbca96002df'  # manjaro08gray.jpg
+            '26a3d97fe5e42cb628ae2474789142bcaaed3910eaa327c3802cb802cf9f5382'  # manjaro08green.jpg
+            '6cee27ffb04028c1387e6c1b9e56eaf8a95a7639dceed8a26118e030e53d4676'  # manjaro08lightgreen.jpg
+            'ff8b6b9f91354b9efa9c0dd0190a562a4265fd945b048558e87cd9344ca623ae'  # manjaro08orange.jpg
+            '69a8643cf0e6bbde9ed2e22869683af2161a6beea7532e66ee7fdd64b79a8443'  # manjaro08red.jpg
+            '1e5a1df0b369f28400f9c0527a822075d095d51d43e968ebd50e0772e7308893'  # manjaro08white.jpg
+            'e1f21dbd95fd51095eedbf8415ed6914449ba090ca7aa1a5c2fd8527026f644b'  # manjaro08yellow.jpg
+            'd83cafd2b33e0135f091f9a4aeb8c3ea0d0177cee85bf5d65b1ee78421bc6e63'  # manjaro10blue.jpg
+            '84790b5fdd73fa5c513085eeb567ccb8fe2651c25afd1252ab2e30cfeddcc878'  # manjaro10brown.jpg
+            '78b83738c09c6fa7b5eb4534acf120ab025ee8f71b94a2a3ffbfb409d0e60ba6'  # manjaro10cyan.jpg
+            'c7f8273fa8b672ce02bbf1a57162e08cb0b48e1b6b866af0d180d5fed73b686b'  # manjaro10gray.jpg
+            'a3bb172162ff2df9ffcc4c433f766683d219342fff73eb57bc254c84292be79e'  # manjaro10green.jpg
+            '90a3587b4ac66aa56fce07194d12d101802b6fb5b2b869018750563615aa3b54'  # manjaro10green2.jpg
+            '73fceec48ff552eaef2022e3c028f182986d3fc34d08a0ece24e007362061c98'  # manjaro10green3.jpg
+            '0c0c156eb136111ab1ddadb423638511774eb80c90e7f2e1bb16323377adf48d'  # manjaro10orange.jpg
+            '82b12eff89a694675094d70b563879868b5d8935d65cf80b29a7fe59f82ccbdb'  # manjaro10pink.jpg
+            '5ed7282790a9be33dbbf3b673223f7acb465f359fcb425cde51987162063e478'  # manjaro10purple.jpg
+            '868feebb843a4b927c5f0c85ba88944260f6e05f5e2d4e3ebb29b16900983907'  # manjaro10red.jpg
+            '86838c54e1f9d3cd68d0c9bd7fba76056fe81dafe0f22df6aa885847d3f875bf'  # manjaro10yellow.jpg
 )
 
 package_manjaro-artwork() {
@@ -75,6 +135,47 @@ package_manjaro-artwork-extra() {
   install -Dm644 "${srcdir}/manjaro06.png" "${pkgdir}/usr/share/backgrounds/manjaro06.png"
   install -Dm644 "${srcdir}/manjaro07.png" "${pkgdir}/usr/share/backgrounds/manjaro07.png"
   cp -r manjaro-clean-colored-wallpapers/*/* "${pkgdir}/usr/share/backgrounds/"
+  # link for xfce
+  mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
+  for i in $(ls ${pkgdir}/usr/share/backgrounds/*.* | awk -F"/" '{print $NF}')
+  do
+      ln -s "../${i}" "${pkgdir}/usr/share/backgrounds/xfce/${i}"
+  done
+}
+
+package_manjaro-artwork-openbox() {
+  pkgdesc="Artwork for Manjaro (openbox)"
+  license=('GPL' 'CC-BY-SA 3.0')
+  install -Dm644 "${srcdir}/manjaro07blue.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07blue.jpg"
+  install -Dm644 "${srcdir}/manjaro07gray.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07gray.jpg"
+  install -Dm644 "${srcdir}/manjaro07green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07green.jpg"
+  install -Dm644 "${srcdir}/manjaro07orange.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07orange.jpg"
+  install -Dm644 "${srcdir}/manjaro07pink.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07pink.jpg"
+  install -Dm644 "${srcdir}/manjaro07purple.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07purple.jpg"
+  install -Dm644 "${srcdir}/manjaro07red.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07red.jpg"
+  install -Dm644 "${srcdir}/manjaro07sky-blue.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07sky-blue.jpg"
+  install -Dm644 "${srcdir}/manjaro07yellow.jpg" "${pkgdir}/usr/share/backgrounds/manjaro07yellow.jpg"
+  install -Dm644 "${srcdir}/manjaro08black.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08black.jpg"
+  install -Dm644 "${srcdir}/manjaro08blue.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08blue.jpg"
+  install -Dm644 "${srcdir}/manjaro08gray.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08gray.jpg"
+  install -Dm644 "${srcdir}/manjaro08green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08green.jpg"
+  install -Dm644 "${srcdir}/manjaro08lightgreen.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08lightgreen.jpg"
+  install -Dm644 "${srcdir}/manjaro08orange.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08orange.jpg"
+  install -Dm644 "${srcdir}/manjaro08red.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08red.jpg"
+  install -Dm644 "${srcdir}/manjaro08white.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08white.jpg"
+  install -Dm644 "${srcdir}/manjaro08yellow.jpg" "${pkgdir}/usr/share/backgrounds/manjaro08yellow.jpg"
+  install -Dm644 "${srcdir}/manjaro10blue.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10blue.jpg"
+  install -Dm644 "${srcdir}/manjaro10brown.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10brown.jpg"
+  install -Dm644 "${srcdir}/manjaro10cyan.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10cyan.jpg"
+  install -Dm644 "${srcdir}/manjaro10gray.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10gray.jpg"
+  install -Dm644 "${srcdir}/manjaro10green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10green.jpg"
+  install -Dm644 "${srcdir}/manjaro10green2.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10green2.jpg"
+  install -Dm644 "${srcdir}/manjaro10green3.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10green3.jpg"
+  install -Dm644 "${srcdir}/manjaro10orange.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10orange.jpg"
+  install -Dm644 "${srcdir}/manjaro10pink.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10pink.jpg"
+  install -Dm644 "${srcdir}/manjaro10purple.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10purple.jpg"
+  install -Dm644 "${srcdir}/manjaro10red.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10red.jpg"
+  install -Dm644 "${srcdir}/manjaro10yellow.jpg" "${pkgdir}/usr/share/backgrounds/manjaro10yellow.jpg"
   # link for xfce
   mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
   for i in $(ls ${pkgdir}/usr/share/backgrounds/*.* | awk -F"/" '{print $NF}')
