@@ -8,7 +8,7 @@ pkgname=('manjaro-alsa'
          'manjaro-printer'
 )
 
-pkgver=2012.11
+pkgver=2013.02
 pkgrel=1
 url="www.manjaro.org"
 license=('GPL')
@@ -64,7 +64,6 @@ package_manjaro-printer() {
 		"hpoj"
 		"python2-gobject2"
 		"python2-pyqt"
-		"system-config-printer-gnome"
-		"system-config-printer-common"
+		"system-config-printer"
 		"cups-pk-helper")
 }
