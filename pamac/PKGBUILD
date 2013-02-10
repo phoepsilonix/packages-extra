@@ -1,7 +1,7 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.3.3
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
@@ -12,19 +12,18 @@ makedepends=()
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('9ce35abcb7f8dcff41cbd56480fa5d5a029da1419354c38b62683247b39a20c6')
+sha256sums=('ed6ff4b0ea9e5ae5b52557188201e0eb33dd94459e7d811a37f5e1d90a12fc7a')
 
 package() {
 	cd "$srcdir/core-$pkgname"
 	python setup.py install --root="$pkgdir/" --optimize=1
-	for i in `ls ${pkgdir}/usr/lib/python3.3/site-packages/pamac/*.py`;
-	do chmod +x $i; done;
 	mkdir -p "${pkgdir}/usr/share/pamac"
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
 	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
 	cp -r "data/applications" "${pkgdir}/usr/share/"
 	install -Dm755 "pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
+	install -Dm755 "pamac-tray" "${pkgdir}/usr/bin/pamac-tray"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
