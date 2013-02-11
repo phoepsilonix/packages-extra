@@ -1,0 +1,55 @@
+# Maintainer: twa022 <twa022 at gmail dot com>
+# Contributor: Giuseppe Borzi <gborzi _AT_ ieee _DOT_ org>
+# Contributor: ryooichi <ryooichi+arch AT gmail DOT com>
+# Real thanks goes to jelly, mike_93 and the original creators of mintmenu, usp, slab...
+# See also:
+#   http://bbs.archlinux.org/viewtopic.php?id=66987
+#   http://bbs.archlinux.org/viewtopic.php?id=68633
+#   http://github.com/jelly/archmenu
+
+pkgname=mintmenu
+pkgver=5.3.8
+pkgrel=1
+pkgdesc="Linux Mint Menu for MATE"
+arch=('i686' 'x86_64')
+url="http://packages.linuxmint.com/pool/main/m/mintmenu"
+license=('GPL')
+depends=('pygtk' 'python-mate' 'python-mate-desktop' 'python-corba' 'gksu' 'python2-xdg' 'xdg-utils' 'python2-keybinder2')
+optdepends=('mate-menu-editor: for editing the gnome menu'
+            'mint-translations: translations files'
+            'gnome-packagekit: package manager button'
+            'mate-screensaver: lock screen button')
+source=("${url}/${pkgname}_${pkgver}.tar.gz" 
+        'manjaro-patch.diff'
+        'execute_fix.diff'
+        'keybinder.diff'
+        'removescript'
+        'logo5-16.svg'
+        'logo5-32.svg')
+
+package() {
+  cd "$srcdir/${pkgname}"
+  patch -uNp2 -r- -i "$srcdir/manjaro-patch.diff"
+  patch -uNp2 -r- -i "$srcdir/execute_fix.diff"
+  patch -uNp2 -r- -i "$srcdir/keybinder.diff"
+  rm -f usr/lib/linuxmint/mintMenu/*.pyc usr/lib/linuxmint/mintMenu/plugins/*pyc
+  sed -i -e "s/__version__/$pkgver/" usr/lib/linuxmint/mintMenu/mintMenu.py
+  cp -R usr "$pkgdir/"
+  install -m644 "$srcdir/logo5-16.svg $pkgdir/usr/lib/linuxmint/mintMenu/manjaro-icon-16.svg"
+  install -m644 "$srcdir/logo5-32.svg $pkgdir/usr/lib/linuxmint/mintMenu/manjaro-icon-32.svg"
+  chmod 644 "$pkgdir/usr/lib/matecomponent/servers/mintMenu.server"
+  install -m755 "$srcdir/removescript" "$pkgdir/usr/lib/linuxmint/mintMenu/"
+  sed -i 's:#!/usr/bin/python:&2:' ${pkgdir}/usr/bin/mintmenu ${pkgdir}/usr/lib/linuxmint/mintMenu/{./,plugins/}*py
+  sed -i 's:#!/usr/bin/env python:&2:' ${pkgdir}/usr/bin/mintmenu ${pkgdir}/usr/lib/linuxmint/mintMenu/{./,plugins/}*py
+  cd "$pkgdir"/usr/lib/linuxmint/mintMenu
+  ./compile.py
+}
+
+sha256sums=('9304b0416c7f3f4153acb2e6fc2820e113175224dfb35920f55ca88d56226326'
+            'f86c378c95e489b77c027dbd9ea6f49ce79ef7ce8daebe16c3d0d6b878e7a53e'
+            '2115ec0202745e415daefadc9d3096f32b20ab3d6b782342880a6e3877fdf0e8'
+            'cac0340f20ec39f34c64de069740e47b97a6630f3c772eb9e4630435e74c27cf'
+            '9533d0f5416af1f2b8ef5097f06e39135278eef856994d859c4ee7ba57d6fcaa'
+            '767fe5c24ba8e4f402821b4262efe890aa28aba62e536e8a06e487b0e0f2d9fa'
+            '18772a1cda98cf538d86a3df650eb0b29992140035aac7a2798effaf0876f0e5'
+)
