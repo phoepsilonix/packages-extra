@@ -35,8 +35,8 @@ package() {
   rm -f usr/lib/linuxmint/mintMenu/*.pyc usr/lib/linuxmint/mintMenu/plugins/*pyc
   sed -i -e "s/__version__/$pkgver/" usr/lib/linuxmint/mintMenu/mintMenu.py
   cp -R usr "$pkgdir/"
-  install -m644 "$srcdir/logo5-16.svg $pkgdir/usr/lib/linuxmint/mintMenu/manjaro-icon-16.svg"
-  install -m644 "$srcdir/logo5-32.svg $pkgdir/usr/lib/linuxmint/mintMenu/manjaro-icon-32.svg"
+  install -m644 "$srcdir/logo5-16.svg" "$pkgdir/usr/lib/linuxmint/mintMenu/manjaro-icon-16.svg"
+  install -m644 "$srcdir/logo5-32.svg" "$pkgdir/usr/lib/linuxmint/mintMenu/manjaro-icon-32.svg"
   chmod 644 "$pkgdir/usr/lib/matecomponent/servers/mintMenu.server"
   install -m755 "$srcdir/removescript" "$pkgdir/usr/lib/linuxmint/mintMenu/"
   sed -i 's:#!/usr/bin/python:&2:' ${pkgdir}/usr/bin/mintmenu ${pkgdir}/usr/lib/linuxmint/mintMenu/{./,plugins/}*py
