@@ -6,13 +6,13 @@
 
 pkgname=lxdm
 pkgver=0.4.1
-pkgrel=23
+pkgrel=25
 pkgdesc='Lightweight X11 Display Manager'
 arch=('i686' 'x86_64')
 url="http://sourceforge.net/projects/lxdm/"
 license=('GPL')
 groups=('lxde')
-depends=('gtk2' 'xorg-server' 'xfce-theme-greenbird' 'lxdm-manjaro-theme')
+depends=('gtk2' 'xorg-server' 'adwaita-manjaro-themes' 'lxdm-manjaro-theme')
 optdepends=('polkit-gnome: to run lxdm-config directly from menu')
 makedepends=('intltool')
 install=${pkgname}.install
@@ -98,7 +98,7 @@ sha256sums=('9e0d0a5672fcf31a18de8178ce73eab1723d6ae7097dfe41e9fe2c46e180cf08'
             '9a63e118215f0492e5b7c049173a1994c1d86f00726f615c0757ea0a663deaf1'
             '504521b685ee2a9d6d6a4850c8bf3c8f4c911a8f986e1d6641316cfc1284774e'
             'b901a2141f3becea005952f59d54c13357c0ba12e9ebbde24cf395a50ce748e2'
-            'a0f504188f62bc0795441ee50b485e461760ff2d4f3856640c1fab893d3d62c1'
+            'f2f60852f0b556c49ec95c1b1cbf575e88ebe049718137aca068cd6fbec01189'
             'c6a766502f18b6e073aa021d680bbb351791bf2646f6bdf6c9093ad2a83ddcbc'
             'dbec8a2ea9f2366b9423537401595b0207c88675a254428c1402995f412cc3e4'
             'c4dbea49b6b4cab407d621e868e1bda0111df1012a244abde36cac54ea4a5735'

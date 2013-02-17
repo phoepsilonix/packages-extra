@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-artwork
 pkgname=('manjaro-artwork' 'manjaro-artwork-extra' 'manjaro-artwork-openbox')
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 arch=('any')
 url="http://manjaro.org"
@@ -53,6 +53,7 @@ source=('logo1.png'
 	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10purple.jpg"
 	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10red.jpg"
 	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/manjaro10yellow.jpg"
+	"http://git.manjaro.org/manjaro-linux-graphics/manjaro-wallpapers/blobs/raw/master/green_bumplogo.jpg"
 )
 sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '4561bed2ad2e01d8a0782da0b86df2208c30670ca8892791550d5cec4089ca48'
@@ -100,6 +101,7 @@ sha256sums=('fe179664299acf600ac5b2727fcd873f0a1d0ffb48565c5d3fc52e0bca5025c1'
             '5ed7282790a9be33dbbf3b673223f7acb465f359fcb425cde51987162063e478'  # manjaro10purple.jpg
             '868feebb843a4b927c5f0c85ba88944260f6e05f5e2d4e3ebb29b16900983907'  # manjaro10red.jpg
             '86838c54e1f9d3cd68d0c9bd7fba76056fe81dafe0f22df6aa885847d3f875bf'  # manjaro10yellow.jpg
+            '9797196d1cc8e0fecb6fc9a601c78028dbd4ffdd898ebb56132a36d5d60113aa'
 )
 
 package_manjaro-artwork() {
@@ -107,13 +109,13 @@ package_manjaro-artwork() {
   license=('GPL')
   optdepends=('manjaro-artwork-extra: extra wallpapers')
   install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
-  install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
+  install -Dm644 "${srcdir}/green_bumplogo.jpg" "${pkgdir}/usr/share/backgrounds/green_bumplogo.jpg"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro-logo.png"
   ln -s "logo5.png" "${pkgdir}/usr/share/icons/manjaro.png"
-  ln -s "leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
+  ln -s "green_bumplogo.jpg" "${pkgdir}/usr/share/backgrounds/manjaro.jpg"
   # link for xfce
   mkdir -p "${pkgdir}/usr/share/backgrounds/xfce"
-  ln -s "../leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/xfce/leaf-green.jpg"
+  ln -s "../green_bumplogo.jpg" "${pkgdir}/usr/share/backgrounds/xfce/green_bumplogo.jpg"
 }
 
 package_manjaro-artwork-extra() {
@@ -127,6 +129,7 @@ package_manjaro-artwork-extra() {
   install -Dm644 "${srcdir}/logo4.png" "${pkgdir}/usr/share/icons/logo4.png"
   install -Dm644 "${srcdir}/eco-green.jpg" "${pkgdir}/usr/share/backgrounds/eco-green.jpg"
   install -Dm644 "${srcdir}/leather-dark.jpg" "${pkgdir}/usr/share/backgrounds/leather-dark.jpg"
+  install -Dm644 "${srcdir}/leaf-green.jpg" "${pkgdir}/usr/share/backgrounds/leaf-green.jpg"
   install -Dm644 "${srcdir}/manjaro01.png" "${pkgdir}/usr/share/backgrounds/manjaro01.png"
   install -Dm644 "${srcdir}/manjaro02.png" "${pkgdir}/usr/share/backgrounds/manjaro02.png"
   install -Dm644 "${srcdir}/manjaro03.png" "${pkgdir}/usr/share/backgrounds/manjaro03.png"
