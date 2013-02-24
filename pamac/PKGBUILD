@@ -2,7 +2,7 @@
 
 pkgname=pamac
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -24,6 +24,7 @@ package() {
 	install -Dm755 "pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
 	install -Dm755 "pamac-tray" "${pkgdir}/usr/bin/pamac-tray"
+	install -Dm755 "pamac-check-updates" "${pkgdir}/usr/bin/pamac-check-updates"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
