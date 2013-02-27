@@ -1,8 +1,8 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.4.1
-pkgrel=2
+pkgver=0.4.2
+pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -12,7 +12,7 @@ makedepends=()
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('eedc9f348841de9799def7a8b5abccfe242c4c98a42c3216a9d5158aa929cafc')
+sha256sums=('289bce6ba231c40f05da9a8fedb5d42f3dd2290698b7dedde3bfe46a16f5cdf8')
 
 package() {
 	cd "$srcdir/core-$pkgname"
@@ -21,6 +21,7 @@ package() {
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
 	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
 	cp -r "data/applications" "${pkgdir}/usr/share/"
+	install -Dm744 "pamac-daemon" "${pkgdir}/usr/bin/pamac-daemon"
 	install -Dm755 "pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
 	install -Dm755 "pamac-tray" "${pkgdir}/usr/bin/pamac-tray"
@@ -29,7 +30,7 @@ package() {
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
 	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
-	install -Dm644 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
+	install -Dm744 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
 }
 
 # vim:set ts=2 sw=2 et:
