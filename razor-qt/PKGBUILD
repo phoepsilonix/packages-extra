@@ -1,16 +1,15 @@
 pkgname=razor-qt
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc="Razor is a toolbox-like desktop-environment"
 url="http://razor-qt.org"
 arch=('i686' 'x86_64')
 license="GPL2"
-depends=('qt' 'polkit-qt' 'udev' 'libxrender' 'libxcomposite' 'libxdamage' 'zlib' 'file' 'libxcursor' 'libstatgrab')
-makedepends=('cmake' 'git')
+depends=('qt4' 'polkit-qt' 'udev' 'libxrender' 'libxcomposite' 'libxdamage' 'zlib' 'file' 'libxcursor' 'libstatgrab')
+makedepends=('cmake' 'git' 'doxygen')
 optdepends=('openbox: Razor-qt works with various WM, but most of Razor developers use Openbox.'
             'upower: To Shutdown/Reboot from Razor'
             'udisks: For the Removable Media plugin to work'
-            'lightdm: For lightdm-razor-greeter'
             )
 source=()
 md5sums=()
@@ -43,7 +42,7 @@ build() {
 
   cd "$srcdir/$pkgname"
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_LIGHTDM_GREETER=OFF -DMODULE_LIGHTDM=OFF
   make
 }
 

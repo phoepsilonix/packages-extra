@@ -2,9 +2,9 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgbase=manjaroiso
-pkgname=('manjaroiso' 'manjaroiso-profiles')
-pkgver=0.8.3.805
-pkgrel=2
+pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles')
+pkgver=0.8.4
+pkgrel=1
 arch=('any')
 url="https://gitorious.org/chakra/manjaroiso"
 license=('GPL')
@@ -43,12 +43,29 @@ package_manjaroiso() {
   optdepends=('qemu: quickly test isos' 'manjaroiso-profiles: Manjaro Linux ISO-Image profiles')
   cd ${srcdir}/${pkgbase}/src
   make DESTDIR="$pkgdir" install
+  cd ${srcdir}/${pkgbase}/
+  mkdir -p $pkgdir/usr/share/manjaroiso/configs
+  cp -r configs/shared $pkgdir/usr/share/manjaroiso/configs/shared
 }
 
 package_manjaroiso-profiles() {
   pkgdesc="Manjaroiso Profiles"
   depends=('manjaroiso')
   cd ${srcdir}/${pkgbase}/
-  mkdir -p $pkgdir/usr/share/manjaroiso/
-  cp -r configs $pkgdir/usr/share/manjaroiso/configs
+  mkdir -p $pkgdir/usr/share/manjaroiso/configs
+  for conf in build cinnamon net openbox xfce
+  do
+      cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
+  done
+}
+
+package_manjaroiso-community-profiles() {
+  pkgdesc="Manjaroiso Community Profiles"
+  depends=('manjaroiso')
+  cd ${srcdir}/${pkgbase}/
+  mkdir -p $pkgdir/usr/share/manjaroiso/configs
+  for conf in e17 kde lxde mate
+  do
+      cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
+  done
 }
