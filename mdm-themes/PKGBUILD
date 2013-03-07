@@ -1,18 +1,18 @@
 pkgname=mdm-themes
 pkgver=0.8.4.$(date +%m%d)
-pkgrel=2
+pkgrel=1
 pkgdesc="Nice themes for MDM"
 arch=('any')
 url="http://manjaro.org"
 license=('unknown')
 depends=('mdm')
-source=(manjaro-mdm-themes-0.1.tar.gz)
-sha256sums=('538d5c5692f9df137942a66ab4c4202be93313304a751cb65df4873a33f84ad4')
+source=("$pkgname-0.1.tar.gz::http://git.manjaro.org/manjaro-linux-graphics/mdm-themes/archive-tarball/0.1")
+sha256sums=('212c9d9064c2f68ab7b1a4a02942ac46746955f95610e144c2a72a188edf8585')
 
 build() {
-  cd ${srcdir}
+  cd ${srcdir}/manjaro-linux-graphics-${pkgname}
 
-  rm *.gz || return 1
+  #rm *.gz || return 1
   install -d ${pkgdir}/usr/share/mdm/{themes,themes-html} || return 1
   cp -R * ${pkgdir}/usr/share/mdm || return 1
   #rm ${pkgdir}/usr/share/mdm/themes/*/{INSTALL,README,license.txt,readme,*~,.DS_Store} || return 1
