@@ -1,0 +1,17 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dot]org>
+# Contributor: Trizen <echo dHJpemVueEBnbWFpbC5jb20K | base64 -d>
+
+pkgname=obmenu-generator
+pkgver=0.54
+pkgrel=1
+pkgdesc="A really fast pipe/static menu generator for the Openbox Window Manager (with icon support)."
+url="http://trizenx.blogspot.ro/2012/02/obmenu-generator.html"
+arch=('any')
+license=('GPL')
+depends=('openbox' 'perl>=5.10.0' 'perl-data-dump' 'perl-linux-desktopfiles')
+source="http://trizen.googlecode.com/files/$pkgname-$pkgver.tar.gz"
+md5sums=('f34b88479c19b9e9bae36178dedb67ad')
+
+package() {
+  install -Dm 755 "$pkgname" "$pkgdir/usr/bin/$pkgname"
+}

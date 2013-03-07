@@ -1,0 +1,23 @@
+pkgname=mdm-themes
+pkgver=0.8.4.$(date +%m%d)
+pkgrel=2
+pkgdesc="Nice themes for MDM"
+arch=('any')
+url="http://manjaro.org"
+license=('unknown')
+depends=('mdm')
+source=(manjaro-mdm-themes-0.1.tar.gz)
+sha256sums=('538d5c5692f9df137942a66ab4c4202be93313304a751cb65df4873a33f84ad4')
+
+build() {
+  cd ${srcdir}
+
+  rm *.gz || return 1
+  install -d ${pkgdir}/usr/share/mdm/{themes,themes-html} || return 1
+  cp -R * ${pkgdir}/usr/share/mdm || return 1
+  #rm ${pkgdir}/usr/share/mdm/themes/*/{INSTALL,README,license.txt,readme,*~,.DS_Store} || return 1
+  chmod 755 ${pkgdir}/usr/share/mdm/themes/* || return 1
+  chmod 644 ${pkgdir}/usr/share/mdm/themes/*/*  || return 1
+  chmod 755 ${pkgdir}/usr/share/mdm/themes-html/* || return 1
+  chmod 644 ${pkgdir}/usr/share/mdm/themes-html/*/*  || return 1
+}
