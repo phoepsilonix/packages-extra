@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dot]org>
 
 pkgname=systemctl-gui
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="A gtk3 frontend for systemctl"
 arch=(any)
@@ -13,7 +13,7 @@ options=(!emptydirs)
 install=
 source=("systemctl-gui-$pkgver.tar.gz::http://git.manjaro.org/community/systemctl-gui/archive-tarball/$pkgver"
 		"systemctl-gui.desktop")
-sha256sums=('e6f0aafe07a8d18be77ea7487d888fb90918744cb4a8ae57380a2d0702c61220'
+sha256sums=('41e0a5e478cbfc924ce8e4a37a11a004b42d0d02dfbd620238921021d71c363e'
 			      '093128ae1c9d1d42daad9df2293a0264ee4da1c2022ec7989dc54ad4750afea1')
 
 package() {

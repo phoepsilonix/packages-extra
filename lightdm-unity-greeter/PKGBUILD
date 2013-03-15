@@ -5,26 +5,26 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=lightdm-unity-greeter
-pkgver=12.10.0
-pkgrel=3
+pkgver=13.04.1
+pkgrel=1
 pkgdesc="The greeter (login screen) application for Unity. It is implemented as a LightDM greeter."
 arch=('i686' 'x86_64')
 url="https://launchpad.net/unity-greeter"
 license=('GPL3' 'LGPL3')
-depends=('gnome-doc-utils' 'lightdm' 'gnome-common' 'libindicator3' 'indicator-session')
+depends=('gnome-doc-utils' 'lightdm' 'gnome-common' 'libindicator3' 'consolekit-git' 'indicator-session' 'adwaita-manjaro-themes' 'faenza-green-icon-theme' 'manjaro-artwork')
 makedepends=('gnome-settings-daemon' 'pkg-config' 'vala>=0.16.0' 'autoconf')
 options=('!libtool')
 install=unity-greeter.install
 source=(#"https://launchpad.net/unity-greeter/0.2/$pkgver/+download/unity-greeter-$pkgver.tar.gz"
-    "https://launchpad.net/ubuntu/quantal/+source/unity-greeter/$pkgver-0ubuntu1/+files/unity-greeter_$pkgver.orig.tar.gz"
+    "https://launchpad.net/ubuntu/+archive/primary/+files/${pkgname#*-}_${pkgver}.orig.tar.gz"
 		manjaro-theming.patch
 		translation.patch
 		cof.png
 		logo.png
 		manjaro_badge.png
 		xfce_badge.png)
-sha256sums=('d2162e8e60f270193ef7ac39acd7f27b25dec68b88184c21ddfd29f5f524fa52'
-            '8b0760c31255f303c21a1f4251d2bb3593d626aebb3fa07f8e95cfdad4c66910'
+sha256sums=('f9059c96f210e02c079d81b4b653a14ecc44996e633b36e754b747acc93a7d90'
+            'e38c2cbe5859e8d31b59ce0540f5d833230c74e2f6431d8ece7d33f274628dfb'
             'd518ee58fdc37a191ace6684a55f026af76ff2c7b48529d662176ae9064e8ca7'
             '5c22846fff201ae87bbc737dd3f3099b3bb41e5812667f294cadd1dfe19cd7b0'
             'd0326318b3b787a1f2f359a31cb1e8c957e4487f9896fd144861e7fe1ffb5efb'
@@ -42,6 +42,9 @@ build() {
 
   # Link against libm and libx11
   CFLAGS="${CFLAGS} -lm -lX11"
+
+  # fix autoconf
+  sed -i 's:AM_CONFIG_HEADER(config.h):AC_CONFIG_HEADERS(config.h):g' configure.ac
 
   autoreconf -vfi
 

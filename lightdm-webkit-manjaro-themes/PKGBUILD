@@ -1,0 +1,17 @@
+pkgname=lightdm-webkit-manjaro-themes
+pkgver=0.8.4.$(date +%m%d)
+pkgrel=1
+pkgdesc="Nice themes for Lightdm Webkit Greeter"
+arch=('any')
+url="http://manjaro.org"
+license=('unknown')
+depends=('lightdm-webkit-greeter' 'consolekit')
+source=("$pkgname-0.1.0.tar.gz::http://git.manjaro.org/manjaro-linux-graphics/lightdm-webkit-themes/archive-tarball/0.1.0")
+sha256sums=('f2cca22da95a5b5097c1c730f62d59d6b9b1791b5bf3eeff66f5956fbbc8b9d8')
+
+build() {
+  cd ${srcdir}/${pkgname}
+
+  install -d ${pkgdir}/usr/share/lightdm-webkit/themes/ || return 1
+  cp -R * ${pkgdir}/usr/share/lightdm-webkit/themes/ || return 1
+}
