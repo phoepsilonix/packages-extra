@@ -1,18 +1,18 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.4.4
+pkgver=0.4.5
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python' 'pyalpm' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome')
+depends=('python' 'pyalpm' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
 makedepends=()
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('4a13c4e276804aafb27bc951d5d8479f21d7200989dcd5d9c55c79b838e81604')
+sha256sums=('e45d8d9cc32bec1ceeb035bc51061601ea5e00ec437a689b7e4a8fe0af35877c')
 
 package() {
 	cd "$srcdir/core-$pkgname"
@@ -25,7 +25,7 @@ package() {
 	install -Dm755 "pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
 	install -Dm755 "pamac-tray" "${pkgdir}/usr/bin/pamac-tray"
-	install -Dm755 "pamac-check-updates" "${pkgdir}/usr/bin/pamac-check-updates"
+	install -Dm744 "pamac-refresh" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
