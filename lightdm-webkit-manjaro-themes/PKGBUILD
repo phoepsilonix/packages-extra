@@ -6,8 +6,8 @@ arch=('any')
 url="http://manjaro.org"
 license=('unknown')
 depends=('lightdm-webkit-greeter' 'consolekit')
-source=("$pkgname-0.1.0.tar.gz::http://git.manjaro.org/manjaro-linux-graphics/lightdm-webkit-themes/archive-tarball/0.1.0")
-sha256sums=('f2cca22da95a5b5097c1c730f62d59d6b9b1791b5bf3eeff66f5956fbbc8b9d8')
+source=("$pkgname-0.1.1.tar.gz::http://git.manjaro.org/manjaro-linux-graphics/lightdm-webkit-themes/archive-tarball/0.1.1")
+sha256sums=('a06d169702530e0b775bf7471dfeb73bf4377c3d3b037e4d4ec9033761edf56d')
 
 build() {
   cd ${srcdir}/${pkgname}

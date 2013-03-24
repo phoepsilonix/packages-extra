@@ -1,0 +1,49 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: Andrew Gallant <andrew@pytyle.com>
+# Contributor: Andrew Gallant
+pkgname=pytyle3
+pkgver=3.0.0
+pkgrel=1
+pkgdesc="An automatic tiler that is compatible with Openbox Multihead"
+arch=('any')
+url="http://burntsushi.net/X11/pytyle"
+license=('GPL')
+groups=()
+makedepends=('git')
+depends=('python2>=2.7' 'xpybutil')
+conflicts=('pytyle3-git')
+provides=('pytyle3-git')
+replaces=('pytyle3-git')
+source=()
+noextract=()
+install=pytyle3.install
+_git=yes
+md5sums=()
+
+getsource() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [ -d $1 ] ; then
+    if [ "$_git" == "yes" ] ; then
+       cd $1 && git pull origin master
+    else
+       cd $1 && git pull origin master && git checkout -b $pkgver
+    fi
+    msg "The local files are updated."
+  else
+    git clone $2 $1
+    if [ "$_git" != "yes" ] ; then
+       cd $1 && git checkout -b $pkgver $pkgver
+    fi
+  fi
+
+  msg "GIT checkout done or server timeout"
+}
+
+package() {
+  getsource "pytyle3" "git://github.com/BurntSushi/pytyle3.git"
+  cd "${srcdir}/${pkgname}"
+  msg "Starting make..."
+  python2 ./setup.py install --root=$pkgdir || return 1
+}
