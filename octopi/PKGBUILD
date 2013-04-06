@@ -3,7 +3,7 @@
 
 pkgname=octopi
 pkgver=0.1.$(date +%m%d)
-pkgrel=1
+pkgrel=2
 pkgdesc="A pacman frontend using Qt libs"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
