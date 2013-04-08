@@ -8,7 +8,7 @@ arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
 depends=('python>=3.3' 'python<3.4' 'pacman>=4.0' 'pyalpm>=0.5' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
-makedepends=()
+makedepends=('gettext')
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
