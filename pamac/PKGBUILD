@@ -1,18 +1,18 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.5.3
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python' 'pyalpm' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.0' 'pyalpm>=0.5' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
 makedepends=()
 options=(!emptydirs)
 install=
 source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('370dae6937ff107de5260da16e0be3a50d3d705d0b7d8aaffffe7a432708d48e')
+sha256sums=('17fb83f82f2b1e2e41bdd25a840eacc7a0b79ce30028508ddeb2077f5dbe99ea')
 
 package() {
 	cd "$srcdir/core-$pkgname"
@@ -21,16 +21,21 @@ package() {
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
 	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
 	cp -r "data/applications" "${pkgdir}/usr/share/"
-	install -Dm744 "pamac-daemon" "${pkgdir}/usr/bin/pamac-daemon"
-	install -Dm755 "pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
-	install -Dm755 "pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
-	install -Dm755 "pamac-tray" "${pkgdir}/usr/bin/pamac-tray"
-	install -Dm755 "pamac-refresh" "${pkgdir}/usr/bin/pamac-refresh"
+	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
+	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
+	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
+	install -Dm755 "pamac-tray.py" "${pkgdir}/usr/bin/pamac-tray"
+	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
 	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
 	install -Dm744 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
+	# create .mo translation files
+	for i in `ls po | sed s'|.po||'` ; do
+		mkdir -p "${pkgdir}/usr/share/locale/$i/LC_MESSAGES/"
+		msgfmt -c po/$i.po -o "${pkgdir}/usr/share/locale/$i/LC_MESSAGES/pamac.mo"
+	done
 }
 
 # vim:set ts=2 sw=2 et:
