@@ -1,22 +1,22 @@
 # Maintainer: jjacky
 pkgname=kalu
-pkgver=1.3.0
-pkgrel=2
+pkgver=2.0.1
+pkgrel=1
 pkgdesc="Upgrade notifier w/ AUR support, watched (AUR) packages, news"
 arch=('i686' 'x86_64')
 url="https://github.com/jjk-jacky/kalu"
 license=('GPL3+')
-depends=('dbus' 'polkit' 'gtk3' 'pacman>=4.0.1' 'pacman<4.1' 'curl' 'libnotify' 'notification-daemon')
+depends=('dbus' 'polkit' 'gtk3' 'pacman>=4.1' 'pacman<4.2' 'curl' 'libnotify' 'notification-daemon')
 makedepends=('perl' 'groff' 'manjaro-artwork')
-source=(https://github.com/downloads/jjk-jacky/$pkgname/$pkgname-$pkgver.tar.gz
+source=(http://jjacky.com/$pkgname/$pkgname-$pkgver.tar.gz
         manjaro-kalu.patch)
-sha256sums=('14ecb901e0c441e6ff538e689239bb712cd30295dec30e8274b6e720ead1430a'
-         '5e920e5ef3502212aa26e5b68b0c724c1f42a2f8c002496f32217dffe2f5194a')
+sha256sums=('583ba1c7b8ea13e0209e1d69f73ac331e1791fcc28b969d0ee62d3150ae12053'
+         'c8725cc095d0c2d905e7018d447d3347b60f0edfa53f1f079869f1cac1cf3dca')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   patch -p1 -i $srcdir/manjaro-kalu.patch
-  cp /usr/share/icons/logo5.png $srcdir/$pkgname-$pkgver/manjaro48.png
+  cp /usr/share/icons/logo5.png $srcdir/$pkgname-$pkgver/misc/manjaro48.png
   ./configure --prefix=/usr --with-news-rss-url=http://blog.manjaro.org/feed/
   make
 }

@@ -1,18 +1,47 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.6.1
-pkgrel=1
+_pkgver=0.6.1
+pkgver=$_pkgver.$(date +%m%d)
+pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.0' 'pyalpm>=0.5' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
 makedepends=('gettext')
 options=(!emptydirs)
 install=
-source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('9130d5a7872d27923885f3d9124442b3350a0e39c4260ac33c742839c45c920b')
+#source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
+#sha256sums=('9130d5a7872d27923885f3d9124442b3350a0e39c4260ac33c742839c45c920b')
+
+_git=yes
+
+getsource() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [ -d $1 ] ; then
+    if [ "$_git" == "yes" ] ; then
+       cd $1 && git pull origin master
+    else
+       cd $1 && git pull origin master && git checkout -b $pkgver $pkgver
+    fi
+    msg "The local files are updated."
+  else
+    git clone $2 $1
+    if [ "$_git" != "yes" ] ; then
+       cd $1 && git checkout -b $pkgver $pkgver
+    fi
+  fi
+
+  msg "GIT checkout done or server timeout"
+}
+
+build() {
+  cd "$srcdir"
+  getsource "core-$pkgname" "git://git.manjaro.org/core/$pkgname.git"
+}
 
 package() {
 	cd "$srcdir/core-$pkgname"
