@@ -2,11 +2,12 @@
 # Co-Maintainer: Clittle <philm@manjaro.org>
 
 pkgbase=manjaro-artwork
-pkgname=('manjaro-artwork' 'manjaro-artwork-extra' 'manjaro-artwork-openbox')
+pkgname=('manjaro-artwork' 'manjaro-artwork-extra' 'manjaro-artwork-openbox' 'manjaro-artwork-icons')
 pkgver=1.0.7
 pkgrel=2
 arch=('any')
 url="http://manjaro.org"
+makedeps=('git')
 source=('logo1.png'
 	'logo2.png'
 	'logo3.png'
@@ -191,4 +192,12 @@ package_manjaro-artwork-openbox() {
   do
       ln -s "../${i}" "${pkgdir}/usr/share/backgrounds/xfce/${i}"
   done
+}
+
+package_manjaro-artwork-icons() {
+  pkgdesc="Artwork for Manjaro (icons)"
+  license=('GPL' 'CC-BY-SA 3.0')
+  git clone git://git.manjaro.org/manjaro-linux-graphics/manjaro-logo.git
+  mkdir -p "${pkgdir}/usr/share/icons/"
+  cp -a manjaro-logo/colors "${pkgdir}/usr/share/icons/"
 }
