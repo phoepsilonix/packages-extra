@@ -1,6 +1,0 @@
-#!/bin/sh
-# click to start, click to stop
-
-sh -c "conky -c ~/.conky/conky1/conkyClementine;"
-exit
-fi
