@@ -1,16 +1,15 @@
-# Based on the file created for Arch Linux by:
-# kachelaqa <kachelaqa at gmail dot com>
-
-# maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: kachelaqa <kachelaqa at gmail dot com>
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname='pkgbrowser'
-pkgver=0.11.1
+pkgver=0.14.1
 pkgrel=1
 pkgdesc='A utility for browsing pacman databases and the AUR'
 arch=('i686' 'x86_64')
 url='http://code.google.com/p/pkgbrowser/'
 license=('GPL2')
-depends=('pacman>=4' 'python2>=2.7' 'python2-pyqt')
+depends=('pacman>=4.1' 'pacman<4.2' 'python2>=2.7' 'python2-pyqt')
 install="$pkgname.install"
 source=("http://$pkgname.googlecode.com/files/$pkgname-$pkgver.tar.gz")
 
@@ -24,4 +23,4 @@ package() {
     make PREFIX='/usr' DESTDIR="$pkgdir" install || return 1
 }
 
-md5sums=('6f9c0d462afc97efa5e7cf18394c5eda')
+md5sums=('8381c7f749408a8905c5b84f688c525a')
