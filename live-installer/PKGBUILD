@@ -1,0 +1,36 @@
+# Maintainer: Guillaume Benoit <guillaume@manjaro.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+
+pkgbase=live-installer
+pkgname=('live-installer' 'manjaro-faces')
+pkgver=0.8.5.1
+pkgrel=2
+pkgdesc="Manjaro Live-Installer"
+arch=(any)
+url="https://git.manjaro.org/core/live-installer"
+license=('GPL')
+makedepends=()
+options=(!emptydirs)
+install=
+source=("live-installer-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
+sha256sums=('ebb3bf9cacf5c7466d40fe46f05785964155c27033b85aa35e9a8e5e2dda0731')
+
+package_live-installer() {
+  depends=('python2' 'pygtk' 'pyparted-git' 'pywebkitgtk' 'gparted' 'inxi' 'python2-geoip' 'python2-pyqt' 'python2-imaging' 'opencv' 'python2-numpy' 'imagemagick' 'keyboardctl' 'sudo' 'pacman' 'manjaro-faces')
+	cd "$srcdir/$pkgbase"
+	cp -rv "usr" "${pkgdir}"
+	cp -rv "etc" "${pkgdir}"
+  # remove conf file - shipped with manjaroiso-profiles
+  rm -v "${pkgdir}"/etc/live-installer/*conf
+}
+
+package_manjaro-faces() {
+  pkgdesc="Manjaro Live-Installer Slideshow"
+  conflicts=("live-installer-fav")
+  replaces=("live-installer-fav")
+	cd "$srcdir/$pkgbase"
+  mkdir -p "${pkgdir}"/usr/share/pixmaps/faces/
+	cp -rv "fav/." "${pkgdir}"/usr/share/pixmaps/faces/
+}
+
+# vim:set ts=2 sw=2 et:
