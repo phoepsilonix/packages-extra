@@ -1,10 +1,11 @@
 src
 pkg
-encrypt_hook
-encrypt_install
-
 *.pkg.*
 *.src.*
 *.tar.*
+*.tgz
+*.run
 *.zip
+*.xz
+*.log
 *~
