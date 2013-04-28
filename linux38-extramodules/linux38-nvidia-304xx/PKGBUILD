@@ -1,23 +1,23 @@
 # Based on the file created for Arch Linux by:
 # Maintainer : Thomas Baechler <thomas@archlinux.org>
 
-# Maintainer: Guinux <nuxgui@gmail.com>
-# Co-Maintainer: Clittle <philm@manjarolinux.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
 
-pkgname=linux39-nvidia-legacy
+_linuxprefix=linux38
+_extramodules=extramodules-3.8-MANJARO
+pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.88
-_extramodules=extramodules-3.9-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-pkgrel=0.1
+pkgrel=3
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-depends=('linux39' "nvidia-legacy-utils=${pkgver}")
-makedepends=('linux39-headers')
-conflicts=('nvidia-96xx' 'nvidia-173xx' 'linux39-nvidia')
-provides=("$_pkgname=$pkgver")
-groups=('linux39-extramodules')
+depends=("$_linuxprefix" "nvidia-304xx-utils=${pkgver}")
+makedepends=("$_linuxprefix-headers")
+provides=("$_pkgname=$pkgver" "$_linuxprefix-nvidia-legacy")
+groups=("$_linuxprefix-extramodules")
+conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia")
 license=('custom')
 install=nvidia.install
 options=(!strip)
@@ -35,16 +35,18 @@ elif [ "$CARCH" = "x86_64" ]; then
 fi
 
 build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
     cd "${srcdir}"
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}/kernel"
-
     make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
 
 package() {
     install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    install -d -m755 "${pkgdir}/usr/lib/modprobe.d"
+    echo "blacklist nouveau" >> "${pkgdir}/usr/lib/modprobe.d/$_linuxprefix-nvidia.conf"
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
 }
