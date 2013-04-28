@@ -1,42 +1,34 @@
-# Maintainer: OK100 <ok100@lavabit.com>
-# Previous Maintainer: Valère Monseur <valere dot monseur at ymail dot com>
+# Contributor: OK100 <ok100 at lavabit dot com>
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=compton-git
-pkgver=20130127
+_gitname="compton"
+pkgver=a053c0a
 pkgrel=1
 pkgdesc="X Compositor (a fork of xcompmgr-dana)"
 arch=(i686 x86_64)
 url="https://github.com/chjj/compton"
 license=('MIT')
-depends=('libx11' 'libxcomposite' 'libxdamage' 'libxfixes' 'libxext' 'libxrender' 'xproto' 'bash' 'xorg-xprop' 'xorg-xwininfo' 'pcre' 'libconfig' 'mesa' 'libxrandr')
-makedepends=('git' 'make' 'pkg-config' 'asciidoc')
+depends=('libgl' 'dbus' 'libxcomposite' 'libxdamage' 'libxrandr' 'pcre' 'libconfig')
+makedepends=('git' 'asciidoc')
+source=("git://github.com/chjj/compton.git")
+md5sums=("SKIP")
 
-_gitroot="git://github.com/chjj/compton.git"
-_gitname="compton"
+pkgver() {
+  cd $_gitname
+  # Use the tag of the last commit
+  git describe --always | sed 's|-|.|g'
+}
 
 build() {
-  msg "Connecting to GIT server...."
-
-  if [ -d $_gitname ] ; then
-    cd $_gitname && git pull origin
-    msg "The local files are updated."
-  else
-    git clone $_gitroot $_gitname
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting make..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-
-  cd "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname"
   make PREFIX=/usr
   make docs
 }
 
 package() {
-  cd $_gitname-build
+  cd "$srcdir/$_gitname"
 
   make PREFIX="$pkgdir/usr" install
 
