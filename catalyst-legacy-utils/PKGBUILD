@@ -7,9 +7,9 @@
 # maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgbase=catalyst-legacy-utils
-pkgname=('catalyst-legacy-utils' 'opencl-catalyst-legacy' 'mhwd-catalyst-legacy')
+pkgname=('catalyst-legacy-utils' 'catalyst-legacy-libgl' 'opencl-catalyst-legacy' 'mhwd-catalyst-legacy')
 pkgver=12.6
-pkgrel=4
+pkgrel=5
 pkgdesc="AMD/ATI catalyst-legacy drivers utilities and libraries with OpenCL implementation"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -79,9 +79,7 @@ package_catalyst-legacy-utils() {
       install -m755 *.so "${pkgdir}/usr/lib/xorg/modules/"
       install -m755 drivers/*.so "${pkgdir}/usr/lib/xorg/modules/drivers/"
       install -m755 linux/*.so "${pkgdir}/usr/lib/xorg/modules/linux/"
-      #install -m755 extensions/libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/" #before 11.4
       install -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so" # since 11.5
-      ln -snf /usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.catalyst" # since 12.6
       #install -m755 extensions/libdri.so "${pkgdir}/usr/lib/xorg/modules/extensions/libdri.ati"
 
     # Controlcenter / libraries
@@ -95,11 +93,7 @@ package_catalyst-legacy-utils() {
 
       install -m755 X11R6/bin/* "${pkgdir}/usr/bin/"
       install -m755 sbin/* "${pkgdir}/usr/sbin/"
-      #install -m755 X11R6/${_lib}/*.so* "${pkgdir}/usr/lib/" || return #before 11.4
-      install -m755 X11R6/${_lib}/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx" # since 11.5
-      ln -snf /usr/lib/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx/libGL.so.1.2" # since 11.4
-      ln -snf /usr/lib/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx-libGL.so.1.2" # since 11.4
-      ln -snf /usr/lib/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/libGL.so.catalyst" # since 12.6
+      install -m755 X11R6/${_lib}/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib" # since 12.6
       install -m755 X11R6/${_lib}/libAMDXvBA.so.1.0 "${pkgdir}/usr/lib/" # since 11.4
       ln -snf libAMDXvBA.so.1.0 "${pkgdir}/usr/lib/libAMDXvBA.so.1" # since 11.4
       ln -snf libAMDXvBA.so.1.0 "${pkgdir}/usr/lib/libAMDXvBA.so" # since 11.4
@@ -157,6 +151,20 @@ package_catalyst-legacy-utils() {
 
     # License
       install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_catalyst-legacy-libgl() {
+  pkgdesc="AMD/ATI catalyst-legacy drivers libraries symlinks"
+  depends=('catalyst-legacy-utils')
+  conflicts=('libgl')
+  provides=('libgl')
+
+  mkdir -p "${pkgdir}/usr/lib/xorg/modules/extensions"
+  ln -s fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.1"
+  ln -s fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so"
+
+  ln -s fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/libGL.so.1"
+  ln -s fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/libGL.so"
 }
 
 package_opencl-catalyst-legacy() {
