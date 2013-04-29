@@ -16,7 +16,7 @@ _void=1.4.0-3
 _wacom=0.17.0-1
 pkgrel=1
 arch=('i686' 'x86_64')
-depends=(sysfsutils glibc systemd-tools mtdev libxi libxrandr libxinerama 'catalyst-server<1.13.0')
+depends=(sysfsutils glibc systemd-tools mtdev libxi libxrandr libxinerama)
 provides=(xf86-input-acecad=$_acecad xf86-input-aiptek=$_aiptek xf86-input-elographics=$_elographics
           xf86-input-evdev=$_evdev xf86-input-joystick=$_joystick xf86-input-keyboard=$_keyboard
           xf86-input-mouse=$_mouse xf86-input-synaptics=$_synaptics xf86-input-void=$_void

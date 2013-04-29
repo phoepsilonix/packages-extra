@@ -4,7 +4,7 @@
 
 pkgname=('catalyst-server')
 pkgver=1.12.4
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 depends=(catalyst-input
          fontsproto
@@ -17,7 +17,7 @@ depends=(catalyst-input
          libxrender
          libdmx
          libxfixes
-         libgl
+         catalyst-libgl
          libxv
          libxext
          libgcrypt
