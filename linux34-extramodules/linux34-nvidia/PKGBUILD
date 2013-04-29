@@ -10,13 +10,13 @@ _extramodules=extramodules-3.4-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=313.30
-pkgrel=3
+pkgrel=4
 provides=("$_pkgname=$pkgver")
-groups=('$_linuxprefix-extramodules')
+groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-depends=("$_linuxprefix" "nvidia-libgl" "nvidia-utils=${pkgver}")
+depends=("$_linuxprefix" "nvidia-utils=${pkgver}")
 makedepends=("$_linuxprefix-headers")
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
@@ -46,8 +46,6 @@ build() {
 package() {
     install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
-    install -d -m755 "${pkgdir}/usr/lib/modprobe.d"
-    echo "blacklist nouveau" >> "${pkgdir}/usr/lib/modprobe.d/$_linuxprefix-nvidia.conf"
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
 }

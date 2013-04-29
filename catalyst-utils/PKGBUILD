@@ -3,9 +3,9 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgbase=catalyst-utils
-pkgname=('catalyst-utils' 'catalyst-libgl' 'mhwd-catalyst')
+pkgname=('catalyst-utils' 'mhwd-catalyst')
 pkgver=13.4
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
@@ -40,12 +40,13 @@ prepare() {
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('catalyst-input' 'catalyst-video' 'catalyst-server>=1.12.0' 'catalyst-server<1.13.0' 'gcc-libs' 'libxinerama' 'libxcursor' 'libxxf86vm' 'libxrandr' 'libsm' 'fontconfig' 'libxi' 'xorg-xauth' 'which' 'netkit-bsd-finger')
+	depends=('catalyst-input' 'catalyst-video' 'catalyst-server>=1.12.0' 'catalyst-server<1.13.0' 'gcc-libs' 'libxinerama' 'libxcursor' 'libxxf86vm' 'libxrandr' 'libsm' 'fontconfig' 'libxi' 'xorg-xauth' 'which' 'netkit-bsd-finger' 'mhwd')
 	optdepends=('qt4: amdcccle' 'acpid: acpi event support'
 				'opencl-headers: headers necessary for OpenCL development'
 				'acpid: acpi event support / atieventsd')
 	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'opencl-catalyst' 'libcl')
 	provides=('opencl-catalyst' 'libcl')
+	install="${pkgname}.install"
 
   ## Install userspace tools and libraries
     # Create directories
@@ -172,23 +173,6 @@ package_catalyst-utils() {
 
       install -m644 etc/OpenCL/vendors/amdocl${_arc}.icd ${pkgdir}/etc/OpenCL/vendors
       install -m755 usr/bin/clinfo ${pkgdir}/usr/bin
-}
-
-
-package_catalyst-libgl() {
-    pkgdesc="Catalyst drivers libraries symlinks"
-	arch=('any')
-    depends=('catalyst-utils')
-    conflicts=('libgl')
-    provides=('libgl')
-
-    mkdir -p "${pkgdir}/usr/lib/xorg/modules/extensions"
-    ln -s "/usr/lib/fglrx/xorg/modules/extensions/libglx.so" "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so"
-    ln -s "libglx.so" "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.1"
-
-    ln -s "/usr/lib/fglrx/libGL.so.1.2" "${pkgdir}/usr/lib/libGL.so.1.2"
-    ln -s "libGL.so.1.2" "${pkgdir}/usr/lib/libGL.so.1"
-    ln -s "libGL.so.1.2" "${pkgdir}/usr/lib/libGL.so"
 }
 
 

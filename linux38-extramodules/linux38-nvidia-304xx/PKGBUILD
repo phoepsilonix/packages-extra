@@ -9,7 +9,7 @@ _extramodules=extramodules-3.8-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.88
-pkgrel=3
+pkgrel=4
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -45,8 +45,6 @@ build() {
 package() {
     install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
-    install -d -m755 "${pkgdir}/usr/lib/modprobe.d"
-    echo "blacklist nouveau" >> "${pkgdir}/usr/lib/modprobe.d/$_linuxprefix-nvidia.conf"
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
 }

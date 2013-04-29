@@ -17,7 +17,7 @@ depends=(catalyst-input
          libxrender
          libdmx
          libxfixes
-         catalyst-libgl
+         libgl
          libxv
          libxext
          libgcrypt

@@ -1,0 +1,22 @@
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
+
+pkgname=mesa-libgl
+pkgver=9.1.1
+pkgrel=2
+pkgdesc="Mesa 3-D graphics library"
+arch=('any')
+url="http://mesa3d.sourceforge.net"
+license=('custom')
+depends=("mesa=${pkgver}" 'mhwd')
+provides=('libgl' 'nvidia-libgl' 'nvidia-304xx-libgl' 'catalyst-libgl')
+install="${pkgname}.install"
+source=(LICENSE)
+md5sums=('10a9d94c27477a9f9afed27f7d1c4476')
+
+
+
+package() {
+  install -m755 -d "${pkgdir}/usr/share/licenses/mesa-libgl"
+  install -m644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/mesa-libgl/"
+}
