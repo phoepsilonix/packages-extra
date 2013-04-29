@@ -7,7 +7,7 @@ _extramodules=extramodules-3.9-MANJARO
 pkgname=$_linuxprefix-catalyst-legacy
 _pkgname=catalyst-legacy
 pkgver=13.1
-pkgrel=1
+pkgrel=2
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst Legacy drivers for linux. fglrx kernel module only."
