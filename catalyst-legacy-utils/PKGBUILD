@@ -5,7 +5,7 @@
 pkgbase=catalyst-legacy-utils
 pkgname=('catalyst-legacy-utils' 'mhwd-catalyst-legacy')
 pkgver=13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="AMD/ATI Legacy Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
