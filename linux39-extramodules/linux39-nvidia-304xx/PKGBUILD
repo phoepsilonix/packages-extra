@@ -9,13 +9,14 @@ _extramodules=extramodules-3.9-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.88
-pkgrel=5
+pkgrel=6
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 depends=("$_linuxprefix" "nvidia-304xx-utils=${pkgver}")
 makedepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver" "$_linuxprefix-nvidia-legacy")
+replaces=("$_linuxprefix-nvidia-legacy")
 groups=("$_linuxprefix-extramodules")
 conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia")
 license=('custom')
