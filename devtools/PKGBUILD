@@ -2,7 +2,7 @@
 
 pkgname=devtools
 pkgver=20130501
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for Manjaro Linux package maintainers'
 arch=('any')
 license=('GPL')
