@@ -105,6 +105,7 @@ package_catalyst-legacy-utils() {
 
 	# Fallback links
 	ln -s "/usr/lib/fglrx/libGL.so.1.2" "${pkgdir}/usr/lib/libGL.so.catalyst"
+	mkdir -p "${pkgdir}/usr/lib/xorg/modules/extensions/"
 	ln -s "/usr/lib/fglrx/xorg/modules/extensions/libglx.so" "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.catalyst"
 
 
