@@ -2,7 +2,7 @@
 # Contributor: Robert Gormly <rggormly_at_gmail_dot_com>
 
 pkgname=xfce-theme-greenbird
-pkgver=20121213
+pkgver=20130506
 pkgrel=1
 pkgdesc="Desktop suite for Xfce"
 arch=('any')
