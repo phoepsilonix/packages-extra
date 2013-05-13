@@ -6,8 +6,6 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 # Co-Maintainer: Clittle <philm@manjarolinux.org>
 
-_extramodules=extramodules-3.9-MANJARO
-_kver="$(cat /usr/lib/modules/${_extramodules}/version)"
 _pkgname=ndiswrapper
 pkgbase=ndiswrapper
 pkgname=('linux39-ndiswrapper' 'ndiswrapper-utils')
@@ -20,11 +18,21 @@ arch=('i686' 'x86_64')
 url="http://ndiswrapper.sourceforge.net"
 depends=('linux39' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux39-headers')
-source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz")
+source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
+        'ndiswrapper-1.58-add_taint.patch')
 options=('!strip')
-sha256sums=('cbd225ecb0b835be7d05012483f61518fe97a52c67f20b35846412c692be24aa')
+sha256sums=('cbd225ecb0b835be7d05012483f61518fe97a52c67f20b35846412c692be24aa'
+            '80cbfaf4cf8a30e20989119078ecb9037d44f73f3f558c1828a4499a5af5375e')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  # https://bugs.gentoo.org/show_bug.cgi?id=467956 3.9 kernels
+  patch -Np1 -i "$srcdir/ndiswrapper-1.58-add_taint.patch"
+}
 
 build() {
+  _extramodules=extramodules-3.9-MANJARO
+  _kver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "$srcdir/$_pkgname-$pkgver"
 
   # modinfo path fix
@@ -37,6 +45,8 @@ build() {
 }
 
 package_linux39-ndiswrapper() {
+  _extramodules=extramodules-3.9-MANJARO
+  _kver="$(cat /usr/lib/modules/${_extramodules}/version)"
   provides=("$_pkgname=$pkgver")
   groups=('linux39-extramodules')
   install=ndiswrapper.install

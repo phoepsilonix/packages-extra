@@ -18,35 +18,33 @@ groups=('linux39-extramodules')
 source=("http://www.broadcom.com/docs/linux_sta/hybrid-portsrc_${ARCH}-v${pkgver//./_}.tar.gz"
         'modprobe.d'
         'license.patch'
-        'user-ioctl.patch'
         'linux-recent.patch'
-        '3.8.0.patch')
+        '3.9.1.patch')
 sha1sums=('01aa32f9e85621253a3f15cf4361bb80d41da3e8'
           '89bf92286ede30dd85304c6c4e42e89cfdc0f60a'
           '11b87e28f527e111a50b3f5b6b998933a826d205'
-          'e0366dd15ea5b25aae0f61bec6be7a203dfca7e4'
-          'df3cd65e24beed349a40abcf476bdaa82bbc57d3'
-          '6f7235d24b18e1550ffc027e6d6fdba44a58dc7c')
+          '64f99cde29168e7bd8508af30702c68f907556d9'
+          'a41f11ffc18dbb126176259e02dd93b6ade04a10')
 [[ $CARCH = x86_64 ]] && sha1sums[0]='5bd78c20324e6a4aa9f3fafdc6f0155e884d5131'
 
 backup=("etc/modprobe.d/${pkgname}.conf")
 install=install
 
-_extramodules=extramodules-3.9-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-
 build() {
+	_extramodules=extramodules-3.9-MANJARO
+	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 	cd "${srcdir}"
 
 	patch -p1 -i linux-recent.patch
-	patch -p1 -i user-ioctl.patch
 	patch -p1 -i license.patch
-	patch -p1 -i 3.8.0.patch
+	patch -p1 -i 3.9.1.patch
 
 	make -C /usr/lib/modules/"${_kernver}"/build M=`pwd`
 }
 
 package() {
+	_extramodules=extramodules-3.9-MANJARO
+	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 	cd "${srcdir}"
 
 	install -D -m 755 wl.ko "${pkgdir}/usr/lib/modules/${_extramodules}/wl.ko"
