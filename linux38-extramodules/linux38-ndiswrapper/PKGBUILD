@@ -43,7 +43,7 @@ package_linux38-ndiswrapper() {
   cd "$srcdir/$_pkgname-$pkgver"
 
   make INST_DIR="usr/lib/modules/$_extramodules" \
-    KVERS=$_kver DESTDIR="$pkgdir/" install
+    KVERS=$_kver DESTDIR="$pkgdir/" sbindir=/usr/bin usrsbindir=/usr/bin install
 
   # set the kernel we've built for inside the install script
   sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
@@ -53,18 +53,16 @@ package_linux38-ndiswrapper() {
   # mv ndiswrapper-utils
   mkdir -p $srcdir/tmp-ndis-utils/usr
   mv -v "$pkgdir/usr/share" "$srcdir/tmp-ndis-utils/usr"
-  mv -v "$pkgdir/usr/sbin" "$srcdir/tmp-ndis-utils/usr"
-  mv -v "$pkgdir/sbin" "$srcdir/tmp-ndis-utils"
+  mv -v "$pkgdir/usr/bin" "$srcdir/tmp-ndis-utils/usr"
 }
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=5
+  pkgrel=2
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"
-  mv -v sbin "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:
