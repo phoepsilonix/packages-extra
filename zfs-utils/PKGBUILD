@@ -7,7 +7,7 @@
 
 pkgname=('zfs-utils')
 pkgver=0.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="User-Mode utils for the Zettabyte File System."
 depends=("spl-utils=$pkgver")
 arch=('i686' 'x86_64')
@@ -30,7 +30,7 @@ build() {
   ./autogen.sh
   ./configure --prefix=/usr \
               --sysconfdir=/etc \
-              --sbindir=/usr/sbin \
+              --sbindir=/usr/bin \
               --libdir=/usr/lib \
               --datadir=/usr/share \
               --includedir=/usr/include \

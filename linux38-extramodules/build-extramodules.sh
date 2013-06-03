@@ -20,7 +20,7 @@ cd ${pwd}/*fcpcmcia && makepkg --sign -sf --noconfirm
 cd ${pwd}/*lirc && makepkg --sign -sf --noconfirm
 cd ${pwd}/*ndiswrapper && makepkg --sign -sf --noconfirm
 cd ${pwd}/*nvidia && makepkg --sign -sf --noconfirm
-cd ${pwd}/*nvidia-legacy && makepkg --sign -d --noconfirm
+cd ${pwd}/*nvidia-304xx && makepkg --sign -d --noconfirm
 cd ${pwd}/*nvidiabl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*open-vm-tools-modules && makepkg --sign -sf --noconfirm
 cd ${pwd}/*r8168 && makepkg --sign -sf --noconfirm
