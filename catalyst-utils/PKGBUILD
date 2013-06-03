@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'mhwd-catalyst')
 pkgver=13.4
-pkgrel=4
+pkgrel=5
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
@@ -65,7 +65,7 @@ package_catalyst-utils() {
       install -m755 -d ${pkgdir}/usr/lib/systemd/system
 
       install -m755 -d ${pkgdir}/usr/bin
-      install -m755 -d ${pkgdir}/usr/sbin
+      install -m755 -d ${pkgdir}/usr/bin
 
       install -m755 -d ${pkgdir}/usr/include/GL
 
@@ -109,7 +109,7 @@ package_catalyst-utils() {
 	ln -s "/usr/lib/fglrx/xorg/modules/extensions/libglx.so" "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.catalyst"
 
       install -m755 X11R6/bin/* ${pkgdir}/usr/bin
-      install -m755 sbin/* ${pkgdir}/usr/sbin
+      install -m755 sbin/* ${pkgdir}/usr/bin
       install -m755 X11R6/${_lib}/libAMDXvBA.so.1.0 ${pkgdir}/usr/lib
       ln -snf libAMDXvBA.so.1.0 ${pkgdir}/usr/lib/libAMDXvBA.so.1
       ln -snf libAMDXvBA.so.1.0 ${pkgdir}/usr/lib/libAMDXvBA.so
@@ -144,7 +144,7 @@ package_catalyst-utils() {
 
       install -m755 usr/X11R6/bin/* ${pkgdir}/usr/bin
       install -m644 usr/include/GL/*.h ${pkgdir}/usr/include/GL
-      install -m755 usr/sbin/*.sh ${pkgdir}/usr/sbin
+      install -m755 usr/sbin/*.sh ${pkgdir}/usr/bin
       install -m644 usr/share/ati/amdcccle/* ${pkgdir}/usr/share/ati/amdcccle
       install -m644 usr/share/icons/*.xpm ${pkgdir}/usr/share/pixmaps
       install -m644 usr/share/man/man8/*.8 ${pkgdir}/usr/share/man/man8
