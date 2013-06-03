@@ -8,7 +8,7 @@
 
 pkgname=plymouth
 pkgver=0.8.8
-pkgrel=2
+pkgrel=3
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -96,6 +96,7 @@ build() {
   msg "Starting make..."
 
     ./configure --prefix=/usr --exec-prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib --libexecdir=/usr/lib \
+    --sbindir="/usr/bin" \
     --enable-tracing \
     --without-rhgb-compat-link \
     --with-gdm-autostart-file=yes \
