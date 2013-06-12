@@ -5,7 +5,7 @@
 pkgbase=catalyst-legacy-utils
 pkgname=('catalyst-legacy-utils' 'mhwd-catalyst-legacy')
 pkgver=13.1
-pkgrel=5
+pkgrel=6
 pkgdesc="AMD/ATI Legacy Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
@@ -145,7 +145,7 @@ package_catalyst-legacy-utils() {
 
       install -m755 usr/X11R6/bin/* ${pkgdir}/usr/bin
       install -m644 usr/include/GL/*.h ${pkgdir}/usr/include/GL
-      install -m755 /usr/bin/*.sh ${pkgdir}//usr/bin
+      install -m755 usr/sbin/*.sh ${pkgdir}/usr/bin
       install -m644 usr/share/ati/amdcccle/* ${pkgdir}/usr/share/ati/amdcccle
       install -m644 usr/share/icons/*.xpm ${pkgdir}/usr/share/pixmaps
       install -m644 usr/share/man/man8/*.8 ${pkgdir}/usr/share/man/man8
