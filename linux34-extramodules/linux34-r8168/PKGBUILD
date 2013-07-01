@@ -8,8 +8,8 @@
 
 pkgname=linux34-r8168
 _pkgname=r8168
-pkgver=8.035.00
-pkgrel=6
+pkgver=8.036.00
+pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -20,7 +20,7 @@ provides=("$_pkgname=$pkgver")
 groups=('linux34-extramodules')
 source=(http://r8168.googlecode.com/files/$_pkgname-$pkgver.tar.bz2)
 install=$_pkgname.install
-sha256sums=('b904d31fc9bd6c97cc34479a0eba0e3a9bba5351a43b56dd5fff6b7dc1a5df73')
+sha256sums=('937fd5d7d4cbfc95cf2859d8c3beb15a8536dc4e41752f7a53f2a25f07cdcd33')
 
 _extramodules=extramodules-3.4-MANJARO
 _kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
