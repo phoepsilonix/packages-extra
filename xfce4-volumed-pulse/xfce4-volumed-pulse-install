@@ -1,0 +1,11 @@
+post_install() {
+  systemctl enable xfce4-volumed-pulse
+}
+
+post_upgrade() {
+  systemctl reenable xfce4-volumed-pulse
+}
+
+post_remove() {
+  systemctl disable xfce4-volumed-pulse
+}

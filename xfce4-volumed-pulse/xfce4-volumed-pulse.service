@@ -1,0 +1,6 @@
+[Unit]
+Description=XFCE-Volumed-Pulse
+After=systemd-user-sessions.service
+
+[Service]
+ExecStart=/usr/bin/xfce4-volumed-pulse
