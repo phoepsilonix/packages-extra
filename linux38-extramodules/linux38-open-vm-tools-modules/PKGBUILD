@@ -8,10 +8,10 @@
 pkgname=linux38-open-vm-tools-modules
 _pkgname=open-vm-tools-modules
 groups=('linux38-extramodules')
-epoch=1
-pkgver=9.2.3
-_pkgsubver=1031360
-pkgrel=4
+epoch=2
+pkgver=2013.04.16
+_pkgsubver=1098359
+pkgrel=2
 pkgdesc="kernel modules for the open source implementation of VMware Tools"
 arch=('i686' 'x86_64')
 url="http://open-vm-tools.sourceforge.net/"
@@ -24,14 +24,14 @@ install=$_pkgname.install
 options=('!strip')
 source=("http://downloads.sourceforge.net/open-vm-tools/open-vm-tools-$pkgver-${_pkgsubver}.tar.gz"
 	"modprobe.conf")
-sha256sums=('1a004ea1675101fd44cddda299e2e9ac254388769b69f41b7ff5d1797549c8f1'
+sha256sums=('fc939de4133d66c0cced8d0a7b5d87edcad3f598393b71c341e66bfec5087960'
             '27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d')
 
 build() {
   _extramodules=extramodules-3.8-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "$srcdir/open-vm-tools-${pkgver}-${_pkgsubver}"
-  sed -i 's|proc-3.2.8|procps|g' configure
+#  sed -i 's|proc-3.2.8|procps|g' configure
   sed -i 's|putname(name);|__putname(name);|' modules/linux/vmblock/linux/control.c
 
   [ $NOEXTRACT -eq 1 ] || ./configure \
