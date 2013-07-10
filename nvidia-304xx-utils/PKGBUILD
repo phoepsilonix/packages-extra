@@ -10,17 +10,19 @@ arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
+source=('mhwd-nvidia')
+sha256sums=('f25fe74767581ddca3c5ccda05d1c368dc33daaef47fbac5593c4dc2d699f0af')
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
-    source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run" mhwd-nvidia)
-    md5sums=('f60d4aef766029c98914ed665235029a' '364555382ca8fe8b815af43d6f7e65bc')
+    source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+    sha256sums+=('71e10294f073e31a387da4282b95cdde5fbfc996cb1c564f290eb0df1289b7cb')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
-    source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run" mhwd-nvidia)
-    md5sums=('35e0c7d30de795cccb6b95bda991fb77' '364555382ca8fe8b815af43d6f7e65bc')
+    source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+    sha256sums+=('4372cc7b82ed3b5fde41e9bf0e0c1899cfbc3e79d4ed422c499b6d41b557d2c9')
 fi
 
 create_links() {

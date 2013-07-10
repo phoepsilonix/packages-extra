@@ -2,7 +2,6 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
-
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=319.32
@@ -11,19 +10,19 @@ arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
+source=('mhwd-nvidia')
+sha256sums=('f25fe74767581ddca3c5ccda05d1c368dc33daaef47fbac5593c4dc2d699f0af')
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
-    source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run" mhwd-nvidia)
-    sha256sums=('ee63bdb16ff8cc42c0ed487db37d1a612fffdd969fce8c0155afa6f57e8c320b'
-                'f25fe74767581ddca3c5ccda05d1c368dc33daaef47fbac5593c4dc2d699f0af')
+    source+=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+    sha256sums+=('ee63bdb16ff8cc42c0ed487db37d1a612fffdd969fce8c0155afa6f57e8c320b')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
-    source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run" mhwd-nvidia)
-    sha256sums=('953dbf4979b2d81b4a66430c967878b51174ab4408556addf3641b75074646a0'
-                'f25fe74767581ddca3c5ccda05d1c368dc33daaef47fbac5593c4dc2d699f0af')
+    source+=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+    sha256sums+=('953dbf4979b2d81b4a66430c967878b51174ab4408556addf3641b75074646a0')
 fi
 
 create_links() {
