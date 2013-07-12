@@ -1,0 +1,21 @@
+pkgname=mdm-themes
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Nice themes for MDM"
+arch=('any')
+url="http://manjaro.org"
+license=('unknown')
+depends=('mdm')
+source=("$pkgname-0.1.1.tar.gz::http://git.manjaro.org/manjaro-linux-graphics/mdm-themes/archive-tarball/0.1.1")
+sha256sums=('7982ba858892a856b38e024145e2bedc7d55598cb0a19aa8b7c2cbca7722ec28')
+
+build() {
+  cd ${srcdir}/manjaro-linux-graphics-${pkgname}
+
+  #rm *.gz
+  install -d ${pkgdir}/usr/share/mdm/{themes,html-themes}
+  cp -R * ${pkgdir}/usr/share/mdm
+  #rm ${pkgdir}/usr/share/mdm/themes/*/{INSTALL,README,license.txt,readme,*~,.DS_Store}
+  chmod 755 ${pkgdir}/usr/share/mdm/themes/*
+  chmod 644 ${pkgdir}/usr/share/mdm/themes/*/* 
+}
