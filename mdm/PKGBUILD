@@ -5,7 +5,7 @@
 
 pkgname=mdm
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
@@ -28,6 +28,13 @@ source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pk
 	'mdm-autologin.pam'
 	'defaults.conf'
 	'mdm-plymouth.service')
+sha256sums=(6de10a12f8df88e1e9fba905df636eaf9c18fb020e3588f1591ce572d7234ce0
+            54c3ff63cf18cafb5d6fead8cbe07f278a2ed41b6f2b354b6e28845bc850d60d
+            d3dd582eb25bb31f012167069c869d3ce89c1dbd9b5aa7396350d8cf609994a5
+            3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7
+            01cac1714eb82bfda9260e83e5e9728eda3966c7653ce2ead9d38a9ccda26855
+            7579ed402ee0db60e0c40ddbb7b2c80be0aec4315e45aa525908bef8aa181bd6)
+
 noextract=()
 
 build() {
@@ -86,10 +93,3 @@ msg2 'Adding aplications'
 	rmdir $pkgdir/usr/share/mdm/applications
 
 }
-
-md5sums=('f1ac7be3d483ad3b18a86a96b32972b4'
-         '22597f67d6af746bd71e0a1ed09af924'
-         '3ea0952b6d27aabecff1a5a6ef5349fe'
-         '3411d72e42d0ce35c5243a25f0193ad0'
-         '3ed499250510d082412bfdc8c351fa7c'
-         'cdf2e199bcfb8bd246657e41e2b29438')
