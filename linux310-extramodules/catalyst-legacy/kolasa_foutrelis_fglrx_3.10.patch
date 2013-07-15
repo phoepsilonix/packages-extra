@@ -62,7 +62,18 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/drm_proc.h 13.4/common/lib/modu
 diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c
 --- 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c	2013-04-16 23:29:55.000000000 +0200
 +++ 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c	2013-05-19 12:05:33.842076474 +0200
-@@ -520,12 +520,23 @@ READ_PROC_WRAP(firegl_lock_info)
+@@ -34,6 +34,10 @@
+ #include <linux/autoconf.h>
+ #endif
+
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,10,0)
++#include <linux/seq_file.h>
++#endif
++
+ #if !defined(CONFIG_X86)
+ #if !defined(CONFIG_X86_PC)
+ #if !defined(CONFIG_X86_XEN)
+@@ -520,12 +520,23 @@
  #ifdef DEBUG
  READ_PROC_WRAP(drm_bq_info)
  #endif
@@ -72,7 +83,7 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
  READ_PROC_WRAP(firegl_bios_version)
  READ_PROC_WRAP(firegl_interrupt_info)
  READ_PROC_WRAP(firegl_ptm_info)
- 
+
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
  static int firegl_debug_proc_write_wrap(void* file, const char *buffer, unsigned long count, void *data)
 +#else
@@ -83,13 +94,14 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
 +
 +static ssize_t firegl_debug_proc_write_wrap(struct file *file, const char *buffer, size_t count, void *data)
 +#endif
- {                                                                  
-     return firegl_debug_proc_write(file, buffer, count, data);     
+ {
+     return firegl_debug_proc_write(file, buffer, count, data);
  }
-@@ -543,14 +554,19 @@ static int firegl_debug_proc_write_wrap(
+@@ -543,14 +554,20 @@
   *
   * \return number of bytes written
   */
++
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
  static int firegl_major_proc_read(char *buf, char **start, kcl_off_t offset,
                                    int request, int* eof, void* data)
@@ -99,18 +111,18 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
  {
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
      int len = 0;    // For ProcFS: fill buf from the beginning
- 
+
      KCL_DEBUG1(FN_FIREGL_PROC, "offset %d\n", (int)offset);
- 
--    if (offset > 0) 
+
+-    if (offset > 0)
 +    if (offset > 0)
      {
          KCL_DEBUG1(FN_FIREGL_PROC, "no partial requests\n");
          return 0; /* no partial requests */
-@@ -561,8 +577,10 @@ static int firegl_major_proc_read(char *
- 
+@@ -561,8 +578,10 @@
+
      len = snprintf(buf, request, "%d\n", major);
- 
+
 +#else
 +    int len = seq_printf(m, "%d\n", major);
 +#endif
@@ -118,11 +130,11 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
 -
      return len;
  }
- 
-@@ -583,6 +601,29 @@ kcl_proc_list_t KCL_PROC_FileList[] =
+
+@@ -583,6 +602,29 @@
      { "NULL",           NULL,                       NULL} // Terminate List!!!
  };
- 
+
 +#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,10,0)
 +static int firegl_major_proc_open(struct inode *inode, struct file *file){
 +        return single_open(file, firegl_major_proc_read, NULL);
@@ -149,7 +161,7 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
  static struct proc_dir_entry *firegl_proc_init( device_t *dev,
                                                  int minor,
                                                  struct proc_dir_entry *root,
-@@ -595,7 +636,11 @@ static struct proc_dir_entry *firegl_pro
+@@ -595,7 +637,11 @@
      KCL_DEBUG1(FN_FIREGL_PROC, "minor %d, proc_list 0x%08lx\n", minor, (unsigned long)proc_list);
      if (!minor)
      {
@@ -159,9 +171,9 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
 +        root = proc_mkdir("ati", NULL);
 +#endif
      }
- 
+
      if (!root)
-@@ -607,18 +652,28 @@ static struct proc_dir_entry *firegl_pro
+@@ -607,18 +653,28 @@
      if (minor == 0)
      {
          // Global major debice number entry
@@ -180,7 +192,7 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
          ent->read_proc = (read_proc_t*)firegl_major_proc_read;
 +#endif
      }
- 
+
      sprintf(name, "%d", minor);
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
      *dev_root = create_proc_entry(name, S_IFDIR, root);
@@ -190,8 +202,8 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
      if (!*dev_root) {
          remove_proc_entry("major", root);
          remove_proc_entry("ati", NULL);
-@@ -628,7 +683,12 @@ static struct proc_dir_entry *firegl_pro
- 
+@@ -628,7 +684,12 @@
+
      while (list->f || list->fops)
      {
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
@@ -203,15 +215,15 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
          if (!ent)
          {
              KCL_DEBUG_ERROR("Cannot create /proc/ati/%s/%s\n", name, list->name);
-@@ -646,6 +706,7 @@ static struct proc_dir_entry *firegl_pro
+@@ -646,6 +707,7 @@
              return NULL;
          }
- 
+
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
          if (list->f)
          {
              ent->read_proc = (read_proc_t*)list->f;
-@@ -659,19 +720,25 @@ static struct proc_dir_entry *firegl_pro
+@@ -659,19 +721,25 @@
          {
              ent->data = (dev->pubdev.signature == FGL_DEVICE_SIGNATURE)? firegl_find_device(minor) : (dev);
          }
@@ -219,22 +231,23 @@ diff -uN 13.4/common/lib/modules/fglrx/build_mod/firegl_public.c 13.4/common/lib
 +#endif
          list++;
      }
- 
+
      if (minor == 0)
      {
          // Global debug entry, only create it once
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
          ent = create_proc_entry("debug", S_IFREG|S_IRUGO, root);
+-        if (ent)
 +#else
 +        ent = proc_create_data("debug", S_IFREG|S_IRUGO, root, &firegl_debug_fops, dev);
 +#endif
-         if (ent) 
++        if (ent)
          {
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
-             ent->read_proc = (read_proc_t*)firegl_debug_proc_read_wrap;     
-             ent->write_proc = (write_proc_t*)firegl_debug_proc_write_wrap;  
+             ent->read_proc = (read_proc_t*)firegl_debug_proc_read_wrap;
+             ent->write_proc = (write_proc_t*)firegl_debug_proc_write_wrap;
              ent->data = dev;
 +#endif
          }
      }
- 
+
