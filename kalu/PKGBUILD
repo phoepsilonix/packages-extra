@@ -1,21 +1,30 @@
 # Maintainer: jjacky
 pkgname=kalu
-pkgver=2.0.1
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Upgrade notifier w/ AUR support, watched (AUR) packages, news"
 arch=('i686' 'x86_64')
 url="https://github.com/jjk-jacky/kalu"
 license=('GPL3+')
-depends=('dbus' 'polkit' 'gtk3' 'pacman>=4.1' 'pacman<4.2' 'curl' 'libnotify' 'notification-daemon')
+depends=('dbus' 'polkit' 'gtk3' 'pacman>=4.1.1' 'pacman<4.2' 'curl' 'libnotify' 'notification-daemon')
 makedepends=('perl' 'groff' 'manjaro-artwork')
-source=(http://jjacky.com/$pkgname/$pkgname-$pkgver.tar.gz
-        manjaro-kalu.patch)
-sha256sums=('583ba1c7b8ea13e0209e1d69f73ac331e1791fcc28b969d0ee62d3150ae12053'
-         'c8725cc095d0c2d905e7018d447d3347b60f0edfa53f1f079869f1cac1cf3dca')
+source=(http://jjacky.com/$pkgname/$pkgname-$pkgver.tar.gz)
+sha256sums=('53fa2b1a51b147d96719a5051820639183fa36992579c079f0fae668f67e184f')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  patch -p1 -i $srcdir/manjaro-kalu.patch
+
+  # manjarofy
+  sed -i 's|Arch|Manjaro|g' {AUTHORS,README*,configure*,Makefile*}
+  sed -i 's|Arch|Manjaro|g' {build-aux,misc,doc,po,m4}/*
+  sed -i 's|Arch|Manjaro|g' */kalu*/*
+  sed -i 's|misc/arch_linux_48x48_icon_by_painlessrob.png|misc/manjaro48.png|g' Makefile*
+  sed -i 's|Icon by Painless Rob|Icon by Roland Singer|g' {build-aux,misc,doc,po,m4}/*
+  sed -i 's|https://bbs.archlinux.org/viewtopic.php?id=130839|http://git.manjaro.org/manjaro-linux-graphics/manjaro-logo|g' AUTHORS
+  sed -i 's|https://bbs.archlinux.org/viewtopic.php?id=130839|http://git.manjaro.org/manjaro-linux-graphics/manjaro-logo|g' {build-aux,misc,doc,po,m4}/*
+  sed -i 's|https://www.archlinux.org/feeds/news/|http://manjaro.org/feed/|g' configure*
+  sed -i 's|http://www.archlinux.org|http://www.manjaro.org|g' {build-aux,misc,doc,po,m4}/*
+
   cp /usr/share/icons/logo5.png $srcdir/$pkgname-$pkgver/misc/manjaro48.png
   ./configure --prefix=/usr --with-news-rss-url=http://blog.manjaro.org/feed/
   make
@@ -24,6 +33,7 @@ build() {
 package() {
   cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir/" install
+  chmod 700 "$pkgdir/usr/share/polkit-1/rules.d"
 }
 
 # vim:set ts=2 sw=2 et:
