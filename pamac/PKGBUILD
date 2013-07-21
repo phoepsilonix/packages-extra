@@ -1,10 +1,8 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-#_pkgver=0.7.5
-#pkgver=$_pkgver.$(date +%m%d)
-pkgver=0.7.5
-pkgrel=1
+pkgver=0.7.5.1
+pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -13,44 +11,27 @@ depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6' 'gtk3' 'python-g
 makedepends=('gettext' 'itstool')
 options=(!emptydirs)
 install=$pkgname-install
-source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-sha256sums=('9483be4b207d9495639977dec2405ec6a1c81671a830adc0b64b14a4e1e91b4b')
 
-_git=no
+## Stable release
+#source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
+#sha256sums=('9483be4b207d9495639977dec2405ec6a1c81671a830adc0b64b14a4e1e91b4b')
 
-getsource() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [ -d $1 ] ; then
-    if [ "$_git" == "yes" ] ; then
-       cd $1 && git pull origin master
-    else
-       cd $1 && git pull origin master && git checkout -b $pkgver $pkgver
-    fi
-    msg "The local files are updated."
-  else
-    git clone $2 $1
-    if [ "$_git" != "yes" ] ; then
-       cd $1 && git checkout -b $pkgver $pkgver
-    fi
-  fi
-
-  msg "GIT checkout done or server timeout"
-}
-
-build() {
-  cd "$srcdir"
-  #getsource "core-$pkgname" "git://git.manjaro.org/core/$pkgname.git"
-}
+## Git release
+source=(git://git.manjaro.org/core/pamac.git)
+sha256sums=('SKIP')
 
 package() {
-	cd "$srcdir/core-$pkgname"
+  if [ -e "$srcdir/core-$pkgname" ]; then
+	   cd "$srcdir/core-$pkgname"
+  else
+     cd "$srcdir/$pkgname"
+  fi
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
 	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
 	cp -r "data/applications" "${pkgdir}/usr/share/"
+	cp -r "data/etc" "${pkgdir}/usr/share/" "${pkgdir}/"
 	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
 	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
