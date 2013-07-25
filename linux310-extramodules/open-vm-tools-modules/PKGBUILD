@@ -23,15 +23,21 @@ groups=('linux310-extramodules')
 install=$_pkgname.install
 options=('!strip')
 source=("http://downloads.sourceforge.net/open-vm-tools/open-vm-tools-$pkgver-${_pkgsubver}.tar.gz"
-	"modprobe.conf")
+	"modprobe.conf"
+	"3.10-vmblock.patch"
+	"3.10-vmsync.patch")
 sha256sums=('fc939de4133d66c0cced8d0a7b5d87edcad3f598393b71c341e66bfec5087960'
-            '27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d')
+            '27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d'
+            'f50679c3087ef770ea8666e9432dd8990344b1b1c3725bf3e492dd6d48da3e4d'
+            'e7a3a4115087acd81272a52cf419faef0e1efcc431fc083811bddd3cf3e37327'
+)
 
 build() {
   _extramodules=extramodules-3.10-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "$srcdir/open-vm-tools-${pkgver}-${_pkgsubver}"
-#  sed -i 's|proc-3.2.8|procps|g' configure
+  patch -p1 -i "$srcdir/3.10-vmsync.patch"
+  patch -p1 -i "$srcdir/3.10-vmblock.patch"
   sed -i 's|putname(name);|__putname(name);|' modules/linux/vmblock/linux/control.c
 
   [ $NOEXTRACT -eq 1 ] || ./configure \
@@ -39,6 +45,8 @@ build() {
       --without-x \
       --with-linuxdir=/usr/lib/modules/$_kernver
 
+  # remove broken module
+  sed -i 's|vmxnet vmhgfs|vmxnet|g' modules/Makefile
   make -C modules modules
 }
 
