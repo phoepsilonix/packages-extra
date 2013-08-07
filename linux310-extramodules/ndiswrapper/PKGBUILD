@@ -11,7 +11,7 @@ pkgbase=ndiswrapper
 pkgname=('linux310-ndiswrapper' 'ndiswrapper-utils')
 groups=('linux310-extramodules')
 pkgver=1.58
-pkgrel=2
+pkgrel=1
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -19,15 +19,14 @@ url="http://ndiswrapper.sourceforge.net"
 depends=('linux310' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux310-headers')
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
-        'ndiswrapper-1.58-add_taint.patch')
+        'linux310.patch')
 options=('!strip')
 sha256sums=('cbd225ecb0b835be7d05012483f61518fe97a52c67f20b35846412c692be24aa'
-            '80cbfaf4cf8a30e20989119078ecb9037d44f73f3f558c1828a4499a5af5375e')
+            'a1db62ad458748376993faa711b37d4378024da00479b5c4d6bace79da8dcf49')
 
 prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
-  # https://bugs.gentoo.org/show_bug.cgi?id=467956 3.9 kernels
-  patch -Np1 -i "$srcdir/ndiswrapper-1.58-add_taint.patch"
+  patch -Np1 -i "$srcdir/linux310.patch"
 }
 
 build() {
@@ -68,7 +67,7 @@ package_linux310-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=2
+  pkgrel=1
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils

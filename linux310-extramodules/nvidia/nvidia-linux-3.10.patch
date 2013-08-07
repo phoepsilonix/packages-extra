@@ -1,5 +1,6 @@
---- NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-i2c.c	2013-04-26 00:22:30.000000000 -0400
-+++ NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-i2c.c	2013-05-13 05:20:55.571981365 -0400
+diff -ur nvidia-319.32.orig/nv-i2c.c nvidia-319.32/nv-i2c.c
+--- nvidia-319.32.orig/nv-i2c.c	2013-07-19 15:37:04.977306079 +0200
++++ nvidia-319.32/nv-i2c.c	2013-07-19 14:16:08.755700586 +0200
 @@ -311,8 +311,6 @@
  BOOL NV_API_CALL nv_i2c_del_adapter(nv_state_t *nv, void *data)
  {
@@ -28,9 +29,9 @@
  }
  
  #else // (defined(CONFIG_I2C) || defined(CONFIG_I2C_MODULE))
-diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-procfs.c
---- NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c	2013-04-26 00:22:30.000000000 -0400
-+++ NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-procfs.c	2013-05-22 04:52:45.229495748 -0400
+diff -ur nvidia-319.32.orig/nv-procfs.c nvidia-319.32/nv-procfs.c
+--- nvidia-319.32.orig/nv-procfs.c	2013-07-19 15:37:04.977306079 +0200
++++ nvidia-319.32/nv-procfs.c	2013-07-19 15:23:15.013490851 +0200
 @@ -60,60 +60,41 @@
          __entry;                                          \
      })
@@ -160,7 +161,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
          }
      }
 @@ -180,12 +161,12 @@
-         type = "PCI-E";
+         type = "PCIe";
      else
          type = "PCI";
 -    len += sprintf(page+len, "Bus Type: \t %s\n", type);
@@ -588,7 +589,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
  #if defined(CONFIG_PROC_FS)
  failed:
 -    nv_procfs_unregister_all(proc_nvidia);
-+    remove_proc_subtree("nvidia", proc_nvidia);
++    remove_proc_subtree("driver/nvidia", NULL);
      return -1;
  #endif
  }
@@ -597,6 +598,6 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
  {
  #if defined(CONFIG_PROC_FS)
 -    nv_procfs_unregister_all(proc_nvidia);
-+    remove_proc_subtree("nvidia", proc_nvidia);
++    remove_proc_subtree("driver/nvidia", NULL);
  #endif
  }

@@ -9,7 +9,7 @@ _extramodules=extramodules-3.10-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.88
-pkgrel=2
+pkgrel=5
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -23,7 +23,7 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 source=('nvidia-linux-3.10.patch')
-sha256sums=('4b7c71e002f3c2510523f22f38bfaeb34eb06fec0cb51c2074ce4dfac09a97e4')
+sha256sums=('4546db656922c104c61411918c06b2bde4303ce9aff5bf310aa5684f514fa5c2')
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
@@ -42,7 +42,7 @@ build() {
     cd "${srcdir}"
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}/kernel"
-    patch -Np2 -i ${srcdir}/nvidia-linux-3.10.patch
+    patch -Np1 -i ${srcdir}/nvidia-linux-3.10.patch
     make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
 

@@ -1,5 +1,6 @@
---- NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-i2c.c	2013-04-26 00:22:30.000000000 -0400
-+++ NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-i2c.c	2013-05-13 05:20:55.571981365 -0400
+diff -uNr nvidia-304.88.orig/nv-i2c.c nvidia-304.88/nv-i2c.c
+--- nvidia-304.88.orig/nv-i2c.c	2013-03-27 17:26:51.000000000 -0400
++++ nvidia-304.88/nv-i2c.c	2013-07-13 14:32:47.069706333 -0400
 @@ -311,8 +311,6 @@
  BOOL NV_API_CALL nv_i2c_del_adapter(nv_state_t *nv, void *data)
  {
@@ -28,9 +29,9 @@
  }
  
  #else // (defined(CONFIG_I2C) || defined(CONFIG_I2C_MODULE))
-diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-procfs.c
---- NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c	2013-04-26 00:22:30.000000000 -0400
-+++ NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-procfs.c	2013-05-22 04:52:45.229495748 -0400
+diff -uNr nvidia-304.88.orig/nv-procfs.c nvidia-304.88/nv-procfs.c
+--- nvidia-304.88.orig/nv-procfs.c	2013-05-12 17:55:42.000000000 -0400
++++ nvidia-304.88/nv-procfs.c	2013-07-13 14:35:00.163529272 -0400
 @@ -60,60 +60,41 @@
          __entry;                                          \
      })
@@ -159,7 +160,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
                             vbios_rev4, vbios_rev5);
          }
      }
-@@ -180,12 +161,12 @@
+@@ -182,12 +163,12 @@
          type = "PCI-E";
      else
          type = "PCI";
@@ -176,7 +177,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
                     nv->domain, nv->bus, nv->slot, PCI_FUNC(dev->devfn));
  #if defined(DEBUG)
      do
-@@ -193,7 +174,7 @@
+@@ -195,7 +176,7 @@
          int j;
          for (j = 0; j < NV_GPU_NUM_BARS; j++)
          {
@@ -185,7 +186,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
                             j, nv->bars[j].address, (nv->bars[j].size >> 20));
          }
      } while (0);
-@@ -201,26 +182,120 @@
+@@ -203,26 +184,120 @@
  
      NV_KMEM_CACHE_FREE_STACK(sp);
  
@@ -204,11 +205,15 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 +nv_procfs_open_gpu_info(
 +    struct inode *inode,
 +    struct file *file
-+)
-+{
+ )
+ {
+-    int len = 0;
+-    *eof = 1;
 +    return single_open(file, nv_procfs_show_gpu_info, PDE_DATA(inode));
 +}
-+
+ 
+-    len += sprintf(page+len, "NVRM version: %s\n", pNVRM_ID);
+-    len += sprintf(page+len, "GCC version:  %s\n", NV_COMPILER);
 +static const struct file_operations nv_procfs_gpu_info_fops = {
 +    .owner   = THIS_MODULE,
 +    .open    = nv_procfs_open_gpu_info,
@@ -216,7 +221,8 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 +    .llseek  = seq_lseek,
 +    .release = single_release,
 +};
-+
+ 
+-    return len;
 +static int
 +nv_procfs_show_version(
 +    struct seq_file *m,
@@ -272,10 +278,8 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 +    const char __user *buffer,
 +    size_t             count,
 +    loff_t            *pos
- )
- {
--    int len = 0;
--    *eof = 1;
++)
++{
 +    int status = 0;
 +    nv_file_private_t *nvfp = NV_GET_FILE_PRIVATE(file);
 +    char *proc_buffer;
@@ -308,18 +312,15 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 +        nvfp->proc_data = PDE_DATA(file->f_inode);
 +        nvfp->off += count;
 +    }
- 
--    len += sprintf(page+len, "NVRM version: %s\n", pNVRM_ID);
--    len += sprintf(page+len, "GCC version:  %s\n", NV_COMPILER);
++
 +done:
 +    up(&nvfp->fops_sp_lock[NV_FOPS_STACK_INDEX_PROCFS]);
- 
--    return len;
++
 +    return ((status < 0) ? status : count);
  }
  
- static int
-@@ -233,7 +308,7 @@
+ static struct pci_dev *nv_get_agp_device_by_class(unsigned int class)
+@@ -432,7 +507,7 @@
      nv_stack_t *sp = NULL;
  
      if (0 == (file->f_mode & FMODE_WRITE))
@@ -328,7 +329,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
  
      nvfp = nv_alloc_file_private();
      if (nvfp == NULL)
-@@ -282,6 +357,9 @@
+@@ -481,6 +556,9 @@
      RM_STATUS rm_status;
      int rc = 0;
  
@@ -338,7 +339,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
      nvfp = NV_GET_FILE_PRIVATE(file);
      if (nvfp == NULL)
          return 0;
-@@ -346,122 +424,81 @@
+@@ -545,122 +623,81 @@
      return rc;
  }
  
@@ -440,8 +441,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 -    down(&nvfp->fops_sp_lock[NV_FOPS_STACK_INDEX_PROCFS]);
 -
 -    bytes_left = (NV_PROC_WRITE_BUFFER_SIZE - nvfp->off - 1);
-+    seq_printf(m, "%s", (char *)m->private);
- 
+-
 -    if (count == 0)
 -    {
 -        status = -EINVAL;
@@ -468,7 +468,8 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 -
 -done:
 -    up(&nvfp->fops_sp_lock[NV_FOPS_STACK_INDEX_PROCFS]);
--
++    seq_printf(m, "%s", (char *)m->private);
+ 
 -    return ((status < 0) ? status : (int)count);
 +    return 0;
  }
@@ -502,7 +503,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
  static void
  nv_procfs_add_text_file(
      struct proc_dir_entry *parent,
-@@ -469,22 +506,7 @@
+@@ -668,22 +705,7 @@
      const char *text
  )
  {
@@ -526,7 +527,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
  }
  #endif
  
-@@ -513,26 +535,11 @@
+@@ -713,26 +735,11 @@
      if (!proc_nvidia)
          goto failed;
  
@@ -555,7 +556,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
      if (!entry)
          goto failed;
  
-@@ -553,8 +560,7 @@
+@@ -753,8 +760,7 @@
  
      nv_procfs_add_text_file(proc_nvidia_patches, "README", __README_patches);
  
@@ -565,7 +566,7 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
      if (!entry)
          goto failed;
  
-@@ -571,15 +577,11 @@
+@@ -771,15 +777,11 @@
          if (!proc_nvidia_gpu)
              goto failed;
  
@@ -582,37 +583,11 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 +	entry = proc_create_data("registry", NV_PROC_RW, proc_nvidia_gpu, &nv_procfs_registry_fops, nv);
          if (!entry)
              goto failed;
-     }
-@@ -587,7 +589,7 @@
-     return 0;
- #if defined(CONFIG_PROC_FS)
- failed:
--    nv_procfs_unregister_all(proc_nvidia);
-+    remove_proc_subtree("nvidia", proc_nvidia);
-     return -1;
- #endif
- }
-@@ -595,6 +597,6 @@
- void nv_unregister_procfs(void)
- {
- #if defined(CONFIG_PROC_FS)
--    nv_procfs_unregister_all(proc_nvidia);
-+    remove_proc_subtree("nvidia", proc_nvidia);
- #endif
- }
---- NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-procfs.c.old	2013-07-04 11:53:27.315381342 +0200
-+++ NVIDIA-Linux-x86_64-319.17-no-compat32/kernel/nv-procfs.c	2013-07-04 11:53:43.105133901 +0200
-@@ -784,28 +784,6 @@
- 	entry = proc_create_data("registry", NV_PROC_RW, proc_nvidia_gpu, &nv_procfs_registry_fops, nv);
-         if (!entry)
-             goto failed;
--
--        if (nv_find_pci_capability(nvl->dev, PCI_CAP_ID_AGP))
--        {
--            proc_nvidia_agp = NV_CREATE_PROC_DIR("agp", proc_nvidia);
--            if (!proc_nvidia_agp)
--                goto failed;
--
+ 
+@@ -789,27 +791,13 @@
+             if (!proc_nvidia_agp)
+                 goto failed;
+ 
 -            entry = NV_CREATE_PROC_FILE("status", proc_nvidia_agp,
 -                nv_procfs_read_agp_status, NULL, NULL, nv);
 -            if (!entry)
@@ -627,7 +602,22 @@ diff -ur -X - NVIDIA-Linux-x86_64-319.17-no-compat32.orig/kernel/nv-procfs.c NVI
 -                nv_procfs_read_agp_info, NULL, NULL, nv);
 -            if (!entry)
 -                goto failed;
--        }
+         }
      }
  #endif
      return 0;
+ #if defined(CONFIG_PROC_FS)
+ failed:
+-    nv_procfs_unregister_all(proc_nvidia);
++    remove_proc_subtree("nvidia", proc_nvidia);
+     return -1;
+ #endif
+ }
+@@ -817,6 +805,6 @@
+ void nv_unregister_procfs(void)
+ {
+ #if defined(CONFIG_PROC_FS)
+-    nv_procfs_unregister_all(proc_nvidia);
++    remove_proc_subtree("nvidia", proc_nvidia);
+ #endif
+ }
