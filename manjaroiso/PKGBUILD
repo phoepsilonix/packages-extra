@@ -34,7 +34,7 @@ getsource() {
 
 build() {
   cd "$srcdir"
-  getsource "manjaroiso" "git://git.manjaro.org/core/manjaroiso.git"
+  getsource "manjaroiso" "http://git.manjaro.org/core/manjaroiso.git"
 }
 
 package_manjaroiso() {
