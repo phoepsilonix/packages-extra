@@ -4,27 +4,30 @@
 
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'mhwd-catalyst')
-pkgver=13.4
-pkgrel=6
+pkgver=13.8
+pkgrel=1
+_betano=1
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
 
-source=(
-    http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.zip
+    #http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
     catalyst.sh
     atieventsd.sh
     atieventsd.service
     arch-fglrx-authatieventsd.patch
+    zoqaeski_lightdm.patch
     mhwd-catalyst
     temp-links-catalyst.service  temp_links_catalyst)
 
-sha256sums=('ebec78c7f78db3601d1c97116a6823076a7765318e16d88b619ebc80d4c6d1d5'
+sha256sums=('c2b57ae90d33beedd7015aae15518939f182ccf6e0fbb42fb194e90278672f40'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '32f12a15d1c3289b3c45aff8ca6998fa265f53a96a9c73b36d7c83ec0e0f8ce8'
             'c410dac3cc3c0a468fcb7edfe1d271690eba46179b7dbf0eda8a12544871332f'
             'd363f86928f218c1e7e892c4ab2aee06225ddd1e78398b715951ae9c902c3dcb'
+            'ec30ad592a550a64ecc85be22209af77605a629e0c84660f8ba779d9199b3325'
             '4f36dd7b3bf2beec22af68f1aedf96cbdb9fa7b0586af71bac5c8b1f4a952358'
             'c97a2735f80416151b2a71504e42385c4d8d95cf42aa8f90a6c7bd5a966c54e1'
             '616a42a02b0a3f9d3f64aeaca1e5c5c8188deb1a9278ac99ca8be69a579034b3')
@@ -37,16 +40,18 @@ signa() {
 
 
 prepare() {
-	/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+	/bin/sh ./amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.run --extract archive_files
+	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
 }
 
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('catalyst-input' 'catalyst-video' 'catalyst-server>=1.12.0' 'catalyst-server<1.13.0' 'gcc-libs' 'libxinerama' 'libxcursor' 'libxxf86vm' 'libxrandr' 'libsm' 'fontconfig' 'libxi' 'xorg-xauth' 'which' 'netkit-bsd-finger' 'mhwd')
-	optdepends=('qt4: amdcccle' 'acpid: acpi event support'
-				'opencl-headers: headers necessary for OpenCL development'
-				'acpid: acpi event support / atieventsd')
+	depends=('xorg-server>=1.14.0' 'xorg-server<1.15.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
+	optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)'
+		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
+		    'opencl-headers: headers necessary for OpenCL development'
+		    'acpid: acpi event support  / atieventsd')
 	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'opencl-catalyst' 'libcl')
 	provides=('opencl-catalyst' 'libcl')
 	install="${pkgname}.install"
@@ -140,6 +145,7 @@ package_catalyst-utils() {
 
       cd ${srcdir}/archive_files/common
       patch -Np2 -i ${srcdir}/arch-fglrx-authatieventsd.patch
+      patch -Np2 -i ${srcdir}/zoqaeski_lightdm.patch
       install -m644 etc/ati/* ${pkgdir}/etc/ati
       chmod 755 ${pkgdir}/etc/ati/authatieventsd.sh
 

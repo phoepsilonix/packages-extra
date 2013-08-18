@@ -10,20 +10,20 @@
 pkgbase=linux34-virtualbox-modules
 pkgname=('linux34-virtualbox-host-modules' 'linux34-virtualbox-guest-modules')
 pkgver=4.2.16
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
-             'dkms' 'expac' 'bc'
+             'dkms' 'bc'
              'linux34' 'linux34-headers')
 
-_kernver=$(expac -Q '%v' linux34-headers)-MANJARO
-_extraver=extramodules-${_kernver%.*}-MANJARO
-
+_extraver=extramodules-3.4-MANJARO
+_kernver="$(cat /usr/lib/modules/$_extraver/version)"
 
 build() {
+  _kernver="$(cat /usr/lib/modules/$_extraver/version)"
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf

@@ -1,7 +1,7 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.7.5.1
+pkgver=0.7.5.2
 pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
@@ -17,7 +17,7 @@ install=$pkgname-install
 #sha256sums=('9483be4b207d9495639977dec2405ec6a1c81671a830adc0b64b14a4e1e91b4b')
 
 ## Git release
-source=(git://git.manjaro.org/core/pamac.git)
+source=(git+http://git.manjaro.org/core/pamac.git)
 sha256sums=('SKIP')
 
 package() {
@@ -31,7 +31,7 @@ package() {
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
 	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
 	cp -r "data/applications" "${pkgdir}/usr/share/"
-	cp -r "data/etc" "${pkgdir}/usr/share/" "${pkgdir}/"
+	cp -r "data/etc" "${pkgdir}/"
 	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
 	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
