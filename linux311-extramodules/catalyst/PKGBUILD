@@ -7,8 +7,8 @@ _extramodules=extramodules-3.11-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=13.8
-pkgrel=0.2
-_betano=1
+pkgrel=0.3
+_betano=2
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -28,7 +28,7 @@ source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-l
         lano1106_kcl_agp_13_4.patch
         makefile_compat.patch)
 
-sha256sums=('c2b57ae90d33beedd7015aae15518939f182ccf6e0fbb42fb194e90278672f40'
+sha256sums=('76e03e39804882d738b809e201732e4bc3318c7c536f9f977ef06db42d7bf978'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'c7c58966fd8b6f847b203edd0516dbd78e6501fefb10fc53586b6d03df95f23d'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
