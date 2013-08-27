@@ -3,54 +3,46 @@
 
 pkgname=linux34-broadcom-wl
 _pkgname=broadcom-wl
-pkgver=5.100.82.112
-pkgrel=13
-pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver'
-url='http://www.broadcom.com/support/802.11/linux_sta.php'
+pkgver=6.30.223.30
+pkgrel=0
+pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
+url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')
 license=('custom')
 depends=('linux34')
-makedepends=('linux34-headers')
+makedepends=("broadcom-wl-dkms>=$pkgver"
+             'dkms'
+             'linux34' 'linux34-headers')
 groups=('linux34-extramodules')
 provides=("$_pkgname=$pkgver")
-
-[[ $CARCH = x86_64 ]] && ARCH=x86_64 || ARCH=x86_32
-source=("http://www.broadcom.com/docs/linux_sta/hybrid-portsrc_${ARCH}-v${pkgver//./_}.tar.gz"
-        'modprobe.d'
-        'license.patch'
-        'user-ioctl.patch'
-        'linux-recent.patch')
-sha1sums=('01aa32f9e85621253a3f15cf4361bb80d41da3e8'
-          '89bf92286ede30dd85304c6c4e42e89cfdc0f60a'
-          'ea7b67982ddc0f56fd3becb9914fd4458fe7d373'
-          'e0366dd15ea5b25aae0f61bec6be7a203dfca7e4'
-          'df3cd65e24beed349a40abcf476bdaa82bbc57d3')
-[[ $CARCH = x86_64 ]] && sha1sums[0]='5bd78c20324e6a4aa9f3fafdc6f0155e884d5131'
-
-backup=("etc/modprobe.d/${pkgname}.conf")
 install=install
+source=(broadcom-wl-dkms.conf)
+sha256sums=(b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283)
 
 _extramodules=extramodules-3.4-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
 build() {
-	cd "${srcdir}"
+  # dkms need modification to be run as user
+  cp -r /var/lib/dkms .
+  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
-	patch -p1 -i linux-recent.patch
-	patch -p1 -i user-ioctl.patch
-	patch -p1 -i license.patch
-
-	make -C /usr/lib/modules/"${_kernver}"/build M=`pwd`
+  # build host modules
+  msg2 'Build module'
+  dkms --dkmsframework dkms.conf build "broadcom-wl/$pkgver" -k "$_kernver"
 }
 
-package() {
-	cd "${srcdir}"
+package_linux34-broadcom-wl(){
+  depends=('linux34')
+  replaces=('linux34-virtualbox-modules')
+  conflicts=('linux34-virtualbox-modules')
+  provides=('virtualbox-host-modules')
+  groups=('linux34-extramodules')
 
-	install -D -m 755 wl.ko "${pkgdir}/usr/lib/modules/${_extramodules}/wl.ko"
-	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "${startdir}/install"
-
-	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
-
-	install -D -m 644 lib/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install -D -m 644 modprobe.d "${pkgdir}"/etc/modprobe.d/${pkgname}.conf
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/broadcom-wl/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+  install -D -m 644 "${srcdir}"/broadcom-wl-dkms.conf "${pkgdir}"/etc/modprobe.d/linux34-broadcom-wl.conf
 }

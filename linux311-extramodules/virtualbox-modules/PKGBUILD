@@ -10,7 +10,7 @@
 pkgbase=linux311-virtualbox-modules # guest modules disabled due: https://www.virtualbox.org/ticket/11946
 pkgname=('linux311-virtualbox-host-modules') # 'linux311-virtualbox-guest-modules')
 pkgver=4.2.16
-pkgrel=0.2
+pkgrel=0.3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')

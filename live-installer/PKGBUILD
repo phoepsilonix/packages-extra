@@ -3,8 +3,8 @@
 
 pkgbase=live-installer
 pkgname=('live-installer' 'manjaro-faces')
-pkgver=0.8.5.1
-pkgrel=2
+pkgver=0.8.7
+pkgrel=1
 pkgdesc="Manjaro Live-Installer"
 arch=(any)
 url="https://git.manjaro.org/core/live-installer"
@@ -20,8 +20,6 @@ package_live-installer() {
 	cd "$srcdir/$pkgbase"
 	cp -rv "usr" "${pkgdir}"
 	cp -rv "etc" "${pkgdir}"
-  # remove conf file - shipped with manjaroiso-profiles
-  rm -v "${pkgdir}"/etc/live-installer/*conf
 }
 
 package_manjaro-faces() {

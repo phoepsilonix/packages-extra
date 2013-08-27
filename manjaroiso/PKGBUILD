@@ -2,9 +2,9 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgbase=manjaroiso
-pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles')
+pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
 pkgver=0.8.7
-pkgrel=0.4
+pkgrel=1
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')
@@ -28,7 +28,7 @@ package_manjaroiso-profiles() {
   depends=('manjaroiso')
   cd ${srcdir}/${pkgbase}/
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in build cinnamon net openbox xfce
+  for conf in build net openbox xfce
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
@@ -39,7 +39,7 @@ package_manjaroiso-community-profiles() {
   depends=('manjaroiso')
   cd ${srcdir}/${pkgbase}/
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in e17 kde lxde mate
+  for conf in cinnamon e17 kde lxde mate
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
