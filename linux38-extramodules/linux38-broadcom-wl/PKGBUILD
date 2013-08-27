@@ -16,7 +16,7 @@
 pkgname=linux38-broadcom-wl
 _pkgname=broadcom-wl
 pkgver=6.30.223.30
-pkgrel=0
+pkgrel=0.1
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')
@@ -46,10 +46,6 @@ build() {
 
 package_linux38-broadcom-wl(){
   depends=('linux38')
-  replaces=('linux38-virtualbox-modules')
-  conflicts=('linux38-virtualbox-modules')
-  provides=('virtualbox-host-modules')
-  groups=('linux38-extramodules')
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/broadcom-wl/$pkgver/$_kernver/$CARCH/module"
