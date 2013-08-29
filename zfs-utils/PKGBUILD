@@ -6,23 +6,23 @@
 # Co-Maintainer: Clittle <philm@manjarolinux.org>
 
 pkgname=('zfs-utils')
-pkgver=0.6.1
-pkgrel=3
+pkgver=0.6.2
+pkgrel=1
 pkgdesc="User-Mode utils for the Zettabyte File System."
 depends=("spl-utils=$pkgver")
 arch=('i686' 'x86_64')
 url='http://zfsonlinux.org/'
 source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-$pkgver.tar.gz
         zfs-utils.bash-completion
-        zfs-utils.initcpio.install
         zfs-utils.initcpio.hook
+        zfs-utils.initcpio.install
         zfs-utils.service)
 groups=('manjarozfs')
-md5sums=('822cd73c139d89369d6c3944f8afe659'
-         '3e1c4a29c4f7d590e6a3041f2c61d6ff'
-         'ebea2b1e593a9a19efa0f7ae7451bbc7'
-         '105fe46115c6fc6a335399c74bd58289'
-         '161e6a5f5f314c9308b4a4565c01fe45')
+sha256sums=('6b8cd79486b3a51204fac07297b8c45aa8702b8dfade58f2098b5734517065a1'
+            '15e742477fad0104871fc055b6ce9bf803540070e47fa515ea7ca3c1a401f831'
+            '73662d13e6231c5034df6046926bcaf25fdba0aa53c9064693bcf2147f9c400a'
+            '1ea6d2cdd27798680a96c9ebf18e9167b0575d032c7cfc731f16456cd38f2040'
+            '6cc2264bcbf299d2f0651c05dc4cd8db5691ed2eb0623605aeeaa2dcba2c116b')
 license=('CDDL')
 
 build() {
