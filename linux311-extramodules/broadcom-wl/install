@@ -1,14 +1,14 @@
 post_install() {
-  EXTRAMODULES=''
+  EXTRAMODULES='extramodules-3.10-MANJARO'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_upgrade() {
-  EXTRAMODULES=''
+  EXTRAMODULES='extramodules-3.10-MANJARO'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_remove() {
-  EXTRAMODULES=''
+  EXTRAMODULES='extramodules-3.10-MANJARO'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
