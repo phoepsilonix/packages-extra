@@ -8,7 +8,7 @@
 
 
 pkgbase=linux311-virtualbox-modules # guest modules disabled due: https://www.virtualbox.org/ticket/11946
-pkgname=('linux311-virtualbox-host-modules') # 'linux311-virtualbox-guest-modules')
+pkgname=('linux311-virtualbox-host-modules' 'linux311-virtualbox-guest-modules')
 pkgver=4.2.16
 pkgrel=0.3
 arch=('i686' 'x86_64')
@@ -22,7 +22,6 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
 _extraver=extramodules-3.11-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
 
-
 build() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
@@ -32,8 +31,8 @@ build() {
   msg2 'Host modules'
   dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
   # build guest modules
-  #msg2 'Guest modules'
-  #dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
+  msg2 'Guest modules'
+  dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
 }
 
 package_linux311-virtualbox-host-modules(){

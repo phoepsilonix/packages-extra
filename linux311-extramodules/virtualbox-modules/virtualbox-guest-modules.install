@@ -1,4 +1,4 @@
-EXTRAMODULES='extramodules-3.10-MANJARO'
+EXTRAMODULES='extramodules-3.11-MANJARO'
 
 
 post_install() {
