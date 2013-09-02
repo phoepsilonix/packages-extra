@@ -10,7 +10,7 @@ _extramodules=extramodules-3.11-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=325.15
-pkgrel=0.3
+pkgrel=0.4
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
