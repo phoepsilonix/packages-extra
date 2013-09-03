@@ -16,7 +16,7 @@
 pkgname=linux38-broadcom-wl
 _pkgname=broadcom-wl
 pkgver=6.30.223.30
-pkgrel=1
+pkgrel=2
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')
@@ -32,7 +32,7 @@ source=(broadcom-wl-dkms.conf)
 sha256sums=(b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283)
 
 build() {
-  _extraver=extramodules-3.10-MANJARO
+  _extraver=extramodules-3.8-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
@@ -44,7 +44,7 @@ build() {
 }
 
 package_linux38-broadcom-wl(){
-  _extraver=extramodules-3.10-MANJARO
+  _extraver=extramodules-3.8-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
   depends=('linux38')
 

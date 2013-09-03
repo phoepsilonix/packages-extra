@@ -11,14 +11,15 @@ depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6' 'gtk3' 'python-g
 makedepends=('gettext' 'itstool')
 options=(!emptydirs)
 install=$pkgname-install
+_git=Yes
 
-## Stable release
-#source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
-#sha256sums=('9483be4b207d9495639977dec2405ec6a1c81671a830adc0b64b14a4e1e91b4b')
-
-## Git release
-source=(git+http://git.manjaro.org/core/pamac.git)
-sha256sums=('SKIP')
+if [ "$git" == "Yes" ]; then
+   source=(git+http://git.manjaro.org/core/pamac.git)
+   sha256sums=('SKIP')
+else
+   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/archive-tarball/v$pkgver")
+   sha256sums=('9483be4b207d9495639977dec2405ec6a1c81671a830adc0b64b14a4e1e91b4b')
+fi
 
 package() {
   if [ -e "$srcdir/core-$pkgname" ]; then

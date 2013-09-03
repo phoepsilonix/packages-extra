@@ -4,7 +4,7 @@
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
 pkgver=0.8.7
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')
@@ -14,13 +14,14 @@ sha256sums=('SKIP')
 
 package_manjaroiso() {
   pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
-  depends=('mkinitcpio' 'mkinitcpio-nfs-utils' 'nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'haveged' 'pacman>=4.1')
+  depends=('devtools' 'mkinitcpio' 'mkinitcpio-nfs-utils' 'nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'haveged' 'pacman>=4.1')
   optdepends=('qemu: quickly test isos' 'manjaroiso-profiles: Manjaro Linux ISO-Image profiles')
   cd ${srcdir}/${pkgbase}/src
   make DESTDIR="$pkgdir" install
   cd ${srcdir}/${pkgbase}/
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
   cp -r configs/shared $pkgdir/usr/share/manjaroiso/configs/shared
+  sed -i "s|VERSION|${pkgver}-${pkgrel}|g" $pkgdir/usr/share/manjaroiso/functions/messages
 }
 
 package_manjaroiso-profiles() {

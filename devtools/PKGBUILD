@@ -1,42 +1,15 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=devtools
-pkgver=20130501
-pkgrel=4
+pkgver=20130903
+pkgrel=1
 pkgdesc='Tools for Manjaro Linux package maintainers'
 arch=('any')
 license=('GPL')
 url='http://git.manjaro.org/core/devtools/'
 depends=('namcap' 'openssh' 'subversion' 'rsync' 'arch-install-scripts')
-md5sums=('SKIP')
-_git=yes
-
-
-getsource() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [ -d $1 ] ; then
-    if [ "$_git" == "yes" ] ; then
-       cd $1 && git pull origin master
-    else
-       cd $1 && git pull origin master && git checkout -b $pkgver
-    fi
-    msg "The local files are updated."
-  else
-    git clone $2 $1
-    if [ "$_git" != "yes" ] ; then
-       cd $1 && git checkout -b $pkgver $pkgver
-    fi
-  fi
-
-  msg "GIT checkout done or server timeout"
-}
-
-
-prepare() {
-  getsource "devtools" "git://git.manjaro.org/core/devtools.git"
-}
+source=(git+http://git.manjaro.org/core/devtools.git)
+sha256sums=('SKIP')
 
 build() {
 	cd ${srcdir}/${pkgname}
