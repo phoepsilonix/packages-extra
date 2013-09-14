@@ -1,7 +1,7 @@
 [Unit]
-Description=LightDM Display Manager
+Description=Linux Mint Display Manager
 Documentation=man:mdm(1)
-After=systemd-user-sessions.service getty@tty1
+After=systemd-user-sessions.service getty@tty1.service
 
 Conflicts=plymouth-quit.service
 After=plymouth-quit.service

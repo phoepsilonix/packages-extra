@@ -5,7 +5,7 @@
 
 pkgname=mdm
 pkgver=1.3.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
@@ -33,7 +33,7 @@ sha256sums=(6de10a12f8df88e1e9fba905df636eaf9c18fb020e3588f1591ce572d7234ce0
             110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c
             3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7
             01cac1714eb82bfda9260e83e5e9728eda3966c7653ce2ead9d38a9ccda26855
-            d88532d0bbc97261c2a15f8cb7b96d6d4aea8a27416c3da8e54941ce3af9c622)
+            4f71596d0c91760d5e425014bc8fdff0fbdc41d0ea43e020220cb6a2bc366bd7)
 
 noextract=()
 

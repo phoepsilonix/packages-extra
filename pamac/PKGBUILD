@@ -2,18 +2,19 @@
 
 pkgname=pamac
 pkgver=0.7.5.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'polkit-gnome' 'libnotify')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
+optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool')
 options=(!emptydirs)
 install=$pkgname-install
 _git=Yes
 
-if [ "$git" == "Yes" ]; then
+if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
    sha256sums=('SKIP')
 else

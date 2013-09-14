@@ -3,14 +3,21 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
-pkgver=0.8.7
-pkgrel=3
+pkgver=0.8.7.1
+pkgrel=1
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')
 makedepends=('git')
-source=(git+http://git.manjaro.org/core/manjaroiso.git)
-sha256sums=('SKIP')
+_git=No
+
+if [ "$_git" == "Yes" ]; then
+   source=(git+http://git.manjaro.org/core/manjaroiso.git)
+   sha256sums=('SKIP')
+else
+   source=("manjaroiso-$pkgver.tar.gz::http://git.manjaro.org/core/manjaroiso/repository/archive?ref=$pkgver")
+   sha256sums=('663802052cf7b77be549e427ef8fe7780bb88ace7b359ece72a94001ff572bbc')
+fi
 
 package_manjaroiso() {
   pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
