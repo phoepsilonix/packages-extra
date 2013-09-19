@@ -6,9 +6,8 @@ _linuxprefix=linux34
 _extramodules=extramodules-3.4-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=13.8
-pkgrel=4
-_betano=2
+pkgver=13.9
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -20,27 +19,23 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.zip
-        #http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
         ati_make.sh
-        flim_fglrx_13.8_proc_perm.patch
-        lano1106_fglrx_intel_iommu.patch
-        lano1106_kcl_agp_13_4.patch
-        makefile_compat.patch)
+        makefile_compat.patch
+	kolasa_fglrx_310.patch::https://github.com/kolasa/fglrx-13.101/commit/ae7de2751be17484bc98d82e1c1901e5d432e430.patch
+	lano1106_fglrx_intel_iommu.patch
+	lano1106_kcl_agp_13_4.patch)
 
-sha256sums=('76e03e39804882d738b809e201732e4bc3318c7c536f9f977ef06db42d7bf978'
+sha256sums=('ebade5062713c69d2b703b0a3f62defc409d58e98ceab3bfac7a71643c0c4cd3'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
-            'c7c58966fd8b6f847b203edd0516dbd78e6501fefb10fc53586b6d03df95f23d'
+            'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
+            '6534e73ade9dc8f680799f5e80c63d81c33bd388ec3d980152172f890e49bb0d'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
-            'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
 )
 
-
-
 prepare() {
-	/bin/sh ./amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.run --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+	/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
 }
 
 build() {
@@ -64,12 +59,12 @@ build() {
 
 	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
 	## works only in combination with ati_make.sh script
-	patch -Np1 -i ../makefile_compat.patch
-	patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
-	patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
-	patch -Np1 -i ../flim_fglrx_13.8_proc_perm.patch
+        patch -Np1 -i ../makefile_compat.patch
+        patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
+        patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
 
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
+        patch -Np1 -i ${srcdir}/kolasa_fglrx_310.patch
 	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
