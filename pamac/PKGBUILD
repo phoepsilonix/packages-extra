@@ -2,17 +2,17 @@
 
 pkgname=pamac
 pkgver=0.7.6
-pkgrel=2
+pkgrel=3
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
 depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
-makedepends=('gettext' 'itstool')
+makedepends=('gettext' 'itstool' 'git')
 options=(!emptydirs)
 install=$pkgname-install
-_git=No
+_git=Yes
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
@@ -30,7 +30,9 @@ package() {
   else
      cd "$srcdir/$pkgname"
   fi
-  patch -p0 -i $srcdir/pamac-tray.patch pamac-tray.py
+  if [ "$_git" == "No" ]; then
+     patch -p1 -i $srcdir/pamac-tray.patch
+  fi
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
 	cp -r "gui" "${pkgdir}/usr/share/pamac"

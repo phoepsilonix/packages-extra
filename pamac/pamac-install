@@ -1,11 +1,10 @@
 post_install() {
   update-desktop-database -q
-if [ "$(vercmp 0.7.5.2-3 "$2")" -eq 1 ]; then
-printf '==> The polkit-gnome agent is no longer autostarted by default except in GNOME Flashback.\n'
-printf ' For Xfce, LXDE etc., 'lxpolkit' is the suggested lightweight alternative.\n'
-printf ' See https://wiki.archlinux.org/index.php/Polkit#Authentication_agents for\n'
-printf ' more details.\n'
-fi
+  printf '==> The polkit-gnome agent is no longer autostarted by default\n'
+  printf '    except in GNOME Flashback.\n'
+  printf '    For Xfce, LXDE etc., 'lxpolkit' is the suggested lightweight alternative.\n'
+  printf '    See https://wiki.archlinux.org/index.php/Polkit#Authentication_agents\n'
+  printf '    for more details.\n'
 }
 
 post_upgrade() {
