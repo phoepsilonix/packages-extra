@@ -258,7 +258,7 @@ index 09c4434..ca2d144 100644
 +    {
 +      long response;
 +      response = PyLong_AsLong(result);
-+      *retcode = response;
++      *retcode = (int)response;
 +    }
 +  }
 +  else {
