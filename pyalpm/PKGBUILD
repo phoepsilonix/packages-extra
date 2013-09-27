@@ -1,0 +1,32 @@
+# Maintainer: Guillaume Benoit <guillaume@manjaro.org>
+
+pkgname=pyalpm
+pkgver=0.6.2.1
+pkgrel=1
+pkgdesc="Libalpm bindings for Python 3"
+arch=('i686' 'x86_64')
+url="http://projects.archlinux.org/users/remy/pyalpm.git/"
+license=('GPL')
+depends=('python>=3.2' 'pacman>=4.1')
+makedepends=('git')
+source=("ftp://ftp.archlinux.org/other/pyalpm/$pkgname-0.6.2.tar.gz"
+        'custom.patch')
+sha256sums=('42ac78baf8221c04fc9a0cb29dd8e4fb425d054292fd9206a2eb7fc21e0564a0'
+            '3b351eb9ce9d17a6786774dab9e4b7f30fd2b93575e7aa1f2462881e802a2603')
+
+build() {
+  cd ${srcdir}/${pkgname}-0.6.2
+
+  # apply custom patch
+  patch -Np1 -i "${srcdir}/custom.patch"
+  
+  # workaround Python packaging issue (FS#34658)
+  export CFLAGS="$CFLAGS -Wno-format"
+
+  python setup.py build
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-0.6.2
+  python setup.py install --root=${pkgdir}
+}
