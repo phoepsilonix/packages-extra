@@ -1,0 +1,32 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: Nicolas Avrutin  <nicolasavru@gmail.com>
+pkgname=pa-applet
+pkgver=1.0
+pkgrel=1
+_ver=005f192df9ba6d2e6491f9aac650be42906b135a
+pkgdesc="PulseAudio system tray applet with volume bar"
+arch=(i686 x86_64)
+url="https://github.com/fernandotcl/pa-applet"
+license=('BSD')
+depends=('gtk3' 'libnotify' 'libpulse')
+options=('!libtool')
+replaces=('pa-applet-git')
+conflicts=('pa-applet-git')
+source=("https://github.com/fernandotcl/pa-applet/archive/$_ver.zip" pa-applet.desktop)
+sha256sums=('0ba593e8f6ac9dafd3b29bc88982787908c5452fa33980a190da85546b057456'
+            '99db3caaf0abb403480b466d6b937c9a72c9fc17e86c07bbeaf9c973ce8da303')
+
+build() {
+  cd "${srcdir}/${pkgname}-${_ver}"
+
+  ./autogen.sh
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${_ver}"
+  make DESTDIR="$pkgdir/" install
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -D -m644 "${srcdir}/${pkgname}.desktop" "${pkgdir}/etc/xdg/autostart/${pkgname}.desktop"
+}

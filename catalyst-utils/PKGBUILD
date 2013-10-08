@@ -4,8 +4,8 @@
 
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'mhwd-catalyst')
-pkgver=13.8
-pkgrel=3
+pkgver=13.10
+pkgrel=1
 _betano=2
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
@@ -22,7 +22,7 @@ source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-l
     mhwd-catalyst
     temp-links-catalyst.service  temp_links_catalyst)
 
-sha256sums=('76e03e39804882d738b809e201732e4bc3318c7c536f9f977ef06db42d7bf978'
+sha256sums=('e68c82236647e168704c8a652dfd1b35afbd80f4ee9439627f5d05c92c0bc977'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '32f12a15d1c3289b3c45aff8ca6998fa265f53a96a9c73b36d7c83ec0e0f8ce8'
             'c410dac3cc3c0a468fcb7edfe1d271690eba46179b7dbf0eda8a12544871332f'

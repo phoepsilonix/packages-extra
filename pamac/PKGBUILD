@@ -1,13 +1,13 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.8
-pkgrel=1
+pkgver=0.8.2
+pkgrel=3
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm>=0.6.2.1' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
 options=(!emptydirs)
@@ -18,8 +18,10 @@ if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
    sha256sums=('SKIP')
 else
-   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
-   sha256sums=('6bfcd4f078044a34bbe1c5882756e847d5e49b614767e7533d4bb6147cea2e20')
+   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver"
+           "pamac-$pkgver-url.patch::http://git.manjaro.org/core/pamac/commit/447f39e96697a65d1eadbe992a03571cd7afccdc.patch")
+   sha256sums=('c6268601fd106119cca2222e8252b1c12c702a045d05b74ef4398d593497e060'
+               '503530b1c0ecf4f03c74f94e1c080d4afd7c81531e1dc52ea106ff57fccad0bc')
 fi
 
 package() {
@@ -27,6 +29,9 @@ package() {
 	   cd "$srcdir/core-$pkgname"
   else
      cd "$srcdir/$pkgname"
+     patch -Np1 -i "$srcdir/pamac-$pkgver-url.patch"
+     sed -i 's|from os.path import abspath|import os, sys|g' pamac-install.py
+     sed -i 's|abspath(pkgstr)|os.path.realpath(pkgstr)|g' pamac-install.py
   fi
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
