@@ -6,9 +6,9 @@ _linuxprefix=linux312
 _extramodules=extramodules-3.12-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=13.8
+pkgver=13.11
 pkgrel=0.1
-_betano=2
+_betano=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -20,24 +20,20 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-betav${_betano}-linux-x86.x86_64.zip
         #http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
         ati_make.sh
-        flim_fglrx_13.8_proc_perm.patch
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
         makefile_compat.patch
-	kolasa_fglrx_gpl_312.patch::https://github.com/kolasa/fglrx-13.101/commit/d98ef3e18254b1d05064f6ab459970efec9d8031.patch
-	kolasa_fglrx_proper_312.patch::https://github.com/kolasa/fglrx-13.101/commit/5f92d49637f73101d62eb8180a24d8d13b5205c4.patch)
+	kolasa_fglrx_312.patch::https://github.com/kolasa/fglrx-13.20.11/commit/edf23ae8816486f1978f712a0a280320ff493769.patch)
 
-sha256sums=('76e03e39804882d738b809e201732e4bc3318c7c536f9f977ef06db42d7bf978'
+sha256sums=('6597cf12dc50437c59b2517b45408013c15612952d759b15cef7e8498ccd290a'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
-            'c7c58966fd8b6f847b203edd0516dbd78e6501fefb10fc53586b6d03df95f23d'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
             'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
-            '0428963099c4425e16bf31a1d40f95212c359898fb247d08bd0665ea9882c975'
-            '84e834b0fa207a9a88bce2f5c17677a48f66d8d0660047ff66db343a4ab9248d'
+            '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d'
 )
 
 
@@ -71,11 +67,9 @@ build() {
 	patch -Np1 -i ../makefile_compat.patch
 	patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
 	patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
-	patch -Np1 -i ../flim_fglrx_13.8_proc_perm.patch
 
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
-	patch -Np1 -i ${srcdir}/kolasa_fglrx_gpl_312.patch
-	patch -Np1 -i ${srcdir}/kolasa_fglrx_proper_312.patch
+        patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
 	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 

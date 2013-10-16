@@ -10,7 +10,7 @@
 pkgbase=linux312-virtualbox-modules
 pkgname=('linux312-virtualbox-host-modules' 'linux312-virtualbox-guest-modules')
 pkgver=4.2.18
-pkgrel=0
+pkgrel=0.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -31,6 +31,14 @@ build() {
   msg2 'Host modules'
   dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
   # build guest modules
+
+  # fix build
+  mkdir -p $srcdir/dkms/vboxguest/4.2.18/tmp
+  cp -R $srcdir/dkms/vboxguest/4.2.18/source/. $srcdir/dkms/vboxguest/4.2.18/tmp
+  sed -i 's|.fasync = drm_fasync,||g' $srcdir/dkms/vboxguest/4.2.18/tmp/vboxvideo/vboxvideo_drm.c
+  rm $srcdir/dkms/vboxguest/4.2.18/source
+  mv $srcdir/dkms/vboxguest/4.2.18/tmp $srcdir/dkms/vboxguest/4.2.18/source
+         
   msg2 'Guest modules'
   dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
 }

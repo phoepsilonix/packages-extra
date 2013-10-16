@@ -7,7 +7,7 @@ _extramodules=extramodules-3.12-MANJARO
 pkgname=$_linuxprefix-catalyst-legacy
 _pkgname=catalyst-legacy
 pkgver=13.1
-pkgrel=0
+pkgrel=0.1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst Legacy drivers for linux. fglrx kernel module only."
@@ -26,7 +26,7 @@ source=(http://www2.ati.com/drivers/legacy/amd-driver-installer-catalyst-${pkgve
         arch-fglrx-3.7.patch
         arch-fglrx-3.8.patch
         kolasa_foutrelis_fglrx_3.10.patch lano1106_fglrx_intel_iommu.patch lano1106_kcl_agp_13_4.patch
-	kolasa_fglrx_312.patch::https://github.com/kolasa/fglrx-13.20.11/commit/9991dc2d2977ee0242a692990ce7057f8ce2ce29.patch)
+	kolasa_fglrx_312.patch::https://github.com/kolasa/fglrx-13.20.11/commit/edf23ae8816486f1978f712a0a280320ff493769.patch)
 
 sha256sums=('3a992fb7564dba17a696217dc32043dabc21743c82116a6657817ee8a3a1d55f'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
@@ -37,7 +37,7 @@ sha256sums=('3a992fb7564dba17a696217dc32043dabc21743c82116a6657817ee8a3a1d55f'
             'f9aebe6410c15dec3323df51ab0fbd1a9bf121a18757cc45a04d66d6dcf9e5f7'  
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'  
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
-            'SKIP')
+            '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d')
 
 
 

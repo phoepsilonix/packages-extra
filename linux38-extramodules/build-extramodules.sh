@@ -13,6 +13,7 @@ echo 'building extramodules'
 cd ${pwd}/*bbswitch && makepkg --sign -sf --noconfirm
 cd ${pwd}/*broadcom-wl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*catalyst && makepkg --sign -df --noconfirm
+cd ${pwd}/*catalyst-13.4 && makepkg --sign -df --noconfirm
 cd ${pwd}/*catalyst-legacy && makepkg --sign -df --noconfirm
 cd ${pwd}/*lirc && makepkg --sign -sf --noconfirm
 cd ${pwd}/*ndiswrapper && makepkg --sign -sf --noconfirm
