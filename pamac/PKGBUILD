@@ -1,18 +1,18 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.8
+pkgver=0.9
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
 options=(!emptydirs)
 install=$pkgname-install
-_git=No
+_git=Yes
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
@@ -34,11 +34,15 @@ package() {
 	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
 	cp -r "data/applications" "${pkgdir}/usr/share/"
 	cp -r "data/etc" "${pkgdir}/"
+	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
 	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
 	install -Dm755 "pamac-tray.py" "${pkgdir}/usr/bin/pamac-tray"
 	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
+	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
+	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
+	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
 	install -Dm744 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
 	# create .mo translation files
 	mkdir -p mo
