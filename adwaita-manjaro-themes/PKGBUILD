@@ -1,40 +1,22 @@
 # Maintainer: Philip Müller <philm_at_manjaro_dot_org>
 
 pkgname=adwaita-manjaro-themes
-pkgver=20130215
+pkgver=20131013
+_ver='4271968db9c4c76a7678159cb969e11bfc4798ef'
 pkgrel=1
 pkgdesc="Desktop suite for Xfce"
 arch=('any')
-url="git://git.manjaro.org/manjaro-linux-graphics/adwaita-manjaro-themes.git"
+url="http://git.manjaro.org/artwork/adwaita-manjaro-themes"
 license=('GPL2' 'CCPL')
 depends=('gtk-engine-murrine' 'gnome-themes-standard')
 makedepends=('git')
 optdepends=('faenza-green-icon-theme: matching icon theme')
 
-_gitroot="git://git.manjaro.org/manjaro-linux-graphics/adwaita-manjaro-themes.git"
-_gitname="adwaita-manjaro-themes"
-
-build() {
-  cd "$srcdir"
-
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-}
+source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/artwork/adwaita-manjaro-themes/repository/archive?ref=$_ver")
+sha256sums=('808d0d51cc922249d9046213ebdc6b2e8aff18c3861b01c3369169a140861f8c')
 
 package() {
-  cd "$srcdir/$_gitname-build"
+  cd "$srcdir/adwaita-manjaro-themes"
 
   # create theme dirs
   install -d -m 755 "$pkgdir"/usr/share/themes

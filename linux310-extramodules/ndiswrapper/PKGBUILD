@@ -11,7 +11,7 @@ pkgbase=ndiswrapper
 pkgname=('linux310-ndiswrapper' 'ndiswrapper-utils')
 groups=('linux310-extramodules')
 pkgver=1.58
-pkgrel=8
+pkgrel=9
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -67,7 +67,7 @@ package_linux310-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=8
+  pkgrel=9
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils

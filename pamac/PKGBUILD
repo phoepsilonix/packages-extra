@@ -18,10 +18,8 @@ if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
    sha256sums=('SKIP')
 else
-   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver"
-           "pamac-$pkgver-url.patch::http://git.manjaro.org/core/pamac/commit/447f39e96697a65d1eadbe992a03571cd7afccdc.patch")
-   sha256sums=('c6268601fd106119cca2222e8252b1c12c702a045d05b74ef4398d593497e060'
-               '503530b1c0ecf4f03c74f94e1c080d4afd7c81531e1dc52ea106ff57fccad0bc')
+   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
+   sha256sums=('c6268601fd106119cca2222e8252b1c12c702a045d05b74ef4398d593497e060')
 fi
 
 package() {
@@ -29,9 +27,6 @@ package() {
 	   cd "$srcdir/core-$pkgname"
   else
      cd "$srcdir/$pkgname"
-     patch -Np1 -i "$srcdir/pamac-$pkgver-url.patch"
-     sed -i 's|from os.path import abspath|import os, sys|g' pamac-install.py
-     sed -i 's|abspath(pkgstr)|os.path.realpath(pkgstr)|g' pamac-install.py
   fi
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"

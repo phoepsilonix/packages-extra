@@ -10,7 +10,7 @@
 pkgbase=linux312-virtualbox-modules
 pkgname=('linux312-virtualbox-host-modules' 'linux312-virtualbox-guest-modules')
 pkgver=4.2.18
-pkgrel=0.1
+pkgrel=0.2
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
