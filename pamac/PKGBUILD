@@ -2,7 +2,7 @@
 
 pkgname=pamac
 pkgver=0.9
-pkgrel=1
+pkgrel=8
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"

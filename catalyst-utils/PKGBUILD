@@ -5,14 +5,14 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'mhwd-catalyst')
 pkgver=13.11
-pkgrel=1
-_betano=1
+pkgrel=2
+_betano=6
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries with OpenCL implementation."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
 
-source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-betav${_betano}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.zip
     #http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
     catalyst.sh
     atieventsd.sh
@@ -22,7 +22,7 @@ source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-betav${_betano}-
     mhwd-catalyst
     temp-links-catalyst.service  temp_links_catalyst)
 
-sha256sums=('6597cf12dc50437c59b2517b45408013c15612952d759b15cef7e8498ccd290a'
+sha256sums=('f09ed24b6541e5bd91ff0f76d2c94dff50d671a1ebc71c99ef6847f904eb2b70'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '32f12a15d1c3289b3c45aff8ca6998fa265f53a96a9c73b36d7c83ec0e0f8ce8'
             'c410dac3cc3c0a468fcb7edfe1d271690eba46179b7dbf0eda8a12544871332f'

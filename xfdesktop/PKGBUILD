@@ -1,0 +1,46 @@
+# Based on the file created for Arch Linux by:
+# Maintainer : Piotr Gorski <sir_lucjan@bridgelinux.pl>
+
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
+
+pkgname=xfdesktop
+_pkgname=xfdesktop
+_git=984397d48d9a13215c804b0b283375706df62916
+pkgver=4.11.0
+pkgrel=2
+pkgdesc="A desktop manager for Xfce"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4')
+depends=("libxfce4ui>=4.11" 'thunar' 'garcon' 'hicolor-icon-theme' 'libwnck')
+makedepends=('intltool' 'xfce4-dev-tools')
+provides=("$_pkgname")
+conflicts=("$_pkgname" "$_pkgname-git")
+options=('!libtool')
+install=xfdesktop.install
+source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
+        http://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_git.tar.bz2)
+sha256sums=('a9ec329baa2154bd5ec130fa331c13de768abbd4716df2f9a7a2436c5271da14')
+
+build() {
+  cd "$srcdir/$_pkgname-$_git"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-static \
+    --enable-gio-unix \
+    --enable-thunarx \
+    --disable-notifications \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_git"
+  make DESTDIR="$pkgdir" install
+}
