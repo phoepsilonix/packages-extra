@@ -4,7 +4,7 @@
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
 pkgver=0.8.8rc2
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')

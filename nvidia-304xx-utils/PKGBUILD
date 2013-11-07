@@ -4,7 +4,7 @@
 
 pkgbase=nvidia-304xx-utils
 pkgname=('nvidia-304xx-utils' 'opencl-nvidia-304xx' 'mhwd-nvidia-legacy')
-pkgver=304.108
+pkgver=304.116
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -17,12 +17,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('c965d36f896ed154f0801a3e1936fcc195f12e76cf300fc6d890c3195082c838')
+    sha256sums+=('9c3a57a93b70e807a0fe54cbce146dc738defccbbebf3f5aaa927ba69305b049')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('15f840d820d78d897bd8d2b04386371645527af01047dd7a496a6df1d16084e4')
+    sha256sums+=('b2a2b69261c34c00882b43e5bce83ca58fff1485a9e2f15b6900b93386962e51')
 fi
 
 create_links() {
