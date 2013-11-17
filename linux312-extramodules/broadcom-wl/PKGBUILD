@@ -4,18 +4,9 @@
 # Maintainer: Guinux <guillaume@manjaro.org>
 # Maintainer: Roland Singer <roland@manjaro.org>
 
-# Contributor: Frank Vanderham <twelve.eighty (at) gmail.>
-# Contributor: Hsin-Yi Chen (hychen) <hycehn (at) canonical.com>
-# Contributor: Alberto Milone <alberto.milone (at) canonical.com>
-# Contributor: Jasmine Hassan <jasmine.aura (at) gmail.com>
-# Contributor: b3niup
-# Upstream code branches: https://code.launchpad.net/ubuntu/+source/bcmwl
-# https://bugs.launchpad.net/ubuntu/quantal/+source/bcmwl/+bug/923809 for first creation
-# Also see: https://bbs.archlinux.org/viewtopic.php?id=145884
-
 pkgname=linux312-broadcom-wl
 _pkgname=broadcom-wl
-pkgver=6.30.223.30
+pkgver=6.30.223.141
 pkgrel=1
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'

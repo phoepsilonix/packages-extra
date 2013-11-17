@@ -3,19 +3,21 @@
 
 pkgname=("spl-dkms")
 pkgver=0.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Solaris Porting Layer kernel modules."
 depends=("spl-utils=${pkgver}" "dkms")
 arch=("i686" "x86_64")
 url="http://zfsonlinux.org/"
-source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/spl/spl-${pkgver}.tar.gz)
+source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/spl/spl-${pkgver}.tar.gz
+        linux312.patch::https://github.com/zfsonlinux/spl/commit/c3d9c0df3ee8d43db22815ebbfbe8b803fa46e46.patch)
 groups=("manjarozfs")
-md5sums=('f00535bf89a7fde0e08f44a14a1f1e03')
+md5sums=('f00535bf89a7fde0e08f44a14a1f1e03' 'e4e87ba32372dd8c946d36bae74dfeac')
 license=("GPL")
 install=spl-dkms.install
 
 build() {
   cd "$srcdir/spl-${pkgver}"
+  patch -Np1 -i $srcdir/linux312.patch
   ./autogen.sh
   scripts/dkms.mkconf -v ${pkgver} -f dkms.conf -n spl
 }

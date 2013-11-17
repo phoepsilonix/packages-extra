@@ -3,18 +3,26 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
-pkgver=0.8.8rc2
-pkgrel=3
+pkgver=0.8.8rc3
+pkgrel=2
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')
 makedepends=('git')
-_git=Yes
+_git=snapshot
+_gitver=ff2f5ede5e6710d96bef59c5e633ca15e5f59c6d
+
+if [ "$_git" == "snapshot" ]; then
+   source=("manjaroiso-$_gitver.tar.gz::http://git.manjaro.org/core/manjaroiso/repository/archive?ref=$_gitver")
+   sha256sums=('SKIP')
+fi
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/manjaroiso.git)
    sha256sums=('SKIP')
-else
+fi
+
+if [ "$_git" == "No" ]; then
    source=("manjaroiso-$pkgver.tar.gz::http://git.manjaro.org/core/manjaroiso/repository/archive?ref=$pkgver")
    sha256sums=('663802052cf7b77be549e427ef8fe7780bb88ace7b359ece72a94001ff572bbc')
 fi
@@ -23,20 +31,33 @@ package_manjaroiso() {
   pkgdesc="Manjaro Linux livecd/liveusb generation scripts"
   depends=('devtools' 'mkinitcpio' 'mkinitcpio-nfs-utils' 'nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'haveged' 'arch-install-scripts' 'pacman>=4.1')
   optdepends=('qemu: quickly test isos' 'manjaroiso-profiles: Manjaro Linux ISO-Image profiles')
-  cd ${srcdir}/${pkgbase}/src
+  if [ -e "$srcdir/$pkgbase" ]; then
+     cd "$srcdir/$pkgbase/src"
+  fi
+  if [ -e "$srcdir/$pkgbase.git" ]; then
+	   cd "$srcdir/$pkgbase.git/src"
+  fi
   make DESTDIR="$pkgdir" install
-  cd ${srcdir}/${pkgbase}/
-  mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  cp -r configs/shared $pkgdir/usr/share/manjaroiso/configs/shared
+  if [ -e "$srcdir/$pkgbase" ]; then
+     cd "$srcdir/$pkgbase"
+  fi
+  if [ -e "$srcdir/$pkgbase.git" ]; then
+	   cd "$srcdir/$pkgbase.git"
+  fi
   sed -i "s|VERSION|${pkgver}-${pkgrel}|g" $pkgdir/usr/share/manjaroiso/functions/messages
 }
 
 package_manjaroiso-profiles() {
   pkgdesc="Manjaroiso Profiles"
   depends=('manjaroiso')
-  cd ${srcdir}/${pkgbase}/
+  if [ -e "$srcdir/$pkgbase" ]; then
+     cd "$srcdir/$pkgbase"
+  fi
+  if [ -e "$srcdir/$pkgbase.git" ]; then
+	   cd "$srcdir/$pkgbase.git"
+  fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in build net openbox xfce
+  for conf in build net openbox shared xfce
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
@@ -44,8 +65,13 @@ package_manjaroiso-profiles() {
 
 package_manjaroiso-community-profiles() {
   pkgdesc="Manjaroiso Community Profiles"
-  depends=('manjaroiso')
-  cd ${srcdir}/${pkgbase}/
+  depends=('manjaroiso-profiles')
+  if [ -e "$srcdir/$pkgbase" ]; then
+     cd "$srcdir/$pkgbase"
+  fi
+  if [ -e "$srcdir/$pkgbase.git" ]; then
+	   cd "$srcdir/$pkgbase.git"
+  fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
   for conf in cinnamon e17 kde lxde mate
   do

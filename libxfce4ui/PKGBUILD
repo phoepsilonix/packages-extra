@@ -7,12 +7,12 @@
 pkgname=libxfce4ui
 _pkgname=libxfce4ui
 pkgver=4.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Commonly used Xfce widgets among Xfce applications"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
-depends=('libxfce4util' 'gtk2' 'xfconf' 'libsm' 'startup-notification'
+depends=('libxfce4util' 'gtk2' 'gtk3' 'xfconf' 'libsm' 'startup-notification'
          'hicolor-icon-theme')
 makedepends=('intltool' 'gtk-doc')
 #replaces=('libxfcegui4') - later when all is ported
@@ -34,6 +34,7 @@ build() {
     --disable-static \
     --enable-gtk-doc \
     --disable-debug \
+    --enable-gtk3 \
     --with-vendor-info='Manjaro Linux'
   make
 }

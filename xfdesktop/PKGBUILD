@@ -6,8 +6,8 @@
 
 pkgname=xfdesktop
 _pkgname=xfdesktop
-_git=984397d48d9a13215c804b0b283375706df62916
-pkgver=4.11.0
+_git=daefbeb21bacfbf902d0380bd6eeae7c83a87123
+pkgver=4.11.1
 pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
@@ -21,8 +21,8 @@ conflicts=("$_pkgname" "$_pkgname-git")
 options=('!libtool')
 install=xfdesktop.install
 source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
-        http://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_git.tar.bz2)
-sha256sums=('a9ec329baa2154bd5ec130fa331c13de768abbd4716df2f9a7a2436c5271da14')
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_git.tar.bz2)
+sha256sums=('22c4bfc5ab775364a2bb2e258745b89fd7606ce02cb16745a821d4a2c10e0e63')
 
 build() {
   cd "$srcdir/$_pkgname-$_git"

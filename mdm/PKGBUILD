@@ -4,8 +4,8 @@
 # Contributors: Pablo Lezaeta <prflr88 (arroba) gmail (dot) com>
 
 pkgname=mdm
-pkgver=1.3.1
-pkgrel=6
+pkgver=1.3.4
+pkgrel=1
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
@@ -28,7 +28,7 @@ source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pk
 	'mdm-autologin.pam'
 	'defaults.conf'
 	'mdm-plymouth.service')
-sha256sums=(6de10a12f8df88e1e9fba905df636eaf9c18fb020e3588f1591ce572d7234ce0
+sha256sums=(3d392f886eb32b737d8bbbbf35f2f0ecb32a364767b06a4c18fbaac8640bae8f
             54c3ff63cf18cafb5d6fead8cbe07f278a2ed41b6f2b354b6e28845bc850d60d
             110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c
             3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7
@@ -82,14 +82,12 @@ msg2 'Adding faces'
 
 	make DESTDIR=$pkgdir install -C gui/faces
 
-msg2 'Adding aplications'
+msg2 'Adding applications'
 	#Fix gdmsetup.desktop
 	sed -i -e 's|^Exec=gksu|Exec=xdg-su|' $pkgdir/usr/share/mdm/applications/mdmsetup.desktop
 	sed -i -e 's|^Categories=|Categories=GNOME;GTK;System;Settings;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;|' $pkgdir/usr/share/mdm/applications/mdmsetup.desktop
-	sed -i -e 's|^NoDisplay=true|NoDisplay=false |' $pkgdir/usr/share/mdm/applications/mdmphotosetup.desktop
-	sed -i -e 's|^Categories=|Categories=GNOME;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;|' $pkgdir/usr/share/mdm/applications/mdmphotosetup.desktop
-
-	#Fix erroneous path for certain aplications
+	
+	#Fix erroneous path for certain applications
 	install -m755 -d $pkgdir/usr/share/applications
 	mv -f $pkgdir/usr/share/mdm/applications/*.* $pkgdir/usr/share/applications
 	chmod 755 $pkgdir/usr/share/applications/*.*

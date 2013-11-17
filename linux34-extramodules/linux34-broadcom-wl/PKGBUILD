@@ -1,10 +1,13 @@
-# Contributor: Austin ( doorknob60 [at] gmail [dot] com )
-# Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Based on the file created for Arch Linux by: Frank Vanderham
+
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Guinux <guillaume@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=linux34-broadcom-wl
 _pkgname=broadcom-wl
-pkgver=6.30.223.30
-pkgrel=8
+pkgver=6.30.223.141
+pkgrel=1
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')

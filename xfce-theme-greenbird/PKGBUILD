@@ -2,7 +2,7 @@
 # Contributor: Robert Gormly <rggormly_at_gmail_dot_com>
 
 pkgname=xfce-theme-greenbird
-pkgver=20131013
+pkgver=20131109
 pkgrel=1
 pkgdesc="Desktop suite for Xfce"
 arch=('any')
@@ -15,10 +15,10 @@ optdepends=('faenza-green-icon-theme: matching icon theme'
             'lightdm-unity-greeter: lightdm unity theme')
 
 source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/artwork/greenbird-theme/repository/archive?ref=$pkgver")
-sha256sums=('a3f2ccaea3743e94229604164dfa67d8c523c840edb7f6ad8eb9d84961f64268')
+sha256sums=('571a3a0ceb2c888f3edb31d2ce0cac176726cb1888afbe6831e569cee660a6fb')
 
 package() {
-  cd "$srcdir/greenbird-theme"
+  cd "$srcdir/greenbird-theme.git"
 
   # create theme dirs
   install -d -m 755 "$pkgdir"/usr/share/themes/Greenbird{,-compact/xfwm4}
