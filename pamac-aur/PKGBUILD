@@ -2,8 +2,8 @@
 
 pkgname=pamac-aur
 _pkgname=pamac
-pkgver=0.9.2
-pkgrel=2
+pkgver=0.9.3
+pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -22,10 +22,10 @@ if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
    sha256sums=('SKIP')
 else
-   #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
-   #sha256sums=('95816172978ef49dfd760c77d2badba7942571240aa28c12a584f88bc56cf961')
-   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
-   sha256sums=('a11d23706c11dda076912caddc38dfe29f15236c25062e95bb4912c6ad444a1c')
+   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
+   sha256sums=('80f4ed08b2d88d2a318f8de13ecf4c79b8f56708c53c8628e695b51ab6a58c0a')
+   #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
+   #sha256sums=('a11d23706c11dda076912caddc38dfe29f15236c25062e95bb4912c6ad444a1c')
 fi
 
 package() {
