@@ -3,7 +3,7 @@
 pkgname=pamac-aur
 _pkgname=pamac
 pkgver=0.9.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -38,8 +38,6 @@ package() {
   if [ -e "$srcdir/$_pkgname.git" ]; then
 	   cd "$srcdir/$_pkgname.git"
   fi
-
-  sed -i 's|'0.9'|'0.9.0'|g' pamac-manager.py 
 
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
