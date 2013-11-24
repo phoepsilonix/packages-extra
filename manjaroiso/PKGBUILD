@@ -3,14 +3,14 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
-pkgver=0.8.8rc3
-pkgrel=2
+pkgver=0.8.8
+pkgrel=1
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=ff2f5ede5e6710d96bef59c5e633ca15e5f59c6d
+_gitver=2c2c5ab21d5118a8ba46da2801f4c5cadb6ed484
 
 if [ "$_git" == "snapshot" ]; then
    source=("manjaroiso-$_gitver.tar.gz::http://git.manjaro.org/core/manjaroiso/repository/archive?ref=$_gitver")
@@ -57,7 +57,7 @@ package_manjaroiso-profiles() {
 	   cd "$srcdir/$pkgbase.git"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in build net openbox shared xfce
+  for conf in build kde net openbox shared xfce
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
@@ -73,7 +73,7 @@ package_manjaroiso-community-profiles() {
 	   cd "$srcdir/$pkgbase.git"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in cinnamon e17 kde lxde mate
+  for conf in cinnamon e17 lxde mate
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done

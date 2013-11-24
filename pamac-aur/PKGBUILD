@@ -1,43 +1,47 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
-_name=pamac
-pkgname=pamac-testing
-pkgver=0.9.1rc2
+pkgname=pamac-aur
+_pkgname=pamac
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
+#depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
 provides=('pamac')
 conflicts=('pamac')
 options=(!emptydirs)
-install=$_name-install
+install=$_pkgname-install
 _git=no
-_snapshot=44a97c7f84869c87b6f9b1e6d0f10b045288b245
+_snapshot=082e72438a931e75ad8520f8730542e5fefe6bd6
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
    sha256sums=('SKIP')
 else
    #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
-   #sha256sums=('c6268601fd106119cca2222e8252b1c12c702a045d05b74ef4398d593497e060')
+   #sha256sums=('95816172978ef49dfd760c77d2badba7942571240aa28c12a584f88bc56cf961')
    source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
-   sha256sums=('58069f4073c84e4d05c26e7e2cb8d879927a88cefa4091b3d37ae042925b12b9')
+   sha256sums=('a11d23706c11dda076912caddc38dfe29f15236c25062e95bb4912c6ad444a1c')
 fi
 
 package() {
-  if [ -e "$srcdir/core-$_name" ]; then
-	   cd "$srcdir/core-$_name"
+  if [ -e "$srcdir/core-$_pkgname" ]; then
+	   cd "$srcdir/core-$_pkgname"
   fi
-  if [ -e "$srcdir/$_name" ]; then
-     cd "$srcdir/$_name"
+  if [ -e "$srcdir/$_pkgname" ]; then
+     cd "$srcdir/$_pkgname"
   fi
-  if [ -e "$srcdir/$_name.git" ]; then
-	   cd "$srcdir/$_name.git"
+  if [ -e "$srcdir/$_pkgname.git" ]; then
+	   cd "$srcdir/$_pkgname.git"
   fi
+
+  sed -i 's|'0.9'|'0.9.0'|g' pamac-manager.py 
+
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
