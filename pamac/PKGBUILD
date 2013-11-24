@@ -7,8 +7,9 @@ pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-#depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
+## needed for AUR support
+#depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
 options=(!emptydirs)
