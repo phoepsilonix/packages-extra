@@ -1,7 +1,8 @@
 post_install() {
   EXTRAMODULES='extramodules-3.12-MANJARO'
+  LINUX='linux312'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
-  echo ">>> Enabling vmxnet driver in /etc/modprobe.d/open-vm-tools-modules.conf"
+  echo ">>> Enabling vmxnet driver in /etc/modprobe.d/$LINUX-open-vm-tools-modules.conf"
   echo ">>> (this will disable pcnet32 driver)"
   echo ">>>"
   echo ">>> If vmxnet driver doesn't handle your NIC, you have to manually"

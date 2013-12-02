@@ -7,8 +7,8 @@ _extramodules=extramodules-3.4-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=13.11
-pkgrel=5
-_betano=6
+pkgrel=6
+_betano=9.4
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -20,14 +20,14 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta-v${_betano}-linux-x86.x86_64.run.zip
         #http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
         makefile_compat.patch)
 
-sha256sums=('f09ed24b6541e5bd91ff0f76d2c94dff50d671a1ebc71c99ef6847f904eb2b70'
+sha256sums=('b6352ab75d378158e867bd629cea43f600cb9ced5757a5dc104dca18228fc158'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
@@ -37,7 +37,7 @@ sha256sums=('f09ed24b6541e5bd91ff0f76d2c94dff50d671a1ebc71c99ef6847f904eb2b70'
 
 
 prepare() {
-	/bin/sh ./amd-catalyst-${pkgver}-beta${_betano}-linux-x86.x86_64.run --extract archive_files
+	/bin/sh "./amd-catalyst-${pkgver}-beta V${_betano}-linux-x86.x86_64.run" --extract archive_files
 	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
 }
 

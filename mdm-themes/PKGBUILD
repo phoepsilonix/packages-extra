@@ -1,6 +1,7 @@
-pkgname=mdm-themes
+pkgbase=mdm-themes
+pkgname=('mdm-themes' 'mdm-themes-extra')
 pkgver=0.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Nice themes for MDM"
 arch=('any')
 url="http://manjaro.org"
@@ -25,18 +26,25 @@ sha256sums=(f6bbb52276394d530bb8aa667ea7f1758d02834e52d7d33806ed143d47ef40ed
             d4f67544d43223b33dd9aeac0aab146a52bb0b00e722f52a0ee75767055e3aa9
             4dc08a8559969c523529343b6039637d0f988ebc7d4f358e2daf35d8174665b5)
 
-package() {
+package_mdm-themes() {
   # install Manjaro themes
   cd ${srcdir}/${pkgname}.git
   install -d ${pkgdir}/usr/share/mdm/{themes,html-themes}
   cp -R * ${pkgdir}/usr/share/mdm
 
-  # install additional themes
-  cd ${srcdir}/
-  cp -R {BlackNBlue,CircuitBoard,Clock,Galaxy,OrangeCity,SkyMountain,SteampunkFutureCity,eOS} ${pkgdir}/usr/share/mdm/html-themes
-  mv ${pkgdir}/usr/share/mdm/html-themes/OrangeCity/PreviewImage.png ${pkgdir}/usr/share/mdm/html-themes/OrangeCity/preview.png
   # fix some folder rights
   chmod 755 ${pkgdir}/usr/share/mdm/themes/*
   chmod 644 ${pkgdir}/usr/share/mdm/themes/*/* 
+  chmod 755 -R ${pkgdir}/usr/share/mdm/html-themes 
+}
+
+package_mdm-themes-extra() {
+  # install additional themes
+  install -d ${pkgdir}/usr/share/mdm/html-themes
+  cd ${srcdir}/
+  cp -R {BlackNBlue,CircuitBoard,Clock,Galaxy,OrangeCity,SkyMountain,SteampunkFutureCity,eOS} ${pkgdir}/usr/share/mdm/html-themes
+  mv ${pkgdir}/usr/share/mdm/html-themes/OrangeCity/PreviewImage.png ${pkgdir}/usr/share/mdm/html-themes/OrangeCity/preview.png
+
+  # fix some folder rights
   chmod 755 -R ${pkgdir}/usr/share/mdm/html-themes 
 }
