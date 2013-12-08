@@ -11,8 +11,8 @@ _kver="$(cat /usr/lib/modules/${_extramodules}/version)"
 _pkgname=ndiswrapper
 pkgbase=ndiswrapper
 pkgname=('linux34-ndiswrapper' 'ndiswrapper-utils')
-pkgver=1.58
-pkgrel=16
+pkgver=1.59
+pkgrel=1
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -21,7 +21,7 @@ depends=('linux34' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux34-headers')
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz")
 options=('!strip')
-sha256sums=('cbd225ecb0b835be7d05012483f61518fe97a52c67f20b35846412c692be24aa')
+sha256sums=('66a5d3ffb3fc8a63d87e381bbc627511597dfd25c4c37dda3b953ccf98f5d4bc')
 
 build() {
   cd "$srcdir/$_pkgname-$pkgver"
@@ -57,7 +57,7 @@ package_linux34-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=2
+  pkgrel=1
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils
