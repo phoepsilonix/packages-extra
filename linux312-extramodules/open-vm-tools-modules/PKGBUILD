@@ -8,47 +8,46 @@
 pkgname=linux312-open-vm-tools-modules
 _pkgname=open-vm-tools-modules
 groups=('linux312-extramodules')
-epoch=3
-pkgver=2013.09.16
+epoch=2
+pkgver=2013.04.16
+_pkgsubver=1098359
 pkgrel=2
 pkgdesc="kernel modules for the open source implementation of VMware Tools"
 arch=('i686' 'x86_64')
 url="http://open-vm-tools.sourceforge.net/"
 license=('GPL')
-makedepends=("open-vm-tools-dkms>=$pkgver" 'dkms' 'linux312-headers')
+makedepends=('libdnet' 'procps' 'icu' 'uriparser' 'linux312-headers')
 depends=("linux312")
 provides=("$_pkgname=$pkgver")
 groups=('linux312-extramodules')
 install=$_pkgname.install
 options=('!strip')
-source=("modprobe.conf"
-	"vmsync.patch"
-	"3.10-vmblock.patch")
-sha256sums=('27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d'
-            'b4585c8ec91a3b4665eb4ff2ad64c6a77c7fee72420f0903af1d94677f3a6cb7'
-            'f50679c3087ef770ea8666e9432dd8990344b1b1c3725bf3e492dd6d48da3e4d')
-
-prepare() {
-  _extramodules=extramodules-3.12-MANJARO
-  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-  # dkms need modification to be run as user
-  cp -r /var/lib/dkms .
-  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-  mkdir -p "$srcdir/dkms/open-vm-tools/$pkgver/build"
-  cd "$srcdir/dkms/open-vm-tools/$pkgver"
-  cp -r /usr/src/open-vm-tools-2013.09.16 source
-  cd "$srcdir/dkms/open-vm-tools/$pkgver/source"
-  patch -p3 -i "$srcdir/vmsync.patch"
-  patch -p3 -i "$srcdir/3.10-vmblock.patch"
-  sed -i 's|putname(name);|__putname(name);|' vmblock/linux/control.c
-}
+source=("http://downloads.sourceforge.net/open-vm-tools/open-vm-tools-$pkgver-${_pkgsubver}.tar.gz"
+	"modprobe.conf"
+	"3.10-vmblock.patch"
+	"3.10-vmsync.patch")
+sha256sums=('fc939de4133d66c0cced8d0a7b5d87edcad3f598393b71c341e66bfec5087960'
+            '27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d'
+            'f50679c3087ef770ea8666e9432dd8990344b1b1c3725bf3e492dd6d48da3e4d'
+            'e7a3a4115087acd81272a52cf419faef0e1efcc431fc083811bddd3cf3e37327'
+)
 
 build() {
   _extramodules=extramodules-3.12-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-  # build host modules
-  msg2 'Build module'
-  dkms --dkmsframework dkms.conf build "open-vm-tools/$pkgver" -k "$_kernver"
+  cd "$srcdir/open-vm-tools-${pkgver}-${_pkgsubver}"
+  patch -p1 -i "$srcdir/3.10-vmsync.patch"
+  patch -p1 -i "$srcdir/3.10-vmblock.patch"
+  sed -i 's|putname(name);|__putname(name);|' modules/linux/vmblock/linux/control.c
+
+  [ $NOEXTRACT -eq 1 ] || ./configure \
+      --prefix=/usr \
+      --without-x \
+      --with-linuxdir=/usr/lib/modules/$_kernver
+
+  # remove broken module
+  sed -i 's|vmxnet vmhgfs|vmxnet|g' modules/Makefile
+  make -C modules modules
 }
 
 package() {
@@ -56,8 +55,7 @@ package() {
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   depends=("linux312")
 
-  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/open-vm-tools/$pkgver/$_kernver/$CARCH/module"
+  cd "$srcdir/open-vm-tools-${pkgver}-${_pkgsubver}"
   mkdir -p $pkgdir/usr/lib/modules/${_extramodules}/
   for MOD in `find -type f -name '*.ko'`; do
     install -Dm644 $MOD $pkgdir/usr/lib/modules/${_extramodules}/
@@ -66,5 +64,5 @@ package() {
 
   install -D -m 644 ${srcdir}/modprobe.conf ${pkgdir}/etc/modprobe.d/${pkgname}.conf
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "${startdir}/${_pkgname}.install"
-  sed -i -e "s/LINUX='.*'/LINUX='linux312'/" "${startdir}/${_pkgname}.install"
 }
+

@@ -8,8 +8,8 @@
 pkgbase=rt3562sta
 pkgname=('linux312-rt3562sta' 'rt3562sta-common')
 pkgver=2.4.1.1
-pkgrel=2
-_subpkgrel=2
+pkgrel=3
+_subpkgrel=3
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
@@ -27,10 +27,9 @@ source=(
 	$pkgbase-$pkgver-linux38.patch
 )
 
-_extramodules=extramodules-3.12-MANJARO
-_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
-
 build() {
+	_extramodules=extramodules-3.12-MANJARO
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 	cd "$srcdir/DPO_RT3562_3592_3062_LinuxSTA_V2.4.1.1_20101217"
 	patch -p0 -i "$srcdir/$pkgbase-$pkgver-config.patch"
 	[ "$CARCH" == "x86_64" ] && patch -p0 -i "$srcdir/$pkgbase-$pkgver-gcc-warnings-x86_64.patch"
@@ -73,6 +72,8 @@ package_rt3562sta-common() {
 }
 
 package_linux312-rt3562sta() {
+	_extramodules=extramodules-3.12-MANJARO
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 	provides=("$_pkgname=$pkgver")
 	groups=('linux312-extramodules')
 	pkgdesc="Ralink RT3562 PCI WLAN adaptors kernel module"
