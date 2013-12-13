@@ -7,9 +7,9 @@ pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
 ## needed for AUR support
-#depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.1' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
+#depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
 options=(!emptydirs)
@@ -23,8 +23,12 @@ if [ "$_git" == "Yes" ]; then
 else
    #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
    #sha256sums=('95816172978ef49dfd760c77d2badba7942571240aa28c12a584f88bc56cf961')
-   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
-   sha256sums=('c9287a7d65157bbb454f25009e67039ac60f7ef28308e5eabca07c92973d9d63')
+   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot"
+           "pamac-daemon.py"
+           "config.py")
+   sha256sums=('c9287a7d65157bbb454f25009e67039ac60f7ef28308e5eabca07c92973d9d63'
+            'adbeb09916d26322a0b2d6da5ad1cae6e2bb355dd3c069003f4c538a1746a33e'
+            '6ad48ff1f319a7c57fc8cb6a5facfcbbef529f9fb3822b56a5e29c7c4bea6e29')
 fi
 
 package() {
@@ -40,6 +44,10 @@ package() {
 
   # fix version
   sed -i 's|'0.9'|'0.9.0'|g' pamac-manager.py
+
+  # backport some files
+  cp "$srcdir/pamac-daemon.py"  .
+  cp "$srcdir/config.py" ./pamac
 
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
