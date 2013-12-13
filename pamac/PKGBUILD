@@ -2,7 +2,7 @@
 
 pkgname=pamac
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -27,7 +27,7 @@ else
            "pamac-daemon.py"
            "config.py")
    sha256sums=('c9287a7d65157bbb454f25009e67039ac60f7ef28308e5eabca07c92973d9d63'
-            'adbeb09916d26322a0b2d6da5ad1cae6e2bb355dd3c069003f4c538a1746a33e'
+            'a1aa65847426cbdd62a8ca52f9083ea4dd647edc9ef162a96771de7b0120a80a'
             '6ad48ff1f319a7c57fc8cb6a5facfcbbef529f9fb3822b56a5e29c7c4bea6e29')
 fi
 
