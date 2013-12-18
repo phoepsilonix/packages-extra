@@ -4,13 +4,13 @@
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
 pkgver=0.8.8
-pkgrel=1
+pkgrel=3
 arch=('any')
 url="http://git.manjaro.org/core/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=2c2c5ab21d5118a8ba46da2801f4c5cadb6ed484
+_gitver=e119772f93e85f7e5e131f1751c6fad40da432db
 
 if [ "$_git" == "snapshot" ]; then
    source=("manjaroiso-$_gitver.tar.gz::http://git.manjaro.org/core/manjaroiso/repository/archive?ref=$_gitver")
