@@ -6,9 +6,8 @@ _linuxprefix=linux311
 _extramodules=extramodules-3.11-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=13.11
-pkgrel=6
-_betano=9.4
+pkgver=13.12
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -20,25 +19,26 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/beta/amd-catalyst-${pkgver}-beta-v${_betano}-linux-x86.x86_64.run.zip
-        #http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
-        makefile_compat.patch)
+        makefile_compat.patch
+	3.9_kcl_acpi_buildfix.patch)
 
-sha256sums=('b6352ab75d378158e867bd629cea43f600cb9ced5757a5dc104dca18228fc158'
+sha256sums=('024033f4847d1c2a182fc44e0b3df29b2d133e24aeaba390f4504a8f3361a0ca'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
             'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
+            'd8811b23d646966899ee348c2b277333d347e902f321ded14e38f3cd00e15762' 
 )
 
 
 
 prepare() {
-	/bin/sh "./amd-catalyst-${pkgver}-beta V${_betano}-linux-x86.x86_64.run" --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+	#/bin/sh "./amd-catalyst-${pkgver}-beta V${_betano}-linux-x86.x86_64.run" --extract archive_files
+	/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
 }
 
 build() {
@@ -65,6 +65,7 @@ build() {
 	patch -Np1 -i ../makefile_compat.patch
 	patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
 	patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
+	patch -Np1 -i ../3.9_kcl_acpi_buildfix.patch
 
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
 	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
