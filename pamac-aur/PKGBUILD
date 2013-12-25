@@ -2,8 +2,8 @@
 
 pkgname=pamac-aur
 _pkgname=pamac
-pkgver=0.9.4
-pkgrel=3
+pkgver=0.9.5
+pkgrel=0
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
@@ -16,7 +16,7 @@ conflicts=('pamac')
 options=(!emptydirs)
 install=$_pkgname-install
 _git=no
-_snapshot=2c572fc1c6ff064c63dc449d88d0ea99d19adfe8
+_snapshot=9495b434336d95fa8e0e6642a7e1f4e8941801a8
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
@@ -25,7 +25,7 @@ else
    #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
    #sha256sums=('8626557d4c0a416d2a29c356cbaa672fdf9ab7ae2ec412c85e3ad348d19db0a0')
    source=("pamac-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
-   sha256sums=('a6d7453226f69d1295221f487367302e7dea5cbec67ecf61b398ae77a1e4c436')
+   sha256sums=('5af9bd627df8434d3e5170886e2d4aea0c3a57ef66596f741bdee1dd53a81cf9')
 fi
 
 package() {
@@ -54,6 +54,7 @@ package() {
 	install -Dm755 "pamac-tray.py" "${pkgdir}/usr/bin/pamac-tray"
 	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
+	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"

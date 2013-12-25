@@ -1,0 +1,98 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Maintainer: Roland Singer <roland[at]manjaro[dog]org>
+
+
+_linuxprefix=linux313
+_extramodules=extramodules-3.13-MANJARO
+pkgname=$_linuxprefix-catalyst
+_pkgname=catalyst
+pkgver=13.12
+pkgrel=0
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
+arch=('i686' 'x86_64')
+url="http://www.amd.com"
+license=('custom')
+depends=("$_linuxprefix" "catalyst-utils=${pkgver}")
+makedepends=("$_linuxprefix-headers")
+conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
+install=catalyst.install
+
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
+        ati_make.sh
+        lano1106_fglrx_intel_iommu.patch
+        lano1106_kcl_agp_13_4.patch
+        makefile_compat.patch
+	3.9_kcl_acpi_buildfix.patch
+	3.13_kernel_acpi_node.patch)
+
+sha256sums=('024033f4847d1c2a182fc44e0b3df29b2d133e24aeaba390f4504a8f3361a0ca'
+            '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
+            'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
+            '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
+            'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
+            'd8811b23d646966899ee348c2b277333d347e902f321ded14e38f3cd00e15762'
+            '61d223007c03b1bbdaf22509aeeb60113b0f528d6d5153fe1d7471223a1b0126'
+)
+
+
+
+prepare() {
+	#/bin/sh "./amd-catalyst-${pkgver}-beta V${_betano}-linux-x86.x86_64.run" --extract archive_files
+	/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+}
+
+build() {
+	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  ## include ati_make.sh and use _ati_check function from it
+	cd "${srcdir}"
+	. ati_make.sh
+	_ati_check
+
+	if [ "${CARCH}" = "x86_64" ]; then
+		BUILDARCH=x86_64
+		_archdir=x86_64
+	fi
+	if [ "${CARCH}" = "i686" ]; then
+		BUILDARCH=i386
+		_archdir=x86
+	fi
+
+	cd "${srcdir}/archive_files"
+
+	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
+	## works only in combination with ati_make.sh script
+	patch -Np1 -i ../makefile_compat.patch
+	patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
+	patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
+	patch -Np1 -i ../3.9_kcl_acpi_buildfix.patch
+	patch -Np1 -i ../3.13_kernel_acpi_node.patch
+
+	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
+        #patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
+	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
+	cp 2.6.x/Makefile .
+
+	## Compile module using _ati_check variables
+	make -C /usr/lib/modules/${_kernver}/build SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
+	MODFLAGS="-DMODULE -DATI -DFGL -DPAGE_ATTR_FIX=$PAGE_ATTR_FIX -DCOMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE $def_smp $def_modversions" \
+	PAGE_ATTR_FIX=$PAGE_ATTR_FIX COMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE modules
+}
+
+
+package() {
+	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
+	install -m755 -d "${pkgdir}/usr/lib/modules/${_extramodules}/"
+	install -m644 fglrx.ko "${pkgdir}/usr/lib/modules/${_extramodules}/"
+	find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
+
+    ## License
+	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+	install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
+
+	## Install script
+    sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
+    sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" $startdir/*.install
+}
