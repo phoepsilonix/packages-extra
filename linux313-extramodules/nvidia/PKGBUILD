@@ -10,7 +10,7 @@ _extramodules=extramodules-3.13-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=331.20
-pkgrel=0
+pkgrel=0.1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -35,10 +35,22 @@ elif [ "$CARCH" = "x86_64" ]; then
     sha256sums+=('a12b726671944979333938d993cc850874e1d5258a9c703656f9d9a1631ba008')
 fi
 
+source+=('acpi_os_wait_events_complete-workaround.patch')
+sha256sums+=('719d09b7c36ec15ffb9161740c91dc02c048c3ef1a356a4c2ac9f68a8d9f57b8')
+
+prepare() {
+  cd "$srcdir"
+  sh "$_pkg.run" --extract-only
+
+  # Work around Unknown symbol acpi_os_wait_events_complete
+  # https://devtalk.nvidia.com/default/topic/644906/331-20-on-3-13-rc1-kernel/
+  cd "$_pkg"
+  patch -Np1 -i "${srcdir}/acpi_os_wait_events_complete-workaround.patch"
+}
+
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-    cd "${srcdir}"
-    sh "${_pkg}.run" --extract-only
+
     cd "${_pkg}/kernel"
     make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
