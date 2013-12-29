@@ -1,34 +1,31 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.9.0
-pkgrel=2
+pkgver=0.9.5
+pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://git.manjaro.org/core/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify')
-## needed for AUR support
-#depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
+depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
+provides=('pamac-aur')
+conflicts=('pamac-auf')
+replaces=('pamac-auf')
 options=(!emptydirs)
 install=$pkgname-install
 _git=no
-_snapshot=b15b18595731aad76fec06e0390ce329185daaf3
+_snapshot=873bb796a5bf8cb3ea8b06b723c0890524b8d923
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
    sha256sums=('SKIP')
 else
-   #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
-   #sha256sums=('95816172978ef49dfd760c77d2badba7942571240aa28c12a584f88bc56cf961')
-   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot"
-           "pamac-daemon.py"
-           "config.py")
-   sha256sums=('c9287a7d65157bbb454f25009e67039ac60f7ef28308e5eabca07c92973d9d63'
-            'a1aa65847426cbdd62a8ca52f9083ea4dd647edc9ef162a96771de7b0120a80a'
-            '6ad48ff1f319a7c57fc8cb6a5facfcbbef529f9fb3822b56a5e29c7c4bea6e29')
+   source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
+   sha256sums=('2e2fce4b4f6b595bf1f2709e0a2a2a03b79c14d4c7be140315e99e5f2e7e30e8')
+   #source=("pamac-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
+   #sha256sums=('2e2fce4b4f6b595bf1f2709e0a2a2a03b79c14d4c7be140315e99e5f2e7e30e8')
 fi
 
 package() {
@@ -42,12 +39,8 @@ package() {
 	   cd "$srcdir/$pkgname.git"
   fi
 
-  # fix version
-  sed -i 's|'0.9'|'0.9.0'|g' pamac-manager.py
-
-  # backport some files
-  cp "$srcdir/pamac-daemon.py"  .
-  cp "$srcdir/config.py" ./pamac
+	# match version with pkgver
+	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager.py
 
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
@@ -61,6 +54,7 @@ package() {
 	install -Dm755 "pamac-tray.py" "${pkgdir}/usr/bin/pamac-tray"
 	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
+	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
