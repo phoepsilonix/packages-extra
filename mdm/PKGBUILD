@@ -4,19 +4,19 @@
 # Contributors: Pablo Lezaeta <prflr88 (arroba) gmail (dot) com>
 
 pkgname=mdm
-pkgver=1.4.6
-pkgrel=2
+pkgver=1.4.8
+pkgrel=1
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
 license=('GPL')
 groups=()
-depends=('pam>=1.0.2' 'libdmx' 'gtk2>=2.6' 'libgnomecanvas>=1.109.0' 'librsvg>=1.1.1' 'libxml2>=2.4.12' 'libart-lgpl>=2-0'
-'dbus-glib>=0.80' 'libwebkit' 'xdg-su')
-makedepends=('gnome-common' 'intltool>=0.35.0' 'perl>=5.8.1' 'gnome-doc-utils>=0.3.2' 'xorg-server' 'pango' 'zenity' 'popt')
+depends=('pam' 'libdmx' 'gtk2' 'libgnomecanvas' 'librsvg' 
+         'libxml2' 'libart-lgpl' 'dbus-glib' 'libwebkit' 'polkit')
+makedepends=('gnome-common' 'intltool' 'perl' 'gnome-doc-utils' 'xorg-server' 'pango' 'zenity' 'popt')
 optdepends=('webkitgtk: mdm-theme-emulator' 'xorg-server-xnest: mdmthemetester')
 provides=('gdm' 'gdm-old' "mintdm=$pkgver")
-conflicts=('gdm' 'mintdm')
+conflicts=('gdm' 'mintdm' 'mdm-display-manager')
 replaces=('mintdm')
 backup=('etc/mdm/custom.conf' 'etc/pam.d/mdm' 'etc/pam.d/mdm-autologin')
 options=('!libtool')
@@ -27,13 +27,15 @@ source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pk
 	'mdm.service'
 	'mdm-autologin.pam'
 	'defaults.conf'
-	'mdm-plymouth.service')
-sha256sums=(d6f58423891a963bd8820a0b832a09f5537e9cbee989e0b9da0d7be16794ebdc
+	'mdm-plymouth.service'
+        'org.cinnamon.pkexec.mdmsetup.policy')
+sha256sums=(ef6c0b6af9ca2ed94a5961277f1aff335605b8c6ca836a6109cff90fffc9c818
             54c3ff63cf18cafb5d6fead8cbe07f278a2ed41b6f2b354b6e28845bc850d60d
             110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c
             3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7
             01cac1714eb82bfda9260e83e5e9728eda3966c7653ce2ead9d38a9ccda26855
-            4f71596d0c91760d5e425014bc8fdff0fbdc41d0ea43e020220cb6a2bc366bd7)
+            4f71596d0c91760d5e425014bc8fdff0fbdc41d0ea43e020220cb6a2bc366bd7
+            bd22d536a7a1b455a8f8a45d7d8cc46156cb4ef5f3bc706dd73c89d503acad6b)
 
 noextract=()
 
@@ -46,7 +48,7 @@ build() {
 	--with-systemd --libexecdir=/usr/lib/mdm --localstatedir=/var/lib \
 	--disable-static --with-xevie=yes --disable-scrollkeeper \
 	--enable-secureremote=yes --enable-ipv6=yes \
-    --enable-compile-warnings=no --sbindir=/usr/bin \
+	--enable-compile-warnings=no --sbindir=/usr/bin \
 	LDFLAGS="-lXau -lm"
 	sed -i -e 's|${prefix}|/usr|' config.h
 	make DESTDIR=$pkgdir
@@ -73,6 +75,11 @@ msg2 'Adding config files'
 	install -m444 "${srcdir}/defaults.conf" "${pkgdir}/usr/share/mdm/" 
 	rm -f ${pkgdir}/usr/share/xsessions/gnome.desktop || true
 
+msg2 'Adding PolicyKit execution scheme'
+	#PolicyKit execution scheme (need some tests)
+	install -m755 -d $pkgdir/usr/share/polkit-1/actions/
+	install -m644 $srcdir/org.cinnamon.pkexec.mdmsetup.policy $pkgdir/usr/share/polkit-1/actions/
+
 	#Why on the hay this directory is created empty in etc, remove it 
 	rmdir $pkgdir/etc/dm
 
@@ -84,7 +91,7 @@ msg2 'Adding faces'
 
 msg2 'Adding applications'
 	#Fix gdmsetup.desktop
-	sed -i -e 's|^Exec=gksu|Exec=xdg-su|' $pkgdir/usr/share/mdm/applications/mdmsetup.desktop
+	sed -i -e 's|^Exec=gksu|Exec=pkexec|' $pkgdir/usr/share/mdm/applications/mdmsetup.desktop
 	sed -i -e 's|^Categories=|Categories=GNOME;GTK;System;Settings;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;|' $pkgdir/usr/share/mdm/applications/mdmsetup.desktop
 	
 	#Fix erroneous path for certain applications

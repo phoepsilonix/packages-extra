@@ -7,14 +7,15 @@
 pkgname=libxfce4ui
 _pkgname=libxfce4ui
 pkgver=4.11.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Commonly used Xfce widgets among Xfce applications"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
-depends=('libxfce4util' 'gtk2' 'gtk3' 'xfconf' 'libsm' 'startup-notification'
+depends=('libxfce4util' 'gtk2' 'xfconf' 'libsm' 'startup-notification'
          'hicolor-icon-theme')
-makedepends=('intltool' 'gtk-doc')
+makedepends=('intltool' 'gtk-doc' 'gtk3')
+optdepends=('gtk3: for GTK3 support')
 #replaces=('libxfcegui4') - later when all is ported
 options=('!libtool')
 install=$_pkgname.install
