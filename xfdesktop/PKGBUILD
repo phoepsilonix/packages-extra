@@ -6,10 +6,10 @@
 
 pkgname=xfdesktop
 _pkgname=xfdesktop
-#_git=37baff27944ba6282e420069e0993f08953ff482
-_git=4.11.2
+_git=1028f607551254cca5db4951e9e52d4bb4d09c6d
+#_git=4.11.2
 pkgver=4.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -21,15 +21,15 @@ provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 options=('!libtool')
 install=xfdesktop.install
-source=(http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2)
-        #$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_git.tar.bz2)
-sha256sums=('d3eacf6a3a37de93f4cdb9f3239d82b49824ab7c9b05c9c86a04e47be4360285')
+source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2)
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_git.tar.bz2)
+sha256sums=('9e107133dec541dc6f46d33a39cd6b36b9ba7d82d048de12ef1c8a860b233b6d')
 
 build() {
   cd "$srcdir/$_pkgname-$_git"
 
-  #./autogen.sh \
-  ./configure \
+  #  ./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \

@@ -4,29 +4,31 @@
 
 _linuxprefix=linux313
 _extramodules=extramodules-3.13-MANJARO
-pkgname=$_linuxprefix-catalyst
-_pkgname=catalyst
-pkgver=13.4
-pkgrel=0.1
+pkgname=$_linuxprefix-catalyst-13.4
+_pkgname=catalyst-13.4
+_pkgver=13.4
+pkgver=12.104
+pkgrel=2.1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
-depends=("$_linuxprefix" "catalyst-utils=${pkgver}")
+depends=("$_linuxprefix" "catalyst-13.4-utils=${pkgver}")
 makedepends=("$_linuxprefix-headers")
-conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
+conflicts=('catalyst' "$_linuxprefix-catalyst" 'catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
+source=(http://geeko.ioda.net/mirror/amd-fglrx/raw-src/amd-catalyst-${_pkgver}-linux-x86.x86_64.zip
         ati_make.sh
         makefile_compat.patch
 	gentoo_linux-3.10-proc.diff
 	kolasa_fglrx_fixing_ttys.patch
 	lano1106_fglrx_intel_iommu.patch
 	lano1106_kcl_agp_13_4.patch
-	kolasa_fglrx_312.patch::https://github.com/kolasa/fglrx-13.20.11/commit/edf23ae8816486f1978f712a0a280320ff493769.patch)
+	kolasa_fglrx_312.patch::https://github.com/kolasa/fglrx-13.20.11/commit/edf23ae8816486f1978f712a0a280320ff493769.patch
+	3.13_kernel_acpi_node.patch)
 
 sha256sums=('ebec78c7f78db3601d1c97116a6823076a7765318e16d88b619ebc80d4c6d1d5'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
@@ -35,12 +37,11 @@ sha256sums=('ebec78c7f78db3601d1c97116a6823076a7765318e16d88b619ebc80d4c6d1d5'
             'f3c52725b8e306da8dabdddb4f3e7c0996d8c65fd2ad60dda3d0080dba80bfa4'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
-            '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d')
-
-
+            '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d'
+            '61d223007c03b1bbdaf22509aeeb60113b0f528d6d5153fe1d7471223a1b0126')
 
 prepare() {
-	/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+	/bin/sh ./amd-catalyst-${_pkgver}-linux-x86.x86_64.run --extract archive_files
 }
 
 
@@ -70,6 +71,7 @@ build() {
         patch -Np1 -i ../kolasa_fglrx_fixing_ttys.patch
         patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
         patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
+	patch -Np1 -i ../3.13_kernel_acpi_node.patch
 
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
         patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch

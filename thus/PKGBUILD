@@ -4,18 +4,18 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.8.8.0.909
-pkgrel=3
+pkgver=0.8.9pre2
+pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
 license=(GPL)
 url="http://git.manjaro.org/core/thus.git"
 depends=(coreutils cryptsetup gptfdisk grep libtimezonemap hdparm lvm2 mhwd
          pam_encfs py3parted python python-configobj python-gobject python-dbus
-         rsync sudo systemd ttf-indic-otf upower util-linux webkitgtk3 e2fsprogs
-         dosfstools jfsutils ntfs-3g ntfsprogs reiserfsprogs xfsprogs)
-optdepends=('python-pyqt4: for keyboard layout generator using pyqt4'
-            'python-pyqt5: for keyboard layout generator using pyqt5')
+         rsync sudo systemd upower util-linux webkitgtk3 e2fsprogs keyboardctl
+         dosfstools jfsutils ntfs-3g ntfsprogs reiserfsprogs xfsprogs
+         ttf-aboriginal-sans ttf-indic-otf ttf-khmer ttf-lohit-fonts ttf-myanmar3
+         ttf-thaana-fonts ttf-tlwg)
 install=thus.install
 backup=(etc/thus.conf)
 _git=Yes
