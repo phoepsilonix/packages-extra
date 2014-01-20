@@ -3,10 +3,10 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgbase=catalyst-utils
-pkgname=('catalyst-utils' 'mhwd-catalyst')
+pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=13.12
-pkgrel=1
-pkgdesc="AMD/ATI Catalyst drivers utilities and libraries with OpenCL implementation."
+pkgrel=3
+pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
@@ -45,13 +45,13 @@ prepare() {
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('xorg-server>=1.14.0' 'xorg-server<1.15.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
+	#depends=('xorg-server>=1.14.0' 'xorg-server<1.15.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
+        depends=('catalyst-input' 'catalyst-video' 'catalyst-server>=1.12.0' 'catalyst-server<1.13.0'
+                 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
 	optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
-		    'opencl-headers: headers necessary for OpenCL development'
 		    'acpid: acpi event support  / atieventsd')
-	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'opencl-catalyst' 'libcl')
-	provides=('opencl-catalyst' 'libcl')
+	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'catalyst-13.4' 'catalyst-13.4-utils')
 	install="${pkgname}.install"
 
   ## Install userspace tools and libraries
@@ -61,7 +61,6 @@ package_catalyst-utils() {
       install -m755 -d ${pkgdir}/etc/profile.d
       install -m755 -d ${pkgdir}/etc/acpi/events
       install -m755 -d ${pkgdir}/etc/security/console.apps
-      install -m755 -d ${pkgdir}/etc/OpenCL/vendors
 
       install -m755 -d ${pkgdir}/usr/lib/xorg/modules/dri
       install -m755 -d ${pkgdir}/usr/lib/xorg/modules/drivers
@@ -138,8 +137,6 @@ package_catalyst-utils() {
       ln -snf libfglrx_dm.so.1.0 ${pkgdir}/usr/lib/libfglrx_dm.so
       ln -snf libatiuki.so.1.0 ${pkgdir}/usr/lib/libatiuki.so.1
       ln -snf libatiuki.so.1.0 ${pkgdir}/usr/lib/libatiuki.so
-      ln -snf libOpenCL.so.1 ${pkgdir}/usr/lib/libOpenCL.so
-
 
       cd ${srcdir}/archive_files/common
       patch -Np2 -i ${srcdir}/arch-fglrx-authatieventsd.patch
@@ -174,23 +171,42 @@ package_catalyst-utils() {
       install -m644 ${srcdir}/archive_files/common/usr/share/doc/amdcccle/ccc_copyrights.txt \
 	${pkgdir}/usr/share/licenses/${pkgname}/amdcccle_copyrights.txt
 
-    # since 11.11 : opencl files
-      if [ "${CARCH}" = "i686" ]; then
-	cd ${srcdir}/archive_files/arch/x86
-	_arc=32
-      elif [ "${CARCH}" = "x86_64" ]; then
-	cd ${srcdir}/archive_files/arch/x86_64
-	_arc=64
-      fi
-
-      install -m644 etc/OpenCL/vendors/amdocl${_arc}.icd ${pkgdir}/etc/OpenCL/vendors
-      install -m755 usr/bin/clinfo ${pkgdir}/usr/bin
-
     #workaround for the high io bug , thanks to lano1106 for finding this ugly bug! https://bbs.archlinux.org/viewtopic.php?pid=1279977#p1279977
       install -m755 ${srcdir}/temp_links_catalyst ${pkgdir}/usr/bin
       install -m644 ${srcdir}/temp-links-catalyst.service ${pkgdir}/usr/lib/systemd/system
+
+    # provided in opencl-catalyst package
+      rm "${pkgdir}"/usr/lib/lib{amdocl*,OpenCL}.so* 
 }
 
+package_opencl-catalyst() {
+      pkgdesc="OpenCL implemention from AMD"
+      provides=('libcl')
+      conflicts=('libcl' 'opencl-catalyst-legacy' 'opencl-catalyst-13.4')
+      depends=('gcc-libs')
+      optdepends=('opencl-headers: headers necessary for OpenCL development')
+      
+      install -dm755 "${pkgdir}"/usr/{bin,lib}
+      install -dm755 "${pkgdir}/etc/OpenCL/vendors"
+      install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
+
+      if [ "${CARCH}" = "i686" ]; then
+      _ARCHDIR="x86"
+      _ARCHLIB=""
+      else
+      _ARCHDIR="x86_64"
+      _ARCHLIB="64"
+      fi
+      
+      cd ${srcdir}/archive_files/arch/${_ARCHDIR}
+      install -m755 usr/bin/clinfo "${pkgdir}/usr/bin/"
+      install -m644 etc/OpenCL/vendors/amdocl*.icd "${pkgdir}/etc/OpenCL/vendors/"
+      install -m755 usr/lib${_ARCHLIB}/libamdocl*.so "${pkgdir}/usr/lib/"
+      install -m755 usr/lib${_ARCHLIB}/libOpenCL.so.1 "${pkgdir}/usr/lib/"
+      ln -s libOpenCL.so.1 "${pkgdir}/usr/lib/libOpenCL.so"
+      # license
+      install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
 
 package_mhwd-catalyst() {
     pkgdesc="MHWD module-ids for catalyst $pkgver"

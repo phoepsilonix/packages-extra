@@ -3,7 +3,7 @@
 
 pkgname=manjaro-settings-manager
 pkgver=0.1.3
-pkgrel=0.8
+pkgrel=2.1
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
@@ -21,12 +21,12 @@ _git=yes
 _snapshot=4fdbde006d666c3dd6dc3fc90c441758fa7135fd
 
 if [ "$_git" == "yes" ]; then
-   source=(git+http://git.manjaro.org/core/manjaro-settings-manager.git#branch=development)
+   source=(git+http://git.manjaro.org/core/$pkgname.git#branch=development)
    sha256sums=('SKIP')
 else
-   #source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/core/manjaro-settings-manager/repository/archive?ref=v$pkgver")
+   #source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/core/$pkgname/repository/archive?ref=v$pkgver")
    #sha256sums=('8626557d4c0a416d2a29c356cbaa672fdf9ab7ae2ec412c85e3ad348d19db0a0')
-   source=("$pkgname-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/manjaro-settings-manager/repository/archive?ref=$_snapshot")
+   source=("$pkgname-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/$pkgname/repository/archive?ref=$_snapshot")
    sha256sums=('260f6be3bfb13931054efb7807cd57de9ef16477378f915886f5475606414ccc')
 fi
 
@@ -41,8 +41,8 @@ build() {
 	   cd "$srcdir/$pkgname.git/src"
   fi
 
-  /usr/lib/qt4/bin/lrelease manjaro-settings-manager/manjaro-settings-manager.pro
-  /usr/lib/qt4/bin/lrelease manjaro-settings-manager-daemon/manjaro-settings-manager-daemon.pro
+  /usr/lib/qt4/bin/lrelease $pkgname/$pkgname.pro
+  /usr/lib/qt4/bin/lrelease $pkgname-daemon/$pkgname-daemon.pro
 
   qmake-qt4
 

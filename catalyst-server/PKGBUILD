@@ -4,7 +4,7 @@
 
 pkgname=('catalyst-server')
 pkgver=1.12.4
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 depends=(catalyst-input
          fontsproto
@@ -67,22 +67,22 @@ source=(http://catalyst.wirephire.com/repo/xorg112/$CARCH/xorg-server-$pkgver-$p
         http://catalyst.wirephire.com/repo/xorg112/$CARCH/xorg-server-xnest-$pkgver-$pkgrel-$CARCH.pkg.tar.xz
         http://catalyst.wirephire.com/repo/xorg112/$CARCH/xorg-server-xvfb-$pkgver-$pkgrel-$CARCH.pkg.tar.xz)
 if [ "$CARCH" = "i686" ]; then
-   sha256sums=(c676698d2a9eedf9f2c50489427792669879485b51adfa966e5366812a9af486
-               a153d8ce03e62ed78ef1a903bb7774308e4537f0c15ade02bbb4abd18c355700
-               58833926bde843dbc1827cbbb70f4a7c85997dafb8ff5c459aa40cd2c1a2ef72
-               570d9a5e83de0807aec49218b5925b358e1f1ce8e78875ab7fd7cf8f630a2aab
-               fd17e1191696cf21759624518612aee028b54aac1046e9318870e3449256c32f
-               c1b6ebec082ae39834f515578f413cedb00ddee7086a644ae6ba18963fe90f37
-               0b8f28d1eb52ab4b37e88309fbd9bd13041514e8c6a38c2d575994481e82d9a9
+   sha256sums=(5a6321de8442b33a38e24f49d5ec81c79797358af61003b4dd6ad3ff2bcfb559
+               841468438720ce40f05463e1f3c724a61b973dbe884998d961aa8c556e4fe290
+               751a1675155668b29f77724b984e65034fe193ebc34942875b515441bc4e756a
+               a03ff5a26077f3fef17ed35614af219a8c2eac6b1d58e8e3884711c3e7b5c85a
+               9160cb947bd8cc409c0ec6504d2b157c5de365b3dd00d949e31554ce0db63b2f
+               ab7cddab50dab7af395a745cae454b429a4596d5cb24c9e2c75c723a175eff6f
+               ce91e0fa34725d3c023339add8b27fb66883313ebef057a937602e9dc5abecd5
 )
 else
-   sha256sums=(b44f34cf813a02a562c1629e411c74b2c294c35924a9d405ea890460573edc4f
-               3f65212c74bffc1234ae75a2b5a709017ffe284cda3b1b0b72a8344546d8fe7c
-               aa85bb228bb159b9fa90a502a248d9c5e9de93ef5bbd05af7a35bbb6dead88f0
-               fd380ba169ca1b7fbfe9a102da8dc83112fa40d440633852041f6e48314a21f5
-               7db4e04b4950fcd9713592f922b0fa903ae66a25e252129c72b815f06a540fca
-               73fc7cc8892e1cbc7a9829026a3bf9dfb9cb4c2795f1f6c5f7b4b2af530ea649
-               4fafc45ec290950b2b585fa363bf8431656eea13a4ad3c29d5ef3372a4f2d507)
+   sha256sums=(1e4195ced86d55915d5ea5e741dba20b70f91706fc09e27728a63a4490f4d7c5
+               c104395d164f4c7aaeef88b6f888b6b10de9e89df4c20350daa8b44823266ada
+               33b5c24be43dac7e3de929ac7d2963c95bf0efc354631e3c5ddf91310d6496c2
+               05c9931cffa91fb9c9206c75dd3c4475427ec5e7fceb50c312c95669196c36f0
+               6ddb26b673c50ff83957b3f18fba9b809e650608bb5a42a599c9ca1a7c7915c9
+               b9af690df989fa29239593378f0a916ee1f039eae88d63cce32f11dfc7f2ef2f
+               b14895c139a1bcce8320b040f2e494aa04414f51d254fe6213cd87958861bd7d)
 fi
 
 package() {

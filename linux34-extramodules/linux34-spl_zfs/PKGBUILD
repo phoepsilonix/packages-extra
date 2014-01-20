@@ -4,7 +4,7 @@
 pkgbase=linux34-spl_zfs
 pkgname=('linux34-spl' 'linux34-zfs')
 pkgver=0.6.2
-pkgrel=5
+pkgrel=6
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")

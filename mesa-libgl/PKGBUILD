@@ -2,13 +2,13 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=mesa-libgl
-pkgver=10.0.1
+pkgver=10.0.2
 pkgrel=1
 pkgdesc="Mesa 3-D graphics library"
 arch=('any')
 url="http://mesa3d.sourceforge.net"
 license=('custom')
-depends=("mesa=${pkgver}" 'mhwd')
+depends=("mesa>=${pkgver}" 'mhwd')
 provides=('libgl' 'nvidia-libgl' 'nvidia-304xx-libgl' 'catalyst-libgl' 'catalyst-legacy-libgl')
 install="${pkgname}.install"
 source=(LICENSE)

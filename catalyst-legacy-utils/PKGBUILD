@@ -3,10 +3,10 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgbase=catalyst-legacy-utils
-pkgname=('catalyst-legacy-utils' 'mhwd-catalyst-legacy')
+pkgname=('catalyst-legacy-utils' 'opencl-catalyst-legacy' 'mhwd-catalyst-legacy')
 pkgver=13.1
-pkgrel=6
-pkgdesc="AMD/ATI Legacy Catalyst drivers utilities and libraries with OpenCL implementation."
+pkgrel=7
+pkgdesc="AMD/ATI Legacy Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
@@ -42,10 +42,8 @@ package_catalyst-legacy-utils() {
 	pkgdesc="AMD Legacy Catalyst drivers utilities and libraries."
 	depends=('catalyst-input' 'catalyst-video' 'catalyst-server>=1.12.0' 'catalyst-server<1.13.0' 'gcc-libs' 'libxinerama' 'libxcursor' 'libxxf86vm' 'libxrandr' 'libsm' 'fontconfig' 'libxi' 'xorg-xauth' 'which' 'netkit-bsd-finger' 'mhwd')
 	optdepends=('qt4: amdcccle' 'acpid: acpi event support'
-				'opencl-headers: headers necessary for OpenCL development'
-				'acpid: acpi event support / atieventsd')
-	conflicts=('catalyst' 'catalyst-utils' 'opencl-catalyst-legacy' 'libcl')
-	provides=('opencl-catalyst-legacy' 'libcl')
+	            'acpid: acpi event support / atieventsd')
+	conflicts=('catalyst' 'catalyst-utils' 'catalyst-13.4' 'catalyst-13.4-utils')
 	install="${pkgname}.install"
 
   ## Install userspace tools and libraries
@@ -55,7 +53,6 @@ package_catalyst-legacy-utils() {
       install -m755 -d ${pkgdir}/etc/profile.d
       install -m755 -d ${pkgdir}/etc/acpi/events
       install -m755 -d ${pkgdir}/etc/security/console.apps
-      install -m755 -d ${pkgdir}/etc/OpenCL/vendors
 
       install -m755 -d ${pkgdir}/usr/lib/xorg/modules/dri
       install -m755 -d ${pkgdir}/usr/lib/xorg/modules/drivers
@@ -65,7 +62,6 @@ package_catalyst-legacy-utils() {
       install -m755 -d ${pkgdir}/usr/lib/systemd/system
 
       install -m755 -d ${pkgdir}/usr/bin
-      install -m755 -d ${pkgdir}//usr/bin
 
       install -m755 -d ${pkgdir}/usr/include/GL
 
@@ -133,8 +129,6 @@ package_catalyst-legacy-utils() {
       ln -snf libfglrx_dm.so.1.0 ${pkgdir}/usr/lib/libfglrx_dm.so
       ln -snf libatiuki.so.1.0 ${pkgdir}/usr/lib/libatiuki.so.1
       ln -snf libatiuki.so.1.0 ${pkgdir}/usr/lib/libatiuki.so
-      ln -snf libOpenCL.so.1 ${pkgdir}/usr/lib/libOpenCL.so
-
 
       cd ${srcdir}/archive_files/common
       patch -Np2 -i ${srcdir}/arch-fglrx-authatieventsd.patch
@@ -168,19 +162,38 @@ package_catalyst-legacy-utils() {
       install -m644 ${srcdir}/archive_files/common/usr/share/doc/amdcccle/ccc_copyrights.txt \
 	${pkgdir}/usr/share/licenses/${pkgname}/amdcccle_copyrights.txt
 
-    # since 11.11 : opencl files
-      if [ "${CARCH}" = "i686" ]; then
-	cd ${srcdir}/archive_files/arch/x86
-	_arc=32
-      elif [ "${CARCH}" = "x86_64" ]; then
-	cd ${srcdir}/archive_files/arch/x86_64
-	_arc=64
-      fi
-
-      install -m644 etc/OpenCL/vendors/amdocl${_arc}.icd ${pkgdir}/etc/OpenCL/vendors
-      install -m755 usr/bin/clinfo ${pkgdir}/usr/bin
+    # provided in opencl-catalyst-legacy package
+      rm "${pkgdir}"/usr/lib/lib{amdocl*,OpenCL}.so* 
 }
 
+package_opencl-catalyst-legacy() {
+      pkgdesc="OpenCL implemention from AMD"
+      provides=('libcl')
+      conflicts=('libcl' 'opencl-catalyst' 'opencl-catalyst-13.4')
+      depends=('gcc-libs')
+      optdepends=('opencl-headers: headers necessary for OpenCL development')
+      
+      install -dm755 "${pkgdir}"/usr/{bin,lib}
+      install -dm755 "${pkgdir}/etc/OpenCL/vendors"
+      install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
+
+      if [ "${CARCH}" = "i686" ]; then
+      _ARCHDIR="x86"
+      _ARCHLIB=""
+      else
+      _ARCHDIR="x86_64"
+      _ARCHLIB="64"
+      fi
+      
+      cd ${srcdir}/archive_files/arch/${_ARCHDIR}
+      install -m755 usr/bin/clinfo "${pkgdir}/usr/bin/"
+      install -m644 etc/OpenCL/vendors/amdocl*.icd "${pkgdir}/etc/OpenCL/vendors/"
+      install -m755 usr/lib${_ARCHLIB}/libamdocl*.so "${pkgdir}/usr/lib/"
+      install -m755 usr/lib${_ARCHLIB}/libOpenCL.so.1 "${pkgdir}/usr/lib/"
+      ln -s libOpenCL.so.1 "${pkgdir}/usr/lib/libOpenCL.so"
+      # license
+      install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
 
 package_mhwd-catalyst-legacy() {
     pkgdesc="MHWD module-ids for legacy catalyst $pkgver"
