@@ -73,7 +73,7 @@ package_rt3562sta-common() {
 }
 
 package_linux311-rt3562sta() {
-	provides=("$_pkgname=$pkgver")
+	provides=("$pkgbase=$pkgver")
 	groups=('linux311-extramodules')
 	pkgdesc="Ralink RT3562 PCI WLAN adaptors kernel module"
 	depends=('linux311' 'rt3562sta-common')
