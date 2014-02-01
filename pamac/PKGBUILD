@@ -10,9 +10,8 @@ license=('GPL')
 depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
-provides=('pamac-aur')
-conflicts=('pamac-auf')
-replaces=('pamac-auf')
+conflicts=('pamac-aur')
+replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname-install
 _git=No
