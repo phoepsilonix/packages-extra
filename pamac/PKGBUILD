@@ -10,8 +10,8 @@ license=('GPL')
 depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
-conflicts=('pamac-auf')
-replaces=('pamac-auf')
+backup=('etc/pamac.conf')
+replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname-install
 _git=Yes
@@ -53,7 +53,7 @@ package() {
 	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
 	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
-  install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
+	install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
 	install -Dm644 "data/config/pamac.conf" "${pkgdir}/etc/pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
