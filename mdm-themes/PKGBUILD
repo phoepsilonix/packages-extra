@@ -1,13 +1,13 @@
 pkgbase=mdm-themes
 pkgname=('mdm-themes' 'mdm-themes-extra')
-pkgver=0.1.4
-pkgrel=2
+pkgver=0.1.5
+pkgrel=1
 pkgdesc="Nice themes for MDM"
 arch=('any')
 url="http://manjaro.org"
 license=('GPL' 'BSD')
 depends=('mdm')
-source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/artwork/mdm-themes/repository/archive?ref=$pkgver"
+source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/artwork/mdm-themes/repository/archive.tar.gz?ref=$pkgver"
         http://fc01.deviantart.net/fs70/f/2013/156/7/8/blacknblue_mdm_animated_theme_by_samriggs-d6006id.zip
         http://heanet.dl.sourceforge.net/project/mdmclocktheme/Clock.tar.gz
         http://heanet.dl.sourceforge.net/project/eosmdmlogin/eOS.tar.gz
@@ -16,7 +16,7 @@ source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/artwork/mdm-themes/repo
         http://fc06.deviantart.net/fs70/f/2013/134/6/5/steampunkfuturecity_mdm_animated_theme_by_samriggs-d64p1d9.zip
         http://fc08.deviantart.net/fs70/f/2013/156/0/5/circuitboard_mdm_theme_by_samriggs-d5zhyum.zip
         http://fc06.deviantart.net/fs70/f/2013/156/b/d/galaxy_mdm_theme_by_samriggs-d5yijkd.zip)
-sha256sums=(f6bbb52276394d530bb8aa667ea7f1758d02834e52d7d33806ed143d47ef40ed
+sha256sums=(eba6833597cc5d5abb88fcfe1d1f29f1fcc15e45212cd7e39bd15b23687c338e
             c95218a5746fed9f9d0ba89c9730646182f510d58bcd1e6a48c96f0f04085d3c
             c3c492b2653178b57bce27cd97ee6b8321f70abdd44925f87f7ce379083c1de0
             e11b0cb95ce6387215f1280c841d6defe6cac5567963f93426e6171397876a49
