@@ -6,9 +6,8 @@ _linuxprefix=linux313
 _extramodules=extramodules-3.13-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=13.35.1005
-pkgrel=1
-_tarball=14.1-betav1.3
+pkgver=13.12
+pkgrel=3
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -20,26 +19,28 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/beta/amd-catalyst-${_tarball}-linux-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-x86.x86_64.zip
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
-        lano1106_fglrx-13.8_proc.patch
-        makefile_compat.patch)
+        makefile_compat.patch
+	3.9_kcl_acpi_buildfix.patch
+	3.13_kernel_acpi_node.patch)
 
-sha256sums=('61258534756b494fbd35c10a18b142d8805b07f4f9bab394b3a445cbf6a543fa'
+sha256sums=('baea420f5f8679bbc1548c2ab15a776460c19074afa56431f10b9081c4b06eb0'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
-            '67504f6dbf9f880d0dda7e85e372abb86088fc033ba2c30d28c425c36950985b'
             'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
+            'd8811b23d646966899ee348c2b277333d347e902f321ded14e38f3cd00e15762'
+            '61d223007c03b1bbdaf22509aeeb60113b0f528d6d5153fe1d7471223a1b0126'
 )
 
 
 
 prepare() {
-	/bin/sh ./amd-driver-installer-${pkgver}-x86.x86_64.run --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+	#/bin/sh "./amd-catalyst-${pkgver}-beta V${_betano}-linux-x86.x86_64.run" --extract archive_files
+	/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
 }
 
 build() {
@@ -66,9 +67,11 @@ build() {
 	patch -Np1 -i ../makefile_compat.patch
 	patch -Np1 -i ../lano1106_fglrx_intel_iommu.patch
 	patch -Np1 -i ../lano1106_kcl_agp_13_4.patch
-	patch -Np1 -i ../lano1106_fglrx-13.8_proc.patch
+	patch -Np1 -i ../3.9_kcl_acpi_buildfix.patch
+	patch -Np1 -i ../3.13_kernel_acpi_node.patch
 
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
+        #patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
 	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 

@@ -9,8 +9,8 @@ _linuxprefix=linux313
 _extramodules=extramodules-3.13-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=331.38
-pkgrel=2
+pkgver=331.49
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -27,12 +27,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('396e4d8fffacd271937ef57dd90ec2dea3ff32ee9f1de73ce5370a6e29382bf4')
+    sha256sums+=('b6725d71f25e22300f1ef92d57089675d454d17746084f1a166576c7105ea701')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('177e0d6b4cfb16889f6ba1039b5735b51b8056e5288f2b6b2943426f71744ad2')
+    sha256sums+=('d3c10288038830b18d95fecd64059c4c0513c6241fdb43501c235e4f03dd7460')
 fi
 
 source+=('acpi_os_wait_events_complete-workaround.patch')
