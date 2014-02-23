@@ -5,13 +5,13 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=331.49
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
 source=('mhwd-nvidia')
-sha256sums=('f25fe74767581ddca3c5ccda05d1c368dc33daaef47fbac5593c4dc2d699f0af')
+sha256sums=('9513f636c27d6ac06a3dd41f7761d2cf4fe8f1c91bb177fce3f333dd2b072713')
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
