@@ -5,32 +5,31 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=xfdesktop
-_git=4c02f4b33de3b7e5c1b40f8778284fd1e29a7c0c
-#_git=4.11.2
+_git=d3c13d6aab145d916d6288f013fa30b8703dacb8
 pkgver=4.11.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4')
 depends=("libxfce4ui>=4.11" 'thunar' 'garcon' 'hicolor-icon-theme' 'libwnck')
-makedepends=('intltool')
-#makedepends=('intltool' 'xfce4-dev-tools')
+#makedepends=('intltool')
+makedepends=('intltool' 'xfce4-dev-tools')
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 options=('!libtool')
 install=xfdesktop.install
-source=(http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
-        #$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('b7121af745bf79208380ceffa0ba377aab0c49be12ea5f8a16426b42b5e047a1')
+source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('6182549de7c4b24c0a1238220c654e27fe99a30411e540c0db0ecb7713582cba')
 
 build() {
-  #cd "$srcdir/$pkgname-$_git"
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
 
-  #./autogen.sh \
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -44,7 +43,7 @@ build() {
 }
 
 package() {
-  #cd "$srcdir/$pkgname-$_git"
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }

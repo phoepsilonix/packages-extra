@@ -6,7 +6,7 @@
 
 pkgname=xfce4-settings
 _pkgname=xfce4-settings
-pkgver=4.11.1
+pkgver=4.11.2
 pkgrel=1
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
@@ -20,9 +20,9 @@ optdepends=('libcanberra: for sound control')
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 source=(http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
-        xfce4-settings-xml-4.10.0.patch)
-sha256sums=('bae5dc0fee841d191f24ada14658e030d69a434e2a1abd81a940a645f370fc8f'
-            '78e68ef2cbf19760707ba24f3d57dd59fbf40a540d50d20e7cc62ba02196aaaa')
+        xfce4-settings-xml-4.11.2.patch)
+sha256sums=('2745fc11fe6e856344a6a7c1ae9c12e1f0f21cc6d56c5a46bd16987a7e10081f'
+            'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff')
 
 
 prepare() {
@@ -30,7 +30,7 @@ prepare() {
 
   # enable gnome icon theme, clearlooks theme and font hinting by default
   # (taken from Fedora)
-  patch -Np1 -i "$srcdir/xfce4-settings-xml-4.10.0.patch"
+  patch -Np1 -i "$srcdir/xfce4-settings-xml-4.11.2.patch"
 }
 
 build() {

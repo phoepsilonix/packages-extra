@@ -5,7 +5,7 @@
 _pkgname=thus
 pkgname=thus
 pkgver=0.8.9
-pkgrel=1
+pkgrel=1.1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
 license=(GPL)
@@ -18,8 +18,8 @@ depends=(coreutils cryptsetup gptfdisk grep libtimezonemap hdparm hwinfo lvm2 mh
          ttf-thaana-fonts ttf-tlwg)
 install=thus.install
 backup=(etc/thus.conf)
-_git=No
-_development=No
+_git=Yes
+_development=Yes
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)

@@ -1,23 +1,26 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: Nicolas Avrutin  <nicolasavru@gmail.com>
 pkgname=pa-applet
-pkgver=1.0
+pkgver=1.0.1
 pkgrel=1
-_ver=005f192df9ba6d2e6491f9aac650be42906b135a
+_ver=45685c4092e524f9d6cd45169bb85b13c82565e1
 pkgdesc="PulseAudio system tray applet with volume bar"
 arch=(i686 x86_64)
 url="https://github.com/fernandotcl/pa-applet"
 license=('BSD')
-depends=('gtk3' 'libnotify' 'libpulse')
+depends=('gtk3' 'libnotify' 'libpulse' 'libcanberra')
 options=('!libtool')
 replaces=('pa-applet-git')
 conflicts=('pa-applet-git')
-source=("https://github.com/fernandotcl/pa-applet/archive/$_ver.zip" pa-applet.desktop)
-sha256sums=('0ba593e8f6ac9dafd3b29bc88982787908c5452fa33980a190da85546b057456'
-            '99db3caaf0abb403480b466d6b937c9a72c9fc17e86c07bbeaf9c973ce8da303')
+source=("pa-applet-$pkgver.zip::https://github.com/fernandotcl/pa-applet/archive/$_ver.zip" pa-applet.desktop
+        "popup-sound.patch::https://github.com/dooblem/pa-applet/commit/8c9e0469f3512acb8c1df288f87e32febaed85ce.patch")
+sha256sums=('74afc528d2976134c14ad153a834bd0675420327d66c49889ff7d18d7e3bf142'
+            '99db3caaf0abb403480b466d6b937c9a72c9fc17e86c07bbeaf9c973ce8da303'
+            '9e64addfbaccad58be0257e4ac30c9a5ef6ec6d2f86fee7774a2bf867481e952')
 
 build() {
   cd "${srcdir}/${pkgname}-${_ver}"
+  patch -Np1 -i "${srcdir}/popup-sound.patch"
 
   ./autogen.sh
   ./configure --prefix=/usr
