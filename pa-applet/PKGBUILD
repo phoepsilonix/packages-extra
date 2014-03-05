@@ -1,7 +1,9 @@
-# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
-# Contributor: Nicolas Avrutin  <nicolasavru@gmail.com>
+# Maintainer: Philip Müller <philm[at]manjaro[dot]org>
+# Contributor: Nicolas Avrutin  <nicolasavru[at]gmail[dot]com>
+# Contributor: Marc MAURICE <dooblem[at]positon[dot]org>
+
 pkgname=pa-applet
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 _ver=45685c4092e524f9d6cd45169bb85b13c82565e1
 pkgdesc="PulseAudio system tray applet with volume bar"
@@ -13,14 +15,17 @@ options=('!libtool')
 replaces=('pa-applet-git')
 conflicts=('pa-applet-git')
 source=("pa-applet-$pkgver.zip::https://github.com/fernandotcl/pa-applet/archive/$_ver.zip" pa-applet.desktop
-        "popup-sound.patch::https://github.com/dooblem/pa-applet/commit/8c9e0469f3512acb8c1df288f87e32febaed85ce.patch")
+        "popup-sound.patch::https://github.com/dooblem/pa-applet/commit/8c9e0469f3512acb8c1df288f87e32febaed85ce.patch"
+        "volumescale-position.patch::https://github.com/dooblem/pa-applet/commit/86ba8da0388e8aac50eda4d1204241e2f4dd91dc.patch")
 sha256sums=('74afc528d2976134c14ad153a834bd0675420327d66c49889ff7d18d7e3bf142'
             '99db3caaf0abb403480b466d6b937c9a72c9fc17e86c07bbeaf9c973ce8da303'
-            '9e64addfbaccad58be0257e4ac30c9a5ef6ec6d2f86fee7774a2bf867481e952')
+            '9e64addfbaccad58be0257e4ac30c9a5ef6ec6d2f86fee7774a2bf867481e952'
+            '4e3c73e2fc76cfebdcb5e92eefbdde740654a65cdf6a775e88f18b51f1585569')
 
 build() {
   cd "${srcdir}/${pkgname}-${_ver}"
   patch -Np1 -i "${srcdir}/popup-sound.patch"
+  patch -Np1 -i "${srcdir}/volumescale-position.patch"
 
   ./autogen.sh
   ./configure --prefix=/usr

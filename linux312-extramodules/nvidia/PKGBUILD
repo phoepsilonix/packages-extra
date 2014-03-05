@@ -10,7 +10,7 @@ _extramodules=extramodules-3.12-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=334.21
-pkgrel=0
+pkgrel=0.2
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -35,17 +35,26 @@ elif [ "$CARCH" = "x86_64" ]; then
     sha256sums+=('55d1be4eda82b2a4c56925720f4f54d921647abcf9a715d8ccdc09e5f2351470')
 fi
 
+prepare() {
+    sh "${_pkg}.run" --extract-only
+    cd "${_pkg}"
+    # patches here
+}
+
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-    cd "${srcdir}"
-    sh "${_pkg}.run" --extract-only
-    cd "${_pkg}/kernel"
+    cd "${_pkg}"/kernel
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+
+    cd uvm
     make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
 
 package() {
     install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    install -D -m644 "${srcdir}/${_pkg}/kernel/uvm/nvidia-uvm.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
-    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
 }
