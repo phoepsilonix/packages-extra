@@ -1,7 +1,7 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.9.7
+pkgver=0.9.8rc
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
@@ -14,8 +14,8 @@ backup=('etc/pamac.conf')
 replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname-install
-_git=No
-_snapshot=104e8ff74bd84ec47bd15523732050d0723cac1d
+_git=Yes
+_snapshot=7b04b921448de9d4841c0dffd36e0195a96e3e1f
 
 if [ "$_git" == "Yes" ]; then
    source=(git+http://git.manjaro.org/core/pamac.git)
@@ -43,14 +43,14 @@ package() {
 	# match version with pkgver
 	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager.py
 
-  patch -Np1 -i "${srcdir}/translation1.patch"
-  patch -Np1 -i "${srcdir}/translation2.patch"
+	#patch -Np1 -i "${srcdir}/translation1.patch"
+	#patch -Np1 -i "${srcdir}/translation2.patch"
 
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
-	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
-	cp -r "data/applications" "${pkgdir}/usr/share/"
+	mkdir -p "${pkgdir}/usr/share/icons/hicolor"
+	cp -r "data/icons/"* "${pkgdir}/usr/share/icons/hicolor" 
 	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
 	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
@@ -59,6 +59,8 @@ package() {
 	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
 	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
 	install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
+	install -Dm644 "data/applications/pamac-manager.desktop" "${pkgdir}/usr/share/applications/pamac-manager.desktop"
+	install -Dm644 "data/applications/pamac-updater.desktop" "${pkgdir}/usr/share/applications/pamac-updater.desktop"
 	install -Dm644 "data/config/pamac.conf" "${pkgdir}/etc/pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
