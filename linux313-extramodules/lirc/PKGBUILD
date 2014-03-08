@@ -7,14 +7,13 @@
 pkgbase=lirc
 pkgname=('linux313-lirc' 'lirc-utils')
 pkgver=0.9.0
-pkgrel=2
+pkgrel=3
 epoch=1
 _extramodules=extramodules-3.13-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
-makedepends=('help2man' 'linux313-headers' 'alsa-lib' 'libx11' 'libftdi' 'libirman' 'python2')
+makedepends=('help2man' 'linux313' 'linux313-headers' 'alsa-lib' 'libx11' 'libftdi' 'libirman' 'python2')
 options=('!makeflags' '!strip')
 source=(http://prdownloads.sourceforge.net/${pkgbase}/${pkgbase}-${pkgver}.tar.bz2
         lirc_wpc8769l.patch
@@ -37,6 +36,7 @@ md5sums=('b232aef26f23fe33ea8305d276637086'
          '85b2c027d4346f0053847c64eaefed55')
 
 build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "${srcdir}/lirc-${pkgver}"
   patch -Np1 -i "${srcdir}/lirc_wpc8769l.patch"
   patch -Np1 -i "${srcdir}/lircd-handle-large-config.patch"
@@ -56,7 +56,7 @@ build() {
   autoreconf
 
   PYTHON=python2 ./configure --enable-sandboxed --prefix=/usr \
-      --with-driver=all --with-kerneldir=/usr/src/linux-${_kernver}/ \
+      --with-driver=all --with-kerneldir=/lib/modules/${_kernver}/build/ \
       --with-moduledir=/usr/lib/modules/${_kernver}/kernel/drivers/misc \
       --with-transmitter
 
@@ -65,7 +65,7 @@ build() {
       -e "s:lirc_imon::" -e "s:lirc_parallel::" -e "s:lirc_sasem::" \
       -e "s:lirc_serial::" -e "s:lirc_sir::" -e "s:lirc_ttusbir::" \
       -i Makefile drivers/Makefile drivers/*/Makefile tools/Makefile 
-  make
+  make moduledir="/usr/lib/modules/${_extramodules}"
 }
 
 package_linux313-lirc() {

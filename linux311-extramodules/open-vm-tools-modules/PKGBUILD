@@ -43,7 +43,8 @@ build() {
   [ $NOEXTRACT -eq 1 ] || ./configure \
       --prefix=/usr \
       --without-x \
-      --with-linuxdir=/usr/lib/modules/$_kernver
+      --with-linuxdir=/usr/lib/modules/$_kernver \
+      --with-kernel-release=$_kernver
 
   # remove broken module
   sed -i 's|vmxnet vmhgfs|vmxnet|g' modules/Makefile
