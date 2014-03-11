@@ -9,8 +9,8 @@ _linuxprefix=linux34
 _extramodules=extramodules-3.4-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=334.21
-pkgrel=0.2
+pkgver=331.49
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -27,34 +27,25 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('ece6ac1d66b0de53b6db0ae92f72112f734c9ec4b7f1ffb1ec508d32f700df39')
+    sha256sums+=('b6725d71f25e22300f1ef92d57089675d454d17746084f1a166576c7105ea701')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('55d1be4eda82b2a4c56925720f4f54d921647abcf9a715d8ccdc09e5f2351470')
+    sha256sums+=('d3c10288038830b18d95fecd64059c4c0513c6241fdb43501c235e4f03dd7460')
 fi
-
-prepare() {
-    sh "${_pkg}.run" --extract-only
-    cd "${_pkg}"
-    # patches here
-}
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-    cd "${_pkg}"/kernel
-    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
-
-    cd uvm
+    cd "${srcdir}"
+    sh "${_pkg}.run" --extract-only
+    cd "${_pkg}/kernel"
     make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
 
 package() {
     install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
-    install -D -m644 "${srcdir}/${_pkg}/kernel/uvm/nvidia-uvm.ko" \
-        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
-    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
 }

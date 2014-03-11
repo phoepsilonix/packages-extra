@@ -2,7 +2,7 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=mesa-libgl
-pkgver=10.0.3
+pkgver=10.1.0
 pkgrel=1
 pkgdesc="Mesa 3-D graphics library"
 arch=('any')
@@ -23,4 +23,15 @@ package() {
   # Fallback links
   mkdir -p "${pkgdir}/usr/lib"
   ln -s "mesa-libGL.so.1.2.0" "${pkgdir}/usr/lib/libGL.so.mesa"
+
+  # Match with Archlinux (need to be changed for next mhwd)
+  ln -s mesa-libEGL.so.1.0.0        ${pkgdir}/usr/lib/libEGL.so
+  ln -s mesa-libEGL.so.1.0.0        ${pkgdir}/usr/lib/libEGL.so.1
+  ln -s mesa-libEGL.so.1.0.0        ${pkgdir}/usr/lib/libEGL.so.1.0.0
+  ln -s mesa-libGLESv1_CM.so.1.1.0  ${pkgdir}/usr/lib/libGLESv1_CM.so
+  ln -s mesa-libGLESv1_CM.so.1.1.0  ${pkgdir}/usr/lib/libGLESv1_CM.so.1
+  ln -s mesa-libGLESv1_CM.so.1.1.0  ${pkgdir}/usr/lib/libGLESv1_CM.so.1.1.0
+  ln -s mesa-libGLESv2.so.2.0.0     ${pkgdir}/usr/lib/libGLESv2.so
+  ln -s mesa-libGLESv2.so.2.0.0     ${pkgdir}/usr/lib/libGLESv2.so.2
+  ln -s mesa-libGLESv2.so.2.0.0     ${pkgdir}/usr/lib/libGLESv2.so.2.0.0
 }
