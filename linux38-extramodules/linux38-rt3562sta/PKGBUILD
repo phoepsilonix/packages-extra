@@ -15,7 +15,7 @@ url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
 makedepends=('linux38' 'linux38-headers')
 source=(
-	http://dl.dropbox.com/u/362439/DPO_RT3562_3592_3062_LinuxSTA_V${pkgver}_20101217.tgz
+	https://crocket-slackbuilds.googlecode.com/files/DPO_RT3562_3592_3062_LinuxSTA_V${pkgver}_20101217.tgz
 	$pkgbase-$pkgver-config.patch
 	$pkgbase-$pkgver-gcc-warnings-x86_64.patch
 	$pkgbase-$pkgver-WPA-mixed.patch
