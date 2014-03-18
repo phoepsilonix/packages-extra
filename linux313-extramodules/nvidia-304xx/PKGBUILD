@@ -8,8 +8,8 @@ _linuxprefix=linux313
 _extramodules=extramodules-3.13-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
-pkgver=304.119
-pkgrel=3
+pkgver=304.121
+pkgrel=2
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -27,25 +27,17 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('c8ae388fcf2fa8df41620466b359ce2c51d3f061aaee0df588fc7a9dae80df51')
+    sha256sums+=('25ee2e45bd1f728b9de30a88575dadea210549d812944fff2026cf192ea4c52d')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('c29cdafc519205781c61d71846af7ad416c6a81c70528900a5eb760403c06ab1')
+    sha256sums+=('3f2ee626e9c62a2fdde7592c15c27987b753a980f1f4b1f66afb88390dfef1b5')
 fi
-
-source+=('acpi_os_wait_events_complete-workaround.patch')
-sha256sums+=('719d09b7c36ec15ffb9161740c91dc02c048c3ef1a356a4c2ac9f68a8d9f57b8')
 
 prepare() {
   cd "$srcdir"
   sh "$_pkg.run" --extract-only
-
-  # Work around Unknown symbol acpi_os_wait_events_complete
-  # https://devtalk.nvidia.com/default/topic/644906/331-20-on-3-13-rc1-kernel/
-  cd "$_pkg"
-  patch -Np1 -i "${srcdir}/acpi_os_wait_events_complete-workaround.patch"
 }
 
 build() {

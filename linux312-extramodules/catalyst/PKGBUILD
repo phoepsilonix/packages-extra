@@ -7,7 +7,7 @@ _extramodules=extramodules-3.12-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=13.12
-pkgrel=6
+pkgrel=7
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
