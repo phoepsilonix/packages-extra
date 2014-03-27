@@ -5,11 +5,11 @@
 _pkgname=thus
 pkgname=thus
 pkgver=0.8.9
-pkgrel=1.2
+pkgrel=2
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
 license=(GPL)
-url="http://git.manjaro.org/core/thus.git"
+url="https://github.com/manjaro/thus.git"
 depends=(coreutils cryptsetup gptfdisk grep libtimezonemap hdparm hwinfo lvm2 mhwd
          pam_encfs py3parted python python-configobj python-gobject python-dbus
          rsync sudo systemd upower util-linux webkitgtk3 e2fsprogs keyboardctl
@@ -23,10 +23,10 @@ _development=Yes
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
-   source=(git+http://git.manjaro.org/core/$pkgname.git)
+   source=(git+https://github.com/manjaro/$pkgname.git)
    sha256sums=('SKIP')
 else
-   source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/core/$pkgname/repository/archive.tar.gz?ref=$pkgver")
+   source=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/thus/archive/$pkgver.tar.gz")
    sha256sums=('a785465ab4217806216d95eca4b3380e6bcb137bdc833d1e876aeeaf0b9a92bf')
 fi
 
