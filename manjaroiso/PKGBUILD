@@ -3,17 +3,17 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
-pkgver=0.8.9
-pkgrel=0.1
+pkgver=0.8.9.1
+pkgrel=0
 arch=('any')
-url="http://git.manjaro.org/core/manjaroiso"
+url="https://github.com/manjaro/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=702f11d25ed9ce5d34c03cbac1eb0cbaafe28178
+_gitver=f39966121bab9443400837fe7c43d1ca0e59e712
 
 if [ "$_git" == "snapshot" ]; then
-   source=("manjaroiso-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/manjaroiso/repository/archive.tar.gz?ref=$_gitver")
+   source=("manjaroiso-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/manjaroiso/archive/$_gitver.tar.gz")
    sha256sums=('SKIP')
 fi
 
@@ -34,15 +34,15 @@ package_manjaroiso() {
   if [ -e "$srcdir/$pkgbase" ]; then
      cd "$srcdir/$pkgbase/src"
   fi
-  if [ -e "$srcdir/$pkgbase.git" ]; then
-	   cd "$srcdir/$pkgbase.git/src"
+  if [ -e "$srcdir/$pkgbase-$_gitver" ]; then
+	   cd "$srcdir/$pkgbase-$_gitver/src"
   fi
   make DESTDIR="$pkgdir" install
   if [ -e "$srcdir/$pkgbase" ]; then
      cd "$srcdir/$pkgbase"
   fi
-  if [ -e "$srcdir/$pkgbase.git" ]; then
-	   cd "$srcdir/$pkgbase.git"
+  if [ -e "$srcdir/$pkgbase-$_gitver" ]; then
+	   cd "$srcdir/$pkgbase-$_gitver"
   fi
   sed -i "s|VERSION|${pkgver}-${pkgrel}|g" $pkgdir/usr/share/manjaroiso/functions/messages
 }
@@ -53,8 +53,8 @@ package_manjaroiso-profiles() {
   if [ -e "$srcdir/$pkgbase" ]; then
      cd "$srcdir/$pkgbase"
   fi
-  if [ -e "$srcdir/$pkgbase.git" ]; then
-	   cd "$srcdir/$pkgbase.git"
+  if [ -e "$srcdir/$pkgbase-$_gitver" ]; then
+	   cd "$srcdir/$pkgbase-$_gitver"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
   for conf in build kde net openbox shared xfce
@@ -69,8 +69,8 @@ package_manjaroiso-community-profiles() {
   if [ -e "$srcdir/$pkgbase" ]; then
      cd "$srcdir/$pkgbase"
   fi
-  if [ -e "$srcdir/$pkgbase.git" ]; then
-	   cd "$srcdir/$pkgbase.git"
+  if [ -e "$srcdir/$pkgbase-$_gitver" ]; then
+	   cd "$srcdir/$pkgbase-$_gitver"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
   for conf in cinnamon enlightenment lxde mate openbox-legacy

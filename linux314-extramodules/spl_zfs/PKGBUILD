@@ -1,0 +1,80 @@
+# Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
+# Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
+
+pkgbase=linux314-spl_zfs
+pkgname=('linux314-spl' 'linux314-zfs')
+pkgver=0.6.2
+pkgrel=1
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=('linux314')
+makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
+             'dkms'
+             'linux314' 'linux314-headers')
+groups=('linux314-extramodules')
+install=install
+source=('linux313_1.patch::https://github.com/ryao/spl/commit/b2174a6e1befafbf60717cdf16ae6d3aed3dec0d.patch'
+        'linux313_2.patch::https://github.com/ryao/spl/commit/bfc0376a056c72c97d6b603bbdb8ffad288c49ad.patch'
+        'linux314.patch')
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+
+build() {
+  _extraver=extramodules-3.14-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  # dkms need modification to be run as user
+  cp -r /var/lib/dkms .
+
+  # workaround to patch spl for linux 3.13
+  rm -r $srcdir/dkms/spl/0.6.2/source
+  cp -r /usr/src/spl-0.6.2 $srcdir/dkms/spl/0.6.2/source
+  cd dkms/spl/0.6.2/source
+  patch -Np1 -i $srcdir/linux313_1.patch
+  patch -Np1 -i $srcdir/linux313_2.patch
+  cd $srcdir
+
+  # workaround to patch zfs for linux 3.14
+  rm -r $srcdir/dkms/zfs/0.6.2/source
+  cp -r /usr/src/zfs-0.6.2 $srcdir/dkms/zfs/0.6.2/source
+  cd dkms/zfs/0.6.2/source
+  patch -Np1 -i $srcdir/linux314.patch
+  ./autogen.sh
+  cd $srcdir
+
+  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  # build host modules
+  msg2 'Build modules'
+  dkms --dkmsframework dkms.conf build "spl/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "zfs/$pkgver" -k "$_kernver"
+}
+
+package_linux314-zfs(){
+  _extraver=extramodules-3.14-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends=('linux314' "zfs-utils=${pkgver}")
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+}
+
+package_linux314-spl(){
+  _extraver=extramodules-3.14-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  _pkgname=spl
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("$_pkgname=$pkgver")
+  depends=('linux314' "spl-utils=${pkgver}")
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+}

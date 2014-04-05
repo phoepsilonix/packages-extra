@@ -1,0 +1,13 @@
+--- rt3562sta-linux-r1/include/os/rt_linux.h	2014-04-03 11:38:16.000000000 +0200
++++ rt3562sta-linux-r1/include/os/rt_linux.h	2014-04-05 14:51:45.797412022 +0200
+@@ -262,8 +262,8 @@ typedef struct file* RTMP_OS_FD;
+ 
+ typedef struct _RTMP_OS_FS_INFO_
+ {
+-	kuid_t				fsuid;
+-	kgid_t				fsgid;
++	int				fsuid;
++	int				fsgid;
+ 	mm_segment_t	fs;
+ }RTMP_OS_FS_INFO;
+ 
