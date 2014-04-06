@@ -6,9 +6,9 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=xfdesktop
-_git=d3c13d6aab145d916d6288f013fa30b8703dacb8
+_git=850fd27b6bf4384a4ae5c5a94d66e8f775900ef0
 pkgver=4.11.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -21,16 +21,16 @@ provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 options=('!libtool')
 install=xfdesktop.install
-source=(http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
-        #$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('60b15b7289721407ecbeec775f4a9d03c469559e2af00e7325382d8114ccd84c')
+source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('6485cae83d9b8fa8dd1ad146632313ca7b7cc6e3abd29d3ecb152958b9a953e3')
 
 build() {
-  #cd "$srcdir/$pkgname-$_git"
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
 
-  #./autogen.sh \
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -44,7 +44,7 @@ build() {
 }
 
 package() {
-  #cd "$srcdir/$pkgname-$_git"
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
