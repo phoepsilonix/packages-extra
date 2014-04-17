@@ -5,8 +5,8 @@
 
 pkgname=mdm
 pkgver=1.5.1
-pkgrel=1
-_git=078df3736a677818e6eaa709ed179ed8f7242f7d
+pkgrel=2
+_git=9811292fcc2a95a99a214b73d258c5b56974b30d
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
@@ -23,15 +23,15 @@ backup=('etc/mdm/custom.conf' 'etc/pam.d/mdm' 'etc/pam.d/mdm-autologin')
 options=('!libtool')
 install='mdm.install'
 changelog=
-source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pkgver.zip"
-        #"$pkgname-$pkgver-$pkgrel.zip::https://github.com/linuxmint/$pkgname/archive/$_git.zip"
+source=(#"$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pkgver.zip"
+        "$pkgname-$pkgver-$pkgrel.zip::https://github.com/linuxmint/$pkgname/archive/$_git.zip"
 	'mdm.pam'
 	'mdm.service'
 	'mdm-autologin.pam'
 	'defaults.conf'
 	'mdm-plymouth.service'
         'org.cinnamon.pkexec.mdmsetup.policy')
-sha256sums=(d6d93f29d38b3d9f96d921e4b8ce91d39fba3fd85f21d23c62468e278bdc01bc
+sha256sums=(7c73c2ebfbdc7957cc6e18abb33fb39792da8fa62a654d06a0be515a06bc6bcd
             54c3ff63cf18cafb5d6fead8cbe07f278a2ed41b6f2b354b6e28845bc850d60d
             110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c
             3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7
@@ -42,8 +42,8 @@ sha256sums=(d6d93f29d38b3d9f96d921e4b8ce91d39fba3fd85f21d23c62468e278bdc01bc
 noextract=()
 
 build() {
-	cd ${srcdir}/${pkgname}-${pkgver}
-	#cd ${srcdir}/${pkgname}-${_git}
+	#cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${_git}
 	chmod +x ./autogen.sh
 	export AUTOMAKE=automake
 	./autogen.sh --enable-ipv6=yes --with-prefetch \
@@ -58,8 +58,8 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/${pkgname}-${pkgver}
-	#cd ${srcdir}/${pkgname}-${_git}
+	#cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${_git}
 	make DESTDIR=$pkgdir install
 
 msg2 'Adding PAM rules'

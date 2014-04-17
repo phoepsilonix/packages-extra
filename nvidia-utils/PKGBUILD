@@ -4,8 +4,8 @@
 
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
-pkgver=331.49
-pkgrel=2
+pkgver=331.67
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -17,12 +17,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('b6725d71f25e22300f1ef92d57089675d454d17746084f1a166576c7105ea701')
+    sha256sums+=('696b4a574ad3cb2b3286e0848e7e831940110cc33c63de51890154dbbd31acc6')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('d3c10288038830b18d95fecd64059c4c0513c6241fdb43501c235e4f03dd7460')
+    sha256sums+=('87b882ac9d9f51ac47eb718f47dee3a62752ac9be1b893b8c9acfa229a24ad63')
 fi
 
 create_links() {
@@ -97,35 +97,52 @@ package_nvidia-utils() {
 
     # OpenGL core library
     install -D -m755 "libnvidia-glcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glcore.so.${pkgver}"
+
+    # misc
+    install -D -m755 "libnvidia-ifr.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ifr.so.${pkgver}"
+    install -D -m755 "libnvidia-fbc.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-fbc.so.${pkgver}"
+    install -D -m755 "libnvidia-encode.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-encode.so.${pkgver}"
+    install -D -m755 "libnvidia-cfg.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-cfg.so.${pkgver}"
+    install -D -m755 "libnvidia-ml.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ml.so.${pkgver}"
+
     # VDPAU
     install -D -m755 "libvdpau_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/vdpau/libvdpau_nvidia.so.${pkgver}"
+
     # nvidia-tls library
     install -D -m755 "tls/libnvidia-tls.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-tls.so.${pkgver}"
-    install -D -m755 "libnvidia-cfg.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-cfg.so.${pkgver}"
 
-    install -D -m755 "libnvidia-ml.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ml.so.${pkgver}"
     # CUDA
     install -D -m755 "libcuda.so.${pkgver}" "${pkgdir}/usr/lib/libcuda.so.${pkgver}"
     install -D -m755 "libnvcuvid.so.${pkgver}" "${pkgdir}/usr/lib/libnvcuvid.so.${pkgver}"
-    #install -D -m755 nvidia-cuda-proxy-server "${pkgdir}/usr/bin/nvidia-cuda-proxy-server"
-    #install -D -m644 nvidia-cuda-proxy-control.1.gz "${pkgdir}/usr/share/man/man1/nvidia-cuda-proxy-control.1.gz"
+
     # DEBUG
     install -D -m755 nvidia-debugdump "${pkgdir}/usr/bin/nvidia-debugdump"
+
     # nvidia-xconfig
     install -D -m755 nvidia-xconfig "${pkgdir}/usr/bin/nvidia-xconfig"
     install -D -m644 nvidia-xconfig.1.gz "${pkgdir}/usr/share/man/man1/nvidia-xconfig.1.gz"
+
     # nvidia-settings
     install -D -m755 nvidia-settings "${pkgdir}/usr/bin/nvidia-settings"
     install -D -m644 nvidia-settings.1.gz "${pkgdir}/usr/share/man/man1/nvidia-settings.1.gz"
     install -D -m644 nvidia-settings.desktop "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
     install -D -m644 nvidia-settings.png "${pkgdir}/usr/share/pixmaps/nvidia-settings.png"
     sed -e 's:__UTILS_PATH__:/usr/bin:' -e 's:__PIXMAP_PATH__:/usr/share/pixmaps:' -i "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
+
     # nvidia-bug-report
     install -D -m755 nvidia-bug-report.sh "${pkgdir}/usr/bin/nvidia-bug-report.sh"
+
     # nvidia-smi
     install -D -m755 nvidia-smi "${pkgdir}/usr/bin/nvidia-smi"
     install -D -m644 nvidia-smi.1.gz "${pkgdir}/usr/share/man/man1/nvidia-smi.1.gz"
 
+    # nvidia-cuda-mps
+    install -D -m755 nvidia-cuda-mps-server "${pkgdir}/usr/bin/nvidia-cuda-mps-server"
+    install -D -m644 nvidia-cuda-mps-control.1.gz "${pkgdir}/usr/share/man/man1/nvidia-cuda-mps-control.1.gz"
+
+    # nvidia-modprobe
+    # This should be removed if nvidia fixed their uvm module!
+    install -D -m4755 nvidia-modprobe "${pkgdir}/usr/bin/nvidia-modprobe"
 
     install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/nvidia/LICENSE"
     ln -s nvidia "${pkgdir}/usr/share/licenses/nvidia-utils"
