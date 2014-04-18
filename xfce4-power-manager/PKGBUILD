@@ -1,0 +1,45 @@
+# $Id: PKGBUILD 198563 2013-10-30 15:37:43Z allan $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
+
+pkgname=xfce4-power-manager
+pkgver=1.2.0
+pkgrel=6.1
+_git=edfc7a998df2a10dd0a4dee8ba2d54f5a0634a7a
+pkgdesc="Power manager for Xfce desktop"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4')
+depends=('xfce4-panel' 'upower' 'udisks' 'libnotify' 'hicolor-icon-theme')
+makedepends=('pkgconfig' 'intltool' 'xfce4-dev-tools')
+install=$pkgname.install
+source=(#http://archive.xfce.org/src/apps/$pkgname/1.2/$pkgname-$pkgver.tar.bz2
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('1c0ebdccb4859b864decd46e6cd703cf995f72dfd599bad891cda8e2e1563757')
+
+build() {
+  #cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+
+  #./configure \
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-network-manager \
+    --enable-polkit \
+    --enable-dpms \
+    --disable-debug
+  make
+}
+
+package() {
+  #cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

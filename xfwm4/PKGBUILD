@@ -7,27 +7,31 @@
 pkgname=xfwm4
 _pkgname=xfwm4
 pkgver=4.11.1
-pkgrel=1
+pkgrel=2
+_git=ce17bcde01c54d4f20598251f0800c5aa1d646bd
 pkgdesc="Xfce window manager"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4')
-depends=("libxfce4ui>=4.11" 'libwnck' 'hicolor-icon-theme')
-makedepends=('intltool')
+depends=("libxfce4ui>=4.11" 'libwnck' 'hicolor-icon-theme' 'exo')
+makedepends=('intltool' 'xfce4-dev-tools')
 options=('!libtool')
 install=$_pkgname.install
-source=(http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2)
-sha256sums=('1a58e385d4d8dda4d6ac3c7b1e94b3d499bcb78619d91004ffa65a3e6bb58f3e')
+source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('62841a0b7389710a51812d44a15fb418b01ccb820da122096951951feadfa750')
 
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  #cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
 
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -42,6 +46,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  #cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
   make DESTDIR="$pkgdir" install
 }
