@@ -4,7 +4,7 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.8.10pre1
+pkgver=0.8.10pre2
 pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
@@ -27,7 +27,7 @@ if [ "$_git" == "Yes" ]; then
    sha256sums=('SKIP')
 else
    source=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/thus/archive/$pkgver.tar.gz")
-   sha256sums=('a785465ab4217806216d95eca4b3380e6bcb137bdc833d1e876aeeaf0b9a92bf')
+   sha256sums=('SKIP')
 fi
 
 prepare() {

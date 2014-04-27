@@ -6,9 +6,9 @@ _linuxprefix=linux313
 _extramodules=extramodules-3.13-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=14.10
+pkgver=14.10.1006
 pkgrel=1
-_tarball=14.4-rc-v1.0-apr17
+_tarball=14-4-linux-x86-x86-64
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -20,13 +20,13 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/linux/linux-amd-catalyst-${_tarball}.zip
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
         makefile_compat.patch)
 
-sha256sums=('c61698ebeab2b1c235a53cbd484948af80c206eddb61be15930fb7e107a09bb8'
+sha256sums=('03cc022a49f47888b04f12343ace82bc1eff3aac524e6b4433848c20dc77fec0'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
