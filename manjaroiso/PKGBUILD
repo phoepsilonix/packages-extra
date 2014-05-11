@@ -2,15 +2,15 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgbase=manjaroiso
-pkgname=('manjaroiso' 'manjaroiso-profiles') # 'manjaroiso-community-profiles')
-pkgver=0.8.10pre1
+pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles')
+pkgver=0.8.10pre3
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=8fbc4749eeabd15a32d3a56b328357a6d83f5c2d
+_gitver=d9350321e3a85a61d5e45f56c0713a92e92247bf
 
 if [ "$_git" == "snapshot" ]; then
    source=("manjaroiso-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/manjaroiso/archive/$_gitver.tar.gz")
