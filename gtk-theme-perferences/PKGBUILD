@@ -1,5 +1,5 @@
 pkgname=gtk-theme-preferences
-pkgver=20140426
+pkgver=20140526
 pkgrel=1
 pkgdesc="A tool, also called gtk-theme-config, to configure GTK theme colors."
 url="https://github.com/satya164/gtk-theme-config"
@@ -7,7 +7,7 @@ arch=('x86_64' 'i686')
 license=('GPLv3')
 depends=('gtk3' 'glib2')
 conflicts=('gtk-theme-config-git' 'gtk-theme-config')
-makedepends=('gtk3' 'glib2' 'vala')
+makedepends=('gtk3' 'glib2' 'vala' 'git')
 
 _gitroot="git://github.com/satya164"
 _gitname="gtk-theme-config"

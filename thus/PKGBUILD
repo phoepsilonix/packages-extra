@@ -4,7 +4,7 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.8.10pre3
+pkgver=0.8.10rc1
 pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
