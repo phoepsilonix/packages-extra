@@ -4,7 +4,7 @@
 
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
-pkgver=331.79
+pkgver=337.25
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -17,12 +17,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('344d3daaec8010ffe53fd132f706d87d25448847f139eafc5fe76733837c8636')
+    sha256sums+=('f76ece6bd98bfe2ae641a1847094e98c6f7ad7a01af682b4f38108d6b6227f9b')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('3b1cf6ccdf4f562e7f0fbadfc74cbefd345dc6c444455eb3b5bfb429c2efbc92')
+    sha256sums+=('1374b5eaa24022e28b1c41fa11714e27a46f50d18dde0ee3786a81c5592a555e')
 fi
 
 create_links() {
@@ -51,6 +51,9 @@ package_opencl-nvidia() {
     install -D -m755 "libnvidia-opencl.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-opencl.so.${pkgver}" 
 
     create_links
+
+    mkdir -p "${pkgdir}/usr/share/licenses"
+    ln -s nvidia "${pkgdir}/usr/share/licenses/opencl-nvidia"
 }
 
 
@@ -72,7 +75,11 @@ package_nvidia-utils() {
     pkgdesc="NVIDIA drivers utilities"
     depends=('xorg-server' 'mhwd')
     optdepends=('gtk2: nvidia-settings'
+                'xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
+    provides=('nvidia-libgl')
+    conflicts=('nvidia-libgl')
+    replaces=('nvidia-libgl')
     install="${pkgname}.install"
 
     cd "${srcdir}/${_pkg}"
@@ -81,22 +88,24 @@ package_nvidia-utils() {
     install -D -m755 nvidia_drv.so "${pkgdir}/usr/lib/xorg/modules/drivers/nvidia_drv.so"
 
     # GLX extension module for X
-    install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so"
-    ln -s "libglx.so" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so.${pkgver}"
+    install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so.${pkgver}"
+    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so"	# X doesn't find glx otherwise
 
     # OpenGL library
-    install -D -m755 "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so"
-    ln -s "libGL.so" "${pkgdir}/usr/lib/nvidia/libGL.so.${pkgver}"
-    ln -s "libGL.so" "${pkgdir}/usr/lib/nvidia/libGL.so.1.2"
-    ln -s "libGL.so" "${pkgdir}/usr/lib/nvidia/libGL.so.1"
-
-    # Fallback links
-    ln -s "/usr/lib/nvidia/libGL.so" "${pkgdir}/usr/lib/libGL.so.nvidia"
-    mkdir -p "${pkgdir}/usr/lib/xorg/modules/extensions/"
-    ln -s "/usr/lib/nvidia/xorg/modules/extensions/libglx.so" "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.nvidia"
+    install -D -m755 "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so.${pkgver}"
+    ln -s "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so"
+    install -D -m755 "libEGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libEGL.so.${pkgver}"
+    ln -s "libEGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libEGL.so"
+    install -D -m755 "libGLESv1_CM.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGLESv1_CM.so.${pkgver}"
+    ln -s "libGLESv1_CM.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGLESv1_CM.so"
+    install -D -m755 "libGLESv2.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGLESv2.so.${pkgver}"
+    ln -s "libGLESv2.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGLESv2.so"
 
     # OpenGL core library
     install -D -m755 "libnvidia-glcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glcore.so.${pkgver}"
+
+    install -D -m755 "libnvidia-eglcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-eglcore.so.${pkgver}"
+    install -D -m755 "libnvidia-glsi.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glsi.so.${pkgver}"
 
     # misc
     install -D -m755 "libnvidia-ifr.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ifr.so.${pkgver}"
@@ -143,6 +152,10 @@ package_nvidia-utils() {
     # nvidia-modprobe
     # This should be removed if nvidia fixed their uvm module!
     install -D -m4755 nvidia-modprobe "${pkgdir}/usr/bin/nvidia-modprobe"
+
+    # application profiles
+    install -D -m644 nvidia-application-profiles-${pkgver}-rc "${pkgdir}/usr/share/nvidia/nvidia-application-profiles-${pkgver}-rc"
+    install -D -m644 nvidia-application-profiles-${pkgver}-key-documentation "${pkgdir}/usr/share/nvidia/nvidia-application-profiles-${pkgver}-key-documentation"
 
     install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/nvidia/LICENSE"
     ln -s nvidia "${pkgdir}/usr/share/licenses/nvidia-utils"
