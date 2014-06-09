@@ -16,10 +16,10 @@
 pkgname=broadcom-wl-dkms
 _pkgname=broadcom-wl
 pkgver=6.30.223.141
-pkgrel=2
+pkgrel=3
 pkgdesc="Broadcom 802.11 Linux STA wireless driver BCM43142."
 url="https://bbs.archlinux.org/viewtopic.php?id=145884"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('custom')
 depends=('dkms')
 conflicts=('wireless-bcm43142-oneiric-dkms' 'wireless-bcm43142-dkms' 'broadcom-wl6-dkms')
@@ -30,6 +30,7 @@ source=(
 	'dkms.conf'
 	'001-Arch-Makefile.patch'
 	'002-Module-License.patch'
+	'003-gcc.patch'
 )
 sha1sums=(
 	'a197b77597e2ee01303e2330c5b5622d3d624887'
@@ -38,12 +39,13 @@ sha1sums=(
 	'91926bb064c00a00dbcab0d1d92c7eb976d56032'
 	'e1511d9cea9584a924a7ac90609c5651464a4de7'
 	'306bccd26b12c808977cacf630860e7d483d213f'
+	'84ba7d65d4045e1bbdb4e8fc83b024a881e312b1'
 )
 
 backup=('etc/modprobe.d/broadcom-wl-dkms.conf')
 install=install
 
-build() {
+prepare() {
 	cd "${srcdir}"
 
 	# apply diff patch to create the debian/ folder
@@ -75,13 +77,15 @@ build() {
 	# move Makefile to main src/ folder
 	mv ./bcmwl-${pkgver}+bdcom/Makefile ./
 
+	# fix issues with gcc 4.5.0
+	patch -p1 -i 003-gcc.patch
+
 	# delete the debian folders and files not needed for packaging
 	rm -R debian/
 	rm -R bcmwl-${pkgver}+bdcom/
 	rm bcmwl_${pkgver}+bdcom.orig.tar.gz
 	rm bcmwl_${pkgver}+bdcom-0ubuntu2.diff.gz
 	rm bcmwl_${pkgver}+bdcom-0ubuntu2.diff
-
 }
 
 package() {

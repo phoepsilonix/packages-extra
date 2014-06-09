@@ -8,7 +8,7 @@
 
 pkgname=plymouth
 pkgver=0.8.8
-pkgrel=8
+pkgrel=9
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -42,7 +42,7 @@ source=("http://www.freedesktop.org/software/$pkgname/releases/$pkgname-$pkgver.
         'systemd-unit-dir.patch'
         'udevadm.patch')
 sha256sums=('1bada4e1d3a31a5a99adc2db83f5452d9818839cda51a6e430f044f6281d759b'
-            '1a57879fa142e83853f92362668fab00e7959d3dadd185eac9dec230661199d3'
+            '014e8a09f88a73b1e5985dcb16a44004e341f5bba90043fa3d7fd7e3a56120cf'
             '57fe2a075ac92d550873cbde4844deeea35e3e65a81a1a3ca9d7fa8763514a7e'
             '544399d4f3454644f24ad11e504eaa7d622c73942728f52fb55bea054c756fa1'
             '53818ac8299edbb104e2fa09d376079c10a287da9f8a9b26bfb5fc8789b6bc3c'
