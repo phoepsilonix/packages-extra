@@ -6,9 +6,9 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=xfdesktop
-_git=850fd27b6bf4384a4ae5c5a94d66e8f775900ef0
+_git=c79f244f8f1f2d08892a54cbb820211abad3287d
 pkgver=4.11.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,20 +17,20 @@ groups=('xfce4')
 depends=("libxfce4ui>=4.11" 'thunar' 'garcon' 'hicolor-icon-theme' 'libwnck')
 #makedepends=('intltool')
 makedepends=('intltool' 'xfce4-dev-tools')
-provides=("$_pkgname")
-conflicts=("$_pkgname" "$_pkgname-git")
+provides=("$pkgname")
+conflicts=("$pkgname" "$pkgname-git")
 options=('!libtool')
 install=xfdesktop.install
-source=(http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
-        #$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('b66bc0d683bb0e4bd4df0f3c0a4710a49dd4c2bd923bd9c2854afb1195134ff6')
+source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('8e29bbfd9e582c8e715f86a69aaacfec74be91e359dbd53a386171275bef8db0')
 
 build() {
-  #cd "$srcdir/$pkgname-$_git"
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
 
-  #./autogen.sh \
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -44,7 +44,7 @@ build() {
 }
 
 package() {
-  #cd "$srcdir/$pkgname-$_git"
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }

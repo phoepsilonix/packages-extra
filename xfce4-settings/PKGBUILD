@@ -5,9 +5,9 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=xfce4-settings
-_pkgname=xfce4-settings
 pkgver=4.11.2
-pkgrel=1
+pkgrel=2
+_git=2f4ada70d456d69d3b3ed8903cff6152b4357e84
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -15,18 +15,21 @@ license=('GPL2')
 groups=('xfce4')
 depends=('exo' 'garcon' "libxfce4ui>=4.11" 'libnotify' 'libxklavier'
          'gnome-icon-theme' 'gtk-engines')
-makedepends=('intltool')
+#makedepends=('intltool')
+makedepends=('intltool' 'xfce4-dev-tools')
 optdepends=('libcanberra: for sound control')
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
-source=(http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
+source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2
         xfce4-settings-xml-4.11.2.patch)
-sha256sums=('2745fc11fe6e856344a6a7c1ae9c12e1f0f21cc6d56c5a46bd16987a7e10081f'
+sha256sums=('c7b4b0fa707ce97869739bb9aec1c0f5a37d40e3ded9158919372f34fd1a8b92'
             'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff')
 
 
 prepare() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
 
   # enable gnome icon theme, clearlooks theme and font hinting by default
   # (taken from Fedora)
@@ -34,9 +37,11 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
 
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
@@ -52,6 +57,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  #cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }

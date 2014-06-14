@@ -1,28 +1,30 @@
-# $Id: PKGBUILD 198563 2013-10-30 15:37:43Z allan $
+# $Id: PKGBUILD 212097 2014-05-07 09:06:50Z foutrelis $
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
 
 pkgname=xfce4-power-manager
-pkgver=1.2.0
-pkgrel=6.1
-_git=edfc7a998df2a10dd0a4dee8ba2d54f5a0634a7a
+pkgver=1.2.0.212.g75107db
+pkgrel=1
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4')
 depends=('xfce4-panel' 'upower' 'udisks' 'libnotify' 'hicolor-icon-theme')
-makedepends=('pkgconfig' 'intltool' 'xfce4-dev-tools')
+makedepends=('intltool' 'xfce4-dev-tools' 'git')
 install=$pkgname.install
-source=(#http://archive.xfce.org/src/apps/$pkgname/1.2/$pkgname-$pkgver.tar.bz2
-        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('1c0ebdccb4859b864decd46e6cd703cf995f72dfd599bad891cda8e2e1563757')
+source=(git://git.xfce.org/xfce/xfce4-power-manager)
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$pkgname"
+
+  git describe --long | sed 's/^xfce4-power-manager-//;s/-/./g'
+}
 
 build() {
-  #cd "$srcdir/$_pkgname-$pkgver"
-  cd "$srcdir/$pkgname-$_git"
+  cd "$srcdir/$pkgname"
 
-  #./configure \
   ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -37,8 +39,7 @@ build() {
 }
 
 package() {
-  #cd "$srcdir/$_pkgname-$pkgver"
-  cd "$srcdir/$pkgname-$_git"
+  cd "$srcdir/$pkgname"
   make DESTDIR="$pkgdir" install
 }
 

@@ -3,8 +3,9 @@
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfce4-panel
+_git=ec02fc2b05b39990a95d29054c20032e04c59b37
 pkgver=4.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -12,16 +13,19 @@ license=('GPL2')
 groups=('xfce4')
 depends=('exo' 'garcon' 'libxfce4ui' 'libwnck' 'hicolor-icon-theme'
          'desktop-file-utils')
-makedepends=('intltool' 'gtk-doc' 'gtk3')
+makedepends=('intltool' 'gtk-doc' 'gtk3' 'xfce4-dev-tools')
 optdepends=('gtk3: for GTK3 support')
 install=$pkgname.install
-source=(http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
-sha256sums=('87062803dc7923d8ab21511c89a575ce7af54c19d3bc7ff15093f09852ad2c75')
+source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('74079f03bedd02a34744e37bf1c11ed7c42b19b0e948eba145c9ab57383c459d')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  #cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
 
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -35,7 +39,8 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  #cd "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
   make DESTDIR="$pkgdir" install
 }
 
