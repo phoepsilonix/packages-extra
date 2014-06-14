@@ -21,9 +21,19 @@ provides=("$_pkgname=$pkgver")
 groups=('linux315-extramodules')
 install=$_pkgname.install
 source=("http://downloads.sourceforge.net/cdemu/$_pkgname-$pkgver.tar.bz2"
-        '60-vhba.rules')
+        '60-vhba.rules'
+        '0001-VHBA-module-define-scmd_dbg-and-scmd_warn-macros-onl.patch')
 sha256sums=('12cfd1d9ab1c7421ef50e2bedc49f90f58afba6164d1acce14b6a4e6a68cc6a6'
-         '8172d71045f5279f29eeb0224cc5ba85d14ff8514caa7718329cffe4f3574a31')
+         '8172d71045f5279f29eeb0224cc5ba85d14ff8514caa7718329cffe4f3574a31'
+         '6ec6e89ab8076b16e2107eeb597f4020194526d1540eb06ebd43de3bd18e7262')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  # Fix build with Linux 3.15
+  # http://sourceforge.net/p/cdemu/bugs/76/
+  patch -Np2 -i $srcdir/0001-VHBA-module-define-scmd_dbg-and-scmd_warn-macros-onl.patch
+}
 
 build() {
   cd "$srcdir/$_pkgname-$pkgver"

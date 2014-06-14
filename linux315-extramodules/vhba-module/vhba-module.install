@@ -1,7 +1,7 @@
 post_upgrade() {
   ! grep -q 'cdemu' /etc/group && groupadd cdemu
   echo "  > Updating module dependencies..."
-  EXTRAMODULES='extramodules-3.14-MANJARO'
+  EXTRAMODULES='extramodules-3.15-MANJARO'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 

@@ -1,0 +1,35 @@
+# Maintainer: Philip Müller <philm_at_manjaro_dot_org>
+
+pkgname=gtk-theme-menda
+pkgver=20140526
+_git='18533276e61089fe03e5cbc7c1ee99904eb99697'
+pkgrel=1
+pkgdesc="Desktop suite for Xfce"
+arch=('any')
+url="https://github.com/manjaro/artwork-menda"
+license=('GPL3')
+depends=('gtk-engine-murrine')
+makedepends=('git')
+optdepends=('faenza-green-icon-theme: matching icon theme')
+
+source=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/artwork-menda/archive/$_git.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  cd "$srcdir/artwork-menda-$_git"
+
+  # create theme dirs
+  install -d -m 755 "$pkgdir"/usr/share/themes/Menda
+  install -d -m 755 "$pkgdir"/usr/share/licenses/$pkgname
+
+  # install theme
+  cp -r . "$pkgdir"/usr/share/themes/Menda
+
+  # move license
+  mv "$pkgdir"/usr/share/themes/Menda/COPYING "$pkgdir"/usr/share/licenses/$pkgname
+
+  # clean up
+  rm -rf "$pkgdir"/usr/share/themes/Menda/{.git,.gitignore,README,AUTHORS,convert.sh}
+}
+
+# vim:set ts=2 sw=2 et:1
