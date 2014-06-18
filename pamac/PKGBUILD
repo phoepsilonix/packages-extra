@@ -2,7 +2,7 @@
 
 pkgname=pamac
 pkgver=0.9.8
-pkgrel=3
+pkgrel=4
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://github.com/manjaro/pamac"
@@ -15,7 +15,7 @@ replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname-install
 _git=Yes
-_snapshot=91824f5c02b49aeaa0d4cba2ce51832702a141b5
+_snapshot=72926239423a7df60478484915d0766825d4b871
 
 if [ "$_git" == "No" ]; then
    source=(git+https://github.com/manjaro/pamac.git)
@@ -23,8 +23,10 @@ if [ "$_git" == "No" ]; then
 else
    #source=("pamac-$pkgver.tar.gz::https://github.com/manjaro/pamac/archive/$pkgver.tar.gz")
    #sha256sums=('fa99f70e086b8e567495b3289c667f5d7a5725aa2cb665ad9024dcf75ec937cc')
-   source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_snapshot.tar.gz")
-   sha256sums=('03eec80430f0e3be73a5cc698df79ad6d718b45df52d970fe2a8f8b3092dfea0')
+   source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_snapshot.tar.gz"
+           'simple_pamac_is_running_check.patch::https://github.com/mickyz/pamac/commit/902361d96291abf9b81e2c9156719ae875edd6fe.patch')
+   sha256sums=('de493a6c591f190a4447071e18cbcb43351faf4f04de7755cef99b87f47a98df'
+               '48023af215608714b3dc86460c9131b63d6a303c695aad76fd333c280273664d')
 fi
 
 package() {
@@ -40,6 +42,9 @@ package() {
   if [ -e "$srcdir/$pkgname-$_snapshot" ]; then
 	   cd "$srcdir/$pkgname-$_snapshot"
   fi
+
+  # add mickyz fix
+  patch -Np1 -i "$srcdir/simple_pamac_is_running_check.patch"
 
 	# match version with pkgver
 	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager.py
