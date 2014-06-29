@@ -11,7 +11,7 @@ pkgbase=ndiswrapper
 pkgname=('linux313-ndiswrapper' 'ndiswrapper-utils')
 groups=('linux313-extramodules')
 pkgver=1.59
-pkgrel=4
+pkgrel=5
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -60,7 +60,7 @@ package_linux313-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=4
+  pkgrel=5
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils

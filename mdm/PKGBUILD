@@ -4,8 +4,8 @@
 # Contributors: Pablo Lezaeta <prflr88 (arroba) gmail (dot) com>
 
 pkgname=mdm
-pkgver=1.6.7
-pkgrel=2
+pkgver=1.6.9
+pkgrel=1
 _git=9811292fcc2a95a99a214b73d258c5b56974b30d
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
@@ -30,24 +30,20 @@ source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pk
 	'mdm-autologin.pam'
 	'defaults.conf'
 	'mdm-plymouth.service'
-        'org.cinnamon.pkexec.mdmsetup.policy'
-        'session.patch::https://github.com/linuxmint/mdm/commit/6f588857b48b0b8db7b123952d758e53f71b52c7.patch')
-sha256sums=(805e66e8ada0ede3fc35e7293ff75a3e429cc3544d95c0d03c64c6f9047acb2b
+        'org.cinnamon.pkexec.mdmsetup.policy')
+sha256sums=(2204fcea6bdd7c34b4cab414fb721e34f8d486e2e959475c7ebf58f30ac7281e
             dda153bd02aed1e27b3ddc729130907e185e270e7b2b8d0ccda5bc904d47ea6b
             110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c
             3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7
             01cac1714eb82bfda9260e83e5e9728eda3966c7653ce2ead9d38a9ccda26855
             4f71596d0c91760d5e425014bc8fdff0fbdc41d0ea43e020220cb6a2bc366bd7
-            bd22d536a7a1b455a8f8a45d7d8cc46156cb4ef5f3bc706dd73c89d503acad6b
-            a927cb393930575b8db9dfb334096a5179164a66453aefad8cb94bd25ceeba9b)
+            bd22d536a7a1b455a8f8a45d7d8cc46156cb4ef5f3bc706dd73c89d503acad6b)
 
 noextract=()
 
 prepare() {
 	cd ${srcdir}/${pkgname}-${pkgver}
 	#cd ${srcdir}/${pkgname}-${_git}
-	# revert commit 6f588857b4 as it breaks XFCE session detection
-	patch -Rp1 -i "${srcdir}/session.patch"
 }
 
 build() {

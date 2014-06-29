@@ -1,4 +1,7 @@
 post_install() {
+  if [ -e /tmp/pamac.lock ]; then
+     rm /tmp/pamac.lock
+  fi
   gtk-update-icon-cache /usr/share/icons/hicolor
   update-desktop-database -q
   printf '==> The polkit-gnome agent is no longer autostarted by default\n'

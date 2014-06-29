@@ -1,36 +1,38 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
-pkgname=pamac-aur
+pkgname=pamac-dev
 _pkgname=pamac
-pkgver=0.9.5
-pkgrel=0
+pkgver=0.9.9pre2
+pkgrel=2
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
-url="https://git.manjaro.org/core/pamac"
+url="https://github.com/manjaro/pamac"
 license=('GPL')
-depends=('python>=3.3' 'python<3.4' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
+depends=('python>=3.4' 'python<3.5' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'git')
-provides=('pamac')
+backup=('etc/pamac.conf')
+replaces=('pamac-aur')
 conflicts=('pamac')
+provides=('pamac')
 options=(!emptydirs)
 install=$_pkgname-install
-_git=no
-_snapshot=9495b434336d95fa8e0e6642a7e1f4e8941801a8
+_git=Yes
+_snapshot=898ad90516ce151d6966a41cb3e5479620ef83bc
 
 if [ "$_git" == "Yes" ]; then
-   source=(git+http://git.manjaro.org/core/pamac.git)
+   source=(git+https://github.com/manjaro/pamac.git)
    sha256sums=('SKIP')
 else
-   #source=("pamac-$pkgver.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=v$pkgver")
-   #sha256sums=('8626557d4c0a416d2a29c356cbaa672fdf9ab7ae2ec412c85e3ad348d19db0a0')
-   source=("pamac-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/pamac/repository/archive?ref=$_snapshot")
-   sha256sums=('5af9bd627df8434d3e5170886e2d4aea0c3a57ef66596f741bdee1dd53a81cf9')
+   #source=("pamac-$pkgver.tar.gz::https://github.com/manjaro/pamac/archive/$pkgver.tar.gz")
+   #sha256sums=('fa99f70e086b8e567495b3289c667f5d7a5725aa2cb665ad9024dcf75ec937cc')
+   source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_snapshot.tar.gz")
+   sha256sums=('SKIP')
 fi
 
 package() {
-  if [ -e "$srcdir/core-$_pkgname" ]; then
-	   cd "$srcdir/core-$_pkgname"
+  if [ -e "$srcdir/$_pkgname-$pkgver" ]; then
+	   cd "$srcdir/$_pkgname-$pkgver"
   fi
   if [ -e "$srcdir/$_pkgname" ]; then
      cd "$srcdir/$_pkgname"
@@ -38,16 +40,18 @@ package() {
   if [ -e "$srcdir/$_pkgname.git" ]; then
 	   cd "$srcdir/$_pkgname.git"
   fi
+  if [ -e "$srcdir/$_pkgname-$_snapshot" ]; then
+	   cd "$srcdir/$_pkgname-$_snapshot"
+  fi
 
 	# match version with pkgver
-	sed -i -e "s|^.*version =.*|version = \'$pkgver-$pkgrel\'|" pamac-manager.py
+	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager.py
 
 	python setup.py install --root="$pkgdir/" --optimize=1
 	mkdir -p "${pkgdir}/usr/share/pamac"
 	cp -r "gui" "${pkgdir}/usr/share/pamac"
-	cp -r "data/icons" "${pkgdir}/usr/share/pamac"
-	cp -r "data/applications" "${pkgdir}/usr/share/"
-	cp -r "data/etc" "${pkgdir}/"
+	mkdir -p "${pkgdir}/usr/share/icons/hicolor"
+	cp -r "data/icons/"* "${pkgdir}/usr/share/icons/hicolor" 
 	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
 	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
 	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
@@ -55,6 +59,10 @@ package() {
 	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
 	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
 	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
+	install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
+	install -Dm644 "data/applications/pamac-manager.desktop" "${pkgdir}/usr/share/applications/pamac-manager.desktop"
+	install -Dm644 "data/applications/pamac-updater.desktop" "${pkgdir}/usr/share/applications/pamac-updater.desktop"
+	install -Dm644 "data/config/pamac.conf" "${pkgdir}/etc/pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
 	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
 	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
