@@ -2,8 +2,8 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgname=manjaro-settings-manager
-pkgver=0.1.3
-pkgrel=5
+pkgver=0.1.4
+pkgrel=2
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
@@ -17,8 +17,8 @@ replaces=('manjaro-system-settings')
 provides=('manjaro-system-settings')
 conflicts=('manjaro-system-settings')
 install=install
-_git=yes
-_snapshot=4fdbde006d666c3dd6dc3fc90c441758fa7135fd
+_git=no
+_snapshot=7e8cb49881bf0dac9e6c0160858e5d0d8ba5474d
 
 if [ "$_git" == "yes" ]; then
    source=(git+http://git.manjaro.org/core/$pkgname.git#branch=development)
@@ -26,8 +26,8 @@ if [ "$_git" == "yes" ]; then
 else
    #source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/core/$pkgname/repository/archive.tar.gz?ref=v$pkgver")
    #sha256sums=('8626557d4c0a416d2a29c356cbaa672fdf9ab7ae2ec412c85e3ad348d19db0a0')
-   source=("$pkgname-$pkgver-$pkgrel.tar.gz::http://git.manjaro.org/core/$pkgname/repository/archive.tar.gz?ref=$_snapshot")
-   sha256sums=('260f6be3bfb13931054efb7807cd57de9ef16477378f915886f5475606414ccc')
+   source=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/$pkgname/archive/$_snapshot.tar.gz")
+   sha256sums=('90b5a3f84e64b0bcf5cf8f8b95a6b03e61937da662ead34b0d10f8e0df06cb0e')
 fi
 
 build() {
@@ -39,6 +39,9 @@ build() {
   fi
   if [ -e "$srcdir/$pkgname.git" ]; then
 	   cd "$srcdir/$pkgname.git/src"
+  fi
+  if [ -e "$srcdir/$pkgname-$_snapshot" ]; then
+	   cd "$srcdir/$pkgname-$_snapshot/src"
   fi
 
   /usr/lib/qt4/bin/lrelease $pkgname/$pkgname.pro
@@ -62,6 +65,9 @@ package() {
   fi
   if [ -e "$srcdir/$pkgname.git" ]; then
 	   cd "$srcdir/$pkgname.git/src"
+  fi
+  if [ -e "$srcdir/$pkgname-$_snapshot" ]; then
+	   cd "$srcdir/$pkgname-$_snapshot/src"
   fi
 
   make INSTALL_ROOT="${pkgdir}" install

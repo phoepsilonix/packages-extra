@@ -1,0 +1,96 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+
+pkgname=calamares
+pkgver=0.0.1.123.4ba4a4f
+pkgrel=1
+pkgdesc='Distribution-independent installer framework'
+arch=('i686' 'x86_64')
+license=(GPL)
+url="https://github.com/calamares"
+depends=('qt5-base' 'boost' 'yaml-cpp')
+makedepends=('cmake' 'qt5-tools')
+_git=Yes
+_development=No
+
+if [ "$_git" == "Yes" ]; then
+   makedepends+=(git)
+   source=(git+https://github.com/calamares/calamares.git)
+   sha256sums=('SKIP')
+else
+   source=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/archive/$pkgver.tar.gz")
+   sha256sums=('SKIP')
+fi
+
+pkgver() {
+   if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+      cd "$srcdir/$pkgname-$pkgver"
+   elif [ -e "$srcdir/$pkgname-$_snapshot" ]; then
+      cd "$srcdir/$pkgname-$_snapshot"
+   elif [ -e "$srcdir/$pkgname" ]; then
+      cd "$srcdir/$pkgname"
+   elif [ -e "$srcdir/$pkgname.git" ]; then
+      cd "$srcdir/$pkgname.git"
+   fi
+   if [ "$_git" == "Yes" ]; then
+      #echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
+      #echo "0.3.0.$(date +%m%d).`git describe --always`"
+      #echo "0.3.0$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+      echo 0.0.1.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+   else
+      echo "$pkgver"
+   fi
+}
+
+prepare() {
+	if [ "$_development" == "Yes" ]; then
+		cd "$srcdir/$pkgname"
+		git checkout development
+	fi
+	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+		cd "$srcdir/$pkgname-$pkgver"
+	fi
+	if [ -e "$srcdir/$pkgname" ]; then
+		cd "$srcdir/$pkgname"
+	fi
+	if [ -e "$srcdir/$pkgname.git" ]; then
+		cd "$srcdir/$pkgname.git"
+	fi
+
+	git submodule init
+	git submodule update
+
+        sed -i -e 's|, partition||g' settings.conf
+}
+
+build() {
+	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+		cd "$srcdir/$pkgname-$pkgver"
+	fi
+	if [ -e "$srcdir/$pkgname" ]; then
+		cd "$srcdir/$pkgname"
+	fi
+	if [ -e "$srcdir/$pkgname.git" ]; then
+		cd "$srcdir/$pkgname.git"
+	fi
+
+	mkdir -p build
+	cd build
+	#cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DWITH_PARTITIONMANAGER=1 ..
+	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr ..
+	make
+}
+
+package() {
+	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+		cd "$srcdir/$pkgname-$pkgver"
+	fi
+	if [ -e "$srcdir/$pkgname" ]; then
+		cd "$srcdir/$pkgname"
+	fi
+	if [ -e "$srcdir/$pkgname.git" ]; then
+		cd "$srcdir/$pkgname.git"
+	fi
+
+	cd build
+	make DESTDIR="$pkgdir" install
+}
