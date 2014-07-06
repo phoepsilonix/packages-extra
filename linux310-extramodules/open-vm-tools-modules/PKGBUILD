@@ -8,7 +8,7 @@
 pkgname=linux310-open-vm-tools-modules
 _pkgname=open-vm-tools-modules
 groups=('linux310-extramodules')
-epoch=3
+epoch=2
 pkgver=2013.09.16
 _pkgsubver=1328054
 pkgrel=1
