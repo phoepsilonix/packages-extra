@@ -1,21 +1,25 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=0.0.1.123.4ba4a4f
+pkgver=0.0.1.135.15c5142
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
-depends=('qt5-base' 'boost' 'yaml-cpp')
-makedepends=('cmake' 'qt5-tools')
+license=('LGPL')
+depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'kio' 'solid' 'yaml-cpp'
+         'parted' 'libatasmart' 'udisks2' 'boost')
+makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 _git=Yes
 _development=No
 
 if [ "$_git" == "Yes" ]; then
    makedepends+=(git)
-   source=(git+https://github.com/calamares/calamares.git)
-   sha256sums=('SKIP')
+   source=(git+https://github.com/calamares/calamares.git
+           "kf5-config-1.patch::https://github.com/KaOSx/calamares/commit/c3d40b942896c253417d73cbcc5480c4258adb89.patch"
+           "kf5-config-2.patch::https://github.com/KaOSx/partitionmanager/commit/935f3ed5a98cdd8c0b3368ece3eb2d688c660ac3.patch")
+   sha256sums=('SKIP' 'SKIP' 'SKIP')
 else
    source=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/archive/$pkgver.tar.gz")
    sha256sums=('SKIP')
@@ -59,7 +63,9 @@ prepare() {
 	git submodule init
 	git submodule update
 
-        sed -i -e 's|, partition||g' settings.conf
+        patch -Np1 -i "$srcdir/kf5-config-1.patch"
+        cd "src/libcalamares/partitionmanager/"
+        patch -Np1 -i "$srcdir/kf5-config-2.patch"
 }
 
 build() {
@@ -75,9 +81,12 @@ build() {
 
 	mkdir -p build
 	cd build
-	#cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DWITH_PARTITIONMANAGER=1 ..
-	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr ..
-	make
+        cmake .. \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_INSTALL_PREFIX=/usr \
+              -DWITH_PARTITIONMANAGER=1 \
+              -DCMAKE_INSTALL_LIBDIR=lib
+        make
 }
 
 package() {
