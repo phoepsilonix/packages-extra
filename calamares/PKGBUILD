@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
-depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'kio' 'solid' 'yaml-cpp'
+depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2' 'boost')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 _git=Yes
@@ -16,10 +16,8 @@ _development=No
 
 if [ "$_git" == "Yes" ]; then
    makedepends+=(git)
-   source=(git+https://github.com/calamares/calamares.git
-           "kf5-config-1.patch::https://github.com/KaOSx/calamares/commit/c3d40b942896c253417d73cbcc5480c4258adb89.patch"
-           "kf5-config-2.patch::https://github.com/KaOSx/partitionmanager/commit/935f3ed5a98cdd8c0b3368ece3eb2d688c660ac3.patch")
-   sha256sums=('SKIP' 'SKIP' 'SKIP')
+   source=(git+https://github.com/calamares/calamares.git)
+   sha256sums=('SKIP')
 else
    source=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/archive/$pkgver.tar.gz")
    sha256sums=('SKIP')
@@ -62,10 +60,6 @@ prepare() {
 
 	git submodule init
 	git submodule update
-
-        patch -Np1 -i "$srcdir/kf5-config-1.patch"
-        cd "src/libcalamares/partitionmanager/"
-        patch -Np1 -i "$srcdir/kf5-config-2.patch"
 }
 
 build() {

@@ -8,8 +8,8 @@ _linuxprefix=linux314
 _extramodules=extramodules-3.14-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
-pkgver=304.121
-pkgrel=4
+pkgver=304.123
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -27,12 +27,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('25ee2e45bd1f728b9de30a88575dadea210549d812944fff2026cf192ea4c52d')
+    sha256sums+=('d5034900173cb7195f52bd6add5bf574dfcd8868bd75c0e1793592c03b97f425')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('3f2ee626e9c62a2fdde7592c15c27987b753a980f1f4b1f66afb88390dfef1b5')
+    sha256sums+=('7a109189199ab0968f51e9df8833aa00d774134a144e6e6381063c74ee23bc6f')
 fi
 
 prepare() {

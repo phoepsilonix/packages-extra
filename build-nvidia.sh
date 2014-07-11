@@ -1,8 +1,6 @@
 #!/bin/bash
 rm -Rf */*nvidia/{src,pkg}
-cd linux34*/*nvidia
-makepkg --sign -df
-cd ../../linux38*/*nvidia
+cd linux38*/*nvidia
 makepkg --sign -df
 #cd ../../linux39*/*nvidia
 #makepkg --sign -df
@@ -17,4 +15,6 @@ makepkg --sign -df
 cd ../../linux314*/*nvidia
 makepkg --sign -df
 cd ../../linux315*/*nvidia
+makepkg --sign -df
+cd ../../linux316*/*nvidia
 makepkg --sign -df
