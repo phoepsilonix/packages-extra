@@ -2,7 +2,7 @@
 
 pkgname=pamac-dev
 _pkgname=pamac
-pkgver=0.9.9pre3
+pkgver=0.9.9pre4
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
@@ -45,10 +45,42 @@ package() {
   fi
 
 	# match version with pkgver
-	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager
+	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager.py
 
-  mkdir -pv "$pkgdir"/usr/bin
-  make DESTDIR="$pkgdir" install
+	python setup.py install --root="$pkgdir/" --optimize=1
+	mkdir -p "${pkgdir}/usr/share/pamac"
+	cp -r "gui" "${pkgdir}/usr/share/pamac"
+	mkdir -p "${pkgdir}/usr/share/icons/hicolor"
+	cp -r "data/icons/"* "${pkgdir}/usr/share/icons/hicolor" 
+	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
+	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
+	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
+	install -Dm755 "pamac-tray.py" "${pkgdir}/usr/bin/pamac-tray"
+	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
+	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
+	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
+	install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
+	install -Dm644 "data/applications/pamac-manager.desktop" "${pkgdir}/usr/share/applications/pamac-manager.desktop"
+	install -Dm644 "data/applications/pamac-updater.desktop" "${pkgdir}/usr/share/applications/pamac-updater.desktop"
+	install -Dm644 "data/config/pamac.conf" "${pkgdir}/etc/pamac.conf"
+	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
+	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
+	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
+	install -Dm744 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
+	# create .mo translation files
+	mkdir -p mo
+	for i in `ls po | sed s'|.po||'` ; do
+		msgfmt -c "po/$i.po" -o "mo/$i.mo"
+	done
+	# add translation in policy file
+	itstool -j "data/polkit/org.manjaro.pamac.policy" -o "data/polkit/org.manjaro.pamac.policy.out" `ls mo/*`
+	# rename mo files only here else istool failed
+	for i in `ls mo | sed s'|.mo||'` ; do
+		mkdir -p "${pkgdir}/usr/share/locale/$i/LC_MESSAGES/"
+		mv "mo/$i.mo" "${pkgdir}/usr/share/locale/$i/LC_MESSAGES/pamac.mo"
+	done
+	install -Dm644 "data/polkit/org.manjaro.pamac.policy.out" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
+
 }
 
 # vim:set ts=2 sw=2 et:
