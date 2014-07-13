@@ -68,7 +68,4 @@ package() {
   fi
 
   make INSTALL_ROOT="${pkgdir}" install
-  # TODO: move this to .pro file
-  install -D -m644 data/polkit/org.manjaro.pkexec.manjaro-settings-manager-gui.policy ${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pkexec.manjaro-settings-manager-gui.policy
-  install -D -m644 data/polkit/org.manjaro.pkexec.manjaro-settings-manager-gui.policy ${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pkexec.manjaro-settings-manager.policy
 }
