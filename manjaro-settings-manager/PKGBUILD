@@ -2,13 +2,14 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgname=manjaro-settings-manager
-pkgver=0.1.9
-pkgrel=2
+pkgver=0.2.0
+pkgrel=1
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
 license=('GPL')
-depends=('keyboardctl' 'locale-info' 'mhwd' 'pacman' 'qt4' 'qtwebkit')
+depends=('keyboardctl' 'locale-info' 'mhwd' 'pacman' 'qt5-base' 'qt5-webkit')
+makedepends=('qt5-tools')
 optdepends=('kdesu: for KDE'
             'gksu: for XFCE, Gnome, LXDE, Cinnamon'
             'gnome-keyring: for password management'
@@ -45,10 +46,10 @@ build() {
 	   cd "$srcdir/$pkgname-$_snapshot/src"
   fi
 
-  /usr/lib/qt4/bin/lrelease $pkgname/$pkgname.pro
-  /usr/lib/qt4/bin/lrelease $pkgname-daemon/$pkgname-daemon.pro
+  /usr/lib/qt/bin/lrelease $pkgname/$pkgname.pro
+  /usr/lib/qt/bin/lrelease $pkgname-daemon/$pkgname-daemon.pro
 
-  qmake-qt4
+  qmake-qt5
 
   # Build fix
   make sub-global-all

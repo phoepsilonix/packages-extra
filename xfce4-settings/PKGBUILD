@@ -6,8 +6,8 @@
 
 pkgname=xfce4-settings
 pkgver=4.11.2
-pkgrel=2
-_git=2f4ada70d456d69d3b3ed8903cff6152b4357e84
+pkgrel=3
+_git=190a8568d7258acd127af436e3a9d2a9d0ca9245
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -23,7 +23,7 @@ conflicts=("$_pkgname" "$_pkgname-git")
 source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2
         xfce4-settings-xml-4.11.2.patch)
-sha256sums=('c7b4b0fa707ce97869739bb9aec1c0f5a37d40e3ded9158919372f34fd1a8b92'
+sha256sums=('0b3739cbf52c11f27319cfa836f2ca3bfc89f468a7253120c7b483f7bd9c949f'
             'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff')
 
 

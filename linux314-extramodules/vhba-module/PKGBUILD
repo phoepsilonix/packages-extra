@@ -8,9 +8,9 @@
 
 pkgname=linux314-vhba-module
 _pkgname=vhba-module
-pkgver=20130607
+pkgver=20140629
 _extramodules=extramodules-3.14-MANJARO
-pkgrel=4
+pkgrel=1
 pkgdesc="Kernel module that emulates SCSI devices"
 arch=('i686' 'x86_64')
 url="http://cdemu.sourceforge.net/"
@@ -22,8 +22,12 @@ groups=('linux314-extramodules')
 install=$_pkgname.install
 source=("http://downloads.sourceforge.net/cdemu/$_pkgname-$pkgver.tar.bz2"
         '60-vhba.rules')
-sha256sums=('12cfd1d9ab1c7421ef50e2bedc49f90f58afba6164d1acce14b6a4e6a68cc6a6'
-         '8172d71045f5279f29eeb0224cc5ba85d14ff8514caa7718329cffe4f3574a31')
+sha256sums=('8e607cab56038ef4f5923c57279bbee4c2c0b57ce77e7003693d0938d09d6957'
+         '3052cb1cadbdf4bfb0b588bb8ed80691940d8dd63dc5502943d597eaf9f40c3b')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+}
 
 build() {
   cd "$srcdir/$_pkgname-$pkgver"
@@ -38,7 +42,7 @@ package() {
 
   install -D vhba.ko "$pkgdir/usr/lib/modules/$_extramodules/vhba.ko"
 
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" \
+  sed -i "s/EXTRAMODULES=.*/EXTRAMODULES=$_extramodules/" \
     "$startdir/vhba-module.install"
 
 	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
