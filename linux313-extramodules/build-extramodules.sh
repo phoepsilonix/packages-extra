@@ -28,9 +28,9 @@ cd ${pwd}/*open-vm-tools-modules && makepkg --sign -sf --noconfirm
 cd ${pwd}/*spl_zfs && makepkg --sign -sf --noconfirm
 cd ${pwd}/*r8168 && makepkg --sign -sf --noconfirm
 cd ${pwd}/*rt3562sta && makepkg --sign -sf --noconfirm
-if [ "$(uname -m)" == 'i686' ] ; then
-   cd ${pwd}/*slmodem && makepkg --sign -sf --noconfirm
-fi
+#if [ "$(uname -m)" == 'i686' ] ; then
+#   cd ${pwd}/*slmodem && makepkg --sign -sf --noconfirm
+#fi
 cd ${pwd}/*tp_smapi && makepkg --sign -sf --noconfirm
 cd ${pwd}/*vhba-module && makepkg --sign -sf --noconfirm
 cd ${pwd}/*virtualbox-modules && makepkg --sign -sf --noconfirm

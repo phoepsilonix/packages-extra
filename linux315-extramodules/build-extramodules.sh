@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# switch to basic language
+export LANG=C
+export LC_MESSAGES=C
+
 pwd=`pwd`
 
 if [ "`sudo cat /etc/sudoers | grep pacman`" == "" ] ; then
@@ -10,11 +14,12 @@ fi
 echo 'cleaning environment'
 rm -R ${pwd}/*/{src,pkg} -f
 echo 'building extramodules'
+cd ${pwd}/*acpi_call && makepkg --sign -sf --noconfirm
 cd ${pwd}/*bbswitch && makepkg --sign -sf --noconfirm
 cd ${pwd}/*broadcom-wl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*catalyst && makepkg --sign -df --noconfirm
-cd ${pwd}/*catalyst-13.4 && makepkg --sign -df --noconfirm
-cd ${pwd}/*catalyst-legacy && makepkg --sign -df --noconfirm
+#cd ${pwd}/*catalyst-13.4 && makepkg --sign -df --noconfirm
+#cd ${pwd}/*catalyst-legacy && makepkg --sign -df --noconfirm
 #cd ${pwd}/*cdfs && makepkg --sign -sf --noconfirm
 #cd ${pwd}/*fcpci && makepkg --sign -sf --noconfirm
 #cd ${pwd}/*fcpcmcia && makepkg --sign -sf --noconfirm
