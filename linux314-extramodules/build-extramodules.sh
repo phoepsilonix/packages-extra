@@ -10,6 +10,7 @@ fi
 echo 'cleaning environment'
 rm -R ${pwd}/*/{src,pkg} -f
 echo 'building extramodules'
+cd ${pwd}/*acpi_call && makepkg --sign -sf --noconfirm
 cd ${pwd}/*bbswitch && makepkg --sign -sf --noconfirm
 cd ${pwd}/*broadcom-wl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*catalyst && makepkg --sign -df --noconfirm
