@@ -4,9 +4,9 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 # Co-Maintainer: Clittle <philm@manjarolinux.org>
 
-pkgname=linux310-open-vm-tools-modules
+pkgname=linux316-open-vm-tools-modules
 _pkgname=open-vm-tools-modules
-groups=('linux310-extramodules')
+groups=('linux316-extramodules')
 epoch=3
 pkgver=9.4.6
 _pkgsubver=1770165
@@ -15,10 +15,10 @@ pkgdesc="kernel modules for the open source implementation of VMware Tools"
 arch=('i686' 'x86_64')
 url="http://open-vm-tools.sourceforge.net/"
 license=('GPL2')
-makedepends=('libdnet' 'procps' 'icu' 'uriparser' 'linux310-headers')
-depends=("linux310")
+makedepends=('libdnet' 'procps' 'icu' 'uriparser' 'linux316-headers')
+depends=("linux316")
 provides=("$_pkgname=$pkgver")
-groups=('linux310-extramodules')
+groups=('linux316-extramodules')
 install=$_pkgname.install
 options=('!strip')
 
@@ -34,7 +34,8 @@ source=(http://downloads.sourceforge.net/${_name}/${_full_name}.tar.gz
         0004-Use-new-link-helpers.patch
         0005-Update-hgfs-file-operations-for-newer-kernels.patch
         dkms.conf.in
-        modprobe.conf)
+        modprobe.conf
+        vmxnet.patch)
 sha256sums=('54d7a83d8115124e4b809098b08d7017ba50828801c2f105cdadbc85a064a079'
             'a30ea0d0e2dd025eecb435c7a7b02b7c69e03fac8e67dc5d7f68998847a97240'
             '711e75244057b38de0b8523721106393de0fe9c2c82b0216c57c3b763b49798f'
@@ -42,7 +43,8 @@ sha256sums=('54d7a83d8115124e4b809098b08d7017ba50828801c2f105cdadbc85a064a079'
             '91a46d4f7bc042b6d06e7a8cdf359f520ee95e9bf4d4bcaa3f11a701b388a40f'
             '27af7dcc051e13d3cab434aff6ccd4366b151516fb70cc84d913e15bccf49fcc'
             '5255a183cccd80b2bfbbf519b1cc8cec81ae40bbc0b5a88dfddd95532ece84ed'
-            '27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d')
+            '27b83062b8b6a279e8bfb13f10566467377f38ac077e75933211912cac4a085d'
+            '74218a9dc18faf7d61c900d166d01f1bb19cad174b86dbe7671046de9a03d6f1')
 
 prepare() {
   patch -d "$srcdir/${_full_name}" -Np2 -i "$srcdir/0001-Remove-unused-DEPRECATED-macro.patch"
@@ -50,10 +52,11 @@ prepare() {
   patch -d "$srcdir/${_full_name}" -Np2 -i "$srcdir/0003-Add-kuid_t-kgid_t-compatibility-layer.patch"
   patch -d "$srcdir/${_full_name}" -Np2 -i "$srcdir/0004-Use-new-link-helpers.patch"
   patch -d "$srcdir/${_full_name}" -Np2 -i "$srcdir/0005-Update-hgfs-file-operations-for-newer-kernels.patch"
+  patch -d "$srcdir/${_full_name}" -Np2 -i "$srcdir/vmxnet.patch"
 }
 
 build() {
-  _extramodules=extramodules-3.10-MANJARO
+  _extramodules=extramodules-3.16-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "$srcdir/${_full_name}"
 
@@ -65,14 +68,14 @@ build() {
       --with-linuxdir=/usr/lib/modules/$_kernver \
       --with-kernel-release=$_kernver \
       CUSTOM_PROCPS_NAME=procps
-  sed -i 's|vmsync vmci vsock vmxnet vmblock vmhgfs|vmxnet vmhgfs|g' modules/Makefile
+  sed -i 's|vmsync vmci vsock vmxnet vmblock vmhgfs|vmxnet|g' modules/Makefile
   make -C modules modules
 }
 
 package() {
-  _extramodules=extramodules-3.10-MANJARO
+  _extramodules=extramodules-3.16-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-  depends=("linux310")
+  depends=("linux316")
 
   cd "$srcdir/${_full_name}"
   mkdir -p $pkgdir/usr/lib/modules/${_extramodules}/
