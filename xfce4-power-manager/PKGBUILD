@@ -7,7 +7,7 @@
 
 pkgname=xfce4-power-manager
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,15 +17,22 @@ depends=('xfce4-panel' 'upower' 'udisks' 'libnotify' 'hicolor-icon-theme')
 makedepends=('intltool' 'xfce4-dev-tools')
 #makedepends=('intltool' 'xfce4-dev-tools' 'git')
 install=$pkgname.install
-source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/1.3/${pkgname}-${pkgver}.tar.bz2")
+source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/1.3/${pkgname}-${pkgver}.tar.bz2"
+        "fix-brightness-slider-for-i686.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=53c6780fe4cb37659b9db618cc033b74214a871c")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
-sha256sums=('8726de7dc8d9ffae8669714aae77edf1002e9220d09d4ee6d340d551e0499467')
+sha256sums=('8726de7dc8d9ffae8669714aae77edf1002e9220d09d4ee6d340d551e0499467'
+            'a9769fccd8c137c2f00662c617ca02597a0f7fb09365c02fc19a5ce4b91a60d6')
 
 #pkgver() {
 #  cd "$srcdir/$pkgname"
 #
 #  git describe --long | sed 's/^xfce4-power-manager-//;s/-/./g'
 #}
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -Np1 -i "$srcdir/fix-brightness-slider-for-i686.patch"
+}
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
