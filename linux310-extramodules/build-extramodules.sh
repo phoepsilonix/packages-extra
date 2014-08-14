@@ -10,6 +10,7 @@ fi
 echo 'cleaning environment'
 rm -R ${pwd}/*/{src,pkg} -f
 echo 'building extramodules'
+cd ${pwd}/*acpi_call && makepkg --sign -sf --noconfirm
 cd ${pwd}/*bbswitch && makepkg --sign -sf --noconfirm
 cd ${pwd}/*broadcom-wl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*catalyst && makepkg --sign -df --noconfirm
@@ -20,7 +21,7 @@ cd ${pwd}/*catalyst && makepkg --sign -df --noconfirm
 #cd ${pwd}/*fcpcmcia && makepkg --sign -sf --noconfirm
 cd ${pwd}/*lirc && makepkg --sign -sf --noconfirm
 cd ${pwd}/*ndiswrapper && makepkg --sign -sf --noconfirm
-cd ${pwd}/*nvidia && makepkg --sign -sf --noconfirm
+cd ${pwd}/*nvidia && makepkg --sign -sf -d --noconfirm
 cd ${pwd}/*nvidia-304xx && makepkg --sign -d --noconfirm
 cd ${pwd}/*nvidiabl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*open-vm-tools-modules && makepkg --sign -sf --noconfirm
