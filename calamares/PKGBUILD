@@ -10,12 +10,14 @@ url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'parted' 'boost')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
+backup=('usr/share/calamares/settings.conf' 'usr/share/calamares/modules/initcpio.conf'
+        'usr/share/calamares/modules/services.conf' 'usr/share/calamares/modules/unsquashfs.conf')
 _git=Yes
 _development=No
 
 if [ "$_git" == "Yes" ]; then
    makedepends+=(git)
-   source=(git+https://github.com/calamares/calamares.git)
+   source=(git+https://github.com/calamares/calamares.git#branch=manjaro)
    sha256sums=('SKIP')
 else
    source=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/archive/$pkgver.tar.gz")

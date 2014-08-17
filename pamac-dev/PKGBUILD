@@ -2,7 +2,7 @@
 
 pkgname=pamac-dev
 _pkgname=pamac
-pkgver=0.9.9pre6
+pkgver=0.9.9rc1
 pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
