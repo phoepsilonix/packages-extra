@@ -32,7 +32,8 @@ sha256sums=('123ce6b7921b5bd08c06d14283cf6cedeed91adb01d89e50c60505cd994f6253')
 #prepare() {
 #  cd "${srcdir}/${pkgname}-${pkgver}"
 #  #cd "${srcdir}/${pkgname}-${_git}"
-#  patch -Np1 -i "${srcdir}/file.patch"
+#  #sed -i -e 's|[git])|[])|g' configure.ac.in
+#  #patch -Np1 -i "${srcdir}/file.patch"
 #}
 
 build() {
