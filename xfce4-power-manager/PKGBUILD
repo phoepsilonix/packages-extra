@@ -7,8 +7,8 @@
 
 pkgname=xfce4-power-manager
 pkgver=1.3.2
-pkgrel=1
-#_git=6e4a6e5726cce281a64e467ba14a77b710fffc6f
+pkgrel=2
+_git=c791ce70e501a51a6d1743920d534598edd06a68
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -18,10 +18,10 @@ depends=('xfce4-panel' 'upower' 'udisks' 'libnotify' 'hicolor-icon-theme')
 makedepends=('intltool' 'xfce4-dev-tools')
 #makedepends=('intltool' 'xfce4-dev-tools' 'git')
 install=$pkgname.install
-source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/1.3/${pkgname}-${pkgver}.tar.bz2")
+#source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/1.3/${pkgname}-${pkgver}.tar.bz2")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
-#source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
-sha256sums=('123ce6b7921b5bd08c06d14283cf6cedeed91adb01d89e50c60505cd994f6253')
+source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
+sha256sums=('6daad66e8f44936db1ecca55d53514c1e0344cf3e67fe4cb3124ca5d5d299527')
 
 #pkgver() {
 #  cd "${srcdir}/${pkgname}"
@@ -29,19 +29,19 @@ sha256sums=('123ce6b7921b5bd08c06d14283cf6cedeed91adb01d89e50c60505cd994f6253')
 #  git describe --long | sed 's/^xfce4-power-manager-//;s/-/./g'
 #}
 
-#prepare() {
+prepare() {
 #  cd "${srcdir}/${pkgname}-${pkgver}"
-#  #cd "${srcdir}/${pkgname}-${_git}"
-#  #sed -i -e 's|[git])|[])|g' configure.ac.in
+  cd "${srcdir}/${pkgname}-${_git}"
+  sed -i -e 's|[git])|[])|g' configure.ac.in
 #  #patch -Np1 -i "${srcdir}/file.patch"
-#}
+}
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  #cd "${srcdir}/${pkgname}-${_git}"
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${pkgname}-${_git}"
   
-  #./autogen.sh \
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --sbindir=/usr/bin \
@@ -56,7 +56,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  #cd "${srcdir}/${pkgname}-${_git}"
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${pkgname}-${_git}"
   make DESTDIR="${pkgdir}" install
 }
