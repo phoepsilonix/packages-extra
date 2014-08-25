@@ -7,7 +7,7 @@ _extramodules=extramodules-3.11-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=14.10.1006.1001
-pkgrel=2
+pkgrel=3
 _tarball=14-4-rev2-linux-x86-x86-64-may6
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
