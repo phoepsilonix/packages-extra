@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -9,7 +9,7 @@ license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'parted' 'boost' 'hwinfo')
-makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'qt5-svg')
 backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/grubcfg.conf'
         'usr/share/calamares/modules/initcpio.conf'
@@ -43,13 +43,12 @@ pkgver() {
    fi
    if [ "$_git" == "Yes" ]; then
       #echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-      #echo "0.5.0.$(date +%m%d).`git describe --always`"
-      #echo "0.5.0$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-      echo 0.5.0.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+      #echo "0.6.0.$(date +%m%d).`git describe --always`"
+      #echo "0.6.0$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+      echo 0.6.0.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
    else
       echo "$pkgver"
    fi
-   sed -i -e 's|VERSION 3.0|VERSION 2.8.12|g' CMakeLists.txt 
 }
 
 prepare() {
