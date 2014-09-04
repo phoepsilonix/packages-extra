@@ -8,8 +8,8 @@ arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'parted' 'boost' 'hwinfo')
-makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'qt5-svg')
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'parted' 'boost' 'hwinfo' 'qt5-svg')
+makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/grubcfg.conf'
         'usr/share/calamares/modules/initcpio.conf'
