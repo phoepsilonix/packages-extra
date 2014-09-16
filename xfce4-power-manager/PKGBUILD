@@ -8,7 +8,7 @@
 pkgname=xfce4-power-manager
 _seriesver=1.4
 pkgver=${_seriesver}.0
-pkgrel=2
+pkgrel=3
 #_git=b3c28d616110e690a8aecbc8d29765e9bbfc67bc
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
@@ -20,11 +20,11 @@ makedepends=('intltool' 'xfce4-dev-tools')
 #makedepends=('intltool' 'xfce4-dev-tools' 'git')
 install=$pkgname.install
 source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${_seriesver}/${pkgname}-${pkgver}.tar.bz2"
-        "fix-action-on-laptop-lid-close.reverse.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=03193df6cad651841e8d9960335b4a3bf13afdad")
+        "handle-lid-switch-with-logind.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=f62e82256cb2a45b4f044b7d603017952f7dd63e")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
 #source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
 sha256sums=('3fba9d1bdb2f535e5a5c2a832503368d26629d6fe496c547fa93a3278d2cf6e7'
-            'eb09b2a9c72579e230b1603a661054be27be6dc3337fbf029d01c635e0325968')
+            '217fa2a4001369fc60b304cc67c0c82d0b00d8366e445554135b4aee946b91f0')
 
 #pkgver() {
 #  cd "${srcdir}/${pkgname}"
@@ -34,8 +34,7 @@ sha256sums=('3fba9d1bdb2f535e5a5c2a832503368d26629d6fe496c547fa93a3278d2cf6e7'
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-#  patch -Np1 -i "${srcdir}/file.patch"
-  patch -RNp1 -i "${srcdir}/fix-action-on-laptop-lid-close.reverse.patch"
+  patch -Np1 -i "${srcdir}/handle-lid-switch-with-logind.patch"
 #
 #  cd "${srcdir}/${pkgname}-${_git}"
 #  sed -i -e 's|[git])|[])|g' configure.ac.in
