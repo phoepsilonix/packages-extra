@@ -4,49 +4,50 @@
 
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
-pkgver=14.10.1006.1001
+pkgver=14.201
 pkgrel=1
-_tarball=14-4-rev2-linux-x86-x86-64-may6
+_tarball=14.201.orig
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
+source=(#http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
+    https://launchpad.net/ubuntu/utopic/+source/fglrx-installer/2:14.201-0ubuntu1/+files/fglrx-installer_${_tarball}.tar.gz
     catalyst.sh
     atieventsd.sh
     atieventsd.service
     arch-fglrx-authatieventsd_new.patch
     mhwd-catalyst
-    temp-links-catalyst.service  temp_links_catalyst)
+    temp-links-catalyst.service  temp_links_catalyst
+    LICENSE.TXT)
 
-sha256sums=('93e213e5b182a0863aa926d1e3ab4498adc0e0007aac4fc14a3abae84bb170f5'
+sha256sums=('b9064fb5e15c0094162c18d0db9135c061d0e1fde31b2e63de5d3cd455a19e40'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '9b347c3f518ddf12bb08a3cf09afcc3096e5dd4488e7ca3445df97b392985e8b'
             '398bade6ea2cb084043d87f6580569dd54b769055cdb518e2a074124c20f2606'
             'e9db1f09c6ebbe2024bcbb40a86482d4fdbcf227a6f1d58385101efe46dab9e5'
             '4f36dd7b3bf2beec22af68f1aedf96cbdb9fa7b0586af71bac5c8b1f4a952358'
             'c97a2735f80416151b2a71504e42385c4d8d95cf42aa8f90a6c7bd5a966c54e1'
-            'efd26980888943293a7cf1d8d781b96b3bc7a5cdf23f926aa68ac4bc348b7691')
+            'efd26980888943293a7cf1d8d781b96b3bc7a5cdf23f926aa68ac4bc348b7691'
+            '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
-prepare() {
-	cd ${srcdir}/fglrx-$pkgver
-ls
-	/bin/sh ./amd-driver-installer-${pkgver}-x86.x86_64.run --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
-}
+#prepare() {
+#	cd ${srcdir}/fglrx-$pkgver
+#	/bin/sh ./amd-driver-installer-${pkgver}-x86.x86_64.run --extract archive_files
+#	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+#}
 
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('xorg-server>=1.7.0' 'xorg-server<1.16.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
+	depends=('xorg-server>=1.7.0' 'xorg-server<1.17.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
 	optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
 		    'acpid: acpi event support  / atieventsd')
 	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'catalyst-13.4' 'catalyst-13.4-utils')
 	install="${pkgname}.install"
 
-	cd fglrx-$pkgver
+	#cd fglrx-$pkgver
 
   ## Install userspace tools and libraries
     # Create directories
@@ -76,9 +77,11 @@ package_catalyst-utils() {
 
     # X.org driver
       if [ "${CARCH}" = "i686" ]; then
-	cd ${srcdir}/fglrx-$pkgver/archive_files/xpic/usr/X11R6/lib/modules
+	#cd ${srcdir}/fglrx-$pkgver/archive_files/xpic/usr/X11R6/lib/modules
+	cd ${srcdir}/xpic/usr/X11R6/lib/modules
       elif [ "${CARCH}" = "x86_64" ]; then
-	cd ${srcdir}/fglrx-$pkgver/archive_files/xpic_64a/usr/X11R6/lib64/modules
+	#cd ${srcdir}/fglrx-$pkgver/archive_files/xpic_64a/usr/X11R6/lib64/modules
+	cd ${srcdir}/xpic_64a/usr/X11R6/lib64/modules
       fi
 
       install -m755 *.so ${pkgdir}/usr/lib/xorg/modules
@@ -90,10 +93,12 @@ package_catalyst-utils() {
 
     # Controlcenter / libraries
       if [ "${CARCH}" = "i686" ]; then
-	cd ${srcdir}/fglrx-$pkgver/archive_files/arch/x86/usr
+	#cd ${srcdir}/fglrx-$pkgver/archive_files/arch/x86/usr
+	cd ${srcdir}/arch/x86/usr
 	_lib=lib
       elif [ "${CARCH}" = "x86_64" ]; then
-	cd ${srcdir}/fglrx-$pkgver/archive_files/arch/x86_64/usr
+	#cd ${srcdir}/fglrx-$pkgver/archive_files/arch/x86_64/usr
+	cd ${srcdir}/arch/x86_64/usr
 	_lib=lib64
       fi
 
@@ -132,7 +137,8 @@ package_catalyst-utils() {
       ln -snf libatiuki.so.1.0 ${pkgdir}/usr/lib/libatiuki.so.1
       ln -snf libatiuki.so.1.0 ${pkgdir}/usr/lib/libatiuki.so
 
-      cd ${srcdir}/fglrx-$pkgver/archive_files/common
+      #cd ${srcdir}/fglrx-$pkgver/archive_files/common
+      cd ${srcdir}
       patch -Np2 -i ${srcdir}/arch-fglrx-authatieventsd_new.patch
       install -m644 etc/ati/* ${pkgdir}/etc/ati
       chmod 755 ${pkgdir}/etc/ati/authatieventsd.sh
@@ -160,8 +166,10 @@ package_catalyst-utils() {
       install -m755 ${srcdir}/catalyst.sh ${pkgdir}/etc/profile.d
 
     # License
-      install -m644 ${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT ${pkgdir}/usr/share/licenses/${pkgname}
-      install -m644 ${srcdir}/fglrx-$pkgver/archive_files/common/usr/share/doc/amdcccle/ccc_copyrights.txt \
+      #install -m644 ${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT ${pkgdir}/usr/share/licenses/${pkgname}
+      #install -m644 ${srcdir}/fglrx-$pkgver/archive_files/common/usr/share/doc/amdcccle/ccc_copyrights.txt \
+      install -m644 ${srcdir}/LICENSE.TXT ${pkgdir}/usr/share/licenses/${pkgname}
+      install -m644 ${srcdir}/usr/share/doc/amdcccle/ccc_copyrights.txt \
 	${pkgdir}/usr/share/licenses/${pkgname}/amdcccle_copyrights.txt
 
     #workaround for the high io bug , thanks to lano1106 for finding this ugly bug! https://bbs.archlinux.org/viewtopic.php?pid=1279977#p1279977
@@ -179,7 +187,7 @@ package_opencl-catalyst() {
       depends=('gcc-libs')
       optdepends=('opencl-headers: headers necessary for OpenCL development')
 
-      cd ${srcdir}/fglrx-$pkgver
+      #cd ${srcdir}/fglrx-$pkgver
       
       install -dm755 "${pkgdir}"/usr/{bin,lib}
       install -dm755 "${pkgdir}/etc/OpenCL/vendors"
@@ -193,14 +201,16 @@ package_opencl-catalyst() {
       _ARCHLIB="64"
       fi
       
-      cd ${srcdir}/fglrx-$pkgver/archive_files/arch/${_ARCHDIR}
+      #cd ${srcdir}/fglrx-$pkgver/archive_files/arch/${_ARCHDIR}
+      cd ${srcdir}/arch/${_ARCHDIR}
       install -m755 usr/bin/clinfo "${pkgdir}/usr/bin/"
       install -m644 etc/OpenCL/vendors/amdocl*.icd "${pkgdir}/etc/OpenCL/vendors/"
       install -m755 usr/lib${_ARCHLIB}/libamdocl*.so "${pkgdir}/usr/lib/"
       install -m755 usr/lib${_ARCHLIB}/libOpenCL.so.1 "${pkgdir}/usr/lib/"
       ln -s libOpenCL.so.1 "${pkgdir}/usr/lib/libOpenCL.so"
       # license
-      install -m644 "${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+      #install -m644 "${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+      install -m644 "${srcdir}/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 package_mhwd-catalyst() {
@@ -210,6 +220,8 @@ package_mhwd-catalyst() {
     install -d -m755 "${pkgdir}/var/lib/mhwd/ids/pci/"
     # Generate mhwd database
     sh -e ${srcdir}/mhwd-catalyst \
-    ${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod/fglrxko_pci_ids.h \
+    ${srcdir}/lib/modules/fglrx/build_mod/fglrxko_pci_ids.h \
     > ${pkgdir}/var/lib/mhwd/ids/pci/catalyst.ids
+
+    #${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod/fglrxko_pci_ids.h \
 }

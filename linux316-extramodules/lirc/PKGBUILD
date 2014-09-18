@@ -6,7 +6,7 @@
 pkgbase=lirc
 pkgname=('linux316-lirc' 'lirc-utils')
 pkgver=0.9.1a
-pkgrel=1
+pkgrel=2
 epoch=1
 _extramodules=extramodules-3.16-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
