@@ -7,7 +7,7 @@ _extramodules=extramodules-3.13-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=14.201
-pkgrel=1
+pkgrel=2
 _tarball=14.201.orig
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -40,19 +40,22 @@ sha256sums=('b9064fb5e15c0094162c18d0db9135c061d0e1fde31b2e63de5d3cd455a19e40'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47'
 )
 
-
-
-#prepare() {
+prepare() {
 #	cd ${srcdir}/fglrx-$pkgver
 #	/bin/sh ./amd-driver-installer-${pkgver}-x86.x86_64.run --extract archive_files
 	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
-#}
+
+	# move files
+	mkdir -p fglrx-$pkgver/common
+	mv etc lib usr fglrx-$pkgver/common
+	mkdir -p fglrx-$pkgver/archive_files
+	mv arch common xpic xpic_64a LICENSE.TXT fglrx-$pkgver/archive_files
+}
 
 build() {
 	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
-  ## include ati_make.sh and use _ati_check function from it
+	## include ati_make.sh and use _ati_check function from it
 	cd "${srcdir}"
 	. ati_make.sh
 	_ati_check
@@ -66,20 +69,18 @@ build() {
 		_archdir=x86
 	fi
 
-	#cd "${srcdir}/fglrx-$pkgver/archive_files"
+	cd "${srcdir}/fglrx-$pkgver/archive_files"
 
 	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
 	## works only in combination with ati_make.sh script
-	patch -Np2 -i ${srcdir}/makefile_compat.patch
-	patch -Np2 -i ${srcdir}/lano1106_fglrx_intel_iommu.patch
-	patch -Np2 -i ${srcdir}/lano1106_kcl_agp_13_4.patch
-        patch -Np2 -i ${srcdir}/cold-fglrx-3.14-current_euid.patch
+	patch -Np1 -i ${srcdir}/makefile_compat.patch
+	patch -Np1 -i ${srcdir}/lano1106_fglrx_intel_iommu.patch
+	patch -Np1 -i ${srcdir}/lano1106_kcl_agp_13_4.patch
+        patch -Np1 -i ${srcdir}/cold-fglrx-3.14-current_euid.patch
 
-	#cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
-	cd "${srcdir}/lib/modules/fglrx/build_mod"
+	cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
         patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
-	#cp "${srcdir}/fglrx-$pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
-	cp "${srcdir}/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
+	cp "${srcdir}/fglrx-$pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
 	## Compile module using _ati_check variables
@@ -90,18 +91,16 @@ build() {
 
 
 package() {
-	#cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
-	cd "${srcdir}/lib/modules/fglrx/build_mod"
+	cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
 	install -m755 -d "${pkgdir}/usr/lib/modules/${_extramodules}/"
 	install -m644 fglrx.ko "${pkgdir}/usr/lib/modules/${_extramodules}/"
 	find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
 
-    ## License
+	## License
 	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
-	#install -m644 "${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
-	install -m644 "${srcdir}/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
+	install -m644 "${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
 
 	## Install script
-    sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
-    sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" $startdir/*.install
+	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
+	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" $startdir/*.install
 }

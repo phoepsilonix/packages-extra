@@ -3,7 +3,7 @@
 
 pkgname=manjaro-settings-manager
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
@@ -19,7 +19,7 @@ provides=('manjaro-system-settings')
 conflicts=('manjaro-system-settings')
 install=install
 _git=no
-_snapshot=b08ec3b239bf8d988be4f93276e680941995625d
+_snapshot=c757e7127920aa2aa14d4238b50310064badd506
 
 if [ "$_git" == "yes" ]; then
    makedepends+=('git')
