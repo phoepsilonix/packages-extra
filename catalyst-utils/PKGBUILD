@@ -5,10 +5,10 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=14.201
-pkgrel=2
+pkgrel=3
 _tarball=14.201.orig
 _execlineorig="Exec=amdxdg-su -c amdcccle"
-_execlinenew="Exec=xdg-su -c amdcccle"
+_execlinenew="Exec=xdg-su amdcccle"
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
