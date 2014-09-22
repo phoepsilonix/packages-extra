@@ -3,13 +3,14 @@
 # Bob Fanger < bfanger(at)gmail >
 # Filip <fila pruda com>, Det < nimetonmaili(at)gmail >
 
-# Maintainer: Guinux <nuxgui@gmail.com>
-# Co-Maintainer: Clittle <philm@manjarolinux.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Guinux <guillaume@manjaro.org>
+# Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=linux315-r8168
 _pkgname=r8168
-pkgver=8.037.00
-pkgrel=6
+pkgver=8.039.00
+pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -18,27 +19,13 @@ depends=('glibc' 'linux315')
 makedepends=('linux315-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux315-extramodules')
-source=(http://r8168.googlecode.com/files/$_pkgname-$pkgver.tar.bz2)
+source=("ftp://WebUser:wK9xBuD5@95.130.192.218/cn/nic/r8168-$pkgver.tar.bz2")
+sha256sums=('767d922270274e781d8d42493a0021db1cafcb0388ac62564d0c0c3d82703edd')
 install=$_pkgname.install
-sha256sums=('06aa1c6a58a878450798100eb5f9c3d87763c5f41e99b7d5f3b2fe78646d02b0')
-
-_extramodules=extramodules-3.15-MANJARO
-_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
-
-prepare(){
-	cd "$_pkgname-$pkgver"
-
-	# Fix build with Linux 3.15
-	# https://code.google.com/p/r8168/issues/detail?id=19
-	if grep -q PREPARE_DELAYED_WORK src/r8168_n.c; then
-		sed -i 's/PREPARE_DELAYED_WORK/INIT_DELAYED_WORK/' src/r8168_n.c
-	else
-		error 'PREPARE_DELAYED_WORK fix for Linux 3.15 is no longer needed.'
-		return 1
-	fi
-}
 
 build() {
+	_extramodules=extramodules-3.15-MANJARO
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
 	cd "$_pkgname-$pkgver"
 
 	# avoid using the Makefile directly -- it doesn't understand
@@ -50,6 +37,7 @@ build() {
 }
 
 package() {
+	_extramodules=extramodules-3.15-MANJARO
 	cd "$srcdir/$_pkgname-$pkgver/src"
 	install -D -m644 $_pkgname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
 

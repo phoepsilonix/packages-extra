@@ -4,7 +4,7 @@
 pkgbase=linux317-spl_zfs
 pkgname=('linux317-spl' 'linux317-zfs')
 pkgver=0.6.3
-pkgrel=0.2
+pkgrel=0.3
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -15,12 +15,24 @@ makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
 groups=('linux317-extramodules')
 install=install
 
-build() {
-  _extraver=extramodules-3.17-MANJARO
-  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+source=('spl-linux317.patch::https://github.com/zfsonlinux/spl/commit/2fc44f66ec9b83069593d87cf311069458c0d5ae.patch')
+sha256sums=('f9da450fd6fda04d7f1ccd932c4a1f2d14a19476c57609c31bf9bf5a293a9318')
+
+prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  # workaround to patch spl for linux 3.17
+  rm -r $srcdir/dkms/spl/$pkgver/source
+  cp -r /usr/src/spl-$pkgver $srcdir/dkms/spl/$pkgver/source
+  cd dkms/spl/$pkgver/source
+  patch -Np1 -i $srcdir/spl-linux317.patch
+}
+
+build() {
+  _extraver=extramodules-3.17-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
 
   # build host modules
   msg2 'Build modules'

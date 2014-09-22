@@ -3,13 +3,14 @@
 # Bob Fanger < bfanger(at)gmail >
 # Filip <fila pruda com>, Det < nimetonmaili(at)gmail >
 
-# Maintainer: Guinux <nuxgui@gmail.com>
-# Co-Maintainer: Clittle <philm@manjarolinux.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Guinux <guillaume@manjaro.org>
+# Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=linux317-r8168
 _pkgname=r8168
-pkgver=8.037.00
-pkgrel=0.2
+pkgver=8.039.00
+pkgrel=0.3
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -18,24 +19,13 @@ depends=('glibc' 'linux317')
 makedepends=('linux317-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux317-extramodules')
-source=(http://r8168.googlecode.com/files/$_pkgname-$pkgver.tar.bz2
-        delayed_work_ethtool_ops_fix2.patch)
+source=("ftp://WebUser:wK9xBuD5@95.130.192.218/cn/nic/r8168-$pkgver.tar.bz2")
+sha256sums=('767d922270274e781d8d42493a0021db1cafcb0388ac62564d0c0c3d82703edd')
 install=$_pkgname.install
-sha256sums=('06aa1c6a58a878450798100eb5f9c3d87763c5f41e99b7d5f3b2fe78646d02b0'
-            '2a03fa65e476cb7dd3ed5976037e0218260ff2660b6a4c495a824865eb10c303')
-
-_extramodules=extramodules-3.17-MANJARO
-_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
-
-prepare(){
-	cd "$_pkgname-$pkgver"
-
-	# Fix build with Linux 3.15 and 3.16
-	# https://code.google.com/p/r8168/issues/detail?id=19
-	patch -Np1 -i "$srcdir/delayed_work_ethtool_ops_fix2.patch"
-}
 
 build() {
+	_extramodules=extramodules-3.17-MANJARO
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
 	cd "$_pkgname-$pkgver"
 
 	# avoid using the Makefile directly -- it doesn't understand
@@ -47,6 +37,7 @@ build() {
 }
 
 package() {
+	_extramodules=extramodules-3.17-MANJARO
 	cd "$srcdir/$_pkgname-$pkgver/src"
 	install -D -m644 $_pkgname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
 
