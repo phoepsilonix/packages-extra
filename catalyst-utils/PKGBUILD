@@ -5,8 +5,10 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=14.201
-pkgrel=1
+pkgrel=2
 _tarball=14.201.orig
+_execlineorig="Exec=amdxdg-su -c amdcccle"
+_execlinenew="Exec=xdg-su -c amdcccle"
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
@@ -176,6 +178,10 @@ package_catalyst-utils() {
 
     # provided in opencl-catalyst package
       rm "${pkgdir}"/usr/lib/lib{amdocl*,OpenCL}.so* 
+
+    # Admin CC launcher fix
+      cd ${pkgdir}/usr/share/applications
+      sed -i "s|${_execlineorig}|${_execlinenew}|g" amdccclesu.desktop
 }
 
 package_opencl-catalyst() {
