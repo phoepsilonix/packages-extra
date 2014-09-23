@@ -19,15 +19,26 @@ makedepends=("broadcom-wl-dkms>=$pkgver"
 groups=('linux317-extramodules')
 provides=("$_pkgname=$pkgver")
 install=install
-source=(broadcom-wl-dkms.conf)
-sha256sums=(b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283)
+source=(broadcom-wl-dkms.conf
+        linux317.patch)
+sha256sums=(b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283
+            2fd253ca7774b322d424b15d295d0ee025b3a3934b6063d3d3cca7a166677892)
+
+prepare() {
+  # dkms need modification to be run as user
+  cp -r /var/lib/dkms .
+  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  # workaround to patch spl for linux 3.17
+  rm -r $srcdir/dkms/broadcom-wl/$pkgver/source
+  cp -r /usr/src/broadcom-wl-$pkgver $srcdir/dkms/broadcom-wl/$pkgver/source
+  cd dkms/broadcom-wl/$pkgver/source
+  patch -Np1 -i $srcdir/linux317.patch
+}
 
 build() {
   _extraver=extramodules-3.17-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
-  # dkms need modification to be run as user
-  cp -r /var/lib/dkms .
-  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
   # build host modules
   msg2 'Build module'

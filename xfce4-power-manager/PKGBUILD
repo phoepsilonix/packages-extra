@@ -8,7 +8,7 @@
 pkgname=xfce4-power-manager
 _seriesver=1.4
 pkgver=${_seriesver}.0
-pkgrel=3
+pkgrel=4
 #_git=b3c28d616110e690a8aecbc8d29765e9bbfc67bc
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
@@ -20,11 +20,13 @@ makedepends=('intltool' 'xfce4-dev-tools')
 #makedepends=('intltool' 'xfce4-dev-tools' 'git')
 install=$pkgname.install
 source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${_seriesver}/${pkgname}-${pkgver}.tar.bz2"
-        "handle-lid-switch-with-logind.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=f62e82256cb2a45b4f044b7d603017952f7dd63e")
+        "handle-lid-switch-with-logind.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=f62e82256cb2a45b4f044b7d603017952f7dd63e"
+        "fix-for-panel-icon-not-always-updating.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=4e8f9cec06748e259ef02c2f2816c90d018b608b")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
 #source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
 sha256sums=('3fba9d1bdb2f535e5a5c2a832503368d26629d6fe496c547fa93a3278d2cf6e7'
-            '217fa2a4001369fc60b304cc67c0c82d0b00d8366e445554135b4aee946b91f0')
+            '217fa2a4001369fc60b304cc67c0c82d0b00d8366e445554135b4aee946b91f0'
+            '41ce5788d9dc093197aa494d98340921925425e743b9ef574d850cb7b7e3af73')
 
 #pkgver() {
 #  cd "${srcdir}/${pkgname}"
@@ -35,6 +37,7 @@ sha256sums=('3fba9d1bdb2f535e5a5c2a832503368d26629d6fe496c547fa93a3278d2cf6e7'
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   patch -Np1 -i "${srcdir}/handle-lid-switch-with-logind.patch"
+  patch -Np1 -i "${srcdir}/fix-for-panel-icon-not-always-updating.patch"
 #
 #  cd "${srcdir}/${pkgname}-${_git}"
 #  sed -i -e 's|[git])|[])|g' configure.ac.in

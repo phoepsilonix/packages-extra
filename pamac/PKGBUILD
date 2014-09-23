@@ -1,8 +1,8 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=0.9.8
-pkgrel=3
+pkgver=0.9.8.1
+pkgrel=1
 pkgdesc="A gtk3 frontend for pyalpm"
 arch=(any)
 url="https://github.com/manjaro/pamac"
@@ -15,7 +15,7 @@ replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname-install
 _git=No
-_snapshot=72926239423a7df60478484915d0766825d4b871
+_snapshot=df8ca4fc587f9416aa8544a755cd6e9a66b4a573
 
 if [ "$_git" == "Yes" ]; then
    source=(git+https://github.com/manjaro/pamac.git)

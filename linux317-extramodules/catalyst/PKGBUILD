@@ -28,6 +28,7 @@ source=(#http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
         makefile_compat.patch
         kolasa_fglrx_312.patch
 	cold-fglrx-3.14-current_euid.patch
+	kolasa_fglrx_317.patch::https://github.com/kolasa/fglrx-14.200/commit/6cd142e81de01ebcde8e62a59d84b6adef235e75.patch
 	LICENSE.TXT)
 
 sha256sums=('b9064fb5e15c0094162c18d0db9135c061d0e1fde31b2e63de5d3cd455a19e40'
@@ -37,6 +38,7 @@ sha256sums=('b9064fb5e15c0094162c18d0db9135c061d0e1fde31b2e63de5d3cd455a19e40'
             'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
             '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d'
             '8095031ee68edbb67323a562b54c9cf46aade7c91738950467b91eda68e434ee'
+            '61fe398e8ff64360aff51e0ed4772ad5cf12ba95a4c07f77285e8d9ee0f5088a'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47'
 )
 
@@ -80,6 +82,7 @@ build() {
 
 	cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
         patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
+        patch -Np1 -i ${srcdir}/kolasa_fglrx_317.patch
 	cp "${srcdir}/fglrx-$pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
