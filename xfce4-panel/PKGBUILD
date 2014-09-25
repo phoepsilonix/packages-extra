@@ -5,7 +5,7 @@
 pkgname=xfce4-panel
 _git=6f672b8074fc97cf1d0211d7a7b73f939d9c1035
 pkgver=4.11.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

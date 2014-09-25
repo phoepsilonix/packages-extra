@@ -8,7 +8,7 @@
 pkgname=xfdesktop
 _git=9f0ed62821804ac49dabb20e3580f09a19a036b9
 pkgver=4.11.8
-pkgrel=2
+pkgrel=3
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

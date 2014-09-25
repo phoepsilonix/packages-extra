@@ -4,7 +4,7 @@
 
 pkgname=xfce4-session
 pkgver=4.11.0
-pkgrel=3
+pkgrel=4
 _git=77d39eb0314247e5e129ab53ae1da5d699be52ca
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
