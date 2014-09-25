@@ -4,7 +4,7 @@
 
 pkgname=garcon
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Implementation of the freedesktop.org menu specification"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -13,7 +13,7 @@ groups=('xfce4')
 depends=('glib2' 'gtk2' 'libxfce4ui' 'libxfce4util')
 makedepends=('pkgconfig' 'intltool' 'xfce4-dev-tools')
 replaces=('libxfce4menu')
-options=('!makeflags')
+options=('!makeflags' '!libtool')
 source=(http://archive.xfce.org/src/xfce/garcon/0.3/garcon-0.3.0.tar.bz2)
 sha256sums=('59348179f3cb9589d13ba8d18d5746be421b311cab974ce057dfdef0365b1e55')
 
