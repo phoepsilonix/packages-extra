@@ -6,9 +6,9 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=xfdesktop
-#_git=ae4013a095820417b090db14a6d037e8956fb67c
+_git=9f0ed62821804ac49dabb20e3580f09a19a036b9
 pkgver=4.11.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,15 +17,16 @@ groups=('xfce4')
 depends=("libxfce4ui>=4.11" 'thunar' 'garcon' 'hicolor-icon-theme' 'libwnck')
 makedepends=('intltool' 'xfce4-dev-tools')
 install=xfdesktop.install
-source=("http://archive.xfce.org/src/xfce/xfdesktop/4.11/${pkgname}-${pkgver}.tar.bz2")
-#source=("${pkgname}-${pkgver}-${pkgrel}.tar.bz2::http://git.xfce.org/xfce/${pkgname}/snapshot/${pkgname}-${_git}.tar.bz2")
-sha256sums=('c17eeaecdf7bea23fac8ef64c15f7dda899ec81076c9dee99b7f74642cd8f105')
+#source=("http://archive.xfce.org/src/xfce/xfdesktop/4.11/${pkgname}-${pkgver}.tar.bz2")
+source=("${pkgname}-${pkgver}-${pkgrel}.tar.bz2::http://git.xfce.org/xfce/${pkgname}/snapshot/${pkgname}-${_git}.tar.bz2")
+sha256sums=('21355ed4eace81c8d94bac8b70216191568c66f8985b225d424d5ab511c29d3a')
 
 build() {
-  #cd "${srcdir}/${pkgname}-${_git}"
-  cd "${srcdir}/${pkgname}-${pkgver}"
+#  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${pkgname}-${_git}"
 
-  ./configure \
+  #./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -40,7 +41,7 @@ build() {
 }
 
 package() {
-  #cd "${srcdir}/${pkgname}-${_git}"
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${pkgname}-${_git}"
+  #cd "${srcdir}/${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install
 }

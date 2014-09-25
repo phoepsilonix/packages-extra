@@ -7,27 +7,31 @@
 pkgname=libxfce4ui
 _pkgname=libxfce4ui
 pkgver=4.11.1
-pkgrel=1
+_git=c5db61c6ceb7d0a28d7b9232bc8774cec0eed4f3
+pkgrel=2
 pkgdesc="Commonly used Xfce widgets among Xfce applications"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 depends=('libxfce4util' 'gtk2' 'xfconf' 'libsm' 'startup-notification'
          'hicolor-icon-theme')
-makedepends=('intltool' 'gtk-doc' 'gtk3')
+makedepends=('intltool' 'gtk-doc' 'gtk3' 'xfce4-dev-tools')
 optdepends=('gtk3: for GTK3 support')
 #replaces=('libxfcegui4') - later when all is ported
 options=('!libtool')
 install=$_pkgname.install
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
-source=(http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2)
-sha256sums=('bf0a847d7f60c55b6e906e4dffbc2444e290c958edc96484a701edba7e58245d')
+source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2
+        $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
+sha256sums=('9c0a0a2e34f9016079d9270620038b12e1aaab8ca4c575d2f8f3a840034dcdb9')
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  #cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
 
-  ./configure \
+  #  ./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -36,11 +40,12 @@ build() {
     --enable-gtk-doc \
     --disable-debug \
     --enable-gtk3 \
-    --with-vendor-info='Manjaro Linux'
+    --with-vendor-info="Manjaro"
   make
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  #cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
   make DESTDIR="$pkgdir" install
 }

@@ -4,7 +4,7 @@
 
 pkgname=thunar
 pkgver=1.6.3
-pkgrel=3
+pkgrel=4
 _git=defa44cb0b7d1b585b4aa8f308653baac88bd6f1
 pkgdesc="Modern file manager for Xfce"
 arch=('i686' 'x86_64')
@@ -31,7 +31,8 @@ sha256sums=('b2dc0162fcfd5038c387b1dcda8747182255defa75dff15da1c35356d431af82')
 prepare() {
   #cd "${srcdir}/${pkgname}-${pkgver}"
   cd "${srcdir}/${pkgname}-${_git}"
-  sed -i -e 's|[git])|[])|g' configure.ac.in
+  sed -i -e 's|\[@REVISION@\])|\[\])|g' configure.ac.in
+  sed -i -e 's|\[git\])|\[\])|g' configure.ac.in
   #patch -Np1 -i "${srcdir}/file.patch"
 }
 
