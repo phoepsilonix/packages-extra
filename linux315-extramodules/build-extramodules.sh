@@ -27,6 +27,7 @@ cd ${pwd}/*lirc && makepkg --sign -sf --noconfirm
 cd ${pwd}/*ndiswrapper && makepkg --sign -sf --noconfirm
 cd ${pwd}/*nvidia && makepkg --sign -d --noconfirm
 cd ${pwd}/*nvidia-304xx && makepkg --sign -d --noconfirm
+cd ${pwd}/*nvidia-340xx && makepkg --sign -d --noconfirm
 cd ${pwd}/*nvidiabl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*open-vm-tools-modules && makepkg --sign -sf --noconfirm
 cd ${pwd}/*spl_zfs && makepkg --sign -sf --noconfirm
