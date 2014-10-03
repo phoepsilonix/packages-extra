@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm_at_manjaro_dot_org>
 
 pkgname=gtk-theme-menda
-pkgver=20140628
-_git='d1d8072de1be1bde62759832b6d339d9352a6da9'
-pkgrel=2
+pkgver=20141003
+_git='1528f8a289acd32af981d1cae73cb1e4f72f2ad5'
+pkgrel=1
 pkgdesc="Desktop suite for Xfce"
 arch=('any')
 url="https://github.com/manjaro/artwork-menda"
