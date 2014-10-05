@@ -2,13 +2,13 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgname=manjaro-settings-manager
-pkgver=0.3.1
-pkgrel=2
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
 license=('GPL')
-depends=('keyboardctl' 'locale-info' 'mhwd' 'qt5-webkit' 'icu' 'hwinfo')
+depends=('keyboardctl' 'locale-info' 'qt5-webkit' 'icu' 'hwinfo' 'kitemmodels')
 makedepends=('qt5-tools')
 optdepends=('kdesu: for KDE'
             'gksu: for XFCE, Gnome, LXDE, Cinnamon'
@@ -18,33 +18,12 @@ replaces=('manjaro-system-settings')
 provides=('manjaro-system-settings')
 conflicts=('manjaro-system-settings')
 install=install
-_git=no
-_snapshot=c757e7127920aa2aa14d4238b50310064badd506
+source=("https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz")
+sha256sums=('e219b3394f96c82b7f164d693e29b8760d3e1425c5f986994693758699c0c526')
 
-if [ "$_git" == "yes" ]; then
-   makedepends+=('git')
-   source=(git+https://github.com/manjaro/$pkgname.git#branch=development)
-   sha256sums=('SKIP')
-else
-   #source=("$pkgname-$pkgver.tar.gz::http://git.manjaro.org/core/$pkgname/repository/archive.tar.gz?ref=v$pkgver")
-   #sha256sums=('8626557d4c0a416d2a29c356cbaa672fdf9ab7ae2ec412c85e3ad348d19db0a0')
-   source=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/$pkgname/archive/$_snapshot.tar.gz")
-   sha256sums=('SKIP')
-fi
 
 build() {
-  if [ -e "$srcdir/core-$pkgname" ]; then
-	   cd "$srcdir/core-$pkgname/src"
-  fi
-  if [ -e "$srcdir/$pkgname" ]; then
-     cd "$srcdir/$pkgname/src"
-  fi
-  if [ -e "$srcdir/$pkgname.git" ]; then
-	   cd "$srcdir/$pkgname.git/src"
-  fi
-  if [ -e "$srcdir/$pkgname-$_snapshot" ]; then
-	   cd "$srcdir/$pkgname-$_snapshot/src"
-  fi
+  cd "$srcdir/$pkgname-$pkgver/src"
 
   /usr/lib/qt/bin/lrelease $pkgname/$pkgname.pro
   /usr/lib/qt/bin/lrelease $pkgname-daemon/$pkgname-daemon.pro
@@ -59,18 +38,6 @@ build() {
 }
 
 package() {
-  if [ -e "$srcdir/core-$pkgname" ]; then
-	   cd "$srcdir/core-$pkgname/src"
-  fi
-  if [ -e "$srcdir/$pkgname" ]; then
-     cd "$srcdir/$pkgname/src"
-  fi
-  if [ -e "$srcdir/$pkgname.git" ]; then
-	   cd "$srcdir/$pkgname.git/src"
-  fi
-  if [ -e "$srcdir/$pkgname-$_snapshot" ]; then
-	   cd "$srcdir/$pkgname-$_snapshot/src"
-  fi
-
+  cd "$srcdir/$pkgname-$pkgver/src"
   make INSTALL_ROOT="${pkgdir}" install
 }
