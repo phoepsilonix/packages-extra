@@ -1,8 +1,9 @@
 # Maintainer: Philip Müller <philm_at_manjaro_dot_org>
+# Maintainer: Rob McCathie <rob_at_manjaro_dot_org>
 
 pkgname=gtk-theme-menda
-pkgver=20141003
-_git='1528f8a289acd32af981d1cae73cb1e4f72f2ad5'
+pkgver=20141017
+_git='11156973bddee5ea2cf5256301f0d8fac808bb69'
 pkgrel=1
 pkgdesc="Desktop suite for Xfce"
 arch=('any')
@@ -29,7 +30,7 @@ package() {
   mv "$pkgdir"/usr/share/themes/Menda/COPYING "$pkgdir"/usr/share/licenses/$pkgname
 
   # clean up
-  rm -rf "$pkgdir"/usr/share/themes/Menda/{.git,.gitignore,README,AUTHORS,convert.sh}
+  rm -rf "$pkgdir"/usr/share/themes/Menda/{.git,.gitignore,README,AUTHORS}
 }
 
 # vim:set ts=2 sw=2 et:1
