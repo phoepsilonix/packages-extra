@@ -1,0 +1,18 @@
+post_install() {
+echo "Adding lxpolkit autostart file"
+cp -f /opt/lxpolkit-manjaro.desktop /etc/xdg/autostart/lxpolkit-manjaro.desktop
+ps x |grep -v grep |grep -c lxpolkit &> /tmp/lxp
+if [ "$(grep 0 /tmp/lxp)" == "0" ]; then
+echo "Restart your system"
+fi
+}
+
+post_upgrade() {
+  post_install
+}
+
+
+post_remove() {
+echo "Removing lxpolkit autostart file"
+rm -f /etc/xdg/autostart/lxpolkit-manjaro.desktop
+}

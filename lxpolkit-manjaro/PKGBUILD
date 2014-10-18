@@ -1,0 +1,23 @@
+# Maintainer: alexandru.ianu@gmail.com
+
+pkgname=lxpolkit-manjaro
+pkgver=1
+pkgrel=1
+pkgdesc="Lxpolkit autostart in Manjaro"
+arch=('any')
+url="http://www.alexiobash.com/yaourt-gui-a-bash-gui-per-yaourt-3/"
+license=('GPL')
+depends=('lxsession')
+install="$pkgname".install
+package() {
+	cd ${pkgdir}
+	mkdir opt
+	cd opt
+	cat > lxpolkit-manjaro.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=LXPolKit
+Exec=lxpolkit
+NotShowIn=GNOME;KDE;MATE;Razor;
+EOF
+}
