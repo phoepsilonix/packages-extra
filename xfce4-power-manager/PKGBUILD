@@ -8,21 +8,22 @@
 pkgname=xfce4-power-manager
 _seriesver=1.4
 pkgver=${_seriesver}.1
-pkgrel=1
-#_git=b3c28d616110e690a8aecbc8d29765e9bbfc67bc
+pkgrel=2
+_git=f901fdd19a5e5e42695bfaf449bd8cf4c65d83cf
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4')
 depends=('xfce4-panel' 'upower' 'udisks' 'libnotify' 'hicolor-icon-theme')
-makedepends=('intltool' 'xfce4-dev-tools')
-#makedepends=('intltool' 'xfce4-dev-tools' 'git')
+#makedepends=('intltool' 'xfce4-dev-tools')
+makedepends=('intltool' 'xfce4-dev-tools' 'git')
 install=$pkgname.install
-source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${_seriesver}/${pkgname}-${pkgver}.tar.bz2")
+#source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${_seriesver}/${pkgname}-${pkgver}.tar.bz2")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
-#source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
-sha256sums=('16a9e9bf3e0f8480d05b248817fbdc59e701e9161d3d0c7e53f3de28ed491f58')
+source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
+#sha256sums=('16a9e9bf3e0f8480d05b248817fbdc59e701e9161d3d0c7e53f3de28ed491f58')
+sha256sums=('SKIP')
 
 #pkgver() {
 #  cd "${srcdir}/${pkgname}"
@@ -31,18 +32,18 @@ sha256sums=('16a9e9bf3e0f8480d05b248817fbdc59e701e9161d3d0c7e53f3de28ed491f58')
 #}
 
 prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-#
-#  cd "${srcdir}/${pkgname}-${_git}"
-#  sed -i -e 's|[git])|[])|g' configure.ac.in
+#  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  cd "${srcdir}/${pkgname}-${_git}"
+  sed -i -e 's|[git])|[])|g' configure.ac.in
 }
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  #cd "${srcdir}/${pkgname}-${_git}"
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${pkgname}-${_git}"
   
-  #./autogen.sh \
-  ./configure \
+  #  ./configure \
+    ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --sbindir=/usr/bin \
@@ -57,8 +58,8 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  #cd "${srcdir}/${pkgname}-${_git}"
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${pkgname}-${_git}"
   
   make DESTDIR="${pkgdir}" install
 }

@@ -3,9 +3,9 @@
 
 pkgbase=menda-themes
 pkgname=("${pkgbase}" "${pkgbase}-dark")
-pkgver=20141024
-pkgrel=2
-_git='2f6f2731a49b05d1e61bc62c17f8459948115965'
+pkgver=20141026
+pkgrel=1
+_git='07a37718951caa9ba3d54026b05aa5997e63ebd6'
 arch=('any')
 url="https://github.com/manjaro/artwork-menda"
 license=('GPL3')
