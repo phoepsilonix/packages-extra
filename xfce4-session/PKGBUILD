@@ -1,10 +1,11 @@
-# $Id: PKGBUILD 198567 2013-10-30 15:39:23Z allan $
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer : Philip Müller <philm@manjaro.org>
+# Maintainer : Rob McCathie <rob@manjaro.org>
+# Contributor: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfce4-session
 pkgver=4.11.0
-pkgrel=7
+pkgrel=8
 _git=860aea2d6686e9dcf0359a6dfab3ccdb9caf34c3
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
@@ -23,8 +24,10 @@ install=$pkgname.install
 options=('!libtool')
 #source=(http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2
 #        xfce4-session-4.10.1-logind-support-for-suspend-hibernate.patch)
-source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
-sha256sums=('d5e8deef6e92db44abc94b9a9efd7f713fbcf48bcf17887241af70326caae9a5')
+source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2"
+        'add-lightdm-support.patch')
+sha256sums=('d5e8deef6e92db44abc94b9a9efd7f713fbcf48bcf17887241af70326caae9a5'
+            'a9f74ed1b4b51b334fcfeb2320670f453e8623c6fceb554393a14920723765e4')
 
 prepare() {
 #  cd "${srcdir}/${pkgname}-${pkgver}"
@@ -33,6 +36,10 @@ prepare() {
   # Use logind interfaces for suspend and hibernate
   # https://bugzilla.xfce.org/show_bug.cgi?id=9952
   #patch -Np1 -i "$srcdir/xfce4-session-4.10.1-logind-support-for-suspend-hibernate.patch"
+  
+  # Add lightdm and light-locker support to xflock4 script
+  # https://bugzilla.xfce.org/show_bug.cgi?id=11254
+  patch -p1 -i "${srcdir}/add-lightdm-support.patch"
 }
 
 build() {
@@ -55,5 +62,3 @@ package() {
   cd "${srcdir}/${pkgname}-${_git}"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:
