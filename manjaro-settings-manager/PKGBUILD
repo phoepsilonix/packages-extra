@@ -2,7 +2,7 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgname=manjaro-settings-manager
-pkgver=0.4.0
+pkgver=0.4.2
 pkgrel=1
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
@@ -19,8 +19,7 @@ provides=('manjaro-system-settings')
 conflicts=('manjaro-system-settings')
 install=install
 source=("https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=('5a994d669307ab4e1a96a401b86ccb4d529fbd216222b43cc6753e7bd1dc5059')
-
+sha256sums=('bba06da046d317775a5c4d84fd87aee8d912085b7524ef23703057edadcba391')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver/src"
