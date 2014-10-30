@@ -1,86 +1,51 @@
-# Maintainer: Guillaume Benoit <guillaume@manjaro.org>
+# $Id$
+# Maintainer: Ramon Buldó <ramon at manjaro.org>
 
 pkgname=pamac-dev
-_pkgname=pamac
-pkgver=0.9.9rc1
+_pkgname=pamac2
+pkgver=1.95
 pkgrel=1
-pkgdesc="A gtk3 frontend for pyalpm"
-arch=(any)
-url="https://github.com/manjaro/pamac"
-license=('GPL')
-depends=('python>=3.4' 'python<3.5' 'pacman>=4.1' 'pyalpm=0.6.2.2' 'gtk3>=3.6' 'python-requests' 'python-gobject' 'python-dbus' 'dbus-glib' 'libnotify' 'namcap')
-optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxpolkit: needed for authentification in Xfce, LXDE etc.')
-makedepends=('gettext' 'itstool' 'git')
+pkgdesc="A DBus daemon and Gtk3 frontend for libalpm written in vala"
+arch=('i686' 'x86_64')
+url="https://github.com/guinux/pamac2"
+license=('LGPL')
+depends=('vte3' 'json-glib' 'libsoup' 'libnotify' 'desktop-file-utils')
+makedepends=('vala' 'git')
+source=("git+http://github.com/guinux/pamac2.git")
+md5sums=('SKIP')
 backup=('etc/pamac.conf')
-replaces=('pamac-aur')
-conflicts=('pamac')
-provides=('pamac')
-options=(!emptydirs)
-install=$_pkgname-install
-_git=Yes
-_snapshot=n/a
+install=pamac.install
 
-if [ "$_git" == "Yes" ]; then
-   source=(git+https://github.com/manjaro/pamac.git)
-   sha256sums=('SKIP')
-else
-   #source=("pamac-$pkgver.tar.gz::https://github.com/manjaro/pamac/archive/$pkgver.tar.gz")
-   #sha256sums=('fa99f70e086b8e567495b3289c667f5d7a5725aa2cb665ad9024dcf75ec937cc')
-   source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_snapshot.tar.gz")
-   sha256sums=('SKIP')
-fi
-
-package() {
-  if [ -e "$srcdir/$_pkgname-$pkgver" ]; then
-	   cd "$srcdir/$_pkgname-$pkgver"
-  fi
-  if [ -e "$srcdir/$_pkgname" ]; then
-     cd "$srcdir/$_pkgname"
-  fi
-  if [ -e "$srcdir/$_pkgname.git" ]; then
-	   cd "$srcdir/$_pkgname.git"
-  fi
-  if [ -e "$srcdir/$_pkgname-$_snapshot" ]; then
-	   cd "$srcdir/$_pkgname-$_snapshot"
-  fi
-
-	# match version with pkgver
-	sed -i -e "s|^.*version =.*|version = \'$pkgver\'|" pamac-manager.py
-
-	python setup.py install --root="$pkgdir/" --optimize=1
-	mkdir -p "${pkgdir}/usr/share/pamac"
-	cp -r "gui" "${pkgdir}/usr/share/pamac"
-	mkdir -p "${pkgdir}/usr/share/icons/hicolor"
-	cp -r "data/icons/"* "${pkgdir}/usr/share/icons/hicolor" 
-	install -Dm744 "pamac-daemon.py" "${pkgdir}/usr/bin/pamac-daemon"
-	install -Dm755 "pamac-manager.py" "${pkgdir}/usr/bin/pamac-manager"
-	install -Dm755 "pamac-updater.py" "${pkgdir}/usr/bin/pamac-updater"
-	install -Dm755 "pamac-tray.py" "${pkgdir}/usr/bin/pamac-tray"
-	install -Dm755 "pamac-refresh.py" "${pkgdir}/usr/bin/pamac-refresh"
-	install -Dm755 "pamac-install.py" "${pkgdir}/usr/bin/pamac-install"
-	install -Dm755 "pamac-check_updates.py" "${pkgdir}/usr/bin/pamac-check_updates"
-	install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
-	install -Dm644 "data/applications/pamac-manager.desktop" "${pkgdir}/usr/share/applications/pamac-manager.desktop"
-	install -Dm644 "data/applications/pamac-updater.desktop" "${pkgdir}/usr/share/applications/pamac-updater.desktop"
-	install -Dm644 "data/config/pamac.conf" "${pkgdir}/etc/pamac.conf"
-	install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
-	install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
-	install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
-	install -Dm744 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
-	# create .mo translation files
-	mkdir -p mo
-	for i in `ls po | sed s'|.po||'` ; do
-		msgfmt -c "po/$i.po" -o "mo/$i.mo"
-	done
-	# add translation in policy file
-	itstool -j "data/polkit/org.manjaro.pamac.policy" -o "data/polkit/org.manjaro.pamac.policy.out" `ls mo/*`
-	# rename mo files only here else istool failed
-	for i in `ls mo | sed s'|.mo||'` ; do
-		mkdir -p "${pkgdir}/usr/share/locale/$i/LC_MESSAGES/"
-		mv "mo/$i.mo" "${pkgdir}/usr/share/locale/$i/LC_MESSAGES/pamac.mo"
-	done
-	install -Dm644 "data/polkit/org.manjaro.pamac.policy.out" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
-
+build(){
+  cd ${srcdir}/${_pkgname}/src
+  make all
 }
 
-# vim:set ts=2 sw=2 et:
+package() {
+  cd ${srcdir}/${_pkgname}
+  install -Dm744 "src/pamac-daemon" "${pkgdir}/usr/bin/pamac-daemon"
+  install -Dm755 "src/pamac-tray" "${pkgdir}/usr/bin/pamac-tray"
+  install -Dm755 "src/pamac-manager" "${pkgdir}/usr/bin/pamac-manager"
+  install -Dm755 "src/pamac-updater" "${pkgdir}/usr/bin/pamac-updater"
+  install -Dm755 "src/pamac-install" "${pkgdir}/usr/bin/pamac-install"
+  
+  mkdir -p "${pkgdir}/usr/share/icons/hicolor"
+  cp -r "data/icons/"* "${pkgdir}/usr/share/icons/hicolor" 
+
+  install -Dm644 "data/applications/pamac-install.desktop" "${pkgdir}/usr/share/applications/pamac-install.desktop"
+  install -Dm644 "data/applications/pamac-manager.desktop" "${pkgdir}/usr/share/applications/pamac-manager.desktop"
+  install -Dm644 "data/applications/pamac-tray.desktop" "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
+  install -Dm644 "data/applications/pamac-updater.desktop" "${pkgdir}/usr/share/applications/pamac-updater.desktop"
+  
+  install -Dm644 "data/config/pamac.conf" "${pkgdir}/etc/pamac.conf"
+  
+  install -Dm644 "data/dbus/org.manjaro.pamac.conf" "${pkgdir}/etc/dbus-1/system.d/org.manjaro.pamac.conf"
+  install -Dm644 "data/dbus/org.manjaro.pamac.service" "${pkgdir}/usr/share/dbus-1/system-services/org.manjaro.pamac.service"
+  
+  install -Dm744 "data/networkmanager/99_update_pamac_tray" "${pkgdir}/etc/NetworkManager/dispatcher.d/99_update_pamac_tray"
+  
+  install -Dm644 "data/polkit/org.manjaro.pamac.policy" "${pkgdir}/usr/share/polkit-1/actions/org.manjaro.pamac.policy"
+  
+  install -Dm644 "data/systemd/pamac.service" "${pkgdir}/usr/lib/systemd/system/pamac.service"
+}
+
