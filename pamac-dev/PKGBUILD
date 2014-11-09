@@ -2,7 +2,8 @@
 
 pkgname=pamac-dev
 _pkgname=pamac
-pkgver=2.0.beta1
+pkgver=2.0.rc1
+_pkgver=1.9.1
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -13,6 +14,7 @@ optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxse
 makedepends=('gettext' 'itstool' 'vala')
 backup=('etc/pamac.conf')
 replaces=('pamac-aur')
+conflicts=("$_pkgname")
 options=(!emptydirs)
 install=$_pkgname-install
 
@@ -23,7 +25,7 @@ install=$_pkgname-install
 	#source=(git+https://github.com/manjaro/pamac.git)
 	#sha256sums=('SKIP')
 #else
-	source=("pamac-1.9.1.tar.gz::https://github.com/guinux/pamac2/archive/v1.9.1.tar.gz")
+	source=("pamac-$_pkgver.tar.gz::https://github.com/guinux/pamac2/archive/v$_pkgver.tar.gz")
 	sha256sums=('126ebf138f6a5524878023e4d5dc175860601529e9f8d9b5e95d560f091d1e60')
 	#source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_snapshot.tar.gz")
 	#sha256sums=('SKIP')
@@ -31,7 +33,7 @@ install=$_pkgname-install
   
 build() {
 	#if [ -e "$srcdir/pamac2-1.9" ]; then
-		cd "$srcdir/pamac2-1.9.1/src"
+		cd "$srcdir/pamac2-$_pkgver/src"
 	#fi
 	#if [ -e "$srcdir/$pkgname" ]; then
 		#cd "$srcdir/$pkgname/src"
@@ -42,6 +44,9 @@ build() {
 	#if [ -e "$srcdir/$pkgname-$_snapshot" ]; then
 		#cd "$srcdir/$pkgname-$_snapshot/src"
 	#fi
+
+  # adjust version string
+  sed -i -e "s|\"2.0\"|\"$pkgver\"|g" manager_window.vala
 
 	# build
 	make all
@@ -58,7 +63,7 @@ build() {
 
 package() {
 	#if [ -e "$srcdir/pamac2-1.9" ]; then
-		cd "$srcdir/pamac2-1.9.1"
+		cd "$srcdir/pamac2-$_pkgver"
 	#fi
 	#if [ -e "$srcdir/$pkgname" ]; then
 		#cd "$srcdir/$pkgname"
