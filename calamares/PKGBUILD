@@ -17,11 +17,13 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
 _git=Yes
 _development=No
 
-source=('grubcfg.conf' 'initcpio.conf' 'unpackfs.conf' 'manjaro-icon.png')
+source=('grubcfg.conf' 'initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('0430fd1ec652ec7695c4cf6b9e21f5c752b3dc0c6cea0ea094443e4a464c7f7a'
             '183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
+            'a7d32ec4cba0218f8a4a5cd3a953848a9278d3d07cb4409235db5a7f0f525968'
             'ef9adc6388f025c574fbbe745a143ffd612a9621875abe41d93454b8cd08651d'
-            '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f')
+            '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f'
+            'e1228cb4ad5e56473fb5b107909fb9da39231d1b87dfca723d30f2ae1c8e9538')
 
 if [ "$_git" == "Yes" ]; then
    makedepends+=(git)
@@ -69,13 +71,6 @@ prepare() {
 
 	git submodule init
 	git submodule update
-	sed -i -e "s/branding: default/branding: manjaro/g" settings.conf
-	sed -i -e "s/Exec=calamares/Exec=sudo calamares/g" calamares.desktop
-
-	#copy German locale
-	cp lang/calamares_de.ts lang/calamares_de_AT.ts
-	cp lang/calamares_de.ts lang/calamares_de_CH.ts
-	cp lang/calamares_de.ts lang/calamares_de_DE.ts
 }
 
 build() {
@@ -114,7 +109,9 @@ package() {
 	make DESTDIR="$pkgdir" install
 	install -Dm644 "$srcdir/grubcfg.conf" "$pkgdir/usr/share/calamares/modules/grubcfg.conf"
 	install -Dm644 "$srcdir/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
+	install -Dm644 "$srcdir/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	install -Dm644 "$srcdir/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
 	mkdir -p /usr/share/icons/
 	install -Dm644 "$srcdir/manjaro-icon.png" "$pkgdir/usr/share/icons/calamares.png"
+	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 }
