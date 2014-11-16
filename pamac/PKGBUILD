@@ -1,9 +1,9 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=2.0rc1
-_pkgver=1.9.1
-pkgrel=2
+pkgver=2.0rc2
+_pkgver=1.9.2
+pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/guinux/pamac2"
@@ -17,7 +17,7 @@ conflicts=('pamac-dev')
 options=(!emptydirs)
 install=pamac.install
 source=("pamac-$_pkgver.tar.gz::https://github.com/guinux/pamac2/archive/v$_pkgver.tar.gz")
-sha256sums=('126ebf138f6a5524878023e4d5dc175860601529e9f8d9b5e95d560f091d1e60')
+sha256sums=('3589cc0757f4619f0e98e6c273c5b2b0c95f91d90314d4e1fb406189b6b633ff')
 
 build() {
   cd "$srcdir/pamac2-$_pkgver/src"
