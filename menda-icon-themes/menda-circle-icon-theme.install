@@ -1,5 +1,6 @@
 post_install() {
-  gtk-update-icon-cache -q -t -f /usr/share/icons/Menda-Circle
+  # This doesn't work properly currently, so for now it's commented out
+  #gtk-update-icon-cache -q -t -f /usr/share/icons/Menda-Circle
 }
 
 post_upgrade() {
