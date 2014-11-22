@@ -7,8 +7,8 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 
-pkgbase=linux316-virtualbox-modules
-pkgname=('linux316-virtualbox-host-modules' 'linux316-virtualbox-guest-modules')
+pkgbase=linux317-virtualbox-modules
+pkgname=('linux317-virtualbox-host-modules' 'linux317-virtualbox-guest-modules')
 pkgver=4.3.20
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -17,9 +17,9 @@ license=('GPL')
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
              'dkms'
-             'linux316' 'linux316-headers')
+             'linux317' 'linux317-headers')
 
-_extraver=extramodules-3.16-MANJARO
+_extraver=extramodules-3.17-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
 
 build() {
@@ -35,14 +35,14 @@ build() {
   dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
 }
 
-package_linux316-virtualbox-host-modules(){
+package_linux317-virtualbox-host-modules(){
   pkgdesc='Host kernel modules for VirtualBox'
-  depends=('linux316')
-  replaces=('linux316-virtualbox-modules')
-  conflicts=('linux316-virtualbox-modules')
+  depends=('linux317')
+  replaces=('linux317-virtualbox-modules')
+  conflicts=('linux317-virtualbox-modules')
   provides=('virtualbox-host-modules')
   install=virtualbox-host-modules.install
-  groups=('linux316-extramodules')
+  groups=('linux317-extramodules')
 
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
@@ -52,21 +52,21 @@ package_linux316-virtualbox-host-modules(){
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-host-modules.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxdrv" > "$pkgdir/etc/modules-load.d/linux316-virtualbox-host-modules.conf"
-  echo "vboxnetadp" >> "$pkgdir/etc/modules-load.d/linux316-virtualbox-host-modules.conf"
-  echo "vboxnetflt" >> "$pkgdir/etc/modules-load.d/linux316-virtualbox-host-modules.conf"
-  echo "vboxpci" >> "$pkgdir/etc/modules-load.d/linux316-virtualbox-host-modules.conf"
+  echo "vboxdrv" > "$pkgdir/etc/modules-load.d/linux317-virtualbox-host-modules.conf"
+  echo "vboxnetadp" >> "$pkgdir/etc/modules-load.d/linux317-virtualbox-host-modules.conf"
+  echo "vboxnetflt" >> "$pkgdir/etc/modules-load.d/linux317-virtualbox-host-modules.conf"
+  echo "vboxpci" >> "$pkgdir/etc/modules-load.d/linux317-virtualbox-host-modules.conf"
 }
 
-package_linux316-virtualbox-guest-modules(){
+package_linux317-virtualbox-guest-modules(){
   pkgdesc='Guest kernel modules for VirtualBox'
   license=('GPL')
-  depends=('linux316')
-  replaces=('linux316-virtualbox-manjaro-modules')
-  conflicts=('linux316-virtualbox-manjaro-modules')
+  depends=('linux317')
+  replaces=('linux317-virtualbox-manjaro-modules')
+  conflicts=('linux317-virtualbox-manjaro-modules')
   provides=('virtualbox-guest-modules')
   install=virtualbox-guest-modules.install
-  groups=('linux316-extramodules')
+  groups=('linux317-extramodules')
 
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
@@ -76,9 +76,9 @@ package_linux316-virtualbox-guest-modules(){
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-guest-modules.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxguest" > "$pkgdir/etc/modules-load.d/linux316-virtualbox-guest-modules.conf"
-  echo "vboxsf" >> "$pkgdir/etc/modules-load.d/linux316-virtualbox-guest-modules.conf"
-  echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/linux316-virtualbox-guest-modules.conf"
+  echo "vboxguest" > "$pkgdir/etc/modules-load.d/linux317-virtualbox-guest-modules.conf"
+  echo "vboxsf" >> "$pkgdir/etc/modules-load.d/linux317-virtualbox-guest-modules.conf"
+  echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/linux317-virtualbox-guest-modules.conf"
 }
 
 # vim:set ts=2 sw=2 et:
