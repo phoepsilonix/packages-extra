@@ -21,7 +21,7 @@ conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
 source=(#http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
-        https://launchpad.net/ubuntu/utopic/+source/fglrx-installer/2:14.201-0ubuntu1/+files/fglrx-installer_${_tarball}.tar.gz
+        http://ftp.ubuntu.com/ubuntu/pool/restricted/f/fglrx-installer/fglrx-installer_${_tarball}.tar.gz
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
