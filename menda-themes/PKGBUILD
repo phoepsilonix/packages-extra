@@ -3,13 +3,13 @@
 
 pkgbase=menda-themes
 pkgname=("${pkgbase}" "${pkgbase}-dark")
-pkgver=20141115
-pkgrel=2
-_git='34efc85d8a764ae1692916b6e279353c9a235fd9'
+pkgver=20141122
+pkgrel=1
+_git='04fb415f44d2b3e497a8a3aa27f6e2a69740aea6'
 arch=('any')
 url="https://github.com/manjaro/artwork-menda"
 license=('GPL3')
-depends=('gtk-engine-murrine')
+depends=('gtk-engine-murrine' 'gtk-engines')
 optdepends=('menda-circle-icon-theme: Recommended icon theme'
             'menda-square-icon-theme: Recommended icon theme'
             'faenza-green-icon-theme: Recommended icon theme')
