@@ -2,15 +2,15 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgbase=manjaroiso
-pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles')
-pkgver=0.8.11rc0
-pkgrel=2
+pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles' 'manjaroiso-openrc-profiles')
+pkgver=0.8.11rc2
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=cce45ac535c6daa9b6f67ec777da4a73df9b851d
+_gitver=f344d0376d5fdad2d66f6ce35b6b3080227e6340
 
 if [ "$_git" == "snapshot" ]; then
    source=("manjaroiso-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/manjaroiso/archive/$_gitver.tar.gz")
@@ -74,6 +74,22 @@ package_manjaroiso-community-profiles() {
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
   for conf in cinnamon enlightenment lxde mate openbox-legacy
+  do
+      cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
+  done
+}
+
+package_manjaroiso-openrc-profiles() {
+  pkgdesc="Manjaroiso OpenRC Profiles"
+  depends=('manjaroiso-profiles')
+  if [ -e "$srcdir/$pkgbase" ]; then
+     cd "$srcdir/$pkgbase"
+  fi
+  if [ -e "$srcdir/$pkgbase-$_gitver" ]; then
+	   cd "$srcdir/$pkgbase-$_gitver"
+  fi
+  mkdir -p $pkgdir/usr/share/manjaroiso/configs
+  for conf in net-openrc openbox-openrc xfce-minimal-openrc
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
