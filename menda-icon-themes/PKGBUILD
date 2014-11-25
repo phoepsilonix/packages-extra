@@ -3,9 +3,9 @@
 
 pkgbase=menda-icon-themes
 pkgname=('menda-circle-icon-theme' 'menda-square-icon-theme')
-pkgver=20141120
-pkgrel=3
-_git='5ea0283faa6f030ca7cbdabcaf5bd6b76f00d54c'
+pkgver=20141125
+pkgrel=1
+_git='675e45b79dd3e36ccb6bb92a36c40901c8cb755c'
 arch=('any')
 url="https://github.com/anexation/menda-icon-themes"
 license=('GPL')
