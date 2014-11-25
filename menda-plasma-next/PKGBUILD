@@ -3,8 +3,8 @@
  
 pkgbase=menda-plasma-next
 pkgname=(menda menda-kde4 menda-plasma-desktop menda-plasma-look-and-feel sddm-menda-theme)
-pkgver=20141122
-pkgrel=1
+pkgver=20141124
+pkgrel=2
 arch=('any')
 groups=('menda-plasma-next')
 url="https://github.com/anexation/menda-plasma-next"
@@ -18,7 +18,8 @@ pkgver() {
 }
 
 prepare() {
-  cd ${pkgbase}/menda
+  sed -i 's/add_subdirectory(cursors)//g' ${pkgbase}/menda/menda/CMakeLists.txt
+  cd ${pkgbase}/menda  
   mkdir -p build
   mkdir -p build-kde4
 }
@@ -50,9 +51,10 @@ package_menda() {
   depends=('frameworkintegration')
   optdepends=('menda-kde4: Menda widget style for KDE4 applications'
               'menda-themes: Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell'
-              'menda-themes-dark: Dark Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell')
-  provides=('menda-circle-icon-theme' 'menda-square-icon-theme' 'xcursor-menda')
-  provides=('menda-circle-icon-theme' 'menda-square-icon-theme' 'xcursor-menda')
+              'menda-themes-dark: Dark Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell'
+              'menda-circle-icon-theme: Menda Circle icon theme' 
+              'menda-square-icon-theme: Menda Square icon theme'
+              'xcursor-menda: Menda cursor theme')
   cd ${pkgbase}/${pkgname}/build
   make DESTDIR="${pkgdir}" install
 
@@ -89,7 +91,7 @@ package_menda-plasma-look-and-feel() {
   pkgdesc="Menda Look and Feel Plugin for Plasma 5"
   arch=('any')
   license=('GPL3')
-  depends=('plasma-desktop' 'menda' 'menda-kde4' 'menda-plasma-desktop' 'sddm-menda-theme')
+  depends=('plasma-desktop' 'menda-plasma-desktop' 'menda-circle-icon-theme' 'menda-square-icon-theme' 'sddm-menda-theme' 'xcursor-menda')
   install -dm755 "$pkgdir"/usr/share/plasma/look-and-feel
   cp -dr --no-preserve=ownership ${pkgbase}/menda-plasma-look-feel/org.kde.menda.desktop "$pkgdir"/usr/share/plasma/look-and-feel
 }
