@@ -4,13 +4,13 @@
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles' 'manjaroiso-openrc-profiles')
 pkgver=0.8.11rc2
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=f344d0376d5fdad2d66f6ce35b6b3080227e6340
+_gitver=eb2ed4df8e70f63bfdfae5472dc0a41390810bb6
 
 if [ "$_git" == "snapshot" ]; then
    source=("manjaroiso-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/manjaroiso/archive/$_gitver.tar.gz")
@@ -89,7 +89,7 @@ package_manjaroiso-openrc-profiles() {
 	   cd "$srcdir/$pkgbase-$_gitver"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in net-openrc openbox-openrc xfce-minimal-openrc
+  for conf in net-openrc openbox-openrc pekwm-openrc xfce-minimal-openrc
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
