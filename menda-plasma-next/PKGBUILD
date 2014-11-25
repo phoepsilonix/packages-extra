@@ -3,8 +3,8 @@
  
 pkgbase=menda-plasma-next
 pkgname=(menda menda-kde4 menda-plasma-desktop menda-plasma-look-and-feel sddm-menda-theme)
-pkgver=20141124
-pkgrel=2
+pkgver=20141125
+pkgrel=1
 arch=('any')
 groups=('menda-plasma-next')
 url="https://github.com/anexation/menda-plasma-next"
@@ -18,7 +18,6 @@ pkgver() {
 }
 
 prepare() {
-  sed -i 's/add_subdirectory(cursors)//g' ${pkgbase}/menda/menda/CMakeLists.txt
   cd ${pkgbase}/menda  
   mkdir -p build
   mkdir -p build-kde4
@@ -82,7 +81,6 @@ package_menda-plasma-desktop() {
   arch=('any')
   license=('GPL3')
   depends=('plasma-desktop')
-  optdepends=('menda' 'menda-kde4')
   install -dm755 "${pkgdir}"/usr/share/plasma/desktoptheme
   cp -dr --no-preserve=ownership ${pkgbase}/${pkgname}/Menda "${pkgdir}"/usr/share/plasma/desktoptheme
 }
@@ -91,7 +89,7 @@ package_menda-plasma-look-and-feel() {
   pkgdesc="Menda Look and Feel Plugin for Plasma 5"
   arch=('any')
   license=('GPL3')
-  depends=('plasma-desktop' 'menda-plasma-desktop' 'menda-circle-icon-theme' 'menda-square-icon-theme' 'sddm-menda-theme' 'xcursor-menda')
+  depends=('plasma-desktop' 'menda' 'menda-kde4' 'menda-plasma-desktop' 'menda-circle-icon-theme' 'menda-square-icon-theme' 'sddm-menda-theme' 'xcursor-menda')
   install -dm755 "$pkgdir"/usr/share/plasma/look-and-feel
   cp -dr --no-preserve=ownership ${pkgbase}/menda-plasma-look-feel/org.kde.menda.desktop "$pkgdir"/usr/share/plasma/look-and-feel
 }
