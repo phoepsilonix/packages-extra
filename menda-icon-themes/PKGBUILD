@@ -9,7 +9,7 @@ _git='a1827f28915aa4d7828b19faf6c38a2a6718bcac'
 arch=('any')
 url="https://github.com/manjaro/menda-icon-themes"
 license=('GPL')
-depends=('hicolor-icon-theme' 'gtk-update-icon-cache' 'librsvg')
+depends=('hicolor-icon-theme' 'librsvg')
 optdepends=('menda-themes: Recommended themes'
             'menda-themes-dark: Recommended themes')
 options=(!emptydirs !strip)
@@ -20,7 +20,6 @@ sha1sums=('SKIP')
 
 package_menda-circle-icon-theme() {
   pkgdesc="Menda Circle Icon Theme"
-  install="${pkgname}.install"
   
   install -dm755 "${pkgdir}/usr/share/icons"
   #install -Dm755 "${srcdir}/${pkgbase}-${_git}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
@@ -31,7 +30,6 @@ package_menda-circle-icon-theme() {
 
 package_menda-square-icon-theme() {
   pkgdesc="Menda Square Icon Theme"
-  install="${pkgname}.install"
   
   install -dm755 "${pkgdir}/usr/share/icons"
   #install -Dm755 "${srcdir}/${pkgbase}-${_git}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
