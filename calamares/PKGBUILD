@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=0.17.0
+pkgver=0.17.2
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -16,12 +16,12 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=2935c1afecec4732afd94b62beed7dc21913db12
+_snapshot=1bb9b6387ea2a1756e659b450aaa06b8936f9aa1
 
 source=('grubcfg.conf' 'initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('0430fd1ec652ec7695c4cf6b9e21f5c752b3dc0c6cea0ea094443e4a464c7f7a'
             '183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
-            'ec15b13872f1afa2b9dc4779426eb532b292effa1bdd9e018b572d208b8ff5a8'
+            'ad854c4a4b069b701e44198436a4d142e3ac6dec71d4ef6a652b91c21d97026b'
             'ef9adc6388f025c574fbbe745a143ffd612a9621875abe41d93454b8cd08651d'
             '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f'
             'e1228cb4ad5e56473fb5b107909fb9da39231d1b87dfca723d30f2ae1c8e9538')
@@ -31,7 +31,7 @@ if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git#branch=manjaro)
    sha256sums+=('SKIP')
 else
-   source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot.tar.gz")
+   source+=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot.tar.gz")
    sha256sums+=('SKIP')
 fi
 
