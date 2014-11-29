@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=0.17.2
-pkgrel=3
+pkgver=0.17.3
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -16,7 +16,7 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=83193c6ab2268634ead20a5924fa05991097ea8d
+_snapshot=01a98669a60f0b8ef9805637d5662348557919a7
 
 source=('grubcfg.conf' 'initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('0430fd1ec652ec7695c4cf6b9e21f5c752b3dc0c6cea0ea094443e4a464c7f7a'
