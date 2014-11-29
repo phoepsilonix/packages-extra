@@ -1,16 +1,16 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=2.0rc2
-_pkgver=1.9.2
-pkgrel=2
+pkgver=2.0
+_pkgver=2.0
+pkgrel=1
 # This is the release package so the below _gitcommit variable should (usually) be commented out.
-_gitcommit="8ca909659ae82added54dd2f906b8c943df0480d"
+#_gitcommit="0b8c28668a8e49b7035b08e0301d5e2d853fd99c"
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
-url="https://github.com/guinux/pamac2"
+url="https://github.com/manjaro/pamac"
 license=('GPL3')
-depends=('glib2>=2.38' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'yaourt' 'vte3' 'gtk3>=3.12' 'libnotify' 'desktop-file-utils')
+depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'yaourt' 'vte3>=0.38' 'gtk3>=3.14' 'libnotify' 'desktop-file-utils')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome' 'lxsession: needed for authentification in Xfce, LXDE etc.')
 makedepends=('gettext' 'itstool' 'vala')
 backup=('etc/pamac.conf')
@@ -20,30 +20,30 @@ options=(!emptydirs)
 install=pamac.install
 
 if [ "${_gitcommit}" != "" ]; then
-  source=("pamac-$_pkgver-$pkgrel.tar.gz::https://github.com/guinux/pamac2/archive/$_gitcommit.tar.gz")
+  source=("pamac-$_pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
 else
-  source=("pamac-$_pkgver-$pkgrel.tar.gz::https://github.com/guinux/pamac2/archive/v$_pkgver.tar.gz")
+  source=("pamac-$_pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz")
 fi
 
-sha256sums=('35b07dda204e0014a7c1cb66f1bc099eeb4e3f95187e1e4cfda4ff9a284308b4')
+sha256sums=('5299cbc7d40839495eee8a121a5ee4bc6b838fbddcc4f19a63b74751cfbd2ffd')
 
 prepare() {
   if [ "$_gitcommit" != "" ]; then
-    cd "$srcdir/pamac2-$_gitcommit"
+    cd "$srcdir/pamac-$_gitcommit"
   else
-    cd "$srcdir/pamac2-$_pkgver"
+    cd "$srcdir/pamac-$_pkgver"
   fi
 
   # adjust version string
-  cd src
-  sed -i -e "s|\"2.0\"|\"$pkgver\"|g" manager_window.vala  
+  #cd src
+  #sed -i -e "s|\"2.0\"|\"$pkgver\"|g" manager_window.vala  
 }
 
 build() {
   if [ "$_gitcommit" != "" ]; then
-    cd "$srcdir/pamac2-$_gitcommit"
+    cd "$srcdir/pamac-$_gitcommit"
   else
-    cd "$srcdir/pamac2-$_pkgver"
+    cd "$srcdir/pamac-$_pkgver"
   fi
 
   # build
@@ -61,9 +61,9 @@ build() {
 
 package() {
   if [ "$_gitcommit" != "" ]; then
-    cd "$srcdir/pamac2-$_gitcommit"
+    cd "$srcdir/pamac-$_gitcommit"
   else
-    cd "$srcdir/pamac2-$_pkgver"
+    cd "$srcdir/pamac-$_pkgver"
   fi
 
   mkdir -p "${pkgdir}/usr/share/icons/hicolor"
