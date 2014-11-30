@@ -3,14 +3,14 @@
 
 pkgbase=manjaroiso
 pkgname=('manjaroiso' 'manjaroiso-profiles' 'manjaroiso-community-profiles' 'manjaroiso-openrc-profiles')
-pkgver=0.8.11rc3
-pkgrel=1
+pkgver=0.8.11
+pkgrel=0
 arch=('any')
 url="https://github.com/manjaro/manjaroiso"
 license=('GPL')
 makedepends=('git')
 _git=snapshot
-_gitver=c49db0413671d5afdc8662546697bdb41e3746e0
+_gitver=37dcff59bb0477896cf49c6c9914f91ac706c306
 
 if [ "$_git" == "snapshot" ]; then
    source=("manjaroiso-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/manjaroiso/archive/$_gitver.tar.gz")
@@ -57,7 +57,7 @@ package_manjaroiso-profiles() {
 	   cd "$srcdir/$pkgbase-$_gitver"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in build kde net openbox shared xfce
+  for conf in build kde net shared xfce
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done
@@ -73,7 +73,7 @@ package_manjaroiso-community-profiles() {
 	   cd "$srcdir/$pkgbase-$_gitver"
   fi
   mkdir -p $pkgdir/usr/share/manjaroiso/configs
-  for conf in cinnamon enlightenment gnome kde5 lxde lxqt mate netbook openbox-legacy xfce-minimal
+  for conf in cinnamon enlightenment gnome kde5 lxde lxqt mate netbook openbox openbox-legacy xfce-minimal
   do
       cp -r configs/${conf} $pkgdir/usr/share/manjaroiso/configs/${conf}
   done

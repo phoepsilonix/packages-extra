@@ -1,8 +1,8 @@
 pkgbase=mdm-themes
 pkgname=('mdm-themes' 'mdm-themes-extra')
-pkgver=0.1.6
+pkgver=0.1.7
 pkgrel=1
-_gitver=5da374707bebef97ac7ca889a2b6be216e22903d
+_gitver=371344814ceb4e7c45cf024ab51115e457e9568c
 pkgdesc="Nice themes for MDM"
 arch=('any')
 url="http://manjaro.org"
@@ -17,7 +17,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/artwork-mdm-themes/
         http://fc06.deviantart.net/fs70/f/2013/134/6/5/steampunkfuturecity_mdm_animated_theme_by_samriggs-d64p1d9.zip
         http://fc08.deviantart.net/fs70/f/2013/156/0/5/circuitboard_mdm_theme_by_samriggs-d5zhyum.zip
         http://fc06.deviantart.net/fs70/f/2013/156/b/d/galaxy_mdm_theme_by_samriggs-d5yijkd.zip)
-sha256sums=(6232deda5e30f173527bd9c6910cd386c833c874e0836dc68815d694eeb4104b
+sha256sums=(0618ca2b2fceab5145cab341bb138e23bf8d9d73be88f2b946dc84dd53ae0082
             c95218a5746fed9f9d0ba89c9730646182f510d58bcd1e6a48c96f0f04085d3c
             c3c492b2653178b57bce27cd97ee6b8321f70abdd44925f87f7ce379083c1de0
             e11b0cb95ce6387215f1280c841d6defe6cac5567963f93426e6171397876a49
