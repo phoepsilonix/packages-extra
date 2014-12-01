@@ -4,9 +4,9 @@
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfce4-session
-pkgver=4.11.0
-pkgrel=8
-_git=860aea2d6686e9dcf0359a6dfab3ccdb9caf34c3
+pkgver=4.11.1
+pkgrel=1
+_git=be6a2bb0b2048de4f90b5b5621053097111117e2
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -26,7 +26,7 @@ options=('!libtool')
 #        xfce4-session-4.10.1-logind-support-for-suspend-hibernate.patch)
 source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2"
         'add-lightdm-support.patch')
-sha256sums=('d5e8deef6e92db44abc94b9a9efd7f713fbcf48bcf17887241af70326caae9a5'
+sha256sums=('c2efa1584b5cccae868d03fe4b9a9937a1498ce789e81216676cb856af34838e'
             'a9f74ed1b4b51b334fcfeb2320670f453e8623c6fceb554393a14920723765e4')
 
 prepare() {

@@ -5,8 +5,8 @@
 
 pkgname=thunar
 pkgver=1.6.3
-pkgrel=6
-_git=5510fcaf19768753145a31553e1070879547bdda
+pkgrel=7
+_git=b1b55f8789f56edcd8d7c656156a60f73b10f0b3
 pkgdesc="Modern file manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://thunar.xfce.org"
@@ -27,7 +27,7 @@ options=('!libtool')
 install=$pkgname.install
 #source=(http://archive.xfce.org/src/xfce/$pkgname/1.6/Thunar-$pkgver.tar.bz2)
 source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
-sha256sums=('22b0b6f5687e86e261e581a79737d8e68b6ac076435eb232025b067470788d0e')
+sha256sums=('9a50fa430113efceb5e92eb2f41f1ce9a7513ae64425ed6e4528601d6e4cb9bc')
 
 prepare() {
   #cd "${srcdir}/${pkgname}-${pkgver}"
