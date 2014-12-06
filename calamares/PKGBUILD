@@ -2,7 +2,7 @@
 
 pkgname=calamares
 pkgver=0.17.4
-pkgrel=3
+pkgrel=6
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -15,7 +15,7 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=be45bb5f047f987621342ff1d650cd88a67d2846
+_snapshot=d43aa8d11639caa90c9a35e587ed7c88e49daa15
 
 source=('initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
