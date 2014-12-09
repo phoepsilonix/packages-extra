@@ -6,10 +6,11 @@ _linuxprefix=linux314
 _extramodules=extramodules-3.14-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=14.201
-pkgrel=6
-_tarball=14.201.orig
-provides=("$_pkgname=$pkgver")
+pkgver=14.501
+pkgrel=0
+_pkgver=14.501.1003
+_tarball=omega-14.12-linux-run-installers
+provides=("$_pkgname=$_pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
 arch=('i686' 'x86_64')
@@ -20,8 +21,8 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(#http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
-        http://ftp.ubuntu.com/ubuntu/pool/restricted/f/fglrx-installer/fglrx-installer_${_tarball}.tar.gz
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
+    #https://launchpad.net/ubuntu/utopic/+source/fglrx-installer/2:14.201-0ubuntu1/+files/fglrx-installer_${_tarball}.tar.gz
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
@@ -30,7 +31,7 @@ source=(#http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
 	cold-fglrx-3.14-current_euid.patch
 	LICENSE.TXT)
 
-sha256sums=('b9064fb5e15c0094162c18d0db9135c061d0e1fde31b2e63de5d3cd455a19e40'
+sha256sums=('68669836f20ad4351e08b13c5766c6b2ffc6b8cd2a37e9baf55779da32d3a249'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
@@ -41,15 +42,15 @@ sha256sums=('b9064fb5e15c0094162c18d0db9135c061d0e1fde31b2e63de5d3cd455a19e40'
 )
 
 prepare() {
-#	cd ${srcdir}/fglrx-$pkgver
-#	/bin/sh ./amd-driver-installer-${pkgver}-x86.x86_64.run --extract archive_files
-	#/bin/sh ./amd-catalyst-${pkgver}-linux-x86.x86_64.run --extract archive_files
+	cd ${srcdir}/fglrx-$_pkgver
+	/bin/sh ./amd-driver-installer-${_pkgver}-x86.x86_64.run --extract archive_files
+	#/bin/sh ./amd-catalyst-${_pkgver}-linux-x86.x86_64.run --extract archive_files
 
 	# move files
-	mkdir common
-	mv etc lib usr common
-	mkdir -p fglrx-$pkgver/archive_files
-	mv arch common xpic xpic_64a LICENSE.TXT fglrx-$pkgver/archive_files
+#	mkdir common
+#	mv etc lib usr common
+#	mkdir -p fglrx-$_pkgver/archive_files
+#	mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
 }
 
 build() {
@@ -69,7 +70,7 @@ build() {
 		_archdir=x86
 	fi
 
-	cd "${srcdir}/fglrx-$pkgver/archive_files"
+	cd "${srcdir}/fglrx-$_pkgver/archive_files"
 
 	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
 	## works only in combination with ati_make.sh script
@@ -78,9 +79,9 @@ build() {
 	patch -Np1 -i ${srcdir}/lano1106_kcl_agp_13_4.patch
         patch -Np1 -i ${srcdir}/cold-fglrx-3.14-current_euid.patch
 
-	cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
+	cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
         patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
-	cp "${srcdir}/fglrx-$pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
+	cp "${srcdir}/fglrx-$_pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
 	## Compile module using _ati_check variables
@@ -91,14 +92,14 @@ build() {
 
 
 package() {
-	cd "${srcdir}/fglrx-$pkgver/archive_files/common/lib/modules/fglrx/build_mod"
+	cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
 	install -m755 -d "${pkgdir}/usr/lib/modules/${_extramodules}/"
 	install -m644 fglrx.ko "${pkgdir}/usr/lib/modules/${_extramodules}/"
 	find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
 
 	## License
 	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
-	install -m644 "${srcdir}/fglrx-$pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
+	install -m644 "${srcdir}/fglrx-$_pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
 
 	## Install script
 	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
