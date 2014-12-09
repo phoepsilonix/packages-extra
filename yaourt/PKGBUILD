@@ -3,7 +3,7 @@
 
 pkgname=yaourt
 pkgver=1.5
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
 url="https://github.com/archlinuxfr/yaourt"
@@ -19,6 +19,7 @@ md5sums=('4e1ee5533a567868facf035851e531f6')
 build() { 
   cd "$srcdir/$pkgname-$pkgver/"
   sed -i "s/\#EDITFILES\=1/EDITFILES\=0/g" yaourtrc.in
+  sed -i "s/\#EXPORT\=0/EXPORT\=2/g" yaourtrc.in
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var 
 }
 
