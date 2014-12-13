@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=14.501
-pkgrel=0
+pkgrel=1
 _pkgver=14.501.1003
 _tarball=omega-14.12-linux-run-installers
 _execlineorig="Exec=amdxdg-su -c amdcccle"
@@ -49,10 +49,11 @@ prepare() {
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
 	depends=('xorg-server>=1.7.0' 'xorg-server<1.17.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
-	optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)'
+        optdepends=('qt4: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
-		    'acpid: acpi event support  / atieventsd')
-	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'catalyst-13.4' 'catalyst-13.4-utils')
+		    'acpid: acpi event support  / atieventsd'
+		    'opencl-catalyst: OpenCL implemention for AMD Catalyst')
+	conflicts=('catalyst-legacy' 'catalyst-legacy-utils' 'catalyst-13.4' 'catalyst-13.4-utils' 'xvba-video')
 	install="${pkgname}.install"
 
 	cd fglrx-$_pkgver
@@ -121,6 +122,7 @@ package_catalyst-utils() {
       install -m755 X11R6/${_lib}/libAMDXvBA.so.1.0 ${pkgdir}/usr/lib
       ln -snf libAMDXvBA.so.1.0 ${pkgdir}/usr/lib/libAMDXvBA.so.1
       ln -snf libAMDXvBA.so.1.0 ${pkgdir}/usr/lib/libAMDXvBA.so
+      ln -snf /usr/lib/libXvBAW.so.1.0 ${pkgdir}/usr/lib/dri/fglrx_drv_video.so #omega 14.12
       install -m755 X11R6/${_lib}/libatiadlxx.so ${pkgdir}/usr/lib
       install -m755 X11R6/${_lib}/libfglrx_dm.so.1.0 ${pkgdir}/usr/lib
       install -m755 X11R6/${_lib}/libXvBAW.so.1.0 ${pkgdir}/usr/lib
