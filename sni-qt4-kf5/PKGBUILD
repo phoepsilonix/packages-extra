@@ -1,13 +1,13 @@
 # Maintainer: anex <assassin.anex[@]gmail.com>
 # Contributor: Alcasa Mz <alcasa.mz@gmail.com>
-pkgname=sni-qt4-kf5
+pkgname=sni-qt4-frameworks
 pkgver=0.2.6
 pkgrel=1
 pkgdesc="A Qt plugin which turns all QSystemTrayIcon into StatusNotifierItems (appindicators)"
 arch=('i686' 'x86_64')
 url="https://launchpad.net/sni-qt"
 license=('GPL')
-depends=('qt4-kf5' 'libdbusmenu-qt')
+depends=('qt4-frameworks' 'libdbusmenu-qt')
 makedepends=('cmake')
 conflicts=('sni-qt')
 provides=("sni-qt=$pkgver")
