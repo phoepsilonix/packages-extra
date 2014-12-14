@@ -1,36 +1,165 @@
+# $Id$
 # Maintainer: anex <assassin.anex[@]gmail.com>
-# Contributor: Alcasa Mz <alcasa.mz@gmail.com>
+
 pkgname=qt4-statusnotifier
-pkgver=0.2.6
-pkgrel=1
-pkgdesc="A Qt plugin which turns all QSystemTrayIcon into StatusNotifierItems (appindicators)"
+pkgver=4.8.6
+pkgrel=2
 arch=('i686' 'x86_64')
-url="https://launchpad.net/sni-qt"
-license=('GPL')
-depends=('qt4-frameworks' 'libdbusmenu-qt')
-makedepends=('cmake')
-conflicts=('sni-qt')
-provides=("sni-qt=$pkgver")
-source=(http://launchpad.net/sni-qt/trunk/$pkgver/+download/sni-qt-$pkgver.tar.bz2
-        sni-qt.conf)
-md5sums=('e84c66e776f7c22c961817387f618c81'
-         '4bc8bd4cd17006c6d3ce2cd320c8e7b2')
+url='http://qt-project.org/'
+license=('GPL3' 'LGPL' 'FDL' 'custom')
+pkgdesc='A cross-platform application and UI framework'
+depends=('libtiff' 'libpng' 'sqlite' 'ca-certificates' 'dbus'
+        'fontconfig' 'libgl' 'libxrandr' 'libxv' 'libxi' 'alsa-lib'
+        'xdg-utils' 'hicolor-icon-theme' 'desktop-file-utils' 'libmng')
+makedepends=('postgresql-libs' 'mariadb' 'unixodbc' 'cups' 'gtk2' 'libfbclient'
+             'mesa')
+optdepends=('qtchooser: set the default Qt toolkit'
+            'postgresql-libs: PostgreSQL driver'
+            'libmariadbclient: MariaDB driver'
+            'unixodbc: ODBC driver'
+            'libfbclient: Firebird/iBase driver'
+            'libxinerama: Xinerama support'
+            'libxcursor: Xcursor support'
+            'libxfixes: Xfixes support'
+            'icu: Unicode support'
+            'sni-qt: A Qt plugin which turns all QSystemTrayIcon into StatusNotifierItems kf5')
+install="${pkgname}.install"
+replaces=('qt<=4.8.4')
+conflicts=('qt' 'qt4' 'qt-ubuntu' 'qt4-ubuntu')
+provides=("qt4=${pkgver}")
+options=('staticlibs') # libQtUiTools builds as static only
+_pkgfqn="qt-everywhere-opensource-src-${pkgver}"
+source=("http://download.qt-project.org/official_releases/qt/4.8/${pkgver}/${_pkgfqn}.tar.gz"
+        'qtconfig-qt4.desktop' 'assistant-qt4.desktop' 'designer-qt4.desktop'
+        'linguist-qt4.desktop' 'qdbusviewer-qt4.desktop'
+        'improve-cups-support.patch'
+        'moc-boost-workaround.patch'
+        'CVE-2014-0190.patch'
+        'kubuntu_14_systemtrayicon.diff'
+        'kubuntu_93_disable_overlay_scrollbars.diff')
+sha256sums=('8b14dd91b52862e09b8e6a963507b74bc2580787d171feda197badfa7034032c'
+            'd8fd289479c82b0203fa4f6c06f97121671cfbb93e58817c1bb3bdf144d1e9c1'
+            'dfd01b061b68f67925ea925a17d1d5cdafd38d43baaf1548708556c4e3004abe'
+            '2f6b42ca9e4f462d641cd20e49f1f4554386251914c4853b10fda76f072c399e'
+            'a0e8ccd33657e0a0075ec6575823bc6944a107c2f17caf8c21960f17973527a0'
+            'fc5a213bc010c42a432933846901673423b63a48d31b4ec0b402085834a47e74'
+            'fde959b062dacf130856e301c55e6b6d6ed7a4c90ed7ec0906bf39bb85fdaa6e'
+            'f5b9a11a0f77a1960e43e09f95161fbe8526c40fc2f3d83c2dd1ba8af1abeb5a'
+            '2495adfc2c129d660535047ab53a1da258a820d3d594ea0a0db84b605952a9e3'
+            '9fad22674c5eec835613a7f16c11b865aa793b448e90974c0f804105284a548b'
+            'ec3f7c0f722c6ecdc2ae0fe8f53b7e06c16d61dc258111452c67cd7c8784cce6')
+
+prepare() {
+  cd ${_pkgfqn}
+
+    # Apply Ubuntu patches
+  patch -p1 -i "${srcdir}"/kubuntu_14_systemtrayicon.diff
+  patch -p1 -i "${srcdir}"/kubuntu_93_disable_overlay_scrollbars.diff
+
+  # (FS#28381) (KDEBUG#180051)
+  patch -p1 -i "${srcdir}"/improve-cups-support.patch
+
+  # QTBUG#22829
+  patch -p1 -i "${srcdir}"/moc-boost-workaround.patch
+
+  # QTBUG#38367
+  patch -p1 -i "${srcdir}"/CVE-2014-0190.patch
+
+  sed -i "s|-O2|${CXXFLAGS}|" mkspecs/common/{g++,gcc}-base.conf
+  sed -i "/^QMAKE_LFLAGS_RPATH/s| -Wl,-rpath,||g" mkspecs/common/gcc-base-unix.conf
+  sed -i "/^QMAKE_LFLAGS\s/s|+=|+= ${LDFLAGS}|g" mkspecs/common/gcc-base.conf
+
+  cp mkspecs/common/linux{,32}.conf
+  sed -i "/^QMAKE_LIBDIR\s/s|=|= /usr/lib32|g" mkspecs/common/linux32.conf
+  sed -i "s|common/linux.conf|common/linux32.conf|" mkspecs/linux-g++-32/qmake.conf
+}
 
 build() {
-  cd "$srcdir/sni-qt-$pkgver"
+  export QT4DIR="${srcdir}"/${_pkgfqn}
+  export LD_LIBRARY_PATH=${QT4DIR}/lib:${LD_LIBRARY_PATH}
 
-  # Disable building tests
-  sed -i '/tests/ d' CMakeLists.txt
+  cd ${_pkgfqn}
 
-  cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+  ./configure -confirm-license -opensource \
+    -prefix /usr \
+    -bindir /usr/lib/qt4/bin \
+    -headerdir /usr/include/qt4 \
+    -docdir /usr/share/doc/qt4 \
+    -plugindir /usr/lib/qt4/plugins \
+    -importdir /usr/lib/qt4/imports \
+    -datadir /usr/share/qt4 \
+    -translationdir /usr/share/qt4/translations \
+    -sysconfdir /etc/xdg \
+    -examplesdir /usr/share/doc/qt4/examples \
+    -demosdir /usr/share/doc/qt4/demos \
+    -plugin-sql-{psql,mysql,sqlite,odbc,ibase} \
+    -system-sqlite \
+    -no-phonon \
+    -no-phonon-backend \
+    -no-webkit \
+    -graphicssystem raster \
+    -openssl-linked \
+    -nomake demos \
+    -nomake examples \
+    -nomake docs \
+    -silent \
+    -no-rpath \
+    -optimized-qmake \
+    -reduce-relocations \
+    -dbus-linked \
+    -no-openvg
   make
 }
 
 package() {
-  cd "$srcdir/sni-qt-$pkgver"
+    cd ${_pkgfqn}
+    make INSTALL_ROOT="${pkgdir}" install
 
-  make DESTDIR="$pkgdir/" install
+    # install missing icons and desktop files
+    install -D -m644 src/gui/dialogs/images/qtlogo-64.png \
+      "${pkgdir}"/usr/share/icons/hicolor/64x64/apps/qt4logo.png
+    install -D -m644 tools/assistant/tools/assistant/images/assistant.png \
+      "${pkgdir}"/usr/share/icons/hicolor/32x32/apps/assistant-qt4.png
+    install -D -m644 tools/assistant/tools/assistant/images/assistant-128.png \
+      "${pkgdir}"/usr/share/icons/hicolor/128x128/apps/assistant-qt4.png
+    install -D -m644 tools/designer/src/designer/images/designer.png \
+      "${pkgdir}"/usr/share/icons/hicolor/128x128/apps/designer-qt4.png
+    for icon in tools/linguist/linguist/images/icons/linguist-*-32.png ; do
+      size=$(echo $(basename ${icon}) | cut -d- -f2)
+      install -D -m644 ${icon} \
+          "${pkgdir}"/usr/share/icons/hicolor/${size}x${size}/apps/linguist-qt4.png
+    done
+    install -D -m644 tools/qdbus/qdbusviewer/images/qdbusviewer.png \
+      "${pkgdir}"/usr/share/icons/hicolor/32x32/apps/qdbusviewer-qt4.png
+    install -D -m644 tools/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+      "${pkgdir}"/usr/share/icons/hicolor/128x128/apps/qdbusviewer-qt4.png
 
-  # Install config file for apps that need "Activate" action
-  install -Dm644 "$srcdir/sni-qt.conf" "$pkgdir/etc/sni-qt.conf"
+    install -d "${pkgdir}"/usr/share/applications
+    install -m644 "${srcdir}"/{assistant,designer,linguist,qtconfig,qdbusviewer}-qt4.desktop \
+      "${pkgdir}"/usr/share/applications/
+
+    # Useful symlinks for cmake and configure scripts
+    install -d "${pkgdir}"/usr/bin
+    for b in "${pkgdir}"/usr/lib/qt4/bin/*; do
+      ln -s /usr/lib/qt4/bin/$(basename $b) "${pkgdir}"/usr/bin/$(basename $b)-qt4
+    done
+
+    # install license addition
+    install -D -m644 LGPL_EXCEPTION.txt \
+      ${pkgdir}/usr/share/licenses/${pkgname}/LGPL_EXCEPTION.txt
+
+    # Fix wrong libs path in pkgconfig files
+    find "${pkgdir}/usr/lib/pkgconfig" -type f -name '*.pc' \
+      -exec perl -pi -e "s, -L${srcdir}/?\S+,,g" {} \;
+
+    # Fix wrong bins path in pkgconfig files
+    find "${pkgdir}/usr/lib/pkgconfig" -type f -name '*.pc' \
+      -exec sed -i 's|/usr/bin/|/usr/lib/qt4/bin/|g' {} \;
+
+    # Fix wrong path in prl files
+    find "${pkgdir}/usr/lib" -type f -name '*.prl' \
+      -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d;s/\(QMAKE_PRL_LIBS =\).*/\1/' {} \;
+
+    # The TGA plugin is broken (FS#33568)
+    rm "${pkgdir}"/usr/lib/qt4/plugins/imageformats/libqtga.so
 }
