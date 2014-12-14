@@ -1,6 +1,6 @@
 # Maintainer: anex <assassin.anex[@]gmail.com>
 # Contributor: Alcasa Mz <alcasa.mz@gmail.com>
-pkgname=sni-qt4-frameworks
+pkgname=qt4-statusnotifier
 pkgver=0.2.6
 pkgrel=1
 pkgdesc="A Qt plugin which turns all QSystemTrayIcon into StatusNotifierItems (appindicators)"
@@ -11,13 +11,13 @@ depends=('qt4-frameworks' 'libdbusmenu-qt')
 makedepends=('cmake')
 conflicts=('sni-qt')
 provides=("sni-qt=$pkgver")
-source=(http://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.bz2
+source=(http://launchpad.net/sni-qt/trunk/$pkgver/+download/sni-qt-$pkgver.tar.bz2
         sni-qt.conf)
 md5sums=('e84c66e776f7c22c961817387f618c81'
          '4bc8bd4cd17006c6d3ce2cd320c8e7b2')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/sni-qt-$pkgver"
 
   # Disable building tests
   sed -i '/tests/ d' CMakeLists.txt
@@ -27,7 +27,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/sni-qt-$pkgver"
 
   make DESTDIR="$pkgdir/" install
 
