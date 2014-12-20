@@ -3,9 +3,9 @@
 
 pkgbase=menda-icon-themes
 pkgname=('menda-circle-icon-theme' 'menda-square-icon-theme')
-pkgver=20141128
+pkgver=20141219
 pkgrel=1
-_git='a1827f28915aa4d7828b19faf6c38a2a6718bcac'
+_git='06232a0098e88d33bef931083736141ab67976da'
 arch=('any')
 url="https://github.com/manjaro/menda-icon-themes"
 license=('GPL')
