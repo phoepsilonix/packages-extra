@@ -1,0 +1,81 @@
+# Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
+# Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
+
+pkgbase=linux319-spl_zfs
+pkgname=('linux319-spl' 'linux319-zfs')
+pkgver=0.6.3
+pkgrel=0
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=('linux319')
+makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
+             'dkms'
+             'linux319' 'linux319-headers')
+groups=('linux319-extramodules')
+install=install
+
+source=('spl-linux317.patch::https://github.com/zfsonlinux/spl/commit/2fc44f66ec9b83069593d87cf311069458c0d5ae.patch'
+        'spl-linux318_1.patch::https://github.com/ryao/spl/commit/e0e71d53afbafb495f52b5038413c8969d983ec4.patch'
+        'spl-linux318_2.patch::https://github.com/zfsonlinux/zfs/commit/bc151f7b312dea09c6ec5b9a320e65140789643a.patch')
+sha256sums=('f9da450fd6fda04d7f1ccd932c4a1f2d14a19476c57609c31bf9bf5a293a9318'
+            '513e97e4e391b5353feb22c7fa8838df0eb5708eb311ec9eeca0518043b1c48c'
+            'dcb1a5b5f4531a72a3ace59bb260a2e0135426d494960d7812fd2f48b60c25ee')
+
+prepare() {
+  # dkms need modification to be run as user
+  cp -r /var/lib/dkms .
+  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  # workaround to patch spl for linux 3.17 & 3.18
+  rm -r $srcdir/dkms/spl/$pkgver/source
+  cp -r /usr/src/spl-$pkgver $srcdir/dkms/spl/$pkgver/source
+  cd dkms/spl/$pkgver/source
+  patch -Np1 -i $srcdir/spl-linux317.patch
+  patch -Np1 -i $srcdir/spl-linux318_1.patch
+  cd $srcdir
+  rm -r $srcdir/dkms/zfs/$pkgver/source
+  cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source
+  cd dkms/zfs/$pkgver/source
+  patch -Np1 -i $srcdir/spl-linux318_2.patch
+}
+
+build() {
+  _extraver=extramodules-3.19-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+
+  # build host modules
+  msg2 'Build modules'
+  dkms --dkmsframework dkms.conf build "spl/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "zfs/$pkgver" -k "$_kernver"
+}
+
+package_linux319-zfs(){
+  _extraver=extramodules-3.19-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends=('linux319' "zfs-utils=${pkgver}")
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+}
+
+package_linux319-spl(){
+  _extraver=extramodules-3.19-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  _pkgname=spl
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("$_pkgname=$pkgver")
+  depends=('linux319' "spl-utils=${pkgver}")
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+}
