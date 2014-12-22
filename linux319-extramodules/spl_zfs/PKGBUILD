@@ -27,17 +27,20 @@ prepare() {
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
-  # workaround to patch spl for linux 3.17 & 3.18
+  # workaround to patch spl for linux 3.17, 3.18 & 3.19
   rm -r $srcdir/dkms/spl/$pkgver/source
   cp -r /usr/src/spl-$pkgver $srcdir/dkms/spl/$pkgver/source
   cd dkms/spl/$pkgver/source
   patch -Np1 -i $srcdir/spl-linux317.patch
   patch -Np1 -i $srcdir/spl-linux318_1.patch
+  sed -i -e 's|>f_dentry|>f_path.dentry|g' $srcdir/dkms/spl/$pkgver/source/module/splat/splat-ctl.c
   cd $srcdir
   rm -r $srcdir/dkms/zfs/$pkgver/source
   cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source
   cd dkms/zfs/$pkgver/source
   patch -Np1 -i $srcdir/spl-linux318_2.patch
+  sed -i -e 's|>f_dentry|>f_path.dentry|g' $srcdir/dkms/zfs/$pkgver/source/module/zfs/zpl_file.c
+  sed -i -e 's|>f_dentry|>f_path.dentry|g' $srcdir/dkms/zfs/$pkgver/source/module/zpios/pios.c
 }
 
 build() {
