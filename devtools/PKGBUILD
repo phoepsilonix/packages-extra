@@ -2,7 +2,7 @@
 # Contributor: Roland Singer <roland@manjaro.org>
 
 pkgname=devtools
-pkgver=20141224
+pkgver=20141230
 pkgrel=1
 pkgdesc='Tools for Manjaro Linux package maintainers'
 arch=('any')
@@ -10,7 +10,7 @@ license=('GPL')
 url='http://git.manjaro.org/core/devtools/'
 depends=('namcap' 'openssh' 'subversion' 'rsync' 'arch-install-scripts')
 source=("https://github.com/manjaro/devtools/archive/${pkgver}.tar.gz")
-sha256sums=('8f58fa774e8c4dc6bd1b5def819cca3187b3ecd4fdebfb20c3bf2a0bf23bf34f')
+sha256sums=('2cf664128763d2a8c3ffbf8e8f8352ccef9abe396f4b8973092c429aff1b63ea')
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}
