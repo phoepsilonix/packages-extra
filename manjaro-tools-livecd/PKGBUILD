@@ -1,0 +1,47 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <flower_of_life@gmx.net>
+# Contributor: anex <lane.wiscombe[@]gmail.com>
+
+pkgbase=manjaro-tools-livecd
+pkgname=('manjaro-livecd-cli-installer'
+    'manjaro-livecd-systemd'
+	'manjaro-tools-livecd-openrc')
+pkgver=r38.9ce3b29
+pkgdesc='Manjaro Linux livecd'
+pkgrel=1
+arch=('any')
+url="https://github.com/manjaro/manjaro-tools-livecd"
+license=('GPL')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd ${srcdir}/${pkgbase}
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package_manjaro-livecd-cli-installer() {
+pkgdesc='Manjaro Linux livecd cli-installer'
+depends=('')
+	cd ${srcdir}/${pkgbase} #-${pkgver}
+	install -dm 755 $pkgdir/opt/livecd
+	cp -a livecd-cli-installer/* $pkgdir/opt/livecd
+}
+
+package_manjaro-livecd-systemd() {
+pkgdesc='Manjaro Linux livecd systemd units'
+depends=('systemd')
+	cd ${srcdir}/${pkgbase} #-${pkgver}
+	install -dm 755 $pkgdir
+	cp -a livecd-init-systemd/* $pkgdir
+} 
+
+package_manjaro-tools-livecd-openrc() {	
+pkgdesc='Manjaro Linux livecd openrc units'
+depends=('openrc-core')
+	cd ${srcdir}/${pkgbase} #-${pkgver}
+	install -dm 755 $pkgdir
+	cp -a livecd-init-openrc/* $pkgdir
+	
+}
