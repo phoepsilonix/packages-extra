@@ -6,8 +6,8 @@
 
 pkgname=xfce4-settings
 pkgver=4.11.3
-pkgrel=2
-_git=178f429abeba73643fe6ef794a07b78f3b40e5cf
+pkgrel=3
+_git=a1bdc47a77db919bea24879d805a4d909276ffa2
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -22,9 +22,11 @@ provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.bz2
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2
-        xfce4-settings-xml-4.11.2.patch)
-sha256sums=('78049100b3fe5f5a8ddbc5d4e29e8b0fe1508d92194441a6ed063a4c8f6ad5d1'
-            'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff')
+        xfce4-settings-xml-4.11.2.patch
+        hdmi-power-cycling.patch)
+sha256sums=('0dd13ec99fd9ae0a9530c233a5403620f317802e88b65f5b508c551f867dbae0'
+            'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff'
+            '4c8517e4bff5cb093996639e33214658ec372b50b856107188b9e701cb71068b')
 
 
 prepare() {
@@ -34,6 +36,11 @@ prepare() {
   # enable gnome icon theme, clearlooks theme and font hinting by default
   # (taken from Fedora)
   patch -Np1 -i "$srcdir/xfce4-settings-xml-4.11.2.patch"
+
+  # Add hdmi power cycling patch
+  # https://bugzilla.xfce.org/show_bug.cgi?id=11107
+  patch -Np1 -i "$srcdir/hdmi-power-cycling.patch"
+
   sed -i -e 's|[git])|[])|g' configure.ac.in
 }
 

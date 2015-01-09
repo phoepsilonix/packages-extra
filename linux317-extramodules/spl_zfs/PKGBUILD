@@ -4,7 +4,7 @@
 pkgbase=linux317-spl_zfs
 pkgname=('linux317-spl' 'linux317-zfs')
 pkgver=0.6.3
-pkgrel=3
+pkgrel=4
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
