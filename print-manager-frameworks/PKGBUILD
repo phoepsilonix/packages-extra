@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=print-manager-frameworks
-pkgver=14.11.10.r658.cc48a8c
+pkgver=14.11.10.r661.d3819a5
 _pkgver=14.11.10
 pkgrel=1
 pkgdesc='A tool for managing print jobs and printers'
