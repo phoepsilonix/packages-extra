@@ -2,17 +2,26 @@
 
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
-pkgver=0.8.11
+pkgver=0.8.12rc1
+_gitcommit=c8b999417df5b3aa1223a64bab096984d33ee8e2
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
-source=(https://cloud.awyr.co.uk/manjaro/user-guide/$pkgver/manjaro-user-guide.vhq.pdf)
-sha256sums=('f37786e34bd9195742a1fc1c66e184a6fc14101d3a2a0c8c33599a5b4570c691')
+makedeps=(lyx texlive-pictures texlive-latexextra ttf-comfortaa ghostscript)
+source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
+sha256sums=('bc5f331921be7d2816c3071ded375e648e8a110bc70f184db2086fc7317f1772')
+
+prepare() {
+  cd ${srcdir}/manjaro-user-guide*
+  lyx --export pdf5 manjaro-user-guide.lyx
+  gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -sOutputFile=manjaro-user-guide-printer.pdf manjaro-user-guide.pdf
+}
 
 package() {
   pkgdesc="Manjaro Beginner User Guide"
   license=('CC-BY-SA 4.0')
-  install -Dm644 "${srcdir}/manjaro-user-guide.vhq.pdf" "${pkgdir}/usr/share/doc/livecd/Beginner_User_Guide.pdf"
+  cd ${srcdir}/manjaro-user-guide*
+  install -Dm644 manjaro-user-guide-printer.pdf "${pkgdir}/usr/share/doc/livecd/Beginner_User_Guide.pdf"
   mkdir -p ${pkgdir}/etc/skel/Manjaro
   ln -s "/usr/share/doc/livecd/Beginner_User_Guide.pdf" "${pkgdir}/etc/skel/Manjaro/Beginner_User_Guide.pdf"
 }
