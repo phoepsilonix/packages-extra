@@ -1,11 +1,12 @@
 # Contributor: Vi0L0 <vi0l093@gmail.com>
-# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
-# Maintainer: Roland Singer <roland[at]manjaro[dog]org>
+# Maintainer : Philip Müller <philm[at]manjaro[dog]org>
+# Maintainer : Roland Singer <roland[at]manjaro[dog]org>
+# Contributor: Rob McCathie <rob[at]manjaro[dog]org>
 
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=14.501
-pkgrel=1
+pkgrel=1.1
 _pkgver=14.501.1003
 _tarball=omega-14.12-linux-run-installers
 _execlineorig="Exec=amdxdg-su -c amdcccle"
@@ -185,6 +186,16 @@ package_catalyst-utils() {
     # Admin CC launcher fix
       cd ${pkgdir}/usr/share/applications
       sed -i "s|${_execlineorig}|${_execlinenew}|g" amdccclesu.desktop
+
+    # Make Catalyst work with GDM.
+    # https://oliverchang.github.io/2014/12/22/fixing-linux-amd-catalyst-linux-drivers-gdm/
+    # Due to this, this package may need to be rebuilt when xorg-server gets updates.
+    # Make sure the host/chroot you're building on/in has the same Xorg version as the branch you're going to push to.
+      Xorg.bin -version > ${pkgdir}/etc/ati/xver 2>&1
+      proc_fd_0_offset=`strings -td ${pkgdir}/usr/lib/xorg/modules/drivers/fglrx_drv.so | grep '/proc/%i/fd/0' | sed 's/^ *//' | cut -d' ' -f1`
+      echo -ne '/etc/ati/xver' | dd conv=notrunc of=${pkgdir}/usr/lib/xorg/modules/drivers/fglrx_drv.so bs=1 count=13 seek=$proc_fd_0_offset
+      proc_fd_0_offset=`strings -td ${pkgdir}/usr/lib/fglrx/xorg/modules/extensions/libglx.so | grep '/proc/%i/fd/0' | sed 's/^ *//' | cut -d' ' -f1`
+      echo -ne '/etc/ati/xver' | dd conv=notrunc of=${pkgdir}/usr/lib/fglrx/xorg/modules/extensions/libglx.so bs=1 count=13 seek=$proc_fd_0_offset
 }
 
 package_opencl-catalyst() {
