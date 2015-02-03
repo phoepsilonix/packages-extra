@@ -1,24 +1,25 @@
-# Maintainer: Alexandre Filgueira <alexfilgueira@cinnarch.com>
+#  Maintainer: Ramon Buldó <ramon@manjaro.org>
+# Contributor: Alexandre Filgueira <alexfilgueira@cinnarch.com>
 
 pkgname=py3parted
-pkgver=3.10
+_pkgname=pyparted
+pkgver=3.10.3
 pkgrel=1
 pkgdesc="Python 3 module for GNU parted"
-url="https://github.com/antergos/${pkgname}"
+url="https://github.com/rhinstaller/pyparted"
 arch=('i686' 'x86_64')
 license=('GPL2')
 depends=('python>=3.4' 'parted>=3.0')
 provides=('pyparted')
-_pkgname=pyparted
-source=(https://git.fedorahosted.org/cgit/pyparted.git/snapshot/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('67df1ddfc8816d28b0bfed85130a98b6b20db90da26732958a9e5292c4e5e865')
+source=("https://github.com/rhinstaller/pyparted/archive/${_pkgname}-${pkgver}.tar.gz")
+sha256sums=('ba385beff0bd31e64886ac1ed699306c49474dcf5dc33f96f867d208f8d7e992')
 
 build() {
-  cd "${srcdir}"/${_pkgname}-${pkgver}
+  cd "${srcdir}"/${_pkgname}-${_pkgname}-${pkgver}
   python setup.py build
 }
 
 package() {
-  cd "${srcdir}"/${_pkgname}-${pkgver}
+  cd "${srcdir}"/${_pkgname}-${_pkgname}-${pkgver}
   python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
 }
