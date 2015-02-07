@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.0.1
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -15,7 +15,7 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=89510a7594d474111c183bca8885f095b45e8944
+_snapshot=d61a219c99ff979453eaa33eecc0f63aa05055f0
 
 source=('initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
@@ -63,6 +63,8 @@ prepare() {
 	elif [ -e "$srcdir/$pkgname.git" ]; then
 		cd "$srcdir/$pkgname.git"
 	fi
+
+	sed -i -e 's|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH 1|g' CMakeLists.txt
 
 	if [ "$_git" == "Yes" ]; then
 		git submodule init
