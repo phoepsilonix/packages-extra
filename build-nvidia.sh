@@ -8,9 +8,9 @@ cd ../../linux313*/*nvidia
 makepkg --sign -df
 cd ../../linux314*/*nvidia
 makepkg --sign -df
-cd ../../linux315*/*nvidia
-makepkg --sign -df
 cd ../../linux316*/*nvidia
 makepkg --sign -df
-cd ../../linux317*/*nvidia
+cd ../../linux318*/*nvidia
+makepkg --sign -df
+cd ../../linux319*/*nvidia
 makepkg --sign -df
