@@ -8,8 +8,8 @@
 pkgname=xfce4-power-manager
 _seriesver=1.4
 pkgver=${_seriesver}.2
-pkgrel=1
-_git=acda3b4df236ad227193893f7d5b33cbe0592d70
+pkgrel=2
+_git=6133b7885765d6e816bc46c1904bc9c8565d05e0
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -22,7 +22,7 @@ install=$pkgname.install
 #source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${_seriesver}/${pkgname}-${pkgver}.tar.bz2")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
 source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
-sha256sums=('2892461842903018a64557faf45b1a03ab62c2c0821f1eb1fbe081f6ac4fd147')
+sha256sums=('911449f68d36a5a93caa47447e7e9306376c523051ef66209bfea93c07c1719f')
 
 #pkgver() {
 #  cd "${srcdir}/${pkgname}"
