@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=1.0.1
+pkgver=1.0.1.2
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=d61a219c99ff979453eaa33eecc0f63aa05055f0
+_snapshot=ec6ccf223f6a02112109a757a2c744126f06a2e0
 
 source=('initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
@@ -45,9 +45,9 @@ pkgver() {
 	fi
 	if [ "$_git" == "Yes" ]; then
 		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "0.17.7.$(date +%m%d).`git describe --always`"
-		#echo "0.17.7$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 0.17.7.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		#echo "1.0.1.$(date +%m%d).`git describe --always`"
+		#echo "1.0.1$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+		echo 1.0.1.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 	else
 		echo "$pkgver"
 	fi
@@ -64,7 +64,7 @@ prepare() {
 		cd "$srcdir/$pkgname.git"
 	fi
 
-	sed -i -e 's|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH 1|g' CMakeLists.txt
+	sed -i -e 's|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH 1.2|g' CMakeLists.txt
 
 	if [ "$_git" == "Yes" ]; then
 		git submodule init
