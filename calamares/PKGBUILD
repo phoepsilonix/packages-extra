@@ -1,7 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=1.0.1.2
+_pointver=1.5
+pkgver=1.0.$_pointver
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -15,11 +16,11 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=ec6ccf223f6a02112109a757a2c744126f06a2e0
+_snapshot=7e7f93c19b2a0eeae37a699def07cb1085ce65c8
 
 source=('initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
-            '8aa2146e22b88ffd293a4f42fb733317f25db856589a5a9208669f743a6366de'
+            'de24b378cdc24ede59321d8018f36577f6c28caa0a130166024a63ccfba2971a'
             'ef9adc6388f025c574fbbe745a143ffd612a9621875abe41d93454b8cd08651d'
             '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f'
             'e1228cb4ad5e56473fb5b107909fb9da39231d1b87dfca723d30f2ae1c8e9538')
@@ -64,7 +65,7 @@ prepare() {
 		cd "$srcdir/$pkgname.git"
 	fi
 
-	sed -i -e 's|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH 1.2|g' CMakeLists.txt
+	sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
 
 	if [ "$_git" == "Yes" ]; then
 		git submodule init
