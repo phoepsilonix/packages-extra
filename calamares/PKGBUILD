@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.5
+_pointver=1.6
 pkgver=1.0.$_pointver
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
@@ -16,10 +16,11 @@ backup=('usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=7e7f93c19b2a0eeae37a699def07cb1085ce65c8
+_snapshot=2034b87abf85fa48d73b39a709d3dcbb5ae916e2
 
-source=('initcpio.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
+source=('initcpio.conf' 'partition.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
+            '30d6907889d946b910f2d946870377f12836d129dd3ca2244cd648921e03e04e'
             'de24b378cdc24ede59321d8018f36577f6c28caa0a130166024a63ccfba2971a'
             'ef9adc6388f025c574fbbe745a143ffd612a9621875abe41d93454b8cd08651d'
             '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f'
@@ -114,6 +115,7 @@ package() {
 	cd build
 	make DESTDIR="$pkgdir" install
 	install -Dm644 "$srcdir/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
+	install -Dm644 "$srcdir/partition.conf" "$pkgdir/usr/share/calamares/modules/partition.conf"
 	install -Dm644 "$srcdir/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	install -Dm644 "$srcdir/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
 	mkdir -p /usr/share/icons/
