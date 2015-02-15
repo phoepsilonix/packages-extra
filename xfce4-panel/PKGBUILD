@@ -3,9 +3,9 @@
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfce4-panel
-_git=f74b3b452e9e0273082a44ad45dd7c09736e44b6
+_git=c86d6d8856be71f0d7f863738aa9c782bc85145d
 pkgver=4.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -19,7 +19,7 @@ install=$pkgname.install
 options=('!libtool')
 source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('821bf99348af1a803e107e8be326c37eba505d134385cbf49abb7a9053f06b43')
+sha256sums=('a541d0c59b768dfd225271a4d4951906734fe2d6d7a1fc688d34f0896ff757a4')
 
 build() {
   #cd "$srcdir/$pkgname-$pkgver"
