@@ -6,9 +6,9 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=xfdesktop
-_git=06298d5e8b816646354d4d967b424ea1a1719e01
+_git=633eed4cf17491b5853df57e3dd7985a33546198
 pkgver=4.11.8
-pkgrel=7
+pkgrel=8
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -19,7 +19,13 @@ makedepends=('intltool' 'xfce4-dev-tools')
 install=xfdesktop.install
 #source=("http://archive.xfce.org/src/xfce/xfdesktop/4.11/${pkgname}-${pkgver}.tar.bz2")
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.bz2::http://git.xfce.org/xfce/${pkgname}/snapshot/${pkgname}-${_git}.tar.bz2")
-sha256sums=('4de861bda7798f17d350f8bf11fbfe29ce3b2ff8ef23ebb3e6467d7a7dba57de')
+sha256sums=('c50d50c889d6a4acdde423b35efb4923d546f2c2688781f4c65047709710a116')
+
+prepare() {
+  #cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_git"
+  sed -i -e 's|[xfdesktop_version_tag],[git])|[xfdesktop_version_tag],[])|g' configure.ac.in
+}
 
 build() {
 #  cd "${srcdir}/${pkgname}-${pkgver}"
