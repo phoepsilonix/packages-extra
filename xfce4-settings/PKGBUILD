@@ -5,9 +5,9 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=xfce4-settings
-pkgver=4.11.3
-pkgrel=5
-_git=3ce9f3dece4156d35471ca67f522294f7386fc7b
+pkgver=4.11.4
+pkgrel=1
+_git=07b85ba605b0c644e52854a3b9767c05e3231ffa
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -24,7 +24,7 @@ source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.b
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2
         xfce4-settings-xml-4.11.2.patch
         hdmi-power-cycling.patch)
-sha256sums=('10ab4788ee2634c56a2c4380d58d701bc59fb068aa70a2623dbb9b48dbe9a368'
+sha256sums=('4b8281d7e7563e3fecdc663860e2ffef5004f989c1c57afdc9d50ee0b76032b8'
             'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff'
             '4c8517e4bff5cb093996639e33214658ec372b50b856107188b9e701cb71068b')
 
