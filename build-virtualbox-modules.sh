@@ -10,5 +10,7 @@ cd ../../linux314*/*virtualbox-modules
 makepkg --sign -df
 cd ../../linux316*/*virtualbox-modules
 makepkg --sign -df
-cd ../../linux317*/*virtualbox-modules
+cd ../../linux318*/*virtualbox-modules
+makepkg --sign -df
+cd ../../linux319*/*virtualbox-modules
 makepkg --sign -df
