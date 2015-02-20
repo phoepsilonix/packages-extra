@@ -6,8 +6,8 @@
 
 pkgname=xfce4-settings
 pkgver=4.11.4
-pkgrel=1
-_git=07b85ba605b0c644e52854a3b9767c05e3231ffa
+pkgrel=2
+_git=a5f02e63df286f71625c776f394518d64ed18031
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -24,7 +24,7 @@ source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.11/$_pkgname-$pkgver.tar.b
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2
         xfce4-settings-xml-4.11.2.patch
         hdmi-power-cycling.patch)
-sha256sums=('4b8281d7e7563e3fecdc663860e2ffef5004f989c1c57afdc9d50ee0b76032b8'
+sha256sums=('f64292fc9b9adeaa780fa56736eae50334a7d4ab48406f8b98d014a7e71e11c1'
             'c912d6bb7fbfbd35b904a9f12f8fa2a18f4eb8ebf093392e691909cd494653ff'
             '4c8517e4bff5cb093996639e33214658ec372b50b856107188b9e701cb71068b')
 
@@ -41,7 +41,7 @@ prepare() {
   # https://bugzilla.xfce.org/show_bug.cgi?id=11107
   patch -Np1 -i "$srcdir/hdmi-power-cycling.patch"
 
-  sed -i -e 's|[git])|[])|g' configure.ac.in
+  sed -i -e 's|git]|]|' configure.ac.in
 }
 
 build() {

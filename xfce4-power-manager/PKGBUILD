@@ -8,8 +8,8 @@
 pkgname=xfce4-power-manager
 _seriesver=1.4
 pkgver=${_seriesver}.2
-pkgrel=3
-_git=51a95644c1e67a90bc409fea21371578f646f52a
+pkgrel=4
+_git=0ca715929b2e93a58516002a475fe4543115bd11
 pkgdesc="Power manager for Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -22,7 +22,7 @@ install=$pkgname.install
 #source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${_seriesver}/${pkgname}-${pkgver}.tar.bz2")
 #source=(git://git.xfce.org/xfce/xfce4-power-manager)
 source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2")
-sha256sums=('fca119ef27ada4b8a211f27fbbf6647771d4a544e9e8f07c00080d3db1a21815')
+sha256sums=('52329bcd39a81ba00a832f93dc1f09e8e93c93e2404641ca0ded7688b424eaee')
 
 #pkgver() {
 #  cd "${srcdir}/${pkgname}"
@@ -34,7 +34,7 @@ prepare() {
 #  cd "${srcdir}/${pkgname}-${pkgver}"
 
   cd "${srcdir}/${pkgname}-${_git}"
-  sed -i -e 's|[git])|[])|g' configure.ac.in
+  sed -i -e 's|git]|]|' configure.ac.in
 }
 
 build() {

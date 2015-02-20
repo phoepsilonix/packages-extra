@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.8
+_pointver=1.9
 pkgver=1.0.$_pointver
-pkgrel=1
+pkgrel=4
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -11,17 +11,19 @@ url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'parted' 'boost' 'hwinfo' 'qt5-svg' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
-backup=('usr/share/calamares/modules/displaymanager.conf'
+backup=('usr/share/calamares/modules/bootloader.conf'
+        'usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=0cf53c399956720483e7afe49acb238846ff993b
+_snapshot=d18e655a9553df4f05c1cc8b0cc00102057202b9
 
-source=('initcpio.conf' 'partition.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
-sha256sums=('183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
+source=('bootloader.conf' 'initcpio.conf' 'partition.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
+sha256sums=('f1d00c2ca521393d70c9afb475ecba0c5d754c8e43331f7742b2728c35c0a38e'
+            '183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
             '30d6907889d946b910f2d946870377f12836d129dd3ca2244cd648921e03e04e'
-            'de24b378cdc24ede59321d8018f36577f6c28caa0a130166024a63ccfba2971a'
+            'f382db99339cfa2524edd88ecbef2016d8865b02e167a51c518903ba263b5df4'
             'ef9adc6388f025c574fbbe745a143ffd612a9621875abe41d93454b8cd08651d'
             '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f'
             'e1228cb4ad5e56473fb5b107909fb9da39231d1b87dfca723d30f2ae1c8e9538')
@@ -114,6 +116,7 @@ package() {
 
 	cd build
 	make DESTDIR="$pkgdir" install
+	install -Dm644 "$srcdir/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
 	install -Dm644 "$srcdir/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
 	install -Dm644 "$srcdir/partition.conf" "$pkgdir/usr/share/calamares/modules/partition.conf"
 	install -Dm644 "$srcdir/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
@@ -121,4 +124,7 @@ package() {
 	mkdir -p /usr/share/icons/
 	install -Dm644 "$srcdir/manjaro-icon.png" "$pkgdir/usr/share/icons/calamares.png"
 	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
+	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
+	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
+	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
 }
