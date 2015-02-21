@@ -3,7 +3,7 @@
 pkgname=calamares
 _pointver=1.9
 pkgver=1.0.$_pointver
-pkgrel=4
+pkgrel=5
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,7 +17,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=d18e655a9553df4f05c1cc8b0cc00102057202b9
+_snapshot=1993f3393f83219a4ee2d127ba0fb62111abec76
 
 source=('bootloader.conf' 'initcpio.conf' 'partition.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
 sha256sums=('f1d00c2ca521393d70c9afb475ecba0c5d754c8e43331f7742b2728c35c0a38e'
