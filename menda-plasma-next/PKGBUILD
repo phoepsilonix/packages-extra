@@ -4,7 +4,7 @@
 pkgbase=menda-plasma-next
 pkgname=(menda menda-kde4 menda-plasma-desktop menda-plasma-look-and-feel sddm-menda-theme)
 pkgver=20150127
-pkgrel=1
+pkgrel=2
 arch=('any')
 groups=('menda-plasma-next')
 url="https://github.com/anexation/menda-plasma-next"
@@ -47,7 +47,7 @@ package_menda() {
   pkgdesc='Artwork, styles and assets for the Menda visual style for the Plasma 5 Desktop'
   arch=('i686' 'x86_64')
   license=('LGPL')
-  depends=('frameworkintegration' 'kdecoration' 'kcmutils')
+  depends=('frameworkintegration' 'kdecoration')
   optdepends=('menda-kde4: Menda widget style for KDE4 applications'
               'menda-themes: Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell'
               'menda-themes-dark: Dark Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell'
