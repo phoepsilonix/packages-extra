@@ -7,7 +7,7 @@ _extramodules=extramodules-3.18-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=14.501
-pkgrel=5
+pkgrel=6
 _pkgver=14.501.1003
 _tarball=omega-14.12-linux-run-installers
 provides=("$_pkgname=$_pkgver")
@@ -21,7 +21,7 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
+source=(http://geeko.ioda.net/mirror/amd-fglrx/raw-src/amd-catalyst-${_tarball}.zip
     #https://launchpad.net/ubuntu/utopic/+source/fglrx-installer/2:14.201-0ubuntu1/+files/fglrx-installer_${_tarball}.tar.gz
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
