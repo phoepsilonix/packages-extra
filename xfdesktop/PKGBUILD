@@ -6,9 +6,9 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=xfdesktop
-_git=fbe52d2cf75d303aac709fe45243447d95afd0eb
-pkgver=4.11.8
-pkgrel=11
+_git=a209a9afc4fc093d909b90c1a6b7dc35669a3ec7
+pkgver=4.12.0
+pkgrel=1.2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -18,13 +18,14 @@ depends=("libxfce4ui>=4.11" 'thunar' 'garcon' 'hicolor-icon-theme' 'libwnck')
 makedepends=('intltool' 'xfce4-dev-tools')
 install=xfdesktop.install
 #source=("http://archive.xfce.org/src/xfce/xfdesktop/4.11/${pkgname}-${pkgver}.tar.bz2")
-source=("${pkgname}-${pkgver}-${pkgrel}.tar.bz2::http://git.xfce.org/xfce/${pkgname}/snapshot/${pkgname}-${_git}.tar.bz2")
-sha256sums=('d56ac1b63f6d3eb8d384750e178b9c17718b4ec4d4067f352b3c1f3dde502b08')
+#source=("${pkgname}-${pkgver}-${pkgrel}.tar.bz2::http://git.xfce.org/xfce/${pkgname}/snapshot/${pkgname}-${_git}.tar.bz2")
+source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::https://github.com/thad-fisch/xfdesktop/archive/${_git}.tar.gz")
+sha256sums=('b6c77406f8e72cf2ad9ed30ad029adb339f82d3fc852713f32b0c3ecfd3ddc15')
 
 prepare() {
   #cd "$srcdir/$pkgname-$pkgver"
   cd "$srcdir/$pkgname-$_git"
-  sed -i -e 's|@REVISION@|manjaro|g' configure.ac.in
+  sed -i -e 's|@REVISION@|MANJARO|g' configure.ac.in
   sed -i -e 's|git]|]|' configure.ac.in
 }
 
