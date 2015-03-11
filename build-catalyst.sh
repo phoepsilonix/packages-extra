@@ -10,7 +10,7 @@ cd ../../linux314*/*catalyst
 makepkg --sign -df
 cd ../../linux316*/*catalyst
 makepkg --sign -df
-cd ../../linux317*/*catalyst
-makepkg --sign -df
 cd ../../linux318*/*catalyst
+makepkg --sign -df
+cd ../../linux319*/*catalyst
 makepkg --sign -df

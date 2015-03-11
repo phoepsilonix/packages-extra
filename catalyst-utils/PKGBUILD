@@ -4,18 +4,18 @@
 
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
-pkgver=14.501
+pkgver=15.200
 pkgrel=1
-_pkgver=14.501.1003
-_tarball=omega-14.12-linux-run-installers
+_pkgver=15.200
+_tarball=15.200
 _execlineorig="Exec=amdxdg-su -c amdcccle"
 _execlinenew="Exec=xdg-su amdcccle"
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
-    #https://launchpad.net/ubuntu/utopic/+source/fglrx-installer/2:14.201-0ubuntu1/+files/fglrx-installer_${_tarball}.tar.gz
+source=(#http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
+    https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
     catalyst.sh
     atieventsd.sh
     atieventsd.service
@@ -24,7 +24,7 @@ source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}.zip
     temp-links-catalyst.service  temp_links_catalyst
     LICENSE.TXT)
 
-sha256sums=('68669836f20ad4351e08b13c5766c6b2ffc6b8cd2a37e9baf55779da32d3a249'
+sha256sums=('a4ad20d53f790d5105351a5627fadbf02fe4945582abf2b93a337b1bbaa0b033'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '9b347c3f518ddf12bb08a3cf09afcc3096e5dd4488e7ca3445df97b392985e8b'
             '398bade6ea2cb084043d87f6580569dd54b769055cdb518e2a074124c20f2606'
@@ -35,20 +35,20 @@ sha256sums=('68669836f20ad4351e08b13c5766c6b2ffc6b8cd2a37e9baf55779da32d3a249'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
-	cd ${srcdir}/fglrx-$_pkgver
-	/bin/sh ./amd-driver-installer-${_pkgver}-x86.x86_64.run --extract archive_files
+	#cd ${srcdir}/fglrx-$_pkgver
+	#/bin/sh ./amd-driver-installer-${_pkgver}-x86.x86_64.run --extract archive_files
 	#/bin/sh ./amd-catalyst-${_pkgver}-linux-x86.x86_64.run --extract archive_files
 
 	# move files
-#	mkdir common
-#	mv etc lib usr common
-#	mkdir -p fglrx-$_pkgver/archive_files
-#	mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
+	mkdir common
+	mv etc lib usr common
+	mkdir -p fglrx-$_pkgver/archive_files
+	mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
 }
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('xorg-server>=1.7.0' 'xorg-server<1.17.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
+	depends=('xorg-server>=1.7.0' 'xorg-server<1.18.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
         optdepends=('qt4: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
 		    'acpid: acpi event support  / atieventsd'
