@@ -7,8 +7,8 @@
 pkgname=xfwm4
 _pkgname=xfwm4
 pkgver=4.12.0
-pkgrel=1.1
-_git=adf918d111d60e5aa3591b38ad920354b74486e8
+pkgrel=1.2
+_git=f6e067a4d259d4fc18f83ee239e928c8ba6aa88c
 pkgdesc="Xfce window manager"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -20,7 +20,7 @@ options=('!libtool')
 install=$_pkgname.install
 source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.12/$_pkgname-$pkgver.tar.bz2
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('948a93198c70bcc3b228cc4be8d1fa95e55bc3c6d3a1b57baf4e9a34a2829d97')
+sha256sums=('10b6ca554ed00b923cfd473aa018ddb6c64f92bfcbb3d34e6f34628145122c4e')
 
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
