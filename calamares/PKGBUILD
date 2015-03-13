@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.13
+_pointver=1.14
 pkgver=1.0.$_pointver
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
@@ -17,31 +17,25 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot=4fb2e8d65f89f987fd247ab1eb0ce9b1ff1b799f
-
-source=('bootloader.conf' 'initcpio.conf' 'partition.conf' 'settings.conf' 'unpackfs.conf' 'manjaro-icon.png' 'calamares.desktop')
-sha256sums=('f1d00c2ca521393d70c9afb475ecba0c5d754c8e43331f7742b2728c35c0a38e'
-            '183aed372cdc4f5cdab43132b7c11fccdc2d2b3836b1821c39bf1e30744f0abb'
-            '30d6907889d946b910f2d946870377f12836d129dd3ca2244cd648921e03e04e'
-            'f382db99339cfa2524edd88ecbef2016d8865b02e167a51c518903ba263b5df4'
-            'ef9adc6388f025c574fbbe745a143ffd612a9621875abe41d93454b8cd08651d'
-            '132b140cf87113fff483e38b6b51384d8e3d32d1b48c8663a7531af5fb44002f'
-            'e1228cb4ad5e56473fb5b107909fb9da39231d1b87dfca723d30f2ae1c8e9538')
+_snapshot_master=bde428d4af509357a479721be2cb0bec1a4ff354
+_snapshot_manjaro=0ed5d7601418e81db4dd7fd0b21448b195319ccf
 
 if [ "$_git" == "Yes" ]; then
    makedepends+=(git)
-   source+=(git+https://github.com/calamares/calamares.git#branch=manjaro)
-   sha256sums+=('SKIP')
+   source+=(git+https://github.com/calamares/calamares.git
+            git+https://github.com/calamares/calamares-manjaro.git)
+   sha256sums+=('SKIP' 'SKIP')
 else
-   source+=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot.tar.gz")
-   sha256sums+=('SKIP')
+   source+=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot_master.tar.gz"
+            "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
+   sha256sums+=('SKIP' 'SKIP')
 fi
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
 		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot" ]; then
-		cd "$srcdir/$pkgname-$_snapshot"
+	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
+		cd "$srcdir/$pkgname-$_snapshot_master"
 	elif [ -e "$srcdir/$pkgname" ]; then
 		cd "$srcdir/$pkgname"
 	elif [ -e "$srcdir/$pkgname.git" ]; then
@@ -59,12 +53,16 @@ pkgver() {
 
 prepare() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$pkgver"
 		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot" ]; then
-		cd "$srcdir/$pkgname-$_snapshot"
+	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
+		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$_snapshot_master"
+		cd "$srcdir/$pkgname-$_snapshot_master"
 	elif [ -e "$srcdir/$pkgname" ]; then
+		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname"
 		cd "$srcdir/$pkgname"
 	elif [ -e "$srcdir/$pkgname.git" ]; then
+		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname.git"
 		cd "$srcdir/$pkgname.git"
 	fi
 
@@ -85,8 +83,8 @@ prepare() {
 build() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
 		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot" ]; then
-		cd "$srcdir/$pkgname-$_snapshot"
+	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
+		cd "$srcdir/$pkgname-$_snapshot_master"
 	elif [ -e "$srcdir/$pkgname" ]; then
 		cd "$srcdir/$pkgname"
 	elif [ -e "$srcdir/$pkgname.git" ]; then
@@ -106,8 +104,8 @@ build() {
 package() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
 		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot" ]; then
-		cd "$srcdir/$pkgname-$_snapshot"
+	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
+		cd "$srcdir/$pkgname-$_snapshot_master"
 	elif [ -e "$srcdir/$pkgname" ]; then
 		cd "$srcdir/$pkgname"
 	elif [ -e "$srcdir/$pkgname.git" ]; then
@@ -116,14 +114,15 @@ package() {
 
 	cd build
 	make DESTDIR="$pkgdir" install
-	install -Dm644 "$srcdir/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
-	install -Dm644 "$srcdir/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
-	install -Dm644 "$srcdir/partition.conf" "$pkgdir/usr/share/calamares/modules/partition.conf"
-	install -Dm644 "$srcdir/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
-	install -Dm644 "$srcdir/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
+	install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
+	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
+	install -Dm644 "../conf/partition.conf" "$pkgdir/usr/share/calamares/modules/partition.conf"
+	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/services.conf"
+	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
+	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
 	mkdir -p /usr/share/icons/
-	install -Dm644 "$srcdir/manjaro-icon.png" "$pkgdir/usr/share/icons/calamares.png"
-	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
+	install -Dm644 "../data/manjaro-icon.png" "$pkgdir/usr/share/icons/calamares.png"
+	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
 	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
