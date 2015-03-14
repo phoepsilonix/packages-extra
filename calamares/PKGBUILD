@@ -21,7 +21,6 @@ _snapshot_master=bde428d4af509357a479721be2cb0bec1a4ff354
 _snapshot_manjaro=0ed5d7601418e81db4dd7fd0b21448b195319ccf
 
 if [ "$_git" == "Yes" ]; then
-   makedepends+=(git)
    source+=(git+https://github.com/calamares/calamares.git
             git+https://github.com/calamares/calamares-manjaro.git)
    sha256sums+=('SKIP' 'SKIP')
