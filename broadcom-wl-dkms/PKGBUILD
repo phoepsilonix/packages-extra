@@ -16,7 +16,7 @@
 pkgname=broadcom-wl-dkms
 _pkgname=broadcom-wl
 pkgver=6.30.223.141
-pkgrel=4
+pkgrel=5
 pkgdesc="Broadcom 802.11 Linux STA wireless driver BCM43142."
 url="https://bbs.archlinux.org/viewtopic.php?id=145884"
 arch=('any')
@@ -31,18 +31,20 @@ source=(
 	'001-Arch-Makefile.patch'
 	'002-Module-License.patch'
 	'003-gcc.patch'
-  004-linux315.patch
+	'004-linux315.patch'
+	'005-linux317.patch'
+	'006-linux318.patch'
 )
-sha1sums=(
-	'a197b77597e2ee01303e2330c5b5622d3d624887'
-	'f6b6afdf4de79c7464cac016ff07ab9d651835dd'
-	'a37c5dd9ab279372f0c68595bb2a8f1fe694cd13'
-	'91926bb064c00a00dbcab0d1d92c7eb976d56032'
-	'e1511d9cea9584a924a7ac90609c5651464a4de7'
-	'306bccd26b12c808977cacf630860e7d483d213f'
-	'84ba7d65d4045e1bbdb4e8fc83b024a881e312b1'
-	'0a802b21a6a5af99a4f2c91cd9cce75cd1b24b81'
-)
+sha1sums=('a197b77597e2ee01303e2330c5b5622d3d624887'
+          'f6b6afdf4de79c7464cac016ff07ab9d651835dd'
+          'a37c5dd9ab279372f0c68595bb2a8f1fe694cd13'
+          '91926bb064c00a00dbcab0d1d92c7eb976d56032'
+          'e1511d9cea9584a924a7ac90609c5651464a4de7'
+          '306bccd26b12c808977cacf630860e7d483d213f'
+          '84ba7d65d4045e1bbdb4e8fc83b024a881e312b1'
+          '0a802b21a6a5af99a4f2c91cd9cce75cd1b24b81'
+          '6f2e3b8c0d6a54847c6b44620e3fb627e91219d2'
+          '35476be6c83b3d1d64dac64dedf502045f37d748')
 
 backup=('etc/modprobe.d/broadcom-wl-dkms.conf')
 install=install
@@ -84,6 +86,12 @@ prepare() {
 
 	# fix issues with linux 3.15
 	patch -p1 -i 004-linux315.patch
+
+	# fix issues with linux 3.17
+	patch -p1 -i 005-linux317.patch
+
+	# fix issues with linux 3.18
+	patch -p1 -i 006-linux318.patch
 
 	# delete the debian folders and files not needed for packaging
 	rm -R debian/
