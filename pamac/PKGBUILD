@@ -3,7 +3,7 @@
 pkgname=pamac
 pkgver=2.2
 _pkgver=2.2
-pkgrel=3
+pkgrel=3.3
 # This is the release package so the below _gitcommit variable should (usually) be commented out.
 _gitcommit="43e1042e09beb5d1bf4b53fefde62de585747df2"
 pkgdesc="A Gtk3 frontend for libalpm"
@@ -22,12 +22,12 @@ options=(!emptydirs)
 install=pamac.install
 
 if [ "${_gitcommit}" != "" ]; then
-  source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
+  source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz" "a.patch")
 else
   source=("pamac-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 fi
 
-sha256sums=('3c8b769bc6485c477f0e87347b11af178d6b44280dde73decd78ee886537c233')
+sha256sums=('3c8b769bc6485c477f0e87347b11af178d6b44280dde73decd78ee886537c233' 'SKIP')
 
 prepare() {
   if [ "$_gitcommit" != "" ]; then
@@ -37,6 +37,7 @@ prepare() {
   # adjust version string
   cd "$srcdir/pamac-$pkgver/src"
   sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" manager_window.vala
+  patch -p2 -i "$srcdir/a.patch"
 }
 
 build() {
