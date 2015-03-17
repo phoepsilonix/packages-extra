@@ -1,53 +1,45 @@
-# Maintainer : Philip Müller <philm@manjaro.org>
-# Maintainer : Rob McCathie <rob@manjaro.org>
 # Contributor: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
+# Maintainer: Rob McCathie <rob@manjaro.org>
+## I'm trying to get the light-locker support merged upstream, so hopefully soon we can just use Arch package.
+
 pkgname=xfce4-session
-pkgver=4.11.1
+pkgver=4.12.0
 pkgrel=3
-_git=1852ede5b76c12b91af759c37ee52a2dcc89a971
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4')
-depends=('exo' 'libxfce4ui' 'libwnck' 'libsm' 'xorg-iceauth' 'upower'
-         'xorg-xinit' 'xorg-xrdb' 'hicolor-icon-theme' 'polkit')
-makedepends=('systemd' 'intltool' 'xfce4-dev-tools')
+depends=('libxfce4ui' 'libwnck' 'libsm' 'polkit' 'xorg-iceauth' 'xorg-xinit'
+         'xorg-xrdb' 'polkit-gnome' 'hicolor-icon-theme')
+makedepends=('intltool')
 optdepends=('gnome-keyring: for keyring support when GNOME compatibility is enabled'
             'xscreensaver: for locking screen with xflock4'
             'gnome-screensaver: for locking screen with xflock4'
-            'xlockmore: for locking screen with xflock4')
+            'xlockmore: for locking screen with xflock4'
+            'slock: for locking screen with xflock4')
 replaces=('xfce-utils')
 install=$pkgname.install
-options=('!libtool')
-#source=(http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2
-#        xfce4-session-4.10.1-logind-support-for-suspend-hibernate.patch)
-source=("$pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2"
-        'add-lightdm-support.patch')
-sha256sums=('f84588c7365810b54ff1a89befd1bf40a22c38cf76edbf9017527c8ebecd3b07'
+source=(http://archive.xfce.org/src/xfce/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2
+        xfce-polkit-gnome-authentication-agent-1.desktop
+        add-lightdm-support.patch)
+sha256sums=('68c85453b097d3ada573dcb7e72acd06e0fc34531996122c10d20096405b7b06'
+            '74c94c5f7893d714e04ec7d8b8520c978a5748757a0cdcf5128492f09f31b643'
             'a9f74ed1b4b51b334fcfeb2320670f453e8623c6fceb554393a14920723765e4')
 
 prepare() {
-#  cd "${srcdir}/${pkgname}-${pkgver}"
-  cd "${srcdir}/${pkgname}-${_git}"
+  cd "$srcdir/$pkgname-$pkgver"
 
-  # Use logind interfaces for suspend and hibernate
-  # https://bugzilla.xfce.org/show_bug.cgi?id=9952
-  #patch -Np1 -i "$srcdir/xfce4-session-4.10.1-logind-support-for-suspend-hibernate.patch"
-  
   # Add lightdm and light-locker support to xflock4 script
-  # https://bugzilla.xfce.org/show_bug.cgi?id=11254
   patch -p1 -i "${srcdir}/add-lightdm-support.patch"
 }
 
 build() {
-#  cd "${srcdir}/${pkgname}-${pkgver}"
-  cd "${srcdir}/${pkgname}-${_git}"
+  cd "$srcdir/$pkgname-$pkgver"
 
-  #./configure \
-  ./autogen.sh \
+  ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib/xfce4 \
@@ -58,7 +50,13 @@ build() {
 }
 
 package() {
-#  cd "${srcdir}/${pkgname}-${pkgver}"
-  cd "${srcdir}/${pkgname}-${_git}"
+  cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
+
+  # Provide a default PolicyKit Authentication Agent (FS#42569)
+  install -d "$pkgdir/etc/xdg/autostart"
+  cp "$srcdir/xfce-polkit-gnome-authentication-agent-1.desktop" \
+    "$pkgdir/etc/xdg/autostart/"
 }
+
+# vim:set ts=2 sw=2 et:
