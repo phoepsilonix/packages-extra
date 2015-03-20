@@ -3,7 +3,7 @@
 pkgname=calamares
 _pointver=1.15
 pkgver=1.0.$_pointver
-pkgrel=3
+pkgrel=4
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,7 +17,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=c45e757cea9f459067dbf1ed4fa19ddda07308c8
+_snapshot_master=c7f46136fcec6c4c640b36b0ec5553d1672e9efc
 _snapshot_manjaro=5c92623d571cbdee844931c87860d597add71523
 
 if [ "$_git" == "Yes" ]; then
