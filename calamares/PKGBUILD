@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.15
+_pointver=1.16
 pkgver=1.0.$_pointver
-pkgrel=4
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,8 +17,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=c7f46136fcec6c4c640b36b0ec5553d1672e9efc
-_snapshot_manjaro=5c92623d571cbdee844931c87860d597add71523
+_snapshot_master=19bcc887a8ab0514308eff454394dfa345ec5282
+_snapshot_manjaro=e43397d41f755d729609946c62a0dcee969e5170
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git
