@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.16
+_pointver=1.17
 pkgver=1.0.$_pointver
-pkgrel=2.1
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,7 +17,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=19bcc887a8ab0514308eff454394dfa345ec5282
+_snapshot_master=ffc65fa07ed14dcfbb03d0a548eb028ba6e51618
 _snapshot_manjaro=6ef6785b6ae7e4e3e1736a828982cc4bbe863def
 
 if [ "$_git" == "Yes" ]; then
@@ -125,3 +125,5 @@ package() {
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
 	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
 }
+sha256sums=('450f5d43b7bf5c7aba14b85d85dcbc8e716ae81dd4565093a2be63e4f423b57a'
+            'f476652ef6ae718e8716fee240d16b69de63a02b5c8d24500d84770b3e23235c')
