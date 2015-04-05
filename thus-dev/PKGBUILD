@@ -22,7 +22,7 @@ conflicts=(thus)
 provides=(thus)
 _git=No
 _development=Yes
-_snapshot=7cd9fd105d317bf86ce010b57ff0f9738225eff6
+_snapshot=e0a6b2de27a585413f059339c9e0f0e8a3f88b03
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
@@ -35,7 +35,7 @@ else
    fi
 fi
 
-sha256sums=('abcf244889a17390f9f6cf20e448bac7ca82ccbbfd1717afdde1e87cb078b472')
+sha256sums=('58d74d632a33b04be2b70ec3f7a7c64c40c29387f74129b8026bd122fd8ae0b7')
 
 prepare() {
 	if [ "$_development" == "Yes" && "$_git" == "Yes" ]; then
