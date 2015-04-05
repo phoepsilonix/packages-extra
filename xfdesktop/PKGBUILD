@@ -6,9 +6,9 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 pkgname=xfdesktop
-_git=15a5f27e0d9ed2ee2c08f3f96f9388ba629b10e2
+_git=6b962c208441b0a08da721b30fab370fec5e7845
 pkgver=4.12.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -19,11 +19,12 @@ makedepends=('intltool' 'xfce4-dev-tools')
 install=xfdesktop.install
 #source=("http://archive.xfce.org/src/xfce/xfdesktop/4.11/${pkgname}-${pkgver}.tar.bz2")
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.bz2::http://git.xfce.org/xfce/${pkgname}/snapshot/${pkgname}-${_git}.tar.bz2")
-sha256sums=('c44b8a4b8784c671127f2fa596a7430ce8c9dac896ec87ae94bbaeb8c489eba9')
+sha256sums=('362bc8b71df93de5ac64f20647bf915a5debdf61918aef7d32e4ac8ee21ca96e')
 
 prepare() {
   #cd "$srcdir/$pkgname-$pkgver"
   cd "$srcdir/$pkgname-$_git"
+  sed -i -e 's|micro], \[0|micro], \[1|g' configure.ac.in
   sed -i -e 's|@REVISION@|MANJARO|g' configure.ac.in
   sed -i -e 's|git]|]|' configure.ac.in
 }
