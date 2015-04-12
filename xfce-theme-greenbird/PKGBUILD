@@ -2,9 +2,9 @@
 # Contributor: Robert Gormly <rggormly_at_gmail_dot_com>
 
 pkgname=xfce-theme-greenbird
-pkgver=20140421
-pkgrel=2
-_git=51efd00d04e5947ed75b736add58c333241e578a
+pkgver=20150412
+pkgrel=1
+_git=5b6f68a7ad9d727f72da3e21c0dfae6cc47fb279
 pkgdesc="Desktop suite for Xfce"
 arch=('any')
 url="http://git.manjaro.org/artwork/greenbird-theme"
@@ -16,22 +16,17 @@ optdepends=('faenza-green-icon-theme: matching icon theme'
             'lightdm-unity-greeter: lightdm unity theme')
 
 source=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/artwork-greenbird/archive/$_git.tar.gz")
-sha256sums=('c2c9992e5a6c0349bd081058a3f51ff30bb0db725e01f059729ed7a7a5a77767')
+sha256sums=('0813d3b269030d1f3d98686f108dd5b9e16e8a5bf6b0c66a117cceeead272cb6')
 
-package() {
-  cd "$srcdir/artwork-greenbird-$_git"
-
-  # create theme dirs
-  install -d -m 755 "$pkgdir"/usr/share/themes/Greenbird{,-compact/xfwm4}
-
-  # install compact theme
-  install -m 644 xfwm4_compact/* "$pkgdir"/usr/share/themes/Greenbird-compact/xfwm4/
-
-  # clean up
-  rm -rf {.git,.gitignore,LICENSE.{CC,GPL},README,xfwm4_compact}
-
-  # install theme
-  cp -r . "$pkgdir"/usr/share/themes/Greenbird/
+prepare() {
+    mv artwork-greenbird-$_git Greenbird
 }
 
-# vim:set ts=2 sw=2 et:
+package() {
+    local _themedir="$pkgdir/usr/share/themes"
+    install -d "$_themedir/Greenbird "{Classic,Compact}
+
+    cp -rf Greenbird/ "$_themedir"/Greenbird/
+    rm "$_themedir"/Greenbird/.gitignore
+    ln -s /usr/share/themes/Greenbird/xfwm4_compact "$_themedir/Greenbird Compact/xfwm4"
+}
