@@ -1,5 +1,5 @@
-EXTRAMODULES='extramodules-3.19-MANJARO'
-VERSION='linux319'
+EXTRAMODULES='extramodules-4.0-MANJARO'
+VERSION='linux40'
 
 post_install() {
     depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)

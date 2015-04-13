@@ -1,0 +1,75 @@
+diff -Npur fglrx-installer_15.200.orig/lib/modules/fglrx/build_mod/firegl_public.c fglrx-installer_15.200/lib/modules/fglrx/build_mod/firegl_public.c
+--- fglrx-installer_15.200.orig/lib/modules/fglrx/build_mod/firegl_public.c	2015-03-06 17:44:48.000000000 +0100
++++ fglrx-installer_15.200/lib/modules/fglrx/build_mod/firegl_public.c	2015-04-13 13:01:48.145835211 +0200
+@@ -4496,8 +4496,13 @@ static void kcl_mem_pat_setup (void *inf
+ 
+     if (cpu_has_pge)
+     {
+-        cr4 = read_cr4();
+-        write_cr4(cr4 & ~X86_CR4_PGE);
++        #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0)
++            cr4 = __read_cr4();
++            __write_cr4(cr4 & ~X86_CR4_PGE);
++        #else
++            cr4 = read_cr4();
++            write_cr4(cr4 & ~X86_CR4_PGE);
++        #endif
+     }
+      __flush_tlb();
+ 
+@@ -4510,7 +4515,11 @@ static void kcl_mem_pat_setup (void *inf
+     write_cr0(cr0 & 0xbfffffff);
+     if (cpu_has_pge)
+     {
+-        write_cr4(cr4);
++        #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0)
++            __write_cr4(cr4);
++        #else
++            write_cr4(cr4);
++        #endif
+     }
+     local_irq_restore(flags);
+ 
+@@ -4537,8 +4546,13 @@ static void kcl_mem_pat_restore (void *i
+ 
+     if (cpu_has_pge)
+     {
+-        cr4 = read_cr4();
+-        write_cr4(cr4 & ~X86_CR4_PGE);
++        #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0)
++            cr4 = __read_cr4();
++            __write_cr4(cr4 & ~X86_CR4_PGE);
++        #else
++            cr4 = read_cr4();
++            write_cr4(cr4 & ~X86_CR4_PGE);
++        #endif
+     }
+      __flush_tlb();
+   
+@@ -4550,7 +4564,11 @@ static void kcl_mem_pat_restore (void *i
+     write_cr0(cr0 & 0xbfffffff);
+     if (cpu_has_pge)
+     {
+-        write_cr4(cr4);
++        #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0)
++            __write_cr4(cr4);
++        #else
++            write_cr4(cr4);
++        #endif
+     }
+     local_irq_restore(flags);
+ 
+diff -Npur fglrx-installer_15.200.orig/lib/modules/fglrx/build_mod/kcl_str.c fglrx-installer_15.200/lib/modules/fglrx/build_mod/kcl_str.c
+--- fglrx-installer_15.200.orig/lib/modules/fglrx/build_mod/kcl_str.c	2015-03-06 17:44:48.000000000 +0100
++++ fglrx-installer_15.200/lib/modules/fglrx/build_mod/kcl_str.c	2015-04-13 12:57:26.126123367 +0200
+@@ -42,6 +42,10 @@
+ #include "kcl_type.h"
+ #include "kcl_str.h"
+ 
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0))
++#define strnicmp strncasecmp
++#endif
++
+ /** \brief Fill memory with a constant byte
+  *  \param s Pointer to memory
+  *  \param c Initializing value

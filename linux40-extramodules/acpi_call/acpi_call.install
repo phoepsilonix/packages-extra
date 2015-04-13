@@ -1,4 +1,4 @@
-EXTRAMODULES=extramodules-3.19-MANJARO
+EXTRAMODULES=extramodules-4.0-MANJARO
 
 post_install() {
   echo "  > Updating module dependencies..."

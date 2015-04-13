@@ -47,7 +47,7 @@ prepare() {
   # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
   patch -Np0 -i ${srcdir}/nvidia-3.18.patch
   patch -Np1 -i ${srcdir}/nvidia-3.19.patch
-  patch -Np1 -i ${srcdir}/nvidia-4.0.patch
+  patch -Np0 -i ${srcdir}/nvidia-4.0.patch
 }
 
 build() {
