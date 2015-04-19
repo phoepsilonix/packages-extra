@@ -4,7 +4,7 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.8.13rc1
+pkgver=0.8.13pre1
 pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
@@ -20,12 +20,17 @@ install=thus.install
 backup=(etc/thus.conf)
 _git=Yes
 _development=No
+_snapshot=8af274e88c322337593ee364dd13f6f428454100
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
    source=(git+https://github.com/manjaro/$pkgname.git)
 else
-   source=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/thus/archive/$pkgver.tar.gz")
+   if [ "${_snapshot}" != "" ]; then
+       source=("$_pkgname-$pkgver-$pkgrel.tar.gz::$url/archive/$_snapshot.tar.gz")
+   else
+       source=("$_pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+   fi
 fi
 
 sha256sums=('SKIP')
@@ -38,23 +43,23 @@ prepare() {
 }
 
 package() {
-	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
-		cd "$srcdir/$pkgname-$pkgver"
+	if [ -e "$srcdir/$_pkgname-$pkgver" ]; then
+		cd "$srcdir/$_pkgname-$pkgver"
 	fi
-	if [ -e "$srcdir/$pkgname" ]; then
-		cd "$srcdir/$pkgname"
+	if [ -e "$srcdir/$_pkgname" ]; then
+		cd "$srcdir/$_pkgname"
 	fi
-	if [ -e "$srcdir/$pkgname.git" ]; then
-		cd "$srcdir/$pkgname.git"
+	if [ -e "$srcdir/$_pkgname-$_snapshot" ]; then
+		cd "$srcdir/$_pkgname-$_snapshot"
 	fi
 
 	install -d ${pkgdir}/usr/share/locale/
 	install -d ${pkgdir}/usr/share/thus
-	install -Dm755 "${_pkgname}.py" "$pkgdir/usr/share/thus/${_pkgname}.py"
-	install -Dm755 "${_pkgname}" "$pkgdir/usr/bin/thus"
-	install -D -m644 $pkgname.desktop ${pkgdir}/usr/share/applications/$pkgname.desktop
+	install -Dm755 "bin/thus" "${pkgdir}/usr/bin/thus"
+	install -Dm755 "update.info" "$pkgdir/usr/share/thus/update.info"
+	install -Dm644 "thus.desktop" ${pkgdir}/usr/share/applications/thus.desktop
 
-	for i in data scripts src ui; do
+	for i in thus data scripts ui; do
 		cp -R ${i} "${pkgdir}/usr/share/thus/"
 	done
 
@@ -65,7 +70,7 @@ package() {
 	# copy en_GB as en
 	cp po/en_GB.po po/en.po
 
-  	for files in po/*; do
+  	for files in po/*.po; do
     	if [ -f "$files" ] && [ "$files" != 'po/thus.pot' ]; then
         	STRING_PO=`echo ${files#*/}`
         	STRING=`echo ${STRING_PO%.po}`
