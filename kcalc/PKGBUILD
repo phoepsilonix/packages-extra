@@ -1,0 +1,45 @@
+# $Id$
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+
+pkgname=kcalc
+pkgver=15.04.0
+pkgrel=1.1
+pkgdesc='Scientific Calculator'
+url='http://kde.org/applications/utilities/kcalc/'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kinit')
+makedepends=('extra-cmake-modules' 'python' 'kdoctools')
+conflicts=('kdeutils-kcalc')
+replaces=('kdeutils-kcalc')
+groups=('kde-applications' 'kdeutils')
+install=${pkgname}.install
+source=("http://download.kde.org/stable/applications/${pkgver}/src/kcalc-${pkgver}.tar.xz" 'kcalc_numpadfix.patch')
+sha256sums=('cc97384644bcf04880b7b4f9a9eca6b724f5f3783db8450a5098179dfeea7b66'
+            'ff44c15f410f03549ac6c12685c1d27a02b35d7fe12ef18c93a9046b7d92524c')
+
+prepare() {
+  mkdir -p build
+  # Apply patch for 
+  # https://bugs.kde.org/show_bug.cgi?id=344638
+  # https://bugs.archlinux.org/task/44676
+  # Credits of code fix: Harald Pollak 
+  patch -p1 < ${srcdir}/kcalc_numpadfix.patch	|| return 1
+}
+
+build() {
+  cd build
+  cmake ../kcalc-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
