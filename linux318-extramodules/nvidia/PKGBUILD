@@ -9,7 +9,7 @@ _linuxprefix=linux318
 _extramodules=extramodules-3.18-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=346.59
+pkgver=349.16
 pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -22,27 +22,23 @@ conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=('nvidia-drm.patch')
-sha256sums=('1fca388fa8f2b26a903052fc2fa2ab5aef8f6cf92a608605405b1e1377c14e35') 
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('65cf83fccc02399d54212cbeea1c2364e4974687c3ad6cba87cc109476ad2129')
+    sha256sums+=('35c8d00ece6a450e8e72aac2bff45e89ce40ffbe3278802e8a0b4ff65c793d11')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('4c7941e9248a931b720f050c38822708aa8176c4464fc40d02e1c7dd7ebbe767')
+    sha256sums+=('7d1222cd83f653ece0fb1a1141738db1d3b9930fc8a2edfdd8902bf07c5bed6d')
 fi
 
 prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
-    patch -Np1 -i ${srcdir}/nvidia-drm.patch
 }
 
 build() {

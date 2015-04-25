@@ -6,21 +6,21 @@
 
 pkgname=xfwm4
 _pkgname=xfwm4
-pkgver=4.12.0
-pkgrel=1.2
-_git=f6e067a4d259d4fc18f83ee239e928c8ba6aa88c
+pkgver=4.12.2
+pkgrel=1.1
+_git=14c204d90f66c56c5ae1c6ce52a3ff5f0c281001
 pkgdesc="Xfce window manager"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4')
-depends=('libxfce4ui' 'libwnck' 'libdrm' 'hicolor-icon-theme')
+depends=('libxfce4ui' 'libwnck' 'libdrm' 'libxpresent' 'hicolor-icon-theme' 'exo')
 makedepends=('intltool' 'xfce4-dev-tools')
 options=('!libtool')
 install=$_pkgname.install
 source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.12/$_pkgname-$pkgver.tar.bz2
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
-sha256sums=('10b6ca554ed00b923cfd473aa018ddb6c64f92bfcbb3d34e6f34628145122c4e')
+sha256sums=('8aaab41d3a927675ace878db22554b7bfe911ffcfeeb2db1df1821ff16a66d03')
 
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
@@ -28,6 +28,7 @@ conflicts=("$_pkgname" "$_pkgname-git")
 prepare() {
   #cd "$srcdir/$pkgname-$pkgver"
   cd "$srcdir/$pkgname-$_git"
+  sed -i -e 's|micro], \[0|micro], \[2|g' configure.ac.in
   sed -i -e 's|@REVISION@|MANJARO|g' configure.ac.in
   sed -i -e 's|git]|]|' configure.ac.in
 }

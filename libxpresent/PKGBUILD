@@ -1,0 +1,33 @@
+# $Id$
+# Maintainer: Philip Müller <philm[at]manjaro[dot]org>
+
+pkgname=libxpresent
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Xlib-compatible API for the Present extension"
+arch=(i686 x86_64)
+url="http://xorg.freedesktop.org/"
+depends=('libxrandr' 'xproto' 'libxfixes' 'libxrender')
+makedepends=('fixesproto' 'xextproto' 'xproto' 'randrproto' 'inputproto' 'renderproto' 'presentproto')
+license=('custom')
+source=(${url}/releases/individual/lib/libXpresent-${pkgver}.tar.bz2)
+sha256sums=('c11ae015141a9afbe10f4f2b8ee00b11adca6373dc1b9808d7c6c138b2da7b8a')
+
+build() {
+  cd "${srcdir}/libXpresent-${pkgver}"
+  ./configure --prefix=/usr --disable-static
+  make
+}
+
+check() {
+  cd "${srcdir}/libXpresent-${pkgver}"
+  make check
+}
+
+package() {
+  cd "${srcdir}/libXpresent-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+
+  install -d -m755 "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
