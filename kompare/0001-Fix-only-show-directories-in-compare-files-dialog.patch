@@ -1,0 +1,26 @@
+From c837f4c53fb876df895e427ed546a5a4865b00e2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ramon=20Buld=C3=B3?= <rbuldo@gmail.com>
+Date: Sun, 26 Apr 2015 07:29:35 +0200
+Subject: [PATCH 1/1] Fix only show directories in compare files dialog
+
+---
+ main.cpp | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/main.cpp b/main.cpp
+index d367b9d..f6696b1 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -227,9 +227,6 @@ int main(int argc, char *argv[])
+ 
+ 			dialog.setGroup( "Recent Compare Files" );
+ 
+-			dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+-			dialog.setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+-
+ 			if( dialog.exec() == QDialog::Accepted )
+ 			{
+ 				ks->show();
+-- 
+2.3.6
+
