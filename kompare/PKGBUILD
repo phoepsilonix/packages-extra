@@ -20,7 +20,7 @@ source=("http://download.kde.org/stable/applications/${pkgver}/src/kompare-${pkg
         "0001-Fix-only-show-directories-in-compare-files-dialog.patch")
 sha1sums=('c35f3ee00012ac48d3042ab05dc31c610bea76ba'
           'e7301d8ee9a487a7e8e9fd6c46857890e640be4e'
-          '26862756e8713eae8659641a08c1d397ea1f8afa')
+          '75719cc39852605d929e71aea4eef8ba506c2a4e')
 
 prepare() {
   mkdir build

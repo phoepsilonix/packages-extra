@@ -1,12 +1,27 @@
-From c837f4c53fb876df895e427ed546a5a4865b00e2 Mon Sep 17 00:00:00 2001
+From 4f102773739c1e7cf9fdc0cbbe2705d02ee0cb5a Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ramon=20Buld=C3=B3?= <rbuldo@gmail.com>
 Date: Sun, 26 Apr 2015 07:29:35 +0200
 Subject: [PATCH 1/1] Fix only show directories in compare files dialog
 
 ---
- main.cpp | 3 ---
- 1 file changed, 3 deletions(-)
+ kompare_shell.cpp | 3 ---
+ main.cpp          | 3 ---
+ 2 files changed, 6 deletions(-)
 
+diff --git a/kompare_shell.cpp b/kompare_shell.cpp
+index 0ffcfbc..8309124 100644
+--- a/kompare_shell.cpp
++++ b/kompare_shell.cpp
+@@ -377,9 +377,6 @@ void KompareShell::slotFileCompareFiles()
+ 
+ 	dialog.setGroup( "Recent Compare Files" );
+ 
+-	dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+-	dialog.setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+-
+ 	if ( dialog.exec() == QDialog::Accepted )
+ 	{
+ 		m_sourceURL = dialog.getFirstURL();
 diff --git a/main.cpp b/main.cpp
 index d367b9d..f6696b1 100644
 --- a/main.cpp
