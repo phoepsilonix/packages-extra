@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.23
+_pointver=1.24
 pkgver=1.0.$_pointver
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
@@ -17,7 +17,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=d3f4ced8c09ac12049194860f04b09ac26260a4b
+_snapshot_master=4b73d9579ff3b1268f32df827def5171d7c8c610
 _snapshot_manjaro=6ef6785b6ae7e4e3e1736a828982cc4bbe863def
 
 if [ "$_git" == "Yes" ]; then
@@ -28,7 +28,7 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('f40e21e1bd0d8239242bdd149561bd7fd626437c425e0cab419b60d00d502187'
+sha256sums=('76a78cfdcdd120b04df8e2237743f16894ec27e3c440eeb8cae89187be02e92e'
             'f476652ef6ae718e8716fee240d16b69de63a02b5c8d24500d84770b3e23235c')
 
 pkgver() {
