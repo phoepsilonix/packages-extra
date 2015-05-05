@@ -4,7 +4,7 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.8.13pre1
+pkgver=0.8.13pre2
 pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
@@ -20,7 +20,7 @@ install=thus.install
 backup=(etc/thus.conf)
 _git=Yes
 _development=No
-_snapshot=8af274e88c322337593ee364dd13f6f428454100
+_snapshot=45070abcae89a94a3f7e739316912792c6dcc92a
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
