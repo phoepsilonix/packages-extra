@@ -16,7 +16,7 @@
 pkgname=broadcom-wl-dkms
 _pkgname=broadcom-wl
 pkgver=6.30.223.141
-pkgrel=5
+pkgrel=6
 pkgdesc="Broadcom 802.11 Linux STA wireless driver BCM43142."
 url="https://bbs.archlinux.org/viewtopic.php?id=145884"
 arch=('any')
@@ -34,6 +34,7 @@ source=(
 	'004-linux315.patch'
 	'005-linux317.patch'
 	'006-linux318.patch'
+	'007-linux40.patch'
 )
 sha1sums=('a197b77597e2ee01303e2330c5b5622d3d624887'
           'f6b6afdf4de79c7464cac016ff07ab9d651835dd'
@@ -44,7 +45,8 @@ sha1sums=('a197b77597e2ee01303e2330c5b5622d3d624887'
           '84ba7d65d4045e1bbdb4e8fc83b024a881e312b1'
           '0a802b21a6a5af99a4f2c91cd9cce75cd1b24b81'
           '6f2e3b8c0d6a54847c6b44620e3fb627e91219d2'
-          '35476be6c83b3d1d64dac64dedf502045f37d748')
+          '35476be6c83b3d1d64dac64dedf502045f37d748'
+          '5bdaee2727942a1ff9cd40ff3e52315a939f83c3')
 
 backup=('etc/modprobe.d/broadcom-wl-dkms.conf')
 install=install
@@ -92,6 +94,9 @@ prepare() {
 
 	# fix issues with linux 3.18
 	patch -p1 -i 006-linux318.patch
+
+	# fix issues with linux 4.0
+	patch -p1 -i 007-linux40.patch
 
 	# delete the debian folders and files not needed for packaging
 	rm -R debian/
