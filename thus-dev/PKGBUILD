@@ -4,18 +4,18 @@
 
 _pkgname=thus
 pkgname=thus-dev
-pkgver=0.8.12.107
-pkgrel=2
+pkgver=0.8.12.108
+pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
 license=(GPL)
 url="https://github.com/manjaro/thus"
-depends=(coreutils cryptsetup ckbcomp gptfdisk grep libtimezonemap hdparm hwinfo
-         lvm2 mhwd pam_encfs py3parted python python-configobj python-gobject
-         python-dbus python-cairo rsync sudo upower util-linux webkitgtk3 e2fsprogs
-         dosfstools jfsutils ntfs-3g ntfsprogs reiserfsprogs xfsprogs
-         ttf-aboriginal-sans  ttf-indic-otf ttf-khmer ttf-lohit-fonts ttf-myanmar3
-         ttf-thaana-fonts ttf-tlwg iso-codes)
+depends=(coreutils cryptsetup ckbcomp gptfdisk grep libtimezonemap hwinfo lvm2 mhwd 
+         pam_encfs python python-pyparted python-configobj python-gobject python-dbus 
+         python-cairo rsync sudo upower util-linux webkitgtk3 e2fsprogs dosfstools 
+         jfsutils ntfs-3g ntfsprogs reiserfsprogs xfsprogs ttf-aboriginal-sans
+         ttf-indic-otf ttf-khmer ttf-lohit-fonts ttf-myanmar3 ttf-thaana-fonts 
+         ttf-tlwg iso-codes)
 install=thus.install
 backup=(etc/thus.conf)
 conflicts=(thus)

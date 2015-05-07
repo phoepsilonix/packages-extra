@@ -1,18 +1,19 @@
 #  Maintainer: Ramon Buldó <ramon@manjaro.org>
 # Contributor: Alexandre Filgueira <alexfilgueira@cinnarch.com>
 
-pkgname=py3parted
+pkgname=python-pyparted
 _pkgname=pyparted
-pkgver=3.10.3
+pkgver=3.10.4
 pkgrel=1
 pkgdesc="Python 3 module for GNU parted"
 url="https://github.com/rhinstaller/pyparted"
 arch=('i686' 'x86_64')
 license=('GPL2')
 depends=('python>=3.4' 'parted>=3.0')
-provides=('pyparted')
+provides=('pyparted' 'py3parted')
+replaces=('py3parted')
 source=("https://github.com/rhinstaller/pyparted/archive/${_pkgname}-${pkgver}.tar.gz")
-sha256sums=('ba385beff0bd31e64886ac1ed699306c49474dcf5dc33f96f867d208f8d7e992')
+sha256sums=('1121d6457dac0efa64cd1efe326ba2147c25c27e2ade3e1043cdbd188ab828a1')
 
 build() {
   cd "${srcdir}"/${_pkgname}-${_pkgname}-${pkgver}
