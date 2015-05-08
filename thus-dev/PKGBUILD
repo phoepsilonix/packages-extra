@@ -35,7 +35,7 @@ else
    fi
 fi
 
-sha256sums=('fb67c55bba87c1e1f96d7947535b68a8b6c43afd0206dd7f83ed0c1f8a30b9b9')
+sha256sums=('f326b3e870ad66a7fea1ff4350803546e326a9fca8e5e6d44638adcd17110e2a')
 
 prepare() {
 	if [ "$_development" == "Yes" ] && [ "$_git" == "Yes" ]; then
