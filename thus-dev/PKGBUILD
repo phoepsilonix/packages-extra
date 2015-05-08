@@ -4,7 +4,7 @@
 
 _pkgname=thus
 pkgname=thus-dev
-pkgver=0.8.12.108
+pkgver=0.8.12.109
 pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
@@ -12,8 +12,8 @@ license=(GPL)
 url="https://github.com/manjaro/thus"
 depends=(coreutils cryptsetup ckbcomp gptfdisk grep libtimezonemap hwinfo lvm2 mhwd 
          pam_encfs python python-pyparted python-configobj python-gobject python-dbus 
-         python-cairo rsync sudo upower util-linux webkitgtk3 e2fsprogs dosfstools 
-         jfsutils ntfs-3g ntfsprogs reiserfsprogs xfsprogs ttf-aboriginal-sans
+         python-cairo python-yaml rsync sudo upower util-linux webkitgtk3 e2fsprogs 
+         dosfstools jfsutils ntfs-3g ntfsprogs reiserfsprogs xfsprogs ttf-aboriginal-sans
          ttf-indic-otf ttf-khmer ttf-lohit-fonts ttf-myanmar3 ttf-thaana-fonts 
          ttf-tlwg iso-codes)
 install=thus.install
@@ -22,7 +22,7 @@ conflicts=(thus)
 provides=(thus)
 _git=No
 _development=Yes
-_snapshot=93677b99b154988583c58b96ff37d34ef9462436
+_snapshot=950248a7a7ac0823bdd28b371676015c6cdab232
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
