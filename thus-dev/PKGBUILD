@@ -4,8 +4,8 @@
 
 _pkgname=thus
 pkgname=thus-dev
-pkgver=0.8.12.109
-pkgrel=1
+pkgver=0.8.12.201
+pkgrel=2
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
 license=(GPL)
@@ -22,7 +22,7 @@ conflicts=(thus)
 provides=(thus)
 _git=No
 _development=Yes
-_snapshot=950248a7a7ac0823bdd28b371676015c6cdab232
+_snapshot=8867aedd193a8aa88e284cd2e9699855ec351289
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
@@ -35,7 +35,7 @@ else
    fi
 fi
 
-sha256sums=('f326b3e870ad66a7fea1ff4350803546e326a9fca8e5e6d44638adcd17110e2a')
+sha256sums=('a1e97083cc36b1cbe2eefc9160a57ba25f18ca09fcf550c26eb6ade1eacedd51')
 
 prepare() {
 	if [ "$_development" == "Yes" ] && [ "$_git" == "Yes" ]; then
