@@ -1,6 +1,6 @@
 diff --git a/kcalc-15.04.0/kcalc.cpp b/kcalc-15.04.0/kcalc.cpp
---- a/kcalc-15.04.0/kcalc.cpp
-+++ b/kcalc-15.04.0/kcalc.cpp
+--- a/kcalc-15.04.1/kcalc.cpp
++++ b/kcalc-15.04.1/kcalc.cpp
 @@ -813,6 +813,79 @@
  	if (e->key() == Qt::Key_Control) {
  		emit switchShowAccels(true);

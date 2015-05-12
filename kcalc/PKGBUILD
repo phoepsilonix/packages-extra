@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kcalc
-pkgver=15.04.0
+pkgver=15.04.1
 pkgrel=1.1
 pkgdesc='Scientific Calculator'
 url='http://kde.org/applications/utilities/kcalc/'
@@ -16,8 +16,8 @@ replaces=('kdeutils-kcalc')
 groups=('kde-applications' 'kdeutils')
 install=${pkgname}.install
 source=("http://download.kde.org/stable/applications/${pkgver}/src/kcalc-${pkgver}.tar.xz" 'kcalc_numpadfix.patch')
-sha256sums=('cc97384644bcf04880b7b4f9a9eca6b724f5f3783db8450a5098179dfeea7b66'
-            'ff44c15f410f03549ac6c12685c1d27a02b35d7fe12ef18c93a9046b7d92524c')
+sha256sums=('aa8bfce92242a5f6a219a2c135aaf4c67e5f7018ee4435b540f14637c24947f0'
+            '6a83705255221c67f22a0a0424bed1b6eb08b1f043b8aed2b06f2204e4ec6bfd')
 
 prepare() {
   mkdir -p build
