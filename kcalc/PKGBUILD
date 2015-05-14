@@ -4,7 +4,7 @@
 
 pkgname=kcalc
 pkgver=15.04.1
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc='Scientific Calculator'
 url='http://kde.org/applications/utilities/kcalc/'
 arch=('i686' 'x86_64')
@@ -15,17 +15,11 @@ conflicts=('kdeutils-kcalc')
 replaces=('kdeutils-kcalc')
 groups=('kde-applications' 'kdeutils')
 install=${pkgname}.install
-source=("http://download.kde.org/stable/applications/${pkgver}/src/kcalc-${pkgver}.tar.xz" 'kcalc_numpadfix.patch')
-sha256sums=('aa8bfce92242a5f6a219a2c135aaf4c67e5f7018ee4435b540f14637c24947f0'
-            '6a83705255221c67f22a0a0424bed1b6eb08b1f043b8aed2b06f2204e4ec6bfd')
+source=("http://download.kde.org/stable/applications/${pkgver}/src/kcalc-${pkgver}.tar.xz")
+sha256sums=('aa8bfce92242a5f6a219a2c135aaf4c67e5f7018ee4435b540f14637c24947f0')
 
 prepare() {
   mkdir -p build
-  # Apply patch for 
-  # https://bugs.kde.org/show_bug.cgi?id=344638
-  # https://bugs.archlinux.org/task/44676
-  # Credits of code fix: Harald Pollak 
-  patch -p1 < ${srcdir}/kcalc_numpadfix.patch	|| return 1
 }
 
 build() {
