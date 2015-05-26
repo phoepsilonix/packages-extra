@@ -3,7 +3,7 @@
 
 pkgname=manjaro-settings-manager
 pkgver=0.4.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
@@ -18,8 +18,15 @@ replaces=('manjaro-system-settings')
 provides=('manjaro-system-settings')
 conflicts=('manjaro-system-settings')
 install=$pkgname.install
-source=("https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=('d3cc218f75f1b99e907dc9f3d34d56830e9651285902e1a075c34e96d0f196b4')
+source=("https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz"
+        "mark_linux319_ses.patch::https://github.com/manjaro/manjaro-settings-manager/commit/c1f0a68bb6fea6265d32877b2565d6469b44637b.patch")
+sha256sums=('d3cc218f75f1b99e907dc9f3d34d56830e9651285902e1a075c34e96d0f196b4'
+            '2a29753ae84286315d247270082eba42268017571acb1ef10c8f9c3220867f8c')
+
+prepare() {
+  cd "$srcdir/$pkgname-$pkgver/"
+  patch -Np1 -i "$srcdir/mark_linux319_ses.patch"
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver/src"
