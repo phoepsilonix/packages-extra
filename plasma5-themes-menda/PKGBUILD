@@ -5,7 +5,7 @@
 pkgbase=plasma5-themes-menda
 pkgname=('plasma5-themes-menda' 'sddm-menda-theme')
 pkgver=20150304
-pkgrel=1
+pkgrel=2
 arch=('any')
 url='https://github.com/manjaro/artwork-menda-plasma5'
 license=('LGPL')
@@ -31,8 +31,7 @@ package_plasma5-themes-menda() {
   pkgdesc='Artwork, styles and assets for the Menda visual style for the Plasma 5 Desktop'
   depends=('breeze' 'breeze-kde4' 'menda-circle-icon-theme' 'xcursor-menda')
   optdepends=('menda-themes: Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell'
-              'menda-themes-dark: Dark Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell'
-              'menda-square-icon-theme: Menda Square icon theme')
+              'menda-themes-dark: Dark Menda theme for Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell')
   replaces=('menda' 'menda-kde4' 'menda-plasma-desktop' 'menda-plasma-look-and-feel')
   cd build
   make DESTDIR="${pkgdir}" install
