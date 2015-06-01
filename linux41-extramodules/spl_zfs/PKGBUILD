@@ -1,0 +1,72 @@
+# Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
+# Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
+
+pkgbase=linux41-spl_zfs
+pkgname=('linux41-spl' 'linux41-zfs')
+pkgver=0.6.4
+pkgrel=0
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=('linux41')
+makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
+             'dkms'
+             'linux41' 'linux41-headers')
+groups=('linux41-extramodules')
+install=install
+
+source=('zfs-linux41.patch::https://github.com/mk01/zfs/commit/64e99f40ee2db96a3272e0fab52caec56938a129.patch')
+sha256sums=('f4ee9b036240edac92fe7dcc5b27f1f83b4a27b5e7d47884697c54c61db59f43')
+
+prepare() {
+  # dkms need modification to be run as user
+  cp -r /var/lib/dkms .
+  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  # workaround to patch spl for linux 4.1
+  rm -r $srcdir/dkms/zfs/$pkgver/source
+  cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source
+  cd $srcdir/dkms/zfs/$pkgver/source
+  patch -Np1 -i $srcdir/zfs-linux41.patch
+  ./autogen.sh
+}
+
+build() {
+  _extraver=extramodules-4.1-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+
+  # build host modules
+  msg2 'Build modules'
+  dkms --dkmsframework dkms.conf build "spl/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "zfs/$pkgver" -k "$_kernver"
+}
+
+package_linux41-zfs(){
+  _extraver=extramodules-4.1-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends=('linux41' "zfs-utils=${pkgver}")
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+}
+
+package_linux41-spl(){
+  _extraver=extramodules-4.1-MANJARO
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  _pkgname=spl
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("$_pkgname=$pkgver")
+  depends=('linux41' "spl-utils=${pkgver}")
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
+  cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+}

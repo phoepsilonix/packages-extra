@@ -1,0 +1,64 @@
+# Based on the file created for Arch Linux by:
+# Maintainer : Thomas Baechler <thomas@archlinux.org>
+
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
+
+
+_linuxprefix=linux41
+_extramodules=extramodules-4.1-MANJARO
+pkgname=$_linuxprefix-nvidia
+_pkgname=nvidia
+pkgver=349.16
+pkgrel=0
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+pkgdesc="NVIDIA drivers for linux."
+arch=('i686' 'x86_64')
+url="http://www.nvidia.com/"
+depends=("$_linuxprefix" "nvidia-utils=${pkgver}")
+makedepends=("$_linuxprefix-headers")
+conflicts=('nvidia-96xx' 'nvidia-173xx')
+license=('custom')
+install=nvidia.install
+options=(!strip)
+
+if [ "$CARCH" = "i686" ]; then
+    _arch='x86'
+    _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
+    source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+    sha256sums+=('35c8d00ece6a450e8e72aac2bff45e89ce40ffbe3278802e8a0b4ff65c793d11')
+elif [ "$CARCH" = "x86_64" ]; then
+    _arch='x86_64'
+    _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
+    source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+    sha256sums+=('7d1222cd83f653ece0fb1a1141738db1d3b9930fc8a2edfdd8902bf07c5bed6d')
+fi
+
+prepare() {
+    sh "${_pkg}.run" --extract-only
+    cd "${_pkg}"
+    # patches here
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    cd "${_pkg}"/kernel
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+
+    if [[ "$CARCH" = "x86_64" ]]; then
+        cd uvm
+        make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+    fi
+}
+
+package() {
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    if [[ "$CARCH" = "x86_64" ]]; then
+        install -D -m644 "${srcdir}/${_pkg}/kernel/uvm/nvidia-uvm.ko" \
+            "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
+    fi
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+}
