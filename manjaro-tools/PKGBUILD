@@ -11,8 +11,8 @@ depends=('namcap' 'openssh' 'rsync'  'mkinitcpio-nfs-utils' 'nbd'
 	'libisoburn' 'squashfs-tools' 'syslinux' 'haveged')
 optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
 	    'qemu: quickly test isos')
-provides=('devtools' 'arch-install-scripts' 'manjaroiso')
-conflicts=('devtools' 'arch-install-scripts' 'manjaroiso')
+provides=('devtools' 'manjaroiso')
+conflicts=('devtools' 'manjaroiso')
 backup=('etc/manjaro-tools/manjaro-tools.conf')
 install=${pkgname}.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")

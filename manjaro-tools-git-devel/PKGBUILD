@@ -12,8 +12,8 @@ depends=('namcap' 'openssh' 'rsync'  'mkinitcpio-nfs-utils' 'nbd'
          'libisoburn' 'squashfs-tools' 'syslinux' 'haveged')
 makedepends=('git' 'docbook2x')
 optdepends=('qemu: quickly test isos' 'manjaro-iso-profiles: Manjaro Linux ISO-Image profiles')
-provides=('devtools' 'arch-install-scripts' "manjaro-tools=$_pkgver" 'manjaroiso')
-conflicts=('devtools' 'arch-install-scripts' "manjaro-tools=$_pkgver" 'manjaroiso')
+provides=('devtools' "manjaro-tools=$_pkgver" 'manjaroiso')
+conflicts=('devtools' "manjaro-tools=$_pkgver" 'manjaroiso')
 backup=('etc/manjaro-tools/manjaro-tools.conf')
 
 _devel="YES"
