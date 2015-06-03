@@ -11,10 +11,10 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('')
+sha256sums=('767be1bced166b4ce96712cdab1257f9bbc10ba338550cdf5f3b6c4f29f978bb')
 
 prepare() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
 }
 
@@ -61,6 +61,8 @@ package_manjaro-tools-pkg() {
 package_manjaro-tools-iso() {
 	depends=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'manjaro-tools-base')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
+				'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
+				'manjaro-iso-profiles-openrc: Manjaro Linux ISO-Image openrc profiles'
 				'qemu: quickly test isos')
 	conflicts=('manjaroiso')
 
