@@ -4,14 +4,13 @@
 pkgname=manjaro-iso-profiles
 pkgver=0.8.12
 _git=1f660a914cbc74ceb56bd5805026f61a810d43a6
-pkgrel=3
 pkgver=0.9.0pre5
-pkgrel=1
+pkgrel=2
 pkgdesc='Manjaro Linux iso profiles'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
-depends=('manjaro-tools>=0.9.7')
+depends=('manjaro-tools-iso>=0.9.8')
 makedepends=('git')
 conflicts=('manjaroiso-profiles'
 	  'manjaroiso-openrc-profiles'
