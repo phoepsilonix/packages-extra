@@ -1,35 +1,69 @@
 # Maintainer: artoo <artoo@manjaro.org>
 
-pkgname=manjaro-tools
-pkgver=0.9.7.4
+pkgbase=manjaro-tools
+pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
+pkgver=0.9.8
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
+groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
-depends=('namcap' 'openssh' 'rsync'  'mkinitcpio-nfs-utils' 'nbd'
-	'libisoburn' 'squashfs-tools' 'syslinux' 'haveged')
-optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
-	    'qemu: quickly test isos')
-provides=('devtools' 'manjaroiso')
-conflicts=('devtools' 'manjaroiso')
-backup=('etc/manjaro-tools/manjaro-tools.conf')
-install=${pkgname}.install
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('fa194b47f3e22fa844d8806becee5f84184cd790ab8d1c7b7e7f216120074e96')
+makedepends=('docbook2x')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('')
 
 prepare() {
- cd ${srcdir}/${pkgname}-${pkgver}
- # patches here
+	cd ${srcdir}/${pkgname}-${pkgver}
+	# patches here
 }
 
 build() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr
 }
 
-package() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+package_manjaro-tools-base() {
+	depends=('openssh' 'rsync' 'mkinitcpio-nfs-utils' 'haveged')
+	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
+				'manjaro-tools-iso: Manjaro Linux iso tools')
+	conflicts=('manjaro-tools')
+	replaces=('manjaro-tools')
+	backup=('etc/manjaro-tools/manjaro-tools.conf')
+
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install
+
+	install -dm755 $srcdir/_pkg/usr/bin
+	install -dm755 $srcdir/_pkg/usr/lib/$pkgbase
+	mv $pkgdir/usr/bin/{buildpkg,buildtree,mkchrootpkg,finddeps,lddd,find-libdeps,find-libprovides,checkpkg} $srcdir/_pkg/usr/bin
+	mv $pkgdir/usr/lib/$pkgbase/{util-pkg.sh,util-pkgtree.sh} $srcdir/_pkg/usr/lib/$pkgbase
+
+	install -dm755 $srcdir/_iso/etc/$pkgbase/sets/iso
+	install -dm755 $srcdir/_iso/usr/bin
+	install -dm755 $srcdir/_iso/usr/lib/$pkgbase
+	install -dm755 $srcdir/_iso/usr/share/$pkgbase
+	mv $pkgdir/etc/$pkgbase/sets/iso/{openrc.set,official.set,community.set} $srcdir/_iso/etc/$pkgbase/sets/iso
+	mv $pkgdir/usr/bin/{buildiso,testiso} $srcdir/_iso/usr/bin
+	mv $pkgdir/usr/lib/$pkgbase/{util-iso*.sh,util-livecd.sh} $srcdir/_iso/usr/lib/$pkgbase
+	mv $pkgdir/usr/lib/initcpio $srcdir/_iso/usr/lib/initcpio/
+	mv $pkgdir/usr/share/$pkgbase/{scripts,efi_shell} $srcdir/_iso/usr/share/$pkgbase/
+	mv $pkgdir/usr/share/$pkgbase/{pacman-lng.conf,pacman-gfx.conf} $srcdir/_iso/usr/share/$pkgbase
 }
 
+package_manjaro-tools-pkg() {
+	depends=('namcap' 'manjaro-tools-base')
+	conflicts=('devtools')
+
+	mv "$srcdir/_pkg"/* "$pkgdir"
+}
+
+package_manjaro-tools-iso() {
+	provides=('manjaro-tools')
+	depends=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'manjaro-tools-base')
+	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
+				'qemu: quickly test isos')
+	conflicts=('manjaroiso')
+
+	mv "$srcdir/_iso"/* "$pkgdir"
+}
