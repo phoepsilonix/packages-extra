@@ -1,25 +1,53 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-pkgname=manjaro-iso-profiles
-pkgver=0.8.12
-_git=1f660a914cbc74ceb56bd5805026f61a810d43a6
-pkgver=0.9.0pre5
-pkgrel=2
-pkgdesc='Manjaro Linux iso profiles'
+_git=5c745a4c1f639889d7f8f005ff294d94d0089096
+
+pkgbase=manjaro-iso-profiles
+pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
+pkgver=0.9.0pre6
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
-depends=('manjaro-tools-iso>=0.9.8')
+groups=('manjaro-tools')
 makedepends=('git')
-conflicts=('manjaroiso-profiles'
-	  'manjaroiso-openrc-profiles'
-	  'manjaroiso-community-profiles')
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('448d233d218a943df9335ba29fefcae7003127764c0ee51517480b558b24e83b')
+sha256sums=('100ade74961e87fd9c3828117a610bacf93ecc8fedb4a1209f26a2f5f958df43')
 
-package() {
+package_manjaro-iso-profiles() {
+	pkgdesc='Manjaro Linux official iso profiles'
+	depends=('manjaro-tools-iso>=0.9.8')
+	conflicts=('manjaroiso-profiles'
+			'manjaroiso-openrc-profiles'
+			'manjaroiso-community-profiles')
+
 	cd *iso-profiles-${_git}
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
 	cp -a * $pkgdir/usr/share/manjaro-tools/iso-profiles
+
+	install -dm 0755 $srcdir/_community
+	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{cinnamon,lxqt,net,openbox,enlightenment,netbook,gnome,lxde,mate,pantheon,net-minimal,sysmenu} $srcdir/_community
+
+	install -dm 0755 $srcdir/_openrc
+	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{lxqt-openrc,xfce-openrc,kde-openrc,net-openrc} $srcdir/_openrc
+}
+
+package_manjaro-iso-profiles-community() {
+	pkgdesc='Manjaro Linux community iso profiles'
+	depends=('manjaro-iso-profiles')
+
+	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
+
+	mv $srcdir/_community/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
+
+}
+
+package_manjaro-iso-profiles-openrc() {
+	pkgdesc='Manjaro Linux openrc profiles'
+	depends=('manjaro-iso-profiles')
+
+	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
+
+	mv $srcdir/_openrc/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
