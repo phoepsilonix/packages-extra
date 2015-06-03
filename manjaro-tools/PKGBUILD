@@ -59,7 +59,6 @@ package_manjaro-tools-pkg() {
 }
 
 package_manjaro-tools-iso() {
-	provides=('manjaro-tools')
 	depends=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'manjaro-tools-base')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
 				'qemu: quickly test isos')

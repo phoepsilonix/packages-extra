@@ -37,8 +37,7 @@ package_manjaro-tools-base-git() {
 	depends=('openssh' 'rsync' 'haveged')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
 				'manjaro-tools-iso: Manjaro Linux iso tools')
-	conflicts=('manjaro-tools')
-	replaces=('manjaro-tools')
+	conflicts=('manjaro-tools' 'manjaro-tools-git' 'manjaro-tools-base')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
 
 	cd ${srcdir}/${_pkgbase}
@@ -64,18 +63,18 @@ package_manjaro-tools-base-git() {
 package_manjaro-tools-pkg-git() {
 	provides=("manjaro-tools-pkg=$_pkgver")
 	depends=('namcap' 'manjaro-tools-base-git')
-	conflicts=('devtools')
+	conflicts=('manjaro-tools-pkg' 'devtools')
 
 	mv "$srcdir/_pkg"/* "$pkgdir"
 }
 
 package_manjaro-tools-iso-git() {
-	provides=("manjaro-tools-iso=$_pkgver" 'manjaro-tools')
+	provides=("manjaro-tools-iso=$_pkgver")
 	depends=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
 			'manjaro-tools-base-git' 'mkinitcpio-nfs-utils')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
 				'qemu: quickly test isos')
-	conflicts=('manjaroiso')
+	conflicts=('manjaro-tools-iso' 'manjaroiso')
 
 	mv "$srcdir/_iso"/* "$pkgdir"
 }
