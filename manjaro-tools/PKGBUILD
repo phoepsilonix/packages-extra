@@ -3,7 +3,7 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.9.8
-pkgrel=1
+pkgrel=3
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
@@ -24,7 +24,7 @@ build() {
 }
 
 package_manjaro-tools-base() {
-	depends=('openssh' 'rsync' 'mkinitcpio-nfs-utils' 'haveged')
+	depends=('openssh' 'rsync' 'haveged')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
 				'manjaro-tools-iso: Manjaro Linux iso tools')
 	conflicts=('manjaro-tools')
@@ -36,7 +36,7 @@ package_manjaro-tools-base() {
 
 	install -dm755 $srcdir/_pkg/usr/bin
 	install -dm755 $srcdir/_pkg/usr/lib/$pkgbase
-	mv $pkgdir/usr/bin/{buildpkg,buildtree,mkchrootpkg,finddeps,lddd,find-libdeps,find-libprovides,checkpkg} $srcdir/_pkg/usr/bin
+	mv $pkgdir/usr/bin/{buildpkg,buildtree,mkchrootpkg,finddeps,lddd,find-libdeps,find-libprovides,checkpkg,signpkg,signpkgs} $srcdir/_pkg/usr/bin
 	mv $pkgdir/usr/lib/$pkgbase/{util-pkg.sh,util-pkgtree.sh} $srcdir/_pkg/usr/lib/$pkgbase
 
 	install -dm755 $srcdir/_iso/etc/$pkgbase/sets/iso
@@ -59,7 +59,7 @@ package_manjaro-tools-pkg() {
 }
 
 package_manjaro-tools-iso() {
-	depends=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'manjaro-tools-base')
+	depends=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'manjaro-tools-base' 'mkinitcpio-nfs-utils')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
 				'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
 				'manjaro-iso-profiles-openrc: Manjaro Linux ISO-Image openrc profiles'

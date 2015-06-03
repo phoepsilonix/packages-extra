@@ -45,7 +45,7 @@ package_manjaro-tools-base-git() {
 
 	install -dm755 $srcdir/_pkg/usr/bin
 	install -dm755 $srcdir/_pkg/usr/lib/$_pkgbase
-	mv $pkgdir/usr/bin/{buildpkg,buildtree,mkchrootpkg,finddeps,lddd,find-libdeps,find-libprovides,checkpkg} $srcdir/_pkg/usr/bin
+	mv $pkgdir/usr/bin/{buildpkg,buildtree,mkchrootpkg,finddeps,lddd,find-libdeps,find-libprovides,checkpkg,signpkg,signpkgs} $srcdir/_pkg/usr/bin
 	mv $pkgdir/usr/lib/$_pkgbase/{util-pkg.sh,util-pkgtree.sh} $srcdir/_pkg/usr/lib/$_pkgbase
 
 	install -dm755 $srcdir/_iso/etc/$_pkgbase/sets/iso
