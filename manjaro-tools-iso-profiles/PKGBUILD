@@ -6,7 +6,7 @@ _git=5c745a4c1f639889d7f8f005ff294d94d0089096
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
 pkgver=0.9.0pre6
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
@@ -27,7 +27,7 @@ package_manjaro-iso-profiles() {
 	cp -a * $pkgdir/usr/share/manjaro-tools/iso-profiles
 
 	install -dm 0755 $srcdir/_community
-	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{cinnamon,lxqt,net,openbox,enlightenment,netbook,gnome,lxde,mate,pantheon,net-minimal,sysmenu} $srcdir/_community
+	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{cinnamon,lxqt,net,openbox,enlightenment,i3,netbook,gnome,lxde,mate,pantheon,net-minimal,sysmenu} $srcdir/_community
 
 	install -dm 0755 $srcdir/_openrc
 	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{lxqt-openrc,xfce-openrc,kde-openrc,net-openrc} $srcdir/_openrc
