@@ -2,11 +2,11 @@
 
 _branch=devel
 _pkgbase=manjaro-tools
-_pkgver=0.9.8
+_pkgver=0.9.9
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1276.120bfcb
+pkgver=r1292.13e0518
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
@@ -45,19 +45,27 @@ package_manjaro-tools-base-git() {
 
 	install -dm755 $srcdir/_pkg/usr/bin
 	install -dm755 $srcdir/_pkg/usr/lib/$_pkgbase
+	install -dm755 $srcdir/_pkg/usr/share/$_pkgbase
+	install -dm755 $srcdir/_pkg/usr/share/man/man1
 	mv $pkgdir/usr/bin/{buildpkg,buildtree,mkchrootpkg,finddeps,lddd,find-libdeps,find-libprovides,checkpkg,signpkg,signpkgs} $srcdir/_pkg/usr/bin
 	mv $pkgdir/usr/lib/$_pkgbase/{util-pkg.sh,util-pkgtree.sh} $srcdir/_pkg/usr/lib/$_pkgbase
+	mv $pkgdir/usr/share/$_pkgbase/{makepkg-x86_64.conf,makepkg-i686.conf} $srcdir/_pkg/usr/share/$_pkgbase
+	mv $pkgdir/usr/share/man/man1/{buildpkg.1.gz,buildtree.1.gz} $srcdir/_pkg/usr/share/man/man1
 
 	install -dm755 $srcdir/_iso/etc/$_pkgbase/sets/iso
 	install -dm755 $srcdir/_iso/usr/bin
 	install -dm755 $srcdir/_iso/usr/lib/$_pkgbase
 	install -dm755 $srcdir/_iso/usr/share/$_pkgbase
+	install -dm755 $srcdir/_iso/usr/share/man/man1
+	install -dm755 $srcdir/_iso/usr/share/man/man5
 	mv $pkgdir/etc/$_pkgbase/sets/iso/{openrc.set,official.set,community.set} $srcdir/_iso/etc/$_pkgbase/sets/iso
 	mv $pkgdir/usr/bin/{buildiso,testiso} $srcdir/_iso/usr/bin
 	mv $pkgdir/usr/lib/$_pkgbase/{util-iso*.sh,util-livecd.sh} $srcdir/_iso/usr/lib/$_pkgbase
 	mv $pkgdir/usr/lib/initcpio $srcdir/_iso/usr/lib/initcpio/
 	mv $pkgdir/usr/share/$_pkgbase/{scripts,efi_shell} $srcdir/_iso/usr/share/$_pkgbase/
-	mv $pkgdir/usr/share/$_pkgbase/{pacman-lng.conf,pacman-gfx.conf} $srcdir/_iso/usr/share/$_pkgbase
+	mv $pkgdir/usr/share/$_pkgbase/{pacman-lng.conf,pacman-gfx.conf,profile.conf.example} $srcdir/_iso/usr/share/$_pkgbase
+	mv $pkgdir/usr/share/man/man1/buildiso.1.gz $srcdir/_iso/usr/share/man/man1
+	mv $pkgdir/usr/share/man/man5/profile.conf.5.gz $srcdir/_iso/usr/share/man/man5
 }
 
 package_manjaro-tools-pkg-git() {
