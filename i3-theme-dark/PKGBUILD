@@ -1,0 +1,15 @@
+# Maintainer: Bernhard Landauer <oberon_at_manjaro_dot_org>
+# Contributor: herbie643
+pkgname=('i3-theme-dark')
+pkgver=20150607
+pkgrel=1
+arch=('any')
+url="https://github.com/oberon2007/artwork-i3"
+depends=('gtk-xfce-engine' 'gtk-engine-murrine')
+source=("${url}/blob/master/${pkgname}-${pkgver}-${pkgrel}.tar.gz")
+sha1sums=('SKIP')
+package_i3-theme-dark() {
+pkgdesc="Dark gtk-theme for manjaro-i3"
+install -dm755 "${pkgdir}/usr/share/themes"
+cp -r "${srcdir}" "${pkgdir}/usr/share/themes"
+}
