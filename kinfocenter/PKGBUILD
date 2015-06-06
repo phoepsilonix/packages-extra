@@ -5,7 +5,7 @@
 
 pkgname=kinfocenter
 pkgver=5.3.1
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
@@ -16,13 +16,19 @@ conflicts=('kdebase-workspace')
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
         'manjaro-logo.svg'
-        'kcm-about-distrorc')
+        'kcm-about-distrorc'
+        'rb123995.patch')
 md5sums=('571e4fb927ed7038c970eabce41426d3'
          '70743e3b0115c209d828f6323e7ba449'
-         '97f52dc1d8dcfc96b5de7c9f823a021b')
+         '97f52dc1d8dcfc96b5de7c9f823a021b'
+         '769ebb9c431b323bdfa0d5a53bd6c2da')
 
 prepare() {
-  mkdir build
+  mkdir -p build
+  # BUG: 344971 
+  # https://bugs.kde.org/show_bug.cgi?id=344971
+  # https://git.reviewboard.kde.org/r/123995/
+  patch -p1 -i "$srcdir"/rb123995.patch
 }
 
 build() {
