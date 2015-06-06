@@ -3,19 +3,22 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.9.8
-pkgrel=3
+pkgrel=4
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('767be1bced166b4ce96712cdab1257f9bbc10ba338550cdf5f3b6c4f29f978bb')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "lightdm-autologin.patch::https://github.com/manjaro/manjaro-tools/commit/572ffea547b95f5d8d417a63a943bbe3aeaa1596.patch")
+sha256sums=('767be1bced166b4ce96712cdab1257f9bbc10ba338550cdf5f3b6c4f29f978bb'
+            'e7da0339c6fdec06b7ec16195c3e35e0d81495941210f9c4e5862efef33bc739')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -Np1 -i "${srcdir}/lightdm-autologin.patch"
 }
 
 build() {
