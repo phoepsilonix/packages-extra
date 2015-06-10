@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=1.30
-pkgver=1.0.$_pointver
-pkgrel=2
+_pointver=0
+pkgver=1.1rc1
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,7 +17,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=30408d34a18fea8e6502489f017108841c68daab
+_snapshot_master=1aa3d5af6e96f988079105135504ed1d6382f30b
 _snapshot_manjaro=da2ce41c807792661212143ae4487637b91352ba
 
 if [ "$_git" == "Yes" ]; then
@@ -28,7 +28,7 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('c0e16d7854b6388d3cf70413a7a906cefe9d2c395b98dc1ab9ca170df3f7f81e'
+sha256sums=('d8d0b686a321b8d1e229ce125ab5da93302e65c056170d45500d3f4578f98592'
             '9533675bc4222145bfa1b5ebdcaf2cf25b80b39aeb7691f138a55e28bc89250b')
 
 pkgver() {
@@ -43,9 +43,9 @@ pkgver() {
 	fi
 	if [ "$_git" == "Yes" ]; then
 		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "1.0.1.$(date +%m%d).`git describe --always`"
-		#echo "1.0.1$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 1.0.1.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		#echo "1.1rc1.$(date +%m%d).`git describe --always`"
+		#echo "1.1rc1$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+		echo 1.1rc1.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 	else
 		echo "$pkgver"
 	fi

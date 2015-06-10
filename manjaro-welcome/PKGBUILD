@@ -3,7 +3,7 @@
 
 pkgname=manjaro-welcome
 pkgver=0.8.13
-pkgrel=1
+pkgrel=3
 pkgdesc="The Manjaro Welcome utility provides a simple interface for accessing all the relevant information for a new user of Manjaro."
 arch=(any)
 url="https://github.com/manjaro/$pkgname"
@@ -40,5 +40,6 @@ package() {
     install -D -m644 ${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
     install -D -m755 "${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
     install -D -m755 "${pkgname}-terminal" "${pkgdir}/usr/bin/${pkgname}-terminal"
+    install -D -m755 "${pkgname}-terminal" "${pkgdir}/usr/bin/${pkgname}-irc"
 
 }

@@ -10,7 +10,7 @@
 pkgname=linux41-r8168
 _pkgname=r8168
 pkgver=8.039.00
-pkgrel=0
+pkgrel=0.1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -20,14 +20,14 @@ makedepends=('linux41-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux41-extramodules')
 source=("http://r8168dl.appspot.com/files/r8168-${pkgver}.tar.bz2"
-        'linux41.patch')
+        'linux40.patch')
 sha256sums=('767d922270274e781d8d42493a0021db1cafcb0388ac62564d0c0c3d82703edd'
             'e6087439b30c8f6c26113c182dd1f95044d918241b1c281b6e84b9a334e68910')
 install=$_pkgname.install
 
 prepare() {
 	cd "$_pkgname-$pkgver"
-	patch -p1 -i "$srcdir"/linux41.patch
+	patch -p1 -i "$srcdir"/linux40.patch
 }
 
 build() {
