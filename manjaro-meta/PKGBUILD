@@ -9,7 +9,7 @@ pkgname=('manjaro-alsa'
 )
 
 pkgver=2015.06
-pkgrel=1
+pkgrel=2
 url="www.manjaro.org"
 license=('GPL')
 
@@ -58,5 +58,6 @@ package_manjaro-printer() {
 		"hplip"
 		"python-gobject"
 		"python-pyqt4"
-		"splix")
+		"splix"
+		"system-config-printer")
 }
