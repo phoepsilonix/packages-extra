@@ -4,7 +4,7 @@ pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
 pkgver=0.8.13
 _gitcommit=8eeabf46760c386fa8faf0d491fbfda634c40277
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
 makedepends=(lyx texlive-pictures texlive-latexextra ttf-comfortaa ghostscript)
@@ -22,6 +22,4 @@ package() {
   license=('CC-BY-SA 4.0')
   cd ${srcdir}/manjaro-user-guide*
   install -Dm644 manjaro-user-guide-printer.pdf "${pkgdir}/usr/share/doc/livecd/Beginner_User_Guide.pdf"
-  mkdir -p ${pkgdir}/etc/skel/Manjaro
-  ln -s "/usr/share/doc/livecd/Beginner_User_Guide.pdf" "${pkgdir}/etc/skel/Manjaro/Beginner_User_Guide.pdf"
 }
