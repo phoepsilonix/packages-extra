@@ -11,7 +11,7 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('')
+sha256sums=('4c6c3d0387684ec7c3d03579a8b3f18b7cbdd1733d253547b7207e93f446a864')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}

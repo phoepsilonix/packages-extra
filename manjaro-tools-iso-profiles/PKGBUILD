@@ -1,36 +1,34 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_git=5c745a4c1f639889d7f8f005ff294d94d0089096
-
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
-pkgver=0.9.0pre6
-pkgrel=3
+pkgver=0.9.9
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 groups=('manjaro-tools')
 makedepends=('git')
-source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('100ade74961e87fd9c3828117a610bacf93ecc8fedb4a1209f26a2f5f958df43')
+source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}.tar.gz")
+sha256sums=('060abb7ea1c822f62fcda3bbdbab26a997084993ba71b6b13e86baab9ac813a6')
 
 package_manjaro-iso-profiles() {
 	pkgdesc='Manjaro Linux official iso profiles'
 	depends=('manjaro-tools-iso>=0.9.8')
 	conflicts=('manjaroiso-profiles'
-			'manjaroiso-openrc-profiles'
-			'manjaroiso-community-profiles')
+		'manjaroiso-openrc-profiles'
+		'manjaroiso-community-profiles')
 
-	cd *iso-profiles-${_git}
+	cd *iso-profiles-${pkgver}
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
 	cp -a * $pkgdir/usr/share/manjaro-tools/iso-profiles
 
 	install -dm 0755 $srcdir/_community
-	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{cinnamon,lxqt,net,openbox,enlightenment,i3,netbook,gnome,lxde,mate,pantheon,net-minimal,sysmenu} $srcdir/_community
+	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{cinnamon,lxqt,openbox,enlightenment,i3,netbook,gnome,lxde,mate,pantheon,net-minimal,sysmenu,lxqt-minimal} $srcdir/_community
 
 	install -dm 0755 $srcdir/_openrc
-	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{lxqt-openrc,xfce-openrc,kde-openrc,net-openrc} $srcdir/_openrc
+	mv $pkgdir/usr/share/manjaro-tools/iso-profiles/{xfce-openrc,net-openrc} $srcdir/_openrc
 }
 
 package_manjaro-iso-profiles-community() {
@@ -40,7 +38,6 @@ package_manjaro-iso-profiles-community() {
 	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
 
 	mv $srcdir/_community/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
-
 }
 
 package_manjaro-iso-profiles-openrc() {
