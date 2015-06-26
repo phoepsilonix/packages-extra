@@ -2,7 +2,7 @@
 
 pkgname=calamares
 _pointver=0
-pkgver=1.1rc3
+pkgver=1.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -10,14 +10,14 @@ license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'parted' 'boost' 'hwinfo' 'qt5-svg' 'polkit-qt5')
-makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'git')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=dc351f950da3a8764f0553e647289337768a62c5
+_snapshot_master=d6362bc36418952c130eaf4ec8680a1794346f36
 _snapshot_manjaro=70c899716c47d81efd593197fc8cf40133f6c385
 
 if [ "$_git" == "Yes" ]; then
@@ -28,7 +28,7 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('dec19d3542b07ac7725b4eabe62cfd2e7a089bf2a3a8090563d1bb2f5fcadc0d'
+sha256sums=('3b02858e25fce424e0213ff77de45c7ec9c66f4a14ab1596a30f2469cf22289d'
             'a9c2a0c24d65b8c1d16a389ab71bb1e8dbccbca0dfe38238377ce08be10f9209')
 
 pkgver() {
@@ -43,9 +43,9 @@ pkgver() {
 	fi
 	if [ "$_git" == "Yes" ]; then
 		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "1.1rc3.$(date +%m%d).`git describe --always`"
-		#echo "1.1rc3$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 1.1rc3.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		#echo "1.1.$(date +%m%d).`git describe --always`"
+		#echo "1.1$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+		echo 1.1.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 	else
 		echo "$pkgver"
 	fi
@@ -66,7 +66,7 @@ prepare() {
 		cd "$srcdir/$pkgname.git"
 	fi
 
-	sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
+	#sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
 
 	if [ "$_git" == "Yes" ]; then
 		git submodule init
