@@ -3,19 +3,22 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.9.9
-pkgrel=1
+pkgrel=3
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('4c6c3d0387684ec7c3d03579a8b3f18b7cbdd1733d253547b7207e93f446a864')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+	"backport-fixes.patch::https://github.com/manjaro/manjaro-tools/compare/0.9.9...master.patch")
+sha256sums=('4c6c3d0387684ec7c3d03579a8b3f18b7cbdd1733d253547b7207e93f446a864'
+            '812c246d106c33e6ea8b8438a4da755021eb6e01ef8a7d181a0f5af606dd6e9a')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -p1 -i "${srcdir}/backport-fixes.patch"
 }
 
 build() {
