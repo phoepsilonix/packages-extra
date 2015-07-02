@@ -22,8 +22,9 @@ conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia")
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=('nvidia-3.18.patch')
-sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35') 
+source=('nvidia-3.18.patch' 'nvidia-3.18.17.patch')
+sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35'
+            '860cbc4c5c511934744241f251566611f2df697b0114b3f8d39cd94a0fe8c270') 
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
@@ -44,6 +45,7 @@ prepare() {
   # patches here
   # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
   patch -Np0 -i ${srcdir}/nvidia-3.18.patch
+  patch -Np0 -i ${srcdir}/nvidia-3.18.17.patch
 }
 
 build() {
