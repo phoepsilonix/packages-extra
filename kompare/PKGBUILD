@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kompare
-pkgver=15.04.2
+pkgver=15.04.3
 pkgrel=1.1
 pkgdesc='Diff/Patch Frontend'
 url='http://kde.org/applications/development/kompare/'
@@ -18,7 +18,7 @@ replaces=('kdesdk-kompare')
 source=("http://download.kde.org/stable/applications/${pkgver}/src/kompare-${pkgver}.tar.xz" 
         "0001-Fix-only-show-directories-in-compare-files-dialog.patch"
         "save-preferences.patch")
-sha1sums=('4108d51a4644f9f9e935070cab309a19f7dddcd4'
+sha1sums=('a3d18f0a17b5c040469c0bd149cd2dc44b8f7a89'
           '75719cc39852605d929e71aea4eef8ba506c2a4e'
           '8c4271c98bfb200c1630c37167aa410a775dcbf2')
 
