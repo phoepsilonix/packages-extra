@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=0
-pkgver=1.1
-pkgrel=3
+_pointver=1
+pkgver=1.1.${_pointver}
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,8 +17,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=3326ec4ace7d723b989823672fd4a858dd98cd15
-_snapshot_manjaro=70c899716c47d81efd593197fc8cf40133f6c385
+_snapshot_master=d9e80aeec623a8333d5bc9c47d9df5d214ae8545
+_snapshot_manjaro=999df673e29530e3266473414a75b06442a38e36
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git
@@ -28,8 +28,8 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('4bec80b32c958dc3db351d4df7da0e47f986dbebfdb49b299d6dc77c9f0d2e30'
-            'a9c2a0c24d65b8c1d16a389ab71bb1e8dbccbca0dfe38238377ce08be10f9209')
+sha256sums=('350866c658f7f1fd49d8d9153728d9a6680ea7a1e26f9cf0f22e4061960d82c8'
+            'df3166a538fd01c1c17f9b31b48efe6f8fa144da59ca71c3f29161737accc40a')
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
@@ -43,9 +43,9 @@ pkgver() {
 	fi
 	if [ "$_git" == "Yes" ]; then
 		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "1.1.$(date +%m%d).`git describe --always`"
-		#echo "1.1$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 1.1.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		#echo "1.1.1.$(date +%m%d).`git describe --always`"
+		#echo "1.1.1$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+		echo 1.1.1$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 	else
 		echo "$pkgver"
 	fi
