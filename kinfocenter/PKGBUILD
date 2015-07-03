@@ -21,7 +21,7 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz
 md5sums=('baf95f4bd09e886f3d25b5f2799cf2d8'
          '70743e3b0115c209d828f6323e7ba449'
          '97f52dc1d8dcfc96b5de7c9f823a021b'
-         '769ebb9c431b323bdfa0d5a53bd6c2da')
+         '49c0f1480d57dc66c43322539a4c337a')
 
 prepare() {
   mkdir -p build

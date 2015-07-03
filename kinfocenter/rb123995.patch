@@ -1,7 +1,7 @@
-diff --git a/kinfocenter-5.3.1/Modules/opengl/opengl.cpp b/kinfocenter-5.3.1/Modules/opengl/opengl.cpp
+diff --git a/kinfocenter-5.3.2/Modules/opengl/opengl.cpp b/kinfocenter-5.3.2/Modules/opengl/opengl.cpp
 index c87cde8e0746c31e29d1d1ebb2dc3ca389317401..1e5e6d3257255d474d1fa6a97c9622246e306d44 100644
---- a/kinfocenter-5.3.1/Modules/opengl/opengl.cpp
-+++ b/kinfocenter-5.3.1/Modules/opengl/opengl.cpp
+--- a/kinfocenter-5.3.2/Modules/opengl/opengl.cpp
++++ b/kinfocenter-5.3.2/Modules/opengl/opengl.cpp
 @@ -933,8 +933,6 @@ bool GetInfo_OpenGL(QTreeWidget *treeWidget)
  
              l2 = get_gl_info_glx(dpy, scrnum, true, l1, l2);
