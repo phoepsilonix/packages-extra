@@ -35,7 +35,7 @@ build() {
 
 package_manjaro-tools-base-git() {
 	provides=("manjaro-tools-base=$_pkgver")
-	depends=('openssh' 'rsync' 'haveged')
+	depends=('openssh' 'rsync' 'haveged' 'os-prober')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
 				'manjaro-tools-iso: Manjaro Linux iso tools')
 	conflicts=('manjaro-tools' 'manjaro-tools-git' 'manjaro-tools-base')
