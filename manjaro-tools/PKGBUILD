@@ -3,19 +3,31 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.9.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('f66fd4740c0653cf2ce418885dd8204c76c0cd33693370dc475a77c5dfd1fb40')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+		"manjaro-chroot-help-fix.patch::${url}/commit/29f27d76dbfe73cda0fafdab332e0d9126e453ec.patch"
+		"mhwd-image.patch::${url}/commit/d9ab8e24f6190274c6b478d42d84f4ea7c72e739.patch"
+		"isomounts-fix.patch::${url}/commit/f917adf6aeb7c9bf0848bb9a5d3095db5ffddcfc.patch"
+		"isomounts-typo-fix.patch::${url}/commit/b8af0b74272cd43d567df3f9cdd76f4f13118526.patch")
+sha256sums=('f66fd4740c0653cf2ce418885dd8204c76c0cd33693370dc475a77c5dfd1fb40'
+            '80dbfffaa4946bf936206e7370efafd0619b63ef725d2a1955e4d16f237e2f5e'
+            'd64e53cf039873badd330024e8be2246224ec8a26ea691b9962381d37e22e4fa'
+            'f637b965911d3a116a87378b6c7b2a2a5cd4a60785a3c4f1366d672389ba4edb'
+            'ec2983b945dba0a1ce1063e74aacce7e265b641f9398ba879a06ec771a5cfe45')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -Np1 -i ${srcdir}/manjaro-chroot-help-fix.patch
+	patch -Np1 -i ${srcdir}/mhwd-image.patch
+	patch -Np1 -i ${srcdir}/isomounts-fix.patch
+	patch -Np1 -i ${srcdir}/isomounts-typo-fix.patch
 }
 
 build() {
