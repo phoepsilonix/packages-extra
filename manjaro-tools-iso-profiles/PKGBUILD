@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
-pkgver=0.9.9
+pkgver=0.9.10
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
@@ -11,7 +11,7 @@ license=('GPL')
 groups=('manjaro-tools')
 makedepends=('git')
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}.tar.gz")
-sha256sums=('060abb7ea1c822f62fcda3bbdbab26a997084993ba71b6b13e86baab9ac813a6')
+sha256sums=('f9aafa68e9fa4132b655466a53ec0cd861bd85c34c19228908924d535b84834d')
 
 package_manjaro-iso-profiles() {
 	pkgdesc='Manjaro Linux official iso profiles'

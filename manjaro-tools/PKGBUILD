@@ -2,23 +2,20 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.9.9
-pkgrel=5
+pkgver=0.9.10
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	"backport-fixes.patch::https://github.com/manjaro/manjaro-tools/compare/0.9.9...master.patch")
-sha256sums=('4c6c3d0387684ec7c3d03579a8b3f18b7cbdd1733d253547b7207e93f446a864'
-            '2c9bfd327fa90e49ee3b9d1e27218e22b1e34be7fd76081faa8892d63e6b3fdd')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('f66fd4740c0653cf2ce418885dd8204c76c0cd33693370dc475a77c5dfd1fb40')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -p1 -i "${srcdir}/backport-fixes.patch"
 }
 
 build() {
@@ -28,7 +25,7 @@ build() {
 
 package_manjaro-tools-base() {
 # 	pkgdesc='Chroot tools for Manjaro Linux'
-	depends=('openssh' 'rsync' 'haveged')
+	depends=('openssh' 'rsync' 'haveged' 'os-prober')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
 				'manjaro-tools-iso: Manjaro Linux iso tools')
 	conflicts=('manjaro-tools')
