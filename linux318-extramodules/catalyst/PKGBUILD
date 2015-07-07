@@ -29,6 +29,7 @@ source=(#http://geeko.ioda.net/mirror/amd-fglrx/raw-src/amd-catalyst-${_tarball}
         makefile_compat.patch
         kolasa_fglrx_312.patch
 	cold-fglrx-3.14-current_euid.patch
+	manjaro_fglrx_31817.patch
 	LICENSE.TXT)
 
 sha256sums=('a4ad20d53f790d5105351a5627fadbf02fe4945582abf2b93a337b1bbaa0b033'
@@ -38,8 +39,8 @@ sha256sums=('a4ad20d53f790d5105351a5627fadbf02fe4945582abf2b93a337b1bbaa0b033'
             'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
             '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d'
             '8095031ee68edbb67323a562b54c9cf46aade7c91738950467b91eda68e434ee'
-            '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47'
-)
+            '263ad58e282ef3109f2150a0b34c85e05c64e6bbe9b34f31aeb65311f87dfa8c'
+            '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
 	#cd ${srcdir}/fglrx-$_pkgver
@@ -81,6 +82,7 @@ build() {
 
 	cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
         patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
+        patch -Np5 -i ${srcdir}/manjaro_fglrx_31817.patch
 	cp "${srcdir}/fglrx-$_pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
