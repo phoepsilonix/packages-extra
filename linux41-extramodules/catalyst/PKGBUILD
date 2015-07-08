@@ -6,10 +6,11 @@ _linuxprefix=linux41
 _extramodules=extramodules-4.1-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
-pkgver=15.200
-pkgrel=0.1
-_pkgver=15.200
-_tarball=15.200
+pkgver=15.20.1046
+pkgrel=1
+epoch=1
+_pkgver=15.20.1046
+_tarball=15.20.1046
 provides=("$_pkgname=$_pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -21,8 +22,8 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(#http://geeko.ioda.net/mirror/amd-fglrx/raw-src/amd-catalyst-${_tarball}.zip
-        https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
+source=(http://www2.ati.com/drivers/linux/amd-driver-installer-${_tarball}-x86.x86_64.zip
+        #https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
         lano1106_kcl_agp_13_4.patch
@@ -33,7 +34,7 @@ source=(#http://geeko.ioda.net/mirror/amd-fglrx/raw-src/amd-catalyst-${_tarball}
         kolasa_fglrx_4.1.patch
 	LICENSE.TXT)
 
-sha256sums=('a4ad20d53f790d5105351a5627fadbf02fe4945582abf2b93a337b1bbaa0b033'
+sha256sums=('ffde64203f49d9288eaa25f4d744187b6f4f14a87a444bab6a001d822b327a9d'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
             'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
             '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
@@ -41,19 +42,21 @@ sha256sums=('a4ad20d53f790d5105351a5627fadbf02fe4945582abf2b93a337b1bbaa0b033'
             '8fe103d8c0ae676d68ea518337024126bcdda7fc7befd57d5d2545e4f160736d'
             '8095031ee68edbb67323a562b54c9cf46aade7c91738950467b91eda68e434ee'
             '388ba7393b8bd00e641f61c61bc4b10dc0c972a9b0324d216878fb12731dc0ba'
-            '7be22166f5af8d5ecd1badea9a75af657ec689afe6b3bd81c163a4ee9c33938a'
+            'e2c51ca60a452b78854a7e7c739dc9ccce4650cde882026cf5e01dd4afb9340c'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
 	#cd ${srcdir}/fglrx-$_pkgver
-	#/bin/sh ./amd-driver-installer-${_pkgver}-x86.x86_64.run --extract archive_files
+	/bin/sh ./amd-driver-installer-${_pkgver}-x86.x86_64.run --extract archive_files
 	#/bin/sh ./amd-catalyst-${_pkgver}-linux-x86.x86_64.run --extract archive_files
 
 	# move files
-	mkdir common
-	mv etc lib usr common
-	mkdir -p fglrx-$_pkgver/archive_files
-	mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
+	#mkdir common
+	#mv etc lib usr common
+	#mkdir -p fglrx-$_pkgver/archive_files
+	#mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
+	mkdir -p fglrx-$_pkgver
+	mv archive_files fglrx-$_pkgver
 }
 
 build() {

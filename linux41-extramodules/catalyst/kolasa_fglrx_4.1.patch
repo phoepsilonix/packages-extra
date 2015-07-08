@@ -11,18 +11,18 @@ diff --git a/firegl_public.c b/firegl_public.c
 index 44706d9..e38cebf 100644
 --- a/firegl_public.c
 +++ b/firegl_public.c
-@@ -3382,7 +3382,12 @@ int ATI_API_CALL KCL_InstallInterruptHandler(
+@@ -3505,8 +3505,12 @@ int ATI_API_CALL KCL_InstallInterruptHan
+         ((useMSI) ? (SA_INTERRUPT) : (SA_SHIRQ)),
  #else
          //when MSI enabled. keep irq disabled when calling the action handler,
-         //exclude this IRQ from irq balancing (only on one CPU) 
--        ((useMSI) ? (IRQF_DISABLED | IRQF_NOBALANCING) : (IRQF_SHARED)),    
-+
+-        //exclude this IRQ from irq balancing (only on one CPU) 
+-        ((useMSI) ? (IRQF_DISABLED) : (IRQF_SHARED)),    
++        //exclude this IRQ from irq balancing (only on one CPU)    
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(4,1,0)
-+        ((useMSI) ? (IRQF_DISABLED | IRQF_NOBALANCING) : (IRQF_SHARED)),
++        ((useMSI) ? (IRQF_DISABLED) : (IRQF_SHARED)),
 +#else
 +        ((useMSI) ? (IRQF_NOBALANCING) : (IRQF_SHARED)),
 +#endif
  #endif
          dev_name,
          context);
-

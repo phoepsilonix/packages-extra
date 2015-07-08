@@ -14,3 +14,7 @@ cd ../../linux318*/*catalyst
 makepkg --sign -df
 cd ../../linux319*/*catalyst
 makepkg --sign -df
+cd ../../linux40*/*catalyst
+makepkg --sign -df
+cd ../../linux41*/*catalyst
+makepkg --sign -df
