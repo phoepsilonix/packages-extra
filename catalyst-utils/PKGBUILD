@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.20.1046
-pkgrel=1
+pkgrel=2
 epoch=1
 _pkgver=15.20.1046
 _tarball=15.20.1046
@@ -192,7 +192,7 @@ package_catalyst-utils() {
 
 package_opencl-catalyst() {
       pkgdesc="OpenCL implemention from AMD"
-      provides=('libcl')
+      provides=('libcl' "catalyst-utils=${pkgver}")
       conflicts=('libcl' 'opencl-catalyst-legacy' 'opencl-catalyst-13.4')
       depends=('gcc-libs')
       optdepends=('opencl-headers: headers necessary for OpenCL development')
