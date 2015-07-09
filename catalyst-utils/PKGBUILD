@@ -51,6 +51,7 @@ prepare() {
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
+	provides=("catalyst-utils=${pkgver}")
 	depends=('xorg-server>=1.7.0' 'xorg-server<1.18.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd')
         optdepends=('qt4: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
@@ -192,7 +193,7 @@ package_catalyst-utils() {
 
 package_opencl-catalyst() {
       pkgdesc="OpenCL implemention from AMD"
-      provides=('libcl' "catalyst-utils=${pkgver}")
+      provides=('libcl')
       conflicts=('libcl' 'opencl-catalyst-legacy' 'opencl-catalyst-13.4')
       depends=('gcc-libs')
       optdepends=('opencl-headers: headers necessary for OpenCL development')
