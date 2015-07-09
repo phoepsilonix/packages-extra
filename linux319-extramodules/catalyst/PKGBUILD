@@ -7,7 +7,7 @@ _extramodules=extramodules-3.19-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.20.1046
-pkgrel=1
+pkgrel=2
 epoch=1
 _pkgver=15.20.1046
 _tarball=15.20.1046
@@ -17,7 +17,7 @@ pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
-depends=("$_linuxprefix" "catalyst-utils=${pkgver}")
+depends=("$_linuxprefix" "catalyst-utils=${epoch}:${pkgver}")
 makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
