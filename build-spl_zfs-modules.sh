@@ -16,3 +16,5 @@ cd ../../linux319*/*spl_zfs
 makepkg --sign -df
 cd ../../linux40*/*spl_zfs
 makepkg --sign -df
+cd ../../linux41*/*spl_zfs
+makepkg --sign -df

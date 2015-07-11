@@ -3,8 +3,8 @@
 
 pkgbase=linux41-spl_zfs
 pkgname=('linux41-spl' 'linux41-zfs')
-pkgver=0.6.4
-pkgrel=0.1
+pkgver=0.6.4.2
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -15,20 +15,10 @@ makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
 groups=('linux41-extramodules')
 install=install
 
-source=('zfs-linux41.patch::https://github.com/mk01/zfs/commit/64e99f40ee2db96a3272e0fab52caec56938a129.patch')
-sha256sums=('f4ee9b036240edac92fe7dcc5b27f1f83b4a27b5e7d47884697c54c61db59f43')
-
 prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-
-  # workaround to patch spl for linux 4.1
-  rm -r $srcdir/dkms/zfs/$pkgver/source
-  cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source
-  cd $srcdir/dkms/zfs/$pkgver/source
-  patch -Np1 -i $srcdir/zfs-linux41.patch
-  ./autogen.sh
 }
 
 build() {
