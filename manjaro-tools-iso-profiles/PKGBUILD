@@ -3,15 +3,23 @@
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
-pkgver=0.9.10
-pkgrel=1
+pkgver=0.9.11
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 groups=('manjaro-tools')
 makedepends=('git')
-source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}.tar.gz")
-sha256sums=('f9aafa68e9fa4132b655466a53ec0cd861bd85c34c19228908924d535b84834d')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz"
+        "kde-fix-Packages-KDE.patch::https://github.com/manjaro/manjaro-tools-iso-profiles/commit/30cb0c753f3f167567aefc32ee7f1ae19e7a0f2a.patch")
+sha256sums=('6728f007bb97b85909710225b5f8cc9db58aa052d244692b219a013e1d666dbb'
+            'caf5bf4ee66b6bdd4a14b8192d86364770b3e0a19aa3e984cafb454f6a25b737')
+
+prepare() {
+	cd *iso-profiles-${pkgver}
+	# patches here
+	patch -Np1 -i "${srcdir}/kde-fix-Packages-KDE.patch"
+}
 
 package_manjaro-iso-profiles() {
 	pkgdesc='Manjaro Linux official iso profiles'
