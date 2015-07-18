@@ -30,11 +30,14 @@ pkgver() {
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
 	echo -e "${_ver// /.}${_git}"
 	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
+	rm -r ${srcdir}/calamares/.git
+	rm -r ${srcdir}/calamares-manjaro/.git
 }
 
 prepare() {
 	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
 	sed -i -e "s|'calamares'|${pkgname}|g" ${srcdir}/calamares/src/modules/postcfg/main.py
+	rm -r ${srcdir}/calamares-manjaro
 }
 
 build() {
