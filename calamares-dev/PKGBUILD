@@ -36,7 +36,7 @@ pkgver() {
 
 prepare() {
 	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
-	sed -i -e "s|'calamares'|${pkgname}|g" ${srcdir}/calamares/src/modules/postcfg/main.py
+	sed -i -e "s|'calamares'|'calamares-dev'|g" ${srcdir}/calamares/src/modules/postcfg/main.py
 	rm -r ${srcdir}/calamares-manjaro
 }
 
