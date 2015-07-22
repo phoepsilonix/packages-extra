@@ -9,8 +9,8 @@
 
 pkgbase=linux318-virtualbox-modules
 pkgname=('linux318-virtualbox-host-modules' 'linux318-virtualbox-guest-modules')
-pkgver=4.3.28
-pkgrel=4
+pkgver=5.0.0
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
