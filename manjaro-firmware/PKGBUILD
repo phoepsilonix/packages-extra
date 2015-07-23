@@ -4,26 +4,32 @@
 
 
 pkgname=('manjaro-firmware')
-pkgver=0.3
+pkgver=20$(date +%y%m%d)
 pkgrel=1
-_acx=20060207
 _b43=5.100.138
 _legacy=3.130.20.0
-_nouveau=20091212
+_nouveau=325.15
 arch=('any')
 url="http://manjarolinux.org"
-license=('GPL' 'MPL')
-makedepends=('b43-fwcutter')
+license=('GPL' 'MPL' 'custom')
+makedepends=('b43-fwcutter' 'python2')
 pkgdesc="Extra firmwares for Manjaro Linux"
-provides=('nouveau-firmware' 'b43-firmware' 'b43-firmware-legacy')
-conflicts=('nouveau-firmware' 'b43-firmware' 'b43-firmware-legacy')
+provides=('nouveau-fw' 'b43-firmware-classic' 'b43-firmware-legacy')
+conflicts=('nouveau-fw' 'b43-firmware-classic' 'b43-firmware' 'b43-firmware-legacy')
 
 source=("http://www.lwfinger.com/b43-firmware/broadcom-wl-${_b43}.tar.bz2"
         "http://downloads.openwrt.org/sources/wl_apsta-${_legacy}.o"
-        "http://people.freedesktop.org/~pq/nouveau-drm/nouveau-firmware-$_nouveau.tar.gz")
+        "https://raw.github.com/imirkin/re-vp2/master/extract_firmware.py"
+        "http://us.download.nvidia.com/XFree86/Linux-x86/${_nouveau}/NVIDIA-Linux-x86-${_nouveau}.run")
 sha256sums=('f1e7067aac5b62b67b8b6e4c517990277804339ac16065eb13c731ff909ae46f'
             '7dba610b1d96dd14e901bcbce14cd6ecd1b1ac6f5c0035b0d6b6dc46a7c3ef90'
-            '4eaeb2044c1da95b50ea4f1facb0effc74d65d8b13dc10893c26e4fe9fe23fb8')
+            'SKIP'
+            '3d790e4bfed24641f7cc76879144ab5d52b12271012ba381b0d33aa1a2e08775')
+
+build() {
+  sh NVIDIA-Linux-x86-${_nouveau}.run --extract-only
+  python2 extract_firmware.py
+}
 
 package() {
   install -d ${pkgdir}/usr/lib/firmware/
@@ -35,8 +41,6 @@ package() {
   b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/wl_apsta-${_legacy}.o
 
   # install nouveau firmwares
-  cd ${srcdir}/nouveau
-  for i in `ls`; do
-   install -D -m644 $i ${pkgdir}/usr/lib/firmware/nouveau/$i
-  done
+  install -dm 0755 "${pkgdir}"/usr/lib/firmware/nouveau/
+  cp -a nv* vuc-* "${pkgdir}"/usr/lib/firmware/nouveau/
 }
