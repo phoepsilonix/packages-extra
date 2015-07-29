@@ -17,8 +17,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=9f5d5a4620b04fa3174b68bf50212892c2c01d96
-_snapshot_manjaro=8bd6b27336439d42228b1e99c32fff3826eb4560
+_snapshot_master=4b8a85f66f417f7f372b858bda7130a1ac0783cd
+_snapshot_manjaro=999df673e29530e3266473414a75b06442a38e36
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git
@@ -28,8 +28,8 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('b397a96b05cdb953b53b291914d1e025d75b821ef7ccc016a158ab1f60022521'
-            'a8c901675159a0446631faa073c81d9cf41a38f0fefe0ce9f5628a8f0f0b2015')
+sha256sums=('f4afa04f9872a787384c008de951efd263fc8beb038f77e1c1a6d4725b62a397'
+            'df3166a538fd01c1c17f9b31b48efe6f8fa144da59ca71c3f29161737accc40a')
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then

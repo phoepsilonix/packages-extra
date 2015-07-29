@@ -1,46 +1,75 @@
 #
 # Maintainer: Phil Miller <philm@manjaro.org>
 # Maintainer: Roland Singer <roland@manjaro.org>
+# Contributor: Tomasz Przybyl <fademind@manjaro.org>
 
-
-pkgname=('manjaro-firmware')
-pkgver=20$(date +%y%m%d)
-pkgrel=1
 _b43=5.100.138
 _legacy=3.130.20.0
 _nouveau=325.15
-arch=('any')
-url="http://manjarolinux.org"
-license=('GPL' 'MPL' 'custom')
-makedepends=('b43-fwcutter' 'python2')
-pkgdesc="Extra firmwares for Manjaro Linux"
-provides=('nouveau-fw' 'b43-firmware-classic' 'b43-firmware-legacy')
-conflicts=('nouveau-fw' 'b43-firmware-classic' 'b43-firmware' 'b43-firmware-legacy')
+_aic94xx=30-6.el7
+_aic94xxver=7.1.1503
 
-source=("http://www.lwfinger.com/b43-firmware/broadcom-wl-${_b43}.tar.bz2"
-        "http://downloads.openwrt.org/sources/wl_apsta-${_legacy}.o"
-        "https://raw.github.com/imirkin/re-vp2/master/extract_firmware.py"
-        "http://us.download.nvidia.com/XFree86/Linux-x86/${_nouveau}/NVIDIA-Linux-x86-${_nouveau}.run")
+pkgname=('manjaro-firmware')
+pkgver=20$(date +%y%m%d)
+pkgrel=2
+arch=('any')
+url="http://manjaro.org"
+license=('GPL' 'MPL' 'custom')
+makedepends=('b43-fwcutter' 'lha' 'python2')
+pkgdesc="Extra firmwares for Manjaro Linux"
+provides=('nouveau-fw' 'b43-firmware-classic' 'b43-firmware-legacy' 'wd719x-firmware' 'aic94xx-firmware')
+conflicts=('nouveau-fw' 'b43-firmware-classic' 'b43-firmware' 'b43-firmware-legacy' 'wd719x-firmware' 'aic94xx-firmware')
+noextract=('pciscsi.exe')
+source=("broadcom-wl-${_b43}.tar.bz2::http://www.lwfinger.com/b43-firmware/broadcom-wl-${_b43}.tar.bz2"
+        "wl_apsta-${_legacy}.o::http://downloads.openwrt.org/sources/wl_apsta-${_legacy}.o"
+        "pciscsi.exe::http://support.wdc.com/download/archive/pciscsi.exe"
+        "aic94xx-firmware-${_aic94xx}.noarch.rpm::ftp://ftp.pbone.net/mirror/ftp.centos.org/${_aic94xxver}/os/x86_64/Packages/aic94xx-firmware-${_aic94xx}.noarch.rpm"
+        "extract_firmware.py::https://raw.github.com/imirkin/re-vp2/master/extract_firmware.py"
+        "NVIDIA-Linux-x86-${_nouveau}.run::http://us.download.nvidia.com/XFree86/Linux-x86/${_nouveau}/NVIDIA-Linux-x86-${_nouveau}.run")
+        
 sha256sums=('f1e7067aac5b62b67b8b6e4c517990277804339ac16065eb13c731ff909ae46f'
             '7dba610b1d96dd14e901bcbce14cd6ecd1b1ac6f5c0035b0d6b6dc46a7c3ef90'
-            'SKIP'
+            'd310338eaaeae6db3673021c0ec2ec23b9cfb9f9b9d1eb8854d2d60b3a6490f9'
+            '1db12b5979cf561cb030c9d695969e5c4d76e55c0e1f8dd4795b86eddb3d3669'
+            '154bbf69e593b407448fcdb4c7804464a827dd9c6cde1048ec484b06680cad0d'
             '3d790e4bfed24641f7cc76879144ab5d52b12271012ba381b0d33aa1a2e08775')
-
+            
 build() {
-  sh NVIDIA-Linux-x86-${_nouveau}.run --extract-only
-  python2 extract_firmware.py
+    #extract nouveau firmware
+    sh NVIDIA-Linux-x86-${_nouveau}.run --extract-only
+    python2 extract_firmware.py
+    
+    # extract wd719x firmware
+    lha xi pciscsi.exe pci-scsi.exe
+    lha xi pci-scsi.exe nt/wd7296a.sys
+    dd if=wd7296a.sys of=wd719x-risc.bin bs=1 skip=5760 count=14336
+    dd if=wd7296a.sys of=wd719x-wcs.bin bs=1 skip=20096 count=514
+    
+    # extract aic94xx firmware
+    bsdtar xvf "aic94xx-firmware-${_aic94xx}.noarch.rpm"
+    
 }
 
 package() {
-  install -d ${pkgdir}/usr/lib/firmware/
+    install -d ${pkgdir}/usr/lib/firmware/
 
-  # install b43-firmware
-  b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/broadcom-wl-${_b43}/linux/wl_apsta.o
+    # install b43-firmware
+    b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/broadcom-wl-${_b43}/linux/wl_apsta.o
 
-  # install b43-legacy-firmware
-  b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/wl_apsta-${_legacy}.o
+    # install b43-legacy-firmware
+    b43-fwcutter -w "${pkgdir}/usr/lib/firmware/" ${srcdir}/wl_apsta-${_legacy}.o
 
-  # install nouveau firmwares
-  install -dm 0755 "${pkgdir}"/usr/lib/firmware/nouveau/
-  cp -a nv* vuc-* "${pkgdir}"/usr/lib/firmware/nouveau/
+    # install nouveau firmwares
+    install -dm 0755 "${pkgdir}"/usr/lib/firmware/nouveau/
+    cp -a nv* vuc-* "${pkgdir}"/usr/lib/firmware/nouveau/
+  
+    # install aic94xx firmware
+    install -D -m644 ${srcdir}/lib/firmware/aic94xx-seq.fw                       ${pkgdir}/usr/lib/firmware/aic94xx-seq.fw
+    install -D -m644 ${srcdir}/usr/share/doc/aic94xx-firmware-30/LICENSE.aic94xx ${pkgdir}/usr/share/doc/${pkgname}/LICENSE.aic94xx
+    install -D -m644 ${srcdir}/usr/share/doc/aic94xx-firmware-30/README-94xx.pdf ${pkgdir}/usr/share/doc/${pkgname}/README-94xx.pdf
+    
+    # install wd719x firmware
+    install -D -m644 ${srcdir}/wd719x-risc.bin ${pkgdir}/usr/lib/firmware/wd719x-risc.bin
+    install -D -m644 ${srcdir}/wd719x-wcs.bin  ${pkgdir}/usr/lib/firmware/wd719x-wcs.bin
 }
+

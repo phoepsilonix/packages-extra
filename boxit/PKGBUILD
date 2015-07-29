@@ -3,7 +3,7 @@
 
 pkgname=boxit
 #pkgver=2.0.$(date +%m%d)
-pkgver=2.1.1
+pkgver=2.1.2
 pkgrel=1
 pkgdesc="Manjaro Linux repository management system - client"
 arch=('i686' 'x86_64')
