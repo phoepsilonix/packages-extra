@@ -3,7 +3,7 @@
 pkgname=calamares
 _pointver=2
 pkgver=1.1.${_pointver}
-pkgrel=3
+pkgrel=4
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,8 +17,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=4b8a85f66f417f7f372b858bda7130a1ac0783cd
-_snapshot_manjaro=999df673e29530e3266473414a75b06442a38e36
+_snapshot_master=a2a6d2f2439f400cfa149ff0b36e2e68b2cb171e
+_snapshot_manjaro=618c864eb947a73da0f0e0aadaed3484acbad557
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git
@@ -28,8 +28,8 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('f4afa04f9872a787384c008de951efd263fc8beb038f77e1c1a6d4725b62a397'
-            'df3166a538fd01c1c17f9b31b48efe6f8fa144da59ca71c3f29161737accc40a')
+sha256sums=('4cf8d88ea7ffd2f689f429740d3973d97e768bdbf8498202147ba363a9cd9156'
+            '56d19983717e690b529a2b92e7926d5b733e00478f87d8351d2897d8f4b447ae')
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
