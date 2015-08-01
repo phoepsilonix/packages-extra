@@ -32,6 +32,7 @@ source=(http://www2.ati.com/drivers/linux/amd-driver-installer-${_tarball}-x86.x
 	cold-fglrx-3.14-current_euid.patch
 	manjaro_fglrx_40.patch
         kolasa_fglrx_4.1.patch
+        manjaro_fglrx_4.2.patch
 	LICENSE.TXT)
 
 sha256sums=('ffde64203f49d9288eaa25f4d744187b6f4f14a87a444bab6a001d822b327a9d'
@@ -43,6 +44,7 @@ sha256sums=('ffde64203f49d9288eaa25f4d744187b6f4f14a87a444bab6a001d822b327a9d'
             '8095031ee68edbb67323a562b54c9cf46aade7c91738950467b91eda68e434ee'
             '388ba7393b8bd00e641f61c61bc4b10dc0c972a9b0324d216878fb12731dc0ba'
             'e2c51ca60a452b78854a7e7c739dc9ccce4650cde882026cf5e01dd4afb9340c'
+            '59d35cefd72c29de1ba117976891d9d41b2c1a46372946af985611a8fcec4d34'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
@@ -89,6 +91,7 @@ build() {
         patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
         patch -Np5 -i ${srcdir}/manjaro_fglrx_40.patch
         patch -Np1 -i ${srcdir}/kolasa_fglrx_4.1.patch
+        patch -Np1 -i ${srcdir}/manjaro_fglrx_4.2.patch
 	cp "${srcdir}/fglrx-$_pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
