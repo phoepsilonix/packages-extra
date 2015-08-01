@@ -4,23 +4,23 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.9.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('5770d3b297b167595bd105ab9778778bcb604b6400fade3e4f5b15a881026a07')
+source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
+sha256sums=('ba5400ab84d315d8277ea410356ad0ca72164255fc86cea23389f29ad54255d2')
 
 prepare() {
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
 	# patches here
 }
 
 build() {
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
 	make SYSCONFDIR=/etc PREFIX=/usr
 }
 
@@ -33,7 +33,7 @@ package_manjaro-tools-base() {
 	replaces=('manjaro-tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_base
 }
 
@@ -42,7 +42,7 @@ package_manjaro-tools-pkg() {
 	depends=('namcap' 'manjaro-tools-base')
 	conflicts=('devtools')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
@@ -55,6 +55,6 @@ package_manjaro-tools-iso() {
 				'qemu: quickly test isos')
 	conflicts=('manjaroiso')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
 }
