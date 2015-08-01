@@ -1,0 +1,55 @@
+# Based on the file created for Arch Linux by:
+# Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
+# Bob Fanger < bfanger(at)gmail >
+# Filip <fila pruda com>, Det < nimetonmaili(at)gmail >
+
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Guinux <guillaume@manjaro.org>
+# Maintainer: Rob McCathie <rob@manjaro.org>
+
+pkgname=linux42-r8168
+_pkgname=r8168
+pkgver=8.039.00
+pkgrel=0.1
+pkgdesc="A kernel module for Realtek 8168 network cards"
+url="http://www.realtek.com.tw"
+license=("GPL")
+arch=('i686' 'x86_64')
+depends=('glibc' 'linux42')
+makedepends=('linux42-headers')
+provides=("$_pkgname=$pkgver")
+groups=('linux42-extramodules')
+source=("http://r8168dl.appspot.com/files/r8168-${pkgver}.tar.bz2"
+        'linux40.patch')
+sha256sums=('767d922270274e781d8d42493a0021db1cafcb0388ac62564d0c0c3d82703edd'
+            'e6087439b30c8f6c26113c182dd1f95044d918241b1c281b6e84b9a334e68910')
+install=$_pkgname.install
+
+prepare() {
+	cd "$_pkgname-$pkgver"
+	patch -p1 -i "$srcdir"/linux40.patch
+}
+
+build() {
+	_extramodules=extramodules-4.2-MANJARO
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
+	cd "$_pkgname-$pkgver"
+
+	# avoid using the Makefile directly -- it doesn't understand
+	# any kernel but the current.
+	make -C /usr/lib/modules/$_kernver/build \
+	SUBDIRS="$srcdir/$_pkgname-$pkgver/src" \
+	EXTRA_CFLAGS="-DCONFIG_R8168_NAPI -DCONFIG_R8168_VLAN" \
+	modules
+}
+
+package() {
+	_extramodules=extramodules-4.2-MANJARO
+	cd "$srcdir/$_pkgname-$pkgver/src"
+	install -D -m644 $_pkgname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
+
+	# set the kernel we've built for inside the install script
+	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
+
+	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+}
