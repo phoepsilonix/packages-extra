@@ -34,11 +34,11 @@ prepare() {
   # workaround to patch for linux 4.2
   rm -r $srcdir/dkms/vboxguest/$pkgver/source
   cp -r /usr/src/vboxguest-$pkgver $srcdir/dkms/vboxguest/$pkgver/source
-  cd dkms/vboxguest/$pkgver/source
+  cd $srcdir/dkms/vboxguest/$pkgver/source
   patch -Np1 -i $srcdir/kernel-4.2-guest.patch
   rm -r $srcdir/dkms/vboxhost/$pkgver/source
   cp -r /usr/src/vboxhost-$pkgver $srcdir/dkms/vboxhost/$pkgver/source
-  cd dkms/vboxhost/$pkgver/source
+  cd $srcdir/dkms/vboxhost/$pkgver/source
   patch -Np1 -i $srcdir/kernel-4.2-host.patch
 }
 
