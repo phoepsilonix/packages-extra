@@ -9,7 +9,7 @@
 
 pkgbase=linux42-virtualbox-modules
 pkgname=('linux42-virtualbox-host-modules' 'linux42-virtualbox-guest-modules')
-pkgver=5.0.0
+pkgver=5.0.2
 pkgrel=0.3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
@@ -22,24 +22,10 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
 _extraver=extramodules-4.2-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
 
-source=('kernel-4.2-guest.patch' 'kernel-4.2-host.patch')
-md5sums=('1658f47cc6bbb959754ddc6043eb4fda'
-         'eedc63a1ef44e4b84d5457c25dc01873')
-
 prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-
-  # workaround to patch for linux 4.2
-  rm -r $srcdir/dkms/vboxguest/$pkgver/source
-  cp -r /usr/src/vboxguest-$pkgver $srcdir/dkms/vboxguest/$pkgver/source
-  cd $srcdir/dkms/vboxguest/$pkgver/source
-  patch -Np1 -i $srcdir/kernel-4.2-guest.patch
-  rm -r $srcdir/dkms/vboxhost/$pkgver/source
-  cp -r /usr/src/vboxhost-$pkgver $srcdir/dkms/vboxhost/$pkgver/source
-  cd $srcdir/dkms/vboxhost/$pkgver/source
-  patch -Np1 -i $srcdir/kernel-4.2-host.patch
 }
 
 build() {
