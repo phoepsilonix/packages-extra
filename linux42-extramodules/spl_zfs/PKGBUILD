@@ -4,7 +4,7 @@
 pkgbase=linux42-spl_zfs
 pkgname=('linux42-spl' 'linux42-zfs')
 pkgver=0.6.4.2
-pkgrel=0.3
+pkgrel=0.4
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")

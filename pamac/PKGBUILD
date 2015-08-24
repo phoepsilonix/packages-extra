@@ -3,7 +3,7 @@
 pkgname=pamac
 pkgver=2.4.0
 _pkgver=2.4.0
-pkgrel=2
+pkgrel=4
 # This is the release package so the below _gitcommit variable should (usually) be commented out.
 #_gitcommit="d8e9826ab0b84bdb6f4b6c0dcc4ce1461bf04595"
 pkgdesc="A Gtk3 frontend for libalpm"
@@ -28,10 +28,10 @@ else
   source=("pamac-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 fi
 
-source+=("pamac-update-translations.patch::https://github.com/manjaro/pamac/commit/d48f462102b36d364656320261739f9b91e33ee9.patch")
+source+=("pamac-git-patches-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...master.patch")
 
 sha256sums=('f6918f9b820b14be8dd4967f76b65efe6754dff7e6c80915c3d1bad264e7bf2e'
-            'ac724d72a9ac0b43ad5e4d52c127dd51f960023696dfc87b635c5607144c9903')
+            'SKIP')
 
 prepare() {
   if [ "$_gitcommit" != "" ]; then
@@ -43,7 +43,7 @@ prepare() {
   sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" manager_window.vala
   cd "$srcdir/pamac-$pkgver/"
   # patches here
-  patch -Np1 -i $srcdir/pamac-update-translations.patch
+  patch -Np1 -i $srcdir/pamac-git-patches-$pkgrel.patch
 }
 
 build() {
