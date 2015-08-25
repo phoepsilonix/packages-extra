@@ -4,8 +4,8 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.3.2
-pkgrel=1
+pkgver=5.4.0
+pkgrel=1.1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
@@ -16,19 +16,13 @@ conflicts=('kdebase-workspace')
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
         'manjaro-logo.svg'
-        'kcm-about-distrorc'
-        'rb123995.patch')
-md5sums=('baf95f4bd09e886f3d25b5f2799cf2d8'
+        'kcm-about-distrorc')
+md5sums=('1e14ae65b6ef0b069c56585fd76083be'
          '70743e3b0115c209d828f6323e7ba449'
-         '97f52dc1d8dcfc96b5de7c9f823a021b'
-         '49c0f1480d57dc66c43322539a4c337a')
+         '97f52dc1d8dcfc96b5de7c9f823a021b')
 
 prepare() {
   mkdir -p build
-  # BUG: 344971 
-  # https://bugs.kde.org/show_bug.cgi?id=344971
-  # https://git.reviewboard.kde.org/r/123995/
-  patch -p1 -i "$srcdir"/rb123995.patch
 }
 
 build() {
@@ -46,7 +40,7 @@ package() {
   cd build
   make DESTDIR="${pkgdir}" install
 
-# Install Arch logo
+# Install Manjaro logo
   install -Dm644 "$srcdir"/manjaro-logo.svg "$pkgdir"/usr/share/about-distro/manjaro-logo.svg
   install -Dm644 "$srcdir"/kcm-about-distrorc "$pkgdir"/etc/xdg/kcm-about-distrorc
 }
