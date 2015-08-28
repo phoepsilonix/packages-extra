@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kompare
-pkgver=15.04.3
-pkgrel=1.1
+pkgver=15.08.0
+pkgrel=2.1
 pkgdesc='Diff/Patch Frontend'
 url='http://kde.org/applications/development/kompare/'
 arch=('i686' 'x86_64')
@@ -16,11 +16,9 @@ install=${pkgname}.install
 conflicts=('kdesdk-kompare')
 replaces=('kdesdk-kompare')
 source=("http://download.kde.org/stable/applications/${pkgver}/src/kompare-${pkgver}.tar.xz" 
-        "0001-Fix-only-show-directories-in-compare-files-dialog.patch"
-        "save-preferences.patch")
-sha1sums=('a3d18f0a17b5c040469c0bd149cd2dc44b8f7a89'
-          '75719cc39852605d929e71aea4eef8ba506c2a4e'
-          '8c4271c98bfb200c1630c37167aa410a775dcbf2')
+        "0001-Fix-only-show-directories-in-compare-files-dialog.patch")
+sha1sums=('0d8d981090a28d99ed2241b6d49b8ebe102fbde6'
+          '75719cc39852605d929e71aea4eef8ba506c2a4e')
 
 prepare() {
   mkdir -p build
@@ -29,8 +27,6 @@ prepare() {
   
   # Fix launching from the .desktop file
   patch -p1 -i $srcdir/0001-Fix-only-show-directories-in-compare-files-dialog.patch
-  # Fix saving preferences https://bugs.kde.org/show_bug.cgi?id=346249
-  patch -p1 -i "$srcdir"/save-preferences.patch
 }
 
 build() {
