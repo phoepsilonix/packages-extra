@@ -7,7 +7,7 @@ _extramodules=extramodules-4.2-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.20.1046
-pkgrel=0.4
+pkgrel=0.5
 epoch=1
 _pkgver=15.20.1046
 _tarball=15.20.1046
@@ -44,7 +44,7 @@ sha256sums=('ffde64203f49d9288eaa25f4d744187b6f4f14a87a444bab6a001d822b327a9d'
             '8095031ee68edbb67323a562b54c9cf46aade7c91738950467b91eda68e434ee'
             '388ba7393b8bd00e641f61c61bc4b10dc0c972a9b0324d216878fb12731dc0ba'
             'e2c51ca60a452b78854a7e7c739dc9ccce4650cde882026cf5e01dd4afb9340c'
-            '4247b62b0fb56e7e0ac2c8d21b036dfcf3bf0982e579911e8aa77c953e8b3fe3'
+            '2bc280abeddef92832997433f3182063a51cd2e580426727e97f887ae8af485f'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
