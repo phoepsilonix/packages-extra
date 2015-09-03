@@ -34,8 +34,10 @@ build() {
 	sed -i 's|ra1|wlan1|g' *.txt README* *.dat
 	sed -i 's|ra2|wlan2|g' *.txt README* *.dat
 
+	# this Makefile is far too strict...
+	echo "LINUX_SRC = /usr/lib/modules/$KERNEL_RELEASE/build" >> Makefile
+
 	EXTRA_CFLAGS="-DVERSION=$pkgver" \
-	LINUX_SRC="/usr/lib/modules/$KERNEL_RELEASE/build" \
 		make
 }
 

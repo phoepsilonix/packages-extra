@@ -4,7 +4,7 @@
 pkgbase=linux319-spl_zfs
 pkgname=('linux319-spl' 'linux319-zfs')
 pkgver=0.6.4.2
-pkgrel=2
+pkgrel=3
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")

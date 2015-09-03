@@ -9,7 +9,7 @@ pkgbase=rt3562sta
 pkgname=('linux42-rt3562sta' 'rt3562sta-common')
 pkgver=2.4.1.1_r1
 _patchrel=${pkgver/*_r/}
-pkgrel=0.4
+pkgrel=0.5
 _subpkgrel=0.4
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
@@ -34,8 +34,10 @@ build() {
 	sed -i 's|ra1|wlan1|g' *.txt README* *.dat
 	sed -i 's|ra2|wlan2|g' *.txt README* *.dat
 
+	# this Makefile is far too strict...
+	echo "LINUX_SRC = /usr/lib/modules/$KERNEL_RELEASE/build" >> Makefile
+
 	EXTRA_CFLAGS="-DVERSION=$pkgver" \
-	LINUX_SRC="/usr/lib/modules/$KERNEL_RELEASE/build" \
 		make
 }
 
