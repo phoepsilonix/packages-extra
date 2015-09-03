@@ -7,10 +7,10 @@
 
 pkgbase=rt3562sta
 pkgname=('linux40-rt3562sta' 'rt3562sta-common')
-pkgver=2.4.1.1_r1
+pkgver=2.4.1.1_r2
 _patchrel=${pkgver/*_r/}
-pkgrel=4
-_subpkgrel=4
+pkgrel=1
+_subpkgrel=1
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
@@ -21,23 +21,10 @@ build() {
 	_extramodules=extramodules-4.0-MANJARO
 	KERNEL_RELEASE="$(cat /usr/lib/modules/$_extramodules/version)"
 
-	cd "$srcdir/rt3562sta-linux-r$_patchrel"
-
-	# clean up this mess of mixing RT2860STA with RT3562STA
-	# in documentation files
-	mv RT2860STA.dat RT3562STA.dat
-	mv RT2860STACard.dat RT3562STACard.dat
-	sed -i 's/2860/3562/g' *STA* iwpriv_usage.txt
-
-	# as we change the default name of the interface from raX to wlanX, change respective references in documentation, too
-	sed -i 's|ra0|wlan0|g' *.txt README* *.dat
-	sed -i 's|ra1|wlan1|g' *.txt README* *.dat
-	sed -i 's|ra2|wlan2|g' *.txt README* *.dat
-
-	# this Makefile is far too strict...
-	echo "LINUX_SRC = /usr/lib/modules/$KERNEL_RELEASE/build" >> Makefile
+	cd "$srcdir"/rt3562sta-linux-r$_patchrel
 
 	EXTRA_CFLAGS="-DVERSION=$pkgver" \
+	LINUX_SRC="/usr/lib/modules/$KERNEL_RELEASE/build" \
 		make
 }
 
@@ -71,4 +58,4 @@ package_linux40-rt3562sta() {
 	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 }
 
-sha256sums=('6fd6306b6fb3886bbf9d284a28cc065a4cdfea18a03708e99aa4c7a038bcf02f')
+sha256sums=('fbb31034fac14d63f9ed16039b79743746d91e0587e3bdd036697f7fd39cef9a')
