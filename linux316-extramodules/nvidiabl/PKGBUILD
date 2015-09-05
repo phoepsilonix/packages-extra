@@ -3,8 +3,8 @@
 
 pkgname=linux316-nvidiabl
 _pkgname=nvidiabl
-pkgver=0.76
-pkgrel=11
+pkgver=0.88
+pkgrel=1
 epoch=
 pkgdesc="Driver to adjust display backlight on modern mobile NVidia graphics adapters."
 arch=('x86_64' 'i686')
@@ -19,18 +19,26 @@ groups=('linux316-extramodules')
 options=()
 install=nvidiabl.install
 changelog=
-source=(https://github.com/downloads/guillaumezin/nvidiabl/$_pkgname-$pkgver-source-only.dkms.tar.gz)
-
 _extramodules=extramodules-3.16-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
+source=(https://github.com/guillaumezin/nvidiabl/archive/master.zip 
+        nvidiabl-master.patch)
+md5sums=('5fdda33fedcb78320c1581e84b395d39'
+         '79e5699da970908d6ec8dba114df87cb')
+
+prepare() {
+  cd "${srcdir}/nvidiabl-master/"
+  patch -p1 -i "${srcdir}/nvidiabl-master.patch"
+}
+
 build() {
-  cd "$srcdir/dkms_source_tree/"
+  cd "${srcdir}/nvidiabl-master/"
   make KVER="${_kernver}"
 }
-  
+
 package() {
-  cd "$srcdir/dkms_source_tree/"
+  cd "${srcdir}/nvidiabl-master/"
   MODPATH="${pkgdir}/usr/lib/modules/${_extramodules}/"
   install -d $MODPATH
   install -m 644 -c nvidiabl.ko $MODPATH
@@ -39,4 +47,3 @@ package() {
 }
 
 # vim:set ts=2 sw=2 et:
-md5sums=('7ad7cd796102b1bf86e1f1e306089cd6')
