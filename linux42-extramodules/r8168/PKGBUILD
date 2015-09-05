@@ -9,7 +9,7 @@
 
 pkgname=linux42-r8168
 _pkgname=r8168
-pkgver=8.039.00
+pkgver=8.040.00
 pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
@@ -19,16 +19,9 @@ depends=('glibc' 'linux42')
 makedepends=('linux42-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux42-extramodules')
-source=("http://r8168dl.appspot.com/files/r8168-${pkgver}.tar.bz2"
-        'linux40.patch')
-sha256sums=('767d922270274e781d8d42493a0021db1cafcb0388ac62564d0c0c3d82703edd'
-            'e6087439b30c8f6c26113c182dd1f95044d918241b1c281b6e84b9a334e68910')
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('1f7aad3a066c152837e03e558ba720742e792d281c96c5412cff32d68875415b')
 install=$_pkgname.install
-
-prepare() {
-	cd "$_pkgname-$pkgver"
-	patch -p1 -i "$srcdir"/linux40.patch
-}
 
 build() {
 	_extramodules=extramodules-4.2-MANJARO

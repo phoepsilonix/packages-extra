@@ -9,8 +9,8 @@
 
 pkgname=linux310-r8168
 _pkgname=r8168
-pkgver=8.039.00
-pkgrel=11
+pkgver=8.040.00
+pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -19,8 +19,8 @@ depends=('glibc' 'linux310')
 makedepends=('linux310-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux310-extramodules')
-source=("http://r8168dl.appspot.com/files/r8168-${pkgver}.tar.bz2")
-sha256sums=('767d922270274e781d8d42493a0021db1cafcb0388ac62564d0c0c3d82703edd')
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('1f7aad3a066c152837e03e558ba720742e792d281c96c5412cff32d68875415b')
 install=$_pkgname.install
 
 build() {

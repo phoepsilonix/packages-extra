@@ -10,5 +10,11 @@ cd ../../linux314*/*nvidia*304*
 makepkg --sign -df
 cd ../../linux316*/*nvidia*304*
 makepkg --sign -df
-cd ../../linux317*/*nvidia*304*
+cd ../../linux318*/*nvidia*304*
+makepkg --sign -df
+cd ../../linux319*/*nvidia*304*
+makepkg --sign -df
+cd ../../linux41*/*nvidia*304*
+makepkg --sign -df
+cd ../../linux42*/*nvidia*304*
 makepkg --sign -df
