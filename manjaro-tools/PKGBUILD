@@ -3,18 +3,23 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.9.11
-pkgrel=3
+pkgver=0.9.12
+pkgrel=0
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
-sha256sums=('7538a0ad192325f21bddd7a3acd5d1371ac3ddba1e0f9c1684e89772255ffdfd')
+_gitsource=edcf10fc6e6bca221de97f7398d607cb331c106e
+source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
+#source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
+sha256sums=('efe590cc15d57fd4f4fec91f963d3ed7e551a8ed84588db8722c4e1a127e3d1f')
 
 prepare() {
+	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then
+		mv ${srcdir}/${pkgbase}-${_gitsource} ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+	fi
 	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
 	# patches here
 }
@@ -25,8 +30,10 @@ build() {
 }
 
 package_manjaro-tools-base() {
+	arch=('i686' 'x86_64')
  	pkgdesc='Development tools for Manjaro Linux (base tools)'
-	depends=('openssh' 'rsync' 'haveged' 'os-prober')
+	depends_i686=('openssh' 'rsync' 'haveged' 'os-prober')
+	depends_x86_64=('openssh' 'rsync' 'haveged' 'os-prober' 'manjaro-tools-efiboot')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
 				'manjaro-tools-iso: Manjaro Linux iso tools')
 	conflicts=('manjaro-tools')
