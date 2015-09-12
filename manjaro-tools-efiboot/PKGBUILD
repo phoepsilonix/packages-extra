@@ -8,8 +8,8 @@ arch=('x86_64')
 url="http://www.freedesktop.org/wiki/Software/systemd"
 license=('GPL2' 'LGPL2.1')
 source=($pkgname-$pkgver-$pkgrel.tar.xz::http://arch.localmsp.org/arch/pool/packages/systemd-$pkgver-$pkgrel-x86_64.pkg.tar.xz
-        https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi
-        https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi)
+        Shell-pkgver-$pkgrel.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi
+        Shell_Full-pkgver-$pkgrel.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi)
 sha256sums=('b75425b63584b1e5400556a2e60009f41ead5d35b2ed7de7bdf36ce1bb5f1b9e'
             '121df17bd58a9345040a624c1ad2af6bb342250f176e70c7bd310b862e81e559'
             'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
@@ -18,6 +18,6 @@ package() {
   pkgdesc="efi shell for manjaro-tools-iso"
 
   install -Dm644 usr/lib/systemd/boot/efi/systemd-bootx64.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/systemd-bootx64.efi
-  install -Dm644 Shell.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v2.efi
-  install -Dm644 Shell_Full.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v1.efi
+  install -Dm644 Shell-pkgver-$pkgrel.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v2.efi
+  install -Dm644 Shell_Full-pkgver-$pkgrel.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v1.efi
 }

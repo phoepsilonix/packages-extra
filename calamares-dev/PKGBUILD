@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-dev
-pkgver=1.1.2
+pkgver=2.0a1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
@@ -18,7 +18,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(git+https://github.com/calamares/calamares.git#branch=kpmcore
-         git+https://github.com/calamares/calamares-manjaro.git)
+         git+https://github.com/calamares/calamares-manjaro.git#branch=kpmcore)
 
 sha256sums=('SKIP'
             'SKIP')
