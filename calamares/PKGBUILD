@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=2
+_pointver=3
 pkgver=1.1.${_pointver}
-pkgrel=4
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -17,8 +17,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=a2a6d2f2439f400cfa149ff0b36e2e68b2cb171e
-_snapshot_manjaro=618c864eb947a73da0f0e0aadaed3484acbad557
+_snapshot_master=2372e45a8accba62d3349316f0b21651bf53616a
+_snapshot_manjaro=2c36a7e0028b10135b9f62614d727e2c71e5dc1a
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git
@@ -28,8 +28,11 @@ else
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('4cf8d88ea7ffd2f689f429740d3973d97e768bdbf8498202147ba363a9cd9156'
-            '56d19983717e690b529a2b92e7926d5b733e00478f87d8351d2897d8f4b447ae')
+source+=("keep-UUID-when-clearing-swap.patch::https://github.com/calamares/calamares/commit/c5f9397d1821acdc8b51bb826791df3d4073c0d5.patch")
+
+sha256sums=('ae5bc5335a0d7ee944b5a86b53795f0ea36646236dbae105cfa1207073ba2fee'
+            'dabf74cff219554bdd38ea76bc820b8fe0a47bc704368fd6092a336bcb0a33db'
+            'ffa82bb7f53900e3bcee8726ac72ec76fab3fa80f66c478791cf4c9175458e40')
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
@@ -43,9 +46,9 @@ pkgver() {
 	fi
 	if [ "$_git" == "Yes" ]; then
 		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "1.1.2.$(date +%m%d).`git describe --always`"
-		#echo "1.1.2$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 1.1.2$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		#echo "1.1.3.$(date +%m%d).`git describe --always`"
+		#echo "1.1.3$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+		echo 1.1.3$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 	else
 		echo "$pkgver"
 	fi
@@ -65,6 +68,8 @@ prepare() {
 		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname.git"
 		cd "$srcdir/$pkgname.git"
 	fi
+
+	patch -Np1 -i "$srcdir/keep-UUID-when-clearing-swap.patch"
 
 	#sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
 

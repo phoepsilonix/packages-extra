@@ -17,7 +17,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/calamares/calamares.git#branch=kpmcore
+source+=(git+https://github.com/calamares/calamares.git
          git+https://github.com/calamares/calamares-manjaro.git#branch=kpmcore)
 
 sha256sums=('SKIP'
