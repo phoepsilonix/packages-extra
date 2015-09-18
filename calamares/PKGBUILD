@@ -121,9 +121,9 @@ package() {
 	make DESTDIR="$pkgdir" install
 	install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
 	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
-	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/services.conf"
-	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
+	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
+	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	mkdir -p /usr/share/icons/
 	install -Dm644 "../data/manjaro-icon.png" "$pkgdir/usr/share/icons/calamares.png"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
