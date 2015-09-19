@@ -7,7 +7,7 @@ _gitcommit=89d7c05fd927064dbebc8b26150dce151db791e3
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
-makedepends=(lyx textlive-core texlive-latexextra texlive-pictures ttf-comfortaa ghostscript)
+makedepends=(lyx texlive-core texlive-latexextra texlive-pictures ttf-comfortaa ghostscript)
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
 sha256sums=('41e0480821cf48c4209bf68fae648680edbdf4afb6d34bd366b7e1050e39297c')
 
