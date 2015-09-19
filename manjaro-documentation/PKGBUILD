@@ -13,7 +13,9 @@ sha256sums=('56676653340e7a1ace0591b73f5f736dfc67607b0f62ca9574d11b7687f50ab5')
 
 prepare() {
   cd ${srcdir}/manjaro-user-guide*
-  lyx --export pdf5 manjaro-user-guide.lyx
+  lyx --export pdflatex manjaro-user-guide.lyx
+  pdflatex manjaro-user-guide
+  pdflatex manjaro-user-guide
   gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -sOutputFile=manjaro-user-guide-printer.pdf manjaro-user-guide.pdf
 }
 
