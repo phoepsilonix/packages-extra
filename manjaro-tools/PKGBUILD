@@ -4,17 +4,17 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.9.12
-pkgrel=3
+pkgrel=4
 pkgdesc='Development tools for Manjaro Linux'
 arch=('any')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-_gitsource=ea57a2a4d785b2a3a820004f16a8e710311808f6
+_gitsource=bbc69f8678d241725c1301daab25063c0f796eb3
 source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
 #source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
-sha256sums=('e4429e055facb9f171cda3d89c9d988e43dab8de57fb6474f87cb3223a3308ae')
+sha256sums=('724e4f6877222ffedf4184e7bfccf32041d2bd69ee4ab132b29d078e9f216e8a')
 
 prepare() {
 	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then

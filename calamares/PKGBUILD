@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=3
+_pointver=3.1
 pkgver=1.1.${_pointver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,7 +18,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 _git=No
 _development=No
 _snapshot_master=2372e45a8accba62d3349316f0b21651bf53616a
-_snapshot_manjaro=2c36a7e0028b10135b9f62614d727e2c71e5dc1a
+_snapshot_manjaro=18cbdcfcb7b96c467e71b55dd835a2cc8b380160
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git
@@ -31,7 +31,7 @@ fi
 source+=("keep-UUID-when-clearing-swap.patch::https://github.com/calamares/calamares/commit/c5f9397d1821acdc8b51bb826791df3d4073c0d5.patch")
 
 sha256sums=('ae5bc5335a0d7ee944b5a86b53795f0ea36646236dbae105cfa1207073ba2fee'
-            'dabf74cff219554bdd38ea76bc820b8fe0a47bc704368fd6092a336bcb0a33db'
+            'def75187eb62d19e9aafb08e8e927ae41183c6c70e7270ae697216c6b7e2b263'
             'ffa82bb7f53900e3bcee8726ac72ec76fab3fa80f66c478791cf4c9175458e40')
 
 pkgver() {
@@ -124,8 +124,8 @@ package() {
 	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
 	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
-	mkdir -p /usr/share/icons/
-	install -Dm644 "../data/manjaro-icon.png" "$pkgdir/usr/share/icons/calamares.png"
+	mkdir -p /usr/share/icons/hicolor/scalable/apps/
+	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
