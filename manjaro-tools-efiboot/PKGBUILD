@@ -7,6 +7,7 @@ pkgrel=1
 arch=('x86_64')
 url="http://www.freedesktop.org/wiki/Software/systemd"
 license=('GPL2' 'LGPL2.1')
+groups=('manjaro-tools')
 source=($pkgname-$pkgver-$pkgrel.tar.xz::http://arch.localmsp.org/arch/pool/packages/systemd-$pkgver-$pkgrel-x86_64.pkg.tar.xz
         Shell-pkgver-$pkgrel.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi
         Shell_Full-pkgver-$pkgrel.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi)
