@@ -1,7 +1,7 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
 
-pkgver=r1599.de30c2b
+pkgver=r1600.17721a9
 _branch=devel
 _pkgbase=manjaro-tools
 _pkgver=0.9.13
