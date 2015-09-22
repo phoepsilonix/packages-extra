@@ -2,20 +2,24 @@
 
 _branch=devel
 _pkgbase=manjaro-tools
-_pkgver=0.9.12
+_pkgver=0.9.13
 
 pkgbase=manjaro-tools-git
-pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1596.4efe483
+pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git' 'manjaro-tools-efi-shell')
 pkgrel=1
-arch=('any')
+# arch=('any')
+arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('git' 'docbook2x')
-source=("git+$url.git#branch=$_branch")
-sha256sums=('SKIP')
+source=("git+$url.git#branch=$_branch"
+        "Shell-$_pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi"
+        "Shell_Full-$_pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
+sha256sums=('SKIP'
+            'dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
+            'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
 
 prepare() {
 	cd ${srcdir}/${_pkgbase}
@@ -34,10 +38,13 @@ build() {
 }
 
 package_manjaro-tools-base-git() {
+        pkgver=r1599.de30c2b
+        pkgdesc='Development tools for Manjaro Linux (base tools)'
+        arch=('any')
 	provides=("manjaro-tools-base=$_pkgver")
 	depends=('openssh' 'rsync' 'haveged' 'os-prober')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
-			'manjaro-tools-iso: Manjaro Linux iso tools')
+                    'manjaro-tools-iso: Manjaro Linux iso tools')
 	conflicts=('manjaro-tools-base')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
 
@@ -47,6 +54,9 @@ package_manjaro-tools-base-git() {
 }
 
 package_manjaro-tools-pkg-git() {
+        pkgver=r1599.de30c2b
+        pkgdesc='Development tools for Manjaro Linux (packaging tools)'
+        arch=('any')
 	provides=("manjaro-tools-pkg=$_pkgver")
 	depends=('namcap' 'manjaro-tools-base-git')
 	conflicts=('manjaro-tools-pkg' 'devtools')
@@ -55,16 +65,29 @@ package_manjaro-tools-pkg-git() {
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
+package_manjaro-tools-efi-shell() {
+        pkgver=$_pkgver
+        pkgdesc="efi shell for manjaro-tools-iso"
+        arch=('x86_64')
+        conflicts=('manjaro-tools-efiboot')
+        replaces=('manjaro-tools-efiboot')
+
+        install -Dm644 ${srcdir}/Shell-$_pkgver.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v1.efi
+        install -Dm644 ${srcdir}/Shell_Full-$_pkgver.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v2.efi
+}
+
 package_manjaro-tools-iso-git() {
-        arch=('i686' 'x86_64')
+        pkgver=r1599.de30c2b
+        pkgdesc='Development tools for Manjaro Linux (ISO tools)'
+#         arch=('i686' 'x86_64')
 	provides=("manjaro-tools-iso=$_pkgver")
         depends_x86_64=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
                     'manjaro-tools-base-git' 'mkinitcpio-nfs-utils'
-                    'manjaro-tools-efiboot')
+                    'manjaro-tools-efi-shell')
         depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
                     'manjaro-tools-base-git' 'mkinitcpio-nfs-utils')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
-			'qemu: quickly test isos')
+                    'qemu: quickly test isos')
 	conflicts=('manjaro-tools-iso' 'manjaroiso')
 
 	cd ${srcdir}/${_pkgbase}
