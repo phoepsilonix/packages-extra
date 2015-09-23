@@ -3,29 +3,35 @@
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
-pkgver=0.9.11
-pkgrel=2.1
+tarball=manjaro-tools-iso-profiles
+pkgver=0.9.13rc1
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 groups=('manjaro-tools')
-makedepends=('git')
-source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}-2.tar.gz")
-sha256sums=('1cdda4d03582f1e5b7af1aa64e6a6dda8f8dbb57e54acb415f754684e797ffa6')
+options=('!strip')
+_gitsource=44c990368077c394259f2c4d12a68f1a9943f756
+source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
+#source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}-2.tar.gz")
+
 
 prepare() {
-	cd *iso-profiles-${pkgver}-2
+	if [ -e ${srcdir}/${tarball}-${_gitsource} ]; then
+		mv ${srcdir}/${tarball}-${_gitsource} ${srcdir}/${tarball}-${pkgver}
+	fi
+	cd ${tarball}-${pkgver}
 	# patches here
 }
 
 package_manjaro-iso-profiles() {
 	pkgdesc='Manjaro Linux official iso profiles'
-	depends=('manjaro-tools-iso>=0.9.8')
+	depends=("manjaro-tools-iso>=${pkgver}")
 	conflicts=('manjaroiso-profiles'
 		'manjaroiso-openrc-profiles'
 		'manjaroiso-community-profiles')
 
-	cd *iso-profiles-${pkgver}-2
+	cd ${tarball}-${pkgver}
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
 	cp -a * $pkgdir/usr/share/manjaro-tools/iso-profiles
 
@@ -53,3 +59,4 @@ package_manjaro-iso-profiles-openrc() {
 
 	mv $srcdir/_openrc/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
+md5sums=('dec2eb1c3840dfa35e0cc69f42fc3416')

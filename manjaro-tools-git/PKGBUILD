@@ -1,13 +1,17 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
 
-pkgver=r1600.17721a9
+pkgver=r1607.91417f6
 _branch=devel
 _pkgbase=manjaro-tools
 _pkgver=0.9.13
 
 pkgbase=manjaro-tools-git
-pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git' 'manjaro-tools-efi-shell')
+if [ "$CARCH" = "i686" ]; then
+    pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
+else
+    pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git' 'manjaro-tools-efi-shell')
+fi
 pkgrel=1
 # arch=('any')
 arch=('i686' 'x86_64')
