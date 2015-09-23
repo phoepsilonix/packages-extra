@@ -17,7 +17,7 @@ license=('GPL')
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
              'dkms'
-             'linux42' 'linux43-headers')
+             'linux43' 'linux43-headers')
 
 _extraver=extramodules-4.3-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
@@ -39,7 +39,7 @@ build() {
 
 package_linux43-virtualbox-host-modules(){
   pkgdesc='Host kernel modules for VirtualBox'
-  depends=('linux42')
+  depends=('linux43')
   replaces=('linux43-virtualbox-modules')
   conflicts=('linux43-virtualbox-modules')
   provides=('virtualbox-host-modules')
@@ -63,7 +63,7 @@ package_linux43-virtualbox-host-modules(){
 package_linux43-virtualbox-guest-modules(){
   pkgdesc='Guest kernel modules for VirtualBox'
   license=('GPL')
-  depends=('linux42')
+  depends=('linux43')
   replaces=('linux43-virtualbox-manjaro-modules')
   conflicts=('linux43-virtualbox-manjaro-modules')
   provides=('virtualbox-guest-modules')

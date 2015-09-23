@@ -43,7 +43,7 @@ package() {
   install -d $MODPATH
   install -m 644 -c nvidiabl.ko $MODPATH
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidiabl.install"
-  sed -i -e "s/VERSION='.*'/VERSION='linux42'/" "${startdir}/nvidiabl.install"
+  sed -i -e "s/VERSION='.*'/VERSION='linux43'/" "${startdir}/nvidiabl.install"
 }
 
 # vim:set ts=2 sw=2 et:

@@ -8,10 +8,10 @@ pkgrel=0.2
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
-depends=('linux42')
+depends=('linux43')
 makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
              'dkms'
-             'linux42' 'linux43-headers')
+             'linux43' 'linux43-headers')
 groups=('linux43-extramodules')
 install=install
 
@@ -37,7 +37,7 @@ package_linux43-zfs(){
   _pkgname=zfs
   pkgdesc='Kernel modules for the Zettabyte File System.'
   provides=("$_pkgname=$pkgver")
-  depends=('linux42' "zfs-utils=${pkgver}")
+  depends=('linux43' "zfs-utils=${pkgver}")
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
@@ -52,7 +52,7 @@ package_linux43-spl(){
   _pkgname=spl
   pkgdesc='Solaris Porting Layer kernel modules.'
   provides=("$_pkgname=$pkgver")
-  depends=('linux42' "spl-utils=${pkgver}")
+  depends=('linux43' "spl-utils=${pkgver}")
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"

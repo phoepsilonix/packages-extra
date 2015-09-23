@@ -15,7 +15,7 @@ pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
 arch=('i686' 'x86_64')
-depends=('glibc' 'linux42')
+depends=('glibc' 'linux43')
 makedepends=('linux43-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux43-extramodules')

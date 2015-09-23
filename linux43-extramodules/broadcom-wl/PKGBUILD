@@ -12,10 +12,10 @@ pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')
 license=('custom')
-depends=('linux42')
+depends=('linux43')
 makedepends=("broadcom-wl-dkms>=$pkgver"
              'dkms'
-             'linux42' 'linux43-headers')
+             'linux43' 'linux43-headers')
 groups=('linux43-extramodules')
 provides=("$_pkgname=$pkgver")
 install=install
@@ -40,7 +40,7 @@ build() {
 package_linux43-broadcom-wl(){
   _extraver=extramodules-4.3-MANJARO
   _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
-  depends=('linux42')
+  depends=('linux43')
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/broadcom-wl/$pkgver/$_kernver/$CARCH/module"

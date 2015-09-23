@@ -14,7 +14,7 @@ _subpkgrel=0.2
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
-makedepends=('linux42' 'linux43-headers')
+makedepends=('linux43' 'linux43-headers')
 source=($pkgname-$pkgver.tar.gz::https://github.com/mtorromeo/rt3562sta-linux/archive/r${_patchrel}.tar.gz)
 
 build() {
@@ -45,7 +45,7 @@ package_linux43-rt3562sta() {
 	provides=("$pkgbase=$pkgver")
 	groups=('linux43-extramodules')
 	pkgdesc="Ralink RT3562 PCI WLAN adaptors kernel module"
-	depends=('linux42' 'rt3562sta-common')
+	depends=('linux43' 'rt3562sta-common')
 	groups=('linux43-extramodules')
         install=$pkgbase.install
 	cd "$srcdir/rt3562sta-linux-r$_patchrel"

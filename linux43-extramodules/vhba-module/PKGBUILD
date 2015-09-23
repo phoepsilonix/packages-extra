@@ -15,7 +15,7 @@ pkgdesc="Kernel module that emulates SCSI devices"
 arch=('i686' 'x86_64')
 url="http://cdemu.sourceforge.net/"
 license=('GPL')
-depends=('linux42')
+depends=('linux43')
 makedepends=('linux43-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux43-extramodules')
