@@ -3,13 +3,13 @@
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
 pkgver=15.09
-_gitcommit=b2d85f6fb633efb27203a76ba943e9d60b9d6b5d
-pkgrel=2
+_gitcommit=bd4002bf84aa8ba2d5084555f8e701d97ea1fac0
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
 makedepends=(lyx texlive-core texlive-latexextra texlive-pictures ttf-comfortaa ghostscript)
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
-sha256sums=('84137ba9707b545237ab211fe1ffca1b6007c541f0fc01d8b7ce697ae1acf13b')
+sha256sums=('8cb639d1d71f2adc98ba5cfddc3c2cc0aa3a82b84bb30b8e57bc1e54d4f25e3d')
 
 prepare() {
   cd ${srcdir}/manjaro-user-guide*
