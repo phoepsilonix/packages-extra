@@ -7,7 +7,7 @@ if [ "$CARCH" = "i686" ]; then
 else
     pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso' 'manjaro-tools-efi-shell')
 fi
-pkgver=0.9.13rc1
+pkgver=0.9.13rc2
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('x86_64' 'i686')
@@ -15,12 +15,12 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-_gitsource=91417f6862c73b1f6d35ad772f4739ecb8c986d4
+_gitsource=2259e083d85a93e1b5c7978780f2b2e96a7af696
 source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz"
 #source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz"
         "Shell-$pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi"
         "Shell_Full-$pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
-sha256sums=('1a5c6ccb9bc39070d3e745750da89a36ff37b14ef20a6a0f6af14f147ac440c3'
+sha256sums=('37ac716b5e13a41439cb39839b26d6bf8441bbdfbc2a2657457c4edde6d9091e'
             'dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
             'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
 
