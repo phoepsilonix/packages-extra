@@ -1,47 +1,47 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
-# Maintainer: Philip Müller <philm@manjaro.org>
-# Maintainer: Roland Singer <roland@manjaro.org>
-# Contributer: WorMzy Tykashi <wormzy.tykashi@gmail.com>
-# Contributer: OK100 <ok100 at lavabit dot com>
-# Contributer: Valère Monseur <valere dot monseur at ymail dot com>
+# Maintainer: WorMzy Tykashi <wormzy.tykashi@gmail.com>
+# Contributor: OK100 <ok100 at lavabit dot com>
+# Contributor: Valère Monseur <valere dot monseur at ymail dot com>
 
 pkgname=compton
-pkgver=0.1_beta2
-pkgrel=5
+pkgver=0.1_beta2.r82.gd7f95b5
+pkgrel=1
 pkgdesc="X Compositor (a fork of xcompmgr-dana)"
-arch=(i686 x86_64)
+arch=('i686' 'x86_64')
 url="https://github.com/chjj/compton"
 license=('MIT')
-depends=('libgl' 'libdbus' 'libxcomposite' 'libxdamage' 'libxrandr' 'pcre' 'libconfig' 'libxinerama')
-makedepends=('asciidoc' 'mesa')
+depends=('libgl'
+	'libdbus'
+	'libxcomposite'
+	'libxdamage'
+	'libxrandr'
+	'pcre'
+	'libconfig'
+	'libxinerama')
+makedepends=('git'
+	'asciidoc'
+	'mesa')
 optdepends=('dbus:          To control compton via D-Bus'
-            'xorg-xwininfo: For compton-trans'
-            'xorg-xprop:    For compton-trans')
-source=("https://github.com/chjj/${pkgname}/archive/v${pkgver}.tar.gz")
-md5sums=('fed786fa5ee9eb89df02291f2cc6e04d')
+	'xorg-xwininfo: For compton-trans'
+	'xorg-xprop:    For compton-trans')
+source=("git://github.com/chjj/compton.git")
+md5sums=('SKIP')
 
-prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
-
-  # fix version
-  sed -i "s:\(COMPTON_VERSION ?= \)git.*:\1v${pkgver}:" Makefile
+pkgver() {
+	cd $srcdir/$pkgname
+	git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-
+  cd $srcdir/$pkgname
   make PREFIX=/usr
   make docs
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $srcdir/$pkgname
+  make PREFIX=$pkgdir/usr install
 
-  make PREFIX="$pkgdir/usr" install
-
-  # install license
-  install -D -m644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-
-  # example conf
-  install -D -m644 "compton.sample.conf" "$pkgdir/etc/xdg/compton.conf.example"
+  install -D -m644 LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
+  install -D -m644 compton.sample.conf $pkgdir/etc/xdg/compton.conf.example
 }
