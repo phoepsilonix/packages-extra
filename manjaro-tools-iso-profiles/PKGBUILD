@@ -4,14 +4,14 @@
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
 tarball=manjaro-tools-iso-profiles
-pkgver=0.9.13rc1
+pkgver=0.9.13
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 groups=('manjaro-tools')
 options=('!strip')
-_gitsource=44c990368077c394259f2c4d12a68f1a9943f756
+_gitsource=4cb78ae258a5f7ac03ddb81a0cf988e28eac8901
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
 #source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}-2.tar.gz")
 
@@ -22,6 +22,9 @@ prepare() {
 	fi
 	cd ${tarball}-${pkgver}
 	# patches here
+
+	# cleanup (file is for 0.9.14)
+	rm shared/Packages-Mhwd-drivers
 }
 
 package_manjaro-iso-profiles() {
@@ -59,4 +62,4 @@ package_manjaro-iso-profiles-openrc() {
 
 	mv $srcdir/_openrc/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
-md5sums=('dec2eb1c3840dfa35e0cc69f42fc3416')
+md5sums=('c89988ffbc76d0c8c75dc1215afd5b95')

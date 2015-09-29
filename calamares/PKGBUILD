@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=3.1
+_pointver=4.1
 pkgver=1.1.${_pointver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -19,22 +19,19 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 _development=No
-_snapshot_master=2372e45a8accba62d3349316f0b21651bf53616a
-_snapshot_manjaro=18cbdcfcb7b96c467e71b55dd835a2cc8b380160
+_snapshot_master=07b6b1265b73bcb65da6d12dca3c28af23e44764
+_snapshot_manjaro=ea1c08d3cb126b890856712183d0537040338720
 
 if [ "$_git" == "Yes" ]; then
-   source+=(git+https://github.com/calamares/calamares.git
-            git+https://github.com/calamares/calamares-manjaro.git)
+   source+=(git+https://github.com/calamares/calamares.git#branch=1.1.x-stable
+            git+https://github.com/calamares/calamares-manjaro.git#branch=1.1.x-stable)
 else
    source+=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot_master.tar.gz"
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-source+=("keep-UUID-when-clearing-swap.patch::https://github.com/calamares/calamares/commit/c5f9397d1821acdc8b51bb826791df3d4073c0d5.patch")
-
-sha256sums=('ae5bc5335a0d7ee944b5a86b53795f0ea36646236dbae105cfa1207073ba2fee'
-            'def75187eb62d19e9aafb08e8e927ae41183c6c70e7270ae697216c6b7e2b263'
-            'ffa82bb7f53900e3bcee8726ac72ec76fab3fa80f66c478791cf4c9175458e40')
+sha256sums=('9dffe8d14ea157cac8ed77ec3f6b3bd571759cd4e30a989b917c7dbbaa163ed7'
+            '4ac728d62347e6f0f73f86d9e481ed0d45d49fdcc318e140639360afa721e965')
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
@@ -48,9 +45,9 @@ pkgver() {
 	fi
 	if [ "$_git" == "Yes" ]; then
 		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "1.1.3.$(date +%m%d).`git describe --always`"
-		#echo "1.1.3$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 1.1.3$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		#echo "1.1.4.$(date +%m%d).`git describe --always`"
+		#echo "1.1.4$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
+		echo 1.1.4$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 	else
 		echo "$pkgver"
 	fi
@@ -70,8 +67,6 @@ prepare() {
 		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname.git"
 		cd "$srcdir/$pkgname.git"
 	fi
-
-	patch -Np1 -i "$srcdir/keep-UUID-when-clearing-swap.patch"
 
 	#sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
 
