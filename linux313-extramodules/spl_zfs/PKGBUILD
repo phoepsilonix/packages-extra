@@ -3,7 +3,7 @@
 
 pkgbase=linux313-spl_zfs
 pkgname=('linux313-spl' 'linux313-zfs')
-pkgver=0.6.5
+pkgver=0.6.5.2
 pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
