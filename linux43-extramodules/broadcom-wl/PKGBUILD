@@ -26,6 +26,13 @@ prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  # copy this dir to local dir so we can patch it.
+  cp -r -L dkms/broadcom-wl/$pkgver/source dkms/broadcom-wl/$pkgver/src
+  rm dkms/broadcom-wl/$pkgver/source
+  mv dkms/broadcom-wl/$pkgver/src dkms/broadcom-wl/$pkgver/source
+
+  sed -i -e 's|rdtscl(cycles)|cycles = 0|g' dkms/broadcom-wl/$pkgver/source/src/shared/linux_osl.c
 }
 
 build() {
