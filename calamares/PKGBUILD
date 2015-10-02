@@ -3,7 +3,7 @@
 pkgname=calamares
 _pointver=4.2
 pkgver=1.1.${_pointver}
-pkgrel=3.1
+pkgrel=2.2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -20,7 +20,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 _git=No
 _development=No
 _snapshot_master=2f2a55a359b4948ea678d67d76a992452cee659c
-_snapshot_manjaro=ea1c08d3cb126b890856712183d0537040338720
+_snapshot_manjaro=12a5fef5bb029249c94adbe198e64ccd6146ccea
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git#branch=1.1.x-stable
@@ -31,7 +31,7 @@ else
 fi
 
 sha256sums=('3282e27cf0a4466a48ed864d947c17be9ada11655a4b598cde1b23924a555c85'
-            '4ac728d62347e6f0f73f86d9e481ed0d45d49fdcc318e140639360afa721e965')
+            '582e4b64dcc565c67ee44717718f147ba59134ad945e45658aee6a715973cdb7')
 
 pkgver() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
