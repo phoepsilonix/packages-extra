@@ -7,7 +7,7 @@ if [ "$CARCH" = "i686" ]; then
 else
     pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso' 'manjaro-tools-efi-shell')
 fi
-pkgver=0.9.13
+pkgver=0.9.13.1
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('x86_64' 'i686')
@@ -20,7 +20,7 @@ makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz"
         "Shell-$pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi"
         "Shell_Full-$pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
-sha256sums=('ef9ff0260b688ba309b485fd218c6b5e31eb1f2b3db0c537c21af2b62d63095d'
+sha256sums=('dd1619ff2a1fd4c4f5ffcd2f12a5d62fce3bed2896c1c6cedc2d23ac26316acb'
             'dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
             'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
 
