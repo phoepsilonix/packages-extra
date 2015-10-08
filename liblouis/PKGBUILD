@@ -3,7 +3,7 @@
 
 pkgname=liblouis
 pkgver=2.6.4
-pkgrel=1
+pkgrel=0.1
 pkgdesc="Open-source braille translator and back-translator"
 arch=(i686 x86_64)
 url="http://liblouis.org/"
