@@ -9,7 +9,7 @@
 
 pkgbase=linux43-virtualbox-modules
 pkgname=('linux43-virtualbox-host-modules' 'linux43-virtualbox-guest-modules')
-pkgver=5.0.4
+pkgver=5.0.6
 pkgrel=0.5
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
@@ -22,24 +22,10 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
 _extraver=extramodules-4.3-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
 
-source=('SUPDrv-linux.patch::https://aur.archlinux.org/cgit/aur.git/plain/SUPDrv-linux.patch?h=virtualbox-modules-mainline'
-        'VBoxNetAdp-linux.patch::https://aur.archlinux.org/cgit/aur.git/plain/VBoxNetAdp-linux.patch?h=virtualbox-modules-mainline')
-
-sha256sums=('479c3ed07fa82b8bdabfa8b4329bc5f3f692cce2303fc8cc3fe82549f21d3a58'
-            '195500efaee9cfbfedfdfc16e7b376e69d012521bc0256c2049a4215b2dc7ec8')
-
 prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-
-  # copy this dir to local dir so we can patch it.
-  cp -r -L dkms/vboxhost/$pkgver/source dkms/vboxhost/$pkgver/src
-  rm dkms/vboxhost/$pkgver/source
-  mv dkms/vboxhost/$pkgver/src dkms/vboxhost/$pkgver/source
-
-  patch dkms/vboxhost/$pkgver/source/vboxdrv/linux/SUPDrv-linux.c < $srcdir/SUPDrv-linux.patch
-  patch dkms/vboxhost/$pkgver/source/vboxnetadp/linux/VBoxNetAdp-linux.c < $srcdir/VBoxNetAdp-linux.patch
 }
 
 build() {
