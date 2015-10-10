@@ -7,8 +7,9 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=plymouth
-pkgver=0.8.9
+pkgver=0.8.8
 pkgrel=1
+epoch=1
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -19,7 +20,7 @@ optdepends=('ttf-dejavu')
 options=('!libtool' '!emptydirs')
 install=${pkgname}.install
 backup=('etc/plymouth/plymouthd.conf')
-source=("$pkgname-$pkgver.tar.bz2"
+source=("http://www.freedesktop.org/software/$pkgname/releases/$pkgname-$pkgver.tar.bz2"
         'manjaro-logo.png'
         "plymouth.encrypt_hook"
         "plymouth.encrypt_install"
@@ -40,10 +41,8 @@ source=("$pkgname-$pkgver.tar.bz2"
         'plymouth-update-initrd.patch'
         'plymouthd.conf'
         'systemd-unit-dir.patch'
-        'dont-timeout-waiting.patch'
-        'fix-theme-override.patch'
-        'sysfs-tty-fix.patch')
-sha256sums=('96c47cd9f0726f39097976ba96dba5e24d333ecf4b407a41489da6b74c70859d'
+        'udevadm.patch')
+sha256sums=('1bada4e1d3a31a5a99adc2db83f5452d9818839cda51a6e430f044f6281d759b'
             '014e8a09f88a73b1e5985dcb16a44004e341f5bba90043fa3d7fd7e3a56120cf'
             'cbfb5bcb6897703e088eefdee9d578f75d987116becafecbb2018b283ba3865e'
             '544399d4f3454644f24ad11e504eaa7d622c73942728f52fb55bea054c756fa1'
@@ -56,7 +55,7 @@ sha256sums=('96c47cd9f0726f39097976ba96dba5e24d333ecf4b407a41489da6b74c70859d'
             'f9caa93e784ed1f045c6c12d39c0f89f5391ecfa8e12ba3f021a0a4d55234815'
             'c1d44564bad8c4d49ef7eb5083f0339f11ef2b3215ee8a5e6c56a586a8d31fac'
             'f95d11cc3222c10dfd0405ecbde6e82efa5e4580ab58e2372cce3bf04055aa25'
-            '99c28437513a266dd0778589c1a6189b0d0a32d4c04f91008aa863b46e56bb5c'
+            'f576f97a3fa7a145201697cc9188d77e1917d4f1bb8e286270d1cd789adb22bb'
             '2fd66867c829e51308f460eda581aec4be42d5b1ae57a537baf6d594f9007f25'
             '59729e10edf2107a0d6b4dc1e77403b79ae14fe56a3964741a3ddf61714272e4'
             'cc33cd71264aab5acbe4919c337b9aa29ac5695c6b310a1992b1aab66dc4b95a'
@@ -64,9 +63,7 @@ sha256sums=('96c47cd9f0726f39097976ba96dba5e24d333ecf4b407a41489da6b74c70859d'
             'f965d311bd66e426723fae20161a152af59adc1831549d92bef874d868c50f31'
             '83ffd4aa52ca6a77423ab7edc2c2369808c7abffe68d97e134176c4592a81cc6'
             '703450baf386efe8d6c6a6b987672e98e746a5ca00e1457a655a7ae1164358e0'
-            'bb1d5794426cadf2759f3b9c946fcb35ffd00a8ccd3ddcc0f3962be91d55a3ec'
-            'f893f908a629830744f29d5506efac5e115e663d9b31f2ba687bdbc934ab11de'
-            'c75180be625b49eca92bd7a8dc5816de95b33fb3bc7f5db3bdab1af82382be72')
+            '85833e8545470c8a69b68b99364928d497efe014a2e767971f57e80d41b5f402')
 
 prepare() {
     cd $srcdir 
@@ -82,16 +79,14 @@ prepare() {
     msg2 "Changing PID file to /run/plymouth.pid"
     patch -p1 -i ../plymouth-pid.patch
 
-    msg2 "Changing plymouth quit service"
+    msg2 "Changing plymout quit service"
     patch -p1 -i ../plymouth-quit.service.in.patch
+    
+    msg2 "Changing udevadm path"
+    patch -p1 -i ../udevadm.patch  
 
-    #msg2 "Changing SYSTEMD_UNIT_DIR to /usr/lib/systemd/system/"
-    #patch -p0 -i ../systemd-unit-dir.patch
-
-    msg2 "Add Fedora patches"
-    patch -p1 -i ../dont-timeout-waiting.patch
-    patch -p1 -i ../fix-theme-override.patch
-    patch -p1 -i ../sysfs-tty-fix.patch
+    msg2 "Changing SYSTEMD_UNIT_DIR to /usr/lib/systemd/system/"
+    patch -p0 -i ../systemd-unit-dir.patch
     
     sed -e 's:png_set_gray_1_2_4_to_8:png_set_expand_gray_1_2_4_to_8:g' \
        -i src/libply-splash-graphics/ply-image.c
