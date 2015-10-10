@@ -4,14 +4,14 @@
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
 tarball=manjaro-tools-iso-profiles
-pkgver=0.9.13.1
-pkgrel=3
+pkgver=0.9.13.2
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 groups=('manjaro-tools')
 options=('!strip')
-_gitsource=9b693a192851f03ea826af4e47c9f89e7fc1d274
+_gitsource=301d09b118f93ba5fedc029c056ca30716b5cc50
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
 #source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}-2.tar.gz")
 
@@ -62,4 +62,4 @@ package_manjaro-iso-profiles-openrc() {
 
 	mv $srcdir/_openrc/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
-md5sums=('b6298fbdbcb0f8dafb9d830954ddb061')
+md5sums=('dcd18d1ad897ac9f6bacb4b2740ea3cc')
