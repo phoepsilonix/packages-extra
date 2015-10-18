@@ -18,62 +18,60 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
-_development=No
+# This is the release package so the below _snapshot_master variable should (usually) be commented out.
 _snapshot_master=5456ed3b5342535208434ea5af4836c4b28423ec
 _snapshot_manjaro=285f0e25c2e271768cbed3024ecacb386ca2ac53
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git#branch=1.1.x-stable
             git+https://github.com/calamares/calamares-manjaro.git#branch=1.1.x-stable)
-else
+elif [ "${_snapshot_master}" != "" ]; then
    source+=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot_master.tar.gz"
+            "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
+else
+   source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$pkgver/calamares-$pkgver.tar.gz"
             "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
 fi
 
-sha256sums=('ef43818941c771e737b5e1591c5ae511b68556bc9d915542a7b1b24c21b992d0'
-            '75591b11ec719ca0e8a95633b4cd9939c688fb4d63ef9b8789861d01ebd67025')
+if [ "$_git" == "Yes" ]; then
+	sha256sums=('SKIP'
+	            'SKIP')
+elif [ "${_snapshot_master}" != "" ]; then
+	sha256sums=('ef43818941c771e737b5e1591c5ae511b68556bc9d915542a7b1b24c21b992d0'
+	            '75591b11ec719ca0e8a95633b4cd9939c688fb4d63ef9b8789861d01ebd67025')
+else
+	sha256sums=('ed80e37666cf6cb0bcd346c8e5688e1558c6ee1e5ae07424c32ac4c17eb500d6'
+	            '75591b11ec719ca0e8a95633b4cd9939c688fb4d63ef9b8789861d01ebd67025')
+fi
 
 pkgver() {
-	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
-		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
-		cd "$srcdir/$pkgname-$_snapshot_master"
-	elif [ -e "$srcdir/$pkgname" ]; then
-		cd "$srcdir/$pkgname"
-	elif [ -e "$srcdir/$pkgname.git" ]; then
-		cd "$srcdir/$pkgname.git"
-	fi
 	if [ "$_git" == "Yes" ]; then
-		#echo "`git tag | tail -1 | sed 's|v||g'`.`git describe --always`"
-		#echo "1.1.4.$(date +%m%d).`git describe --always`"
-		#echo "1.1.4$(git describe --tags | sed 's|v||g' | sed 's|-|.|g')"
-		echo 1.1.4$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+		cd ${srcdir}/calamares
+		_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+		_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+		_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+		echo -e "${_ver// /.}${_git}"
+		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
 	else
 		echo "$pkgver"
 	fi
 }
 
 prepare() {
-	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+	if [ "$_git" == "Yes" ]; then
+		cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
+		cd ${srcdir}/calamares
+		#sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
+		git submodule init
+		git submodule update
+		rm -rf ${srcdir}/calamares/.git
+		rm -rf ${srcdir}/calamares-manjaro
+	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
 		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$pkgver"
 		cd "$srcdir/$pkgname-$pkgver"
 	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
 		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$_snapshot_master"
 		cd "$srcdir/$pkgname-$_snapshot_master"
-	elif [ -e "$srcdir/$pkgname" ]; then
-		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname"
-		cd "$srcdir/$pkgname"
-	elif [ -e "$srcdir/$pkgname.git" ]; then
-		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname.git"
-		cd "$srcdir/$pkgname.git"
-	fi
-
-	#sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
-
-	if [ "$_git" == "Yes" ]; then
-		git submodule init
-		git submodule update
-	else
 		mkdir -p src/modules/partition/
 		cd src/modules/partition/
 		git clone https://github.com/calamares/partitionmanager.git
@@ -83,14 +81,12 @@ prepare() {
 }
 
 build() {
-	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+	if [ "$_git" == "Yes" ]; then
+		cd ${srcdir}/calamares
+	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
 		cd "$srcdir/$pkgname-$pkgver"
 	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
 		cd "$srcdir/$pkgname-$_snapshot_master"
-	elif [ -e "$srcdir/$pkgname" ]; then
-		cd "$srcdir/$pkgname"
-	elif [ -e "$srcdir/$pkgname.git" ]; then
-		cd "$srcdir/$pkgname.git"
 	fi
 
 	mkdir -p build
@@ -104,14 +100,12 @@ build() {
 }
 
 package() {
-	if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+	if [ "$_git" == "Yes" ]; then
+		cd ${srcdir}/calamares
+	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
 		cd "$srcdir/$pkgname-$pkgver"
 	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
 		cd "$srcdir/$pkgname-$_snapshot_master"
-	elif [ -e "$srcdir/$pkgname" ]; then
-		cd "$srcdir/$pkgname"
-	elif [ -e "$srcdir/$pkgname.git" ]; then
-		cd "$srcdir/$pkgname.git"
 	fi
 
 	cd build
