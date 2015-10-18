@@ -57,13 +57,26 @@ pkgver() {
 	fi
 }
 
+checkout_partitionmanager() {
+	mkdir -p src/modules/partition/
+	cd src/modules/partition/
+	git clone https://github.com/calamares/partitionmanager.git
+	cd partitionmanager
+	git checkout calamares
+	rm -rf .git
+}
+
 prepare() {
 	if [ "$_git" == "Yes" ]; then
 		cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
 		cd ${srcdir}/calamares
-		#sed -i -e "s|CALAMARES_VERSION_PATCH 0|CALAMARES_VERSION_PATCH $_pointver|g" CMakeLists.txt
-		git submodule init
-		git submodule update
+
+		#this seems not to work with 'buildpkg'
+		#git submodule init
+		#git submodule update
+
+		checkout_partitionmanager
+
 		rm -rf ${srcdir}/calamares/.git
 		rm -rf ${srcdir}/calamares-manjaro
 	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
@@ -72,11 +85,7 @@ prepare() {
 	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
 		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$_snapshot_master"
 		cd "$srcdir/$pkgname-$_snapshot_master"
-		mkdir -p src/modules/partition/
-		cd src/modules/partition/
-		git clone https://github.com/calamares/partitionmanager.git
-		cd partitionmanager
-		git checkout calamares
+		checkout_partitionmanager
 	fi
 }
 
