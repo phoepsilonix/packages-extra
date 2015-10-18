@@ -8,7 +8,7 @@ pkgname=('manjaro-livecd-openrc'
          'manjaro-livecd-cli-installer')
 pkgver=0.9.12
 pkgdesc='Manjaro Linux livecd'
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"
 license=('GPL')
@@ -27,7 +27,7 @@ package_manjaro-livecd-cli-installer() {
 
 package_manjaro-livecd-openrc() {
     pkgdesc='Manjaro Linux livecd openrc init scripts'
-    depends=('openrc-core')
+    depends=('openrc')
 
     cd manjaro-tools-livecd-${pkgver}
     install -dm 755 $pkgdir
