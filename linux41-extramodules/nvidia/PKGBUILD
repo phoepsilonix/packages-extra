@@ -9,8 +9,8 @@ _linuxprefix=linux41
 _extramodules=extramodules-4.1-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=355.11
-pkgrel=4
+pkgver=358.09
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -27,12 +27,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('94ce6b879581b931b84d83a9111040b9a5aa9306b012b4380cd93f6ffede3066')
+    sha256sums+=('ce51529905fe32ade279959177a3162f95cb4860f8f8ed6e6fbacbea3ec348cf')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('0fcc6a62a05fc11344aff375faaca56b358ee1252f6b2c98c00d628ea3d0f842')
+    sha256sums+=('4bbf876f8c657488ad899116c0017aeb7e660cdac019e7660b873bf205e332fc')
 fi
 
 prepare() {
@@ -54,6 +54,11 @@ package() {
         install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-uvm.ko" \
             "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
     fi
+    # "nvidia-modeset.ko does not provide any new user-visible functionality or interfaces to third party applications.
+    #  However, in a later release, nvidia-modeset.ko will be used as a basis for the modesetting interface provided by
+    #  the kernel's direct rendering manager (DRM)."
+    install -Dm644 $_pkg/kernel/nvidia-modeset.ko \
+         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-modeset.ko"
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
 }

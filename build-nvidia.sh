@@ -14,9 +14,9 @@ cd ../../linux318*/*nvidia
 makepkg --sign -df
 cd ../../linux319*/*nvidia
 makepkg --sign -df
-cd ../../linux40*/*nvidia
-makepkg --sign -df
 cd ../../linux41*/*nvidia
 makepkg --sign -df
 cd ../../linux42*/*nvidia
+makepkg --sign -df
+cd ../../linux43*/*nvidia
 makepkg --sign -df
