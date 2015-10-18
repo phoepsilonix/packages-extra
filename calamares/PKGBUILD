@@ -48,10 +48,10 @@ pkgver() {
 	if [ "$_git" == "Yes" ]; then
 		cd ${srcdir}/calamares
 		_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-		_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+		_gitver=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 		_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-		echo -e "${_ver// /.}${_git}"
-		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
+		echo -e "${_ver// /.}${_gitver}"
+		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_gitver|g" CMakeLists.txt
 	else
 		echo "$pkgver"
 	fi
