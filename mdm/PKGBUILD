@@ -5,7 +5,7 @@
 
 pkgname=mdm
 pkgver=2.0.4
-pkgrel=1
+pkgrel=2
 _git=06089c745dab86d7bf3d180a2671822df98ef335
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
@@ -49,6 +49,7 @@ prepare() {
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver}
 	#cd ${srcdir}/${pkgname}-${_git}
+	gnome-doc-prepare --force
 	chmod +x ./autogen.sh
 	export AUTOMAKE=automake
 	./autogen.sh --enable-ipv6=yes --with-prefetch \
