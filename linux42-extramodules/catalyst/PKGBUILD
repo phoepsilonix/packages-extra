@@ -7,7 +7,7 @@ _extramodules=extramodules-4.2-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=0.3
+pkgrel=0.4
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -18,7 +18,7 @@ arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
 depends=("$_linuxprefix" "catalyst-utils=${epoch}:${pkgver}")
-makedepends=("$_linuxprefix-headers")
+makedepends=("$_linuxprefix-headers" "gcc49")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
@@ -93,7 +93,7 @@ build() {
 	cp 2.6.x/Makefile .
 
 	## Compile module using _ati_check variables
-	make -C /usr/lib/modules/${_kernver}/build SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
+	make CC=gcc-4.9 -C /usr/lib/modules/${_kernver}/build SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
 	MODFLAGS="-DMODULE -DATI -DFGL -DPAGE_ATTR_FIX=$PAGE_ATTR_FIX -DCOMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE $def_smp $def_modversions" \
 	PAGE_ATTR_FIX=$PAGE_ATTR_FIX COMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE modules
 }
