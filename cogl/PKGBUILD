@@ -3,7 +3,7 @@
 
 pkgname=cogl
 pkgver=1.22.0
-pkgrel=1.2
+pkgrel=1.3
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
 arch=('i686' 'x86_64')
 url="http://www.clutter-project.org/"
@@ -12,9 +12,11 @@ depends=('mesa' 'libdrm' 'libxext' 'libxdamage' 'libxcomposite' 'gdk-pixbuf2' 'p
 makedepends=('gobject-introspection')
 options=(!emptydirs)
 source=(http://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver:0:4}/$pkgname-$pkgver.tar.xz
-        fix-black-login-screen.patch)
+        fix-black-login-screen.patch
+        cogl-driver-glsl120.patch)
 sha256sums=('689dfb5d14fc1106e9d2ded0f7930dcf7265d0bc84fa846b4f03941633eeaa91'
-            '78847e51a10b5cc7576e6025dbae76c6c25d2faf2c7061e3c8f2bc2c095dfb2f')
+            '78847e51a10b5cc7576e6025dbae76c6c25d2faf2c7061e3c8f2bc2c095dfb2f'
+            '3d10d7b543090450e7bc1e751c6a6bb99868e181221fd22c9573c7d8041e0fcd')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -23,6 +25,8 @@ prepare() {
 build() {
   cd $pkgname-$pkgver
   patch -Np1 -i ../fix-black-login-screen.patch
+  # workaround for catalyst
+  patch -Np1 -i ../cogl-driver-glsl120.patch
   ./configure --prefix=/usr \
     --enable-gles{1,2} \
     --enable-{kms,wayland}-egl-platform \
