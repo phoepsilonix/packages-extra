@@ -4,7 +4,7 @@
 pkgname=cogl-catalyst
 _pkgname=cogl
 pkgver=1.22.0
-pkgrel=1.3
+pkgrel=1.4
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
 arch=('i686' 'x86_64')
 url="http://www.clutter-project.org/"
@@ -19,7 +19,7 @@ source=(http://ftp.gnome.org/pub/gnome/sources/$_pkgname/${pkgver:0:4}/$_pkgname
         cogl-driver-glsl120.patch)
 sha256sums=('689dfb5d14fc1106e9d2ded0f7930dcf7265d0bc84fa846b4f03941633eeaa91'
             '78847e51a10b5cc7576e6025dbae76c6c25d2faf2c7061e3c8f2bc2c095dfb2f'
-            'fbd93fa133eedc63667cd1cb9c7f0a1c597ae3f649765583e0599e3e6fe96f25')
+            '3d10d7b543090450e7bc1e751c6a6bb99868e181221fd22c9573c7d8041e0fcd')
 
 prepare() {
   cd $_pkgname-$pkgver

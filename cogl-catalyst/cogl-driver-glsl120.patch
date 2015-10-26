@@ -1,11 +1,78 @@
 --- 122/cogl/driver/gl/gl/cogl-driver-gl.c	2015-09-02 18:39:02.000000000 +0200
 +++ 122b/cogl/driver/gl/gl/cogl-driver-gl.c	2015-10-18 10:37:14.052350142 +0200
-@@ -419,7 +419,7 @@
+@@ -33,6 +33,7 @@
+ #endif
+ 
+ #include <string.h>
++#include <stdio.h>
+ 
+ #include "cogl-private.h"
+ #include "cogl-context-private.h"
+@@ -46,6 +47,41 @@
+ #include "cogl-clip-stack-gl-private.h"
+ #include "cogl-buffer-gl-private.h"
+ 
++static int
++output_get_fglrx_kernel_module_loaded()
++{
++  /* Checks if fglrx module has been loaded by parsing /proc/modules.
++   * Returns 1 if the module was found (and thus has been loaded), 0 if the
++   * module was not found and -1 if /proc/modules couldn't be opened.
++   */
++
++  int retval = 0; // defaults to not found
++  
++  FILE* fp;
++  char line[256];
++
++  fp = fopen("/proc/modules", "r");
++  if (!fp)
++    {
++      retval = -1;
++    }
++  else
++    {
++      while (fgets(line, sizeof(line), fp) != NULL)
++        {
++          char *entry = strtok(line, " \n");
++
++          if (strcmp(entry, "fglrx") == 0)
++            {
++              retval = 1;
++              break;
++            }
++        }
++      fclose(fp);
++    }
++  return retval;
++}
++
+ static CoglBool
+ _cogl_driver_pixel_format_from_gl_internal (CoglContext *context,
+                                             GLenum gl_int_format,
+@@ -360,6 +396,7 @@ _cogl_driver_update_features (CoglContex
+   char **gl_extensions;
+   int gl_major = 0, gl_minor = 0;
+   int i;
++  int fglrx_kernel_module_loaded = output_get_fglrx_kernel_module_loaded();
+ 
+   /* We have to special case getting the pointer to the glGetString*
+      functions because we need to use them to determine what functions
+@@ -417,9 +454,14 @@ _cogl_driver_update_features (CoglContex
+     }
+ 
    if (COGL_CHECK_GL_VERSION (ctx->glsl_major, ctx->glsl_minor, 1, 2))
-     /* We want to use version 120 if it is available so that the
-      * gl_PointCoord can be used. */
+-    /* We want to use version 120 if it is available so that the
+-     * gl_PointCoord can be used. */
 -    ctx->glsl_version_to_use = 120;
-+    ctx->glsl_version_to_use = 150;
++    if (fglrx_kernel_module_loaded != 1)
++      /* We want to use version 120 if it is available so that the
++       * gl_PointCoord can be used. */
++      ctx->glsl_version_to_use = 120;
++    else
++      /* We want to use version 150 for Catalyst so that the
++       * gl_PointCoord can be used. */
++      ctx->glsl_version_to_use = 150;
    else
      ctx->glsl_version_to_use = 110;
  
