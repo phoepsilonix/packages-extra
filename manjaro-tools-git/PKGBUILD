@@ -1,16 +1,21 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
 
-pkgver=r1620.974c862
+pkgver=r1627.1a4aff8
 _branch=devel
 _pkgbase=manjaro-tools
 _pkgver=0.9.14
 
+# Implemented switch, we don't need to rebuild the efi package all the time
+_is_efi=true
+
 pkgbase=manjaro-tools-git
+_pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
 if [ "$CARCH" = "i686" ]; then
-    pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
+	pkgname=( "${_pkgname[@]}" )
 else
-    pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git' 'manjaro-tools-efi-shell')
+	pkgname=( "${_pkgname[@]}" )
+	${_is_efi} && pkgname+=('manjaro-tools-efi-shell')
 fi
 pkgrel=1
 # arch=('any')
@@ -20,12 +25,24 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('git' 'docbook2x')
-source=("git+$url.git#branch=$_branch"
-        "Shell-$_pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi"
-        "Shell_Full-$_pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
-sha256sums=('SKIP'
-            'dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
-            'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
+
+_source=("git+$url.git#branch=$_branch")
+if [ "$CARCH" = "i686" ]; then
+	source=( "${_source[@]}" )
+	sha256sums=('SKIP')
+else
+	source=( "${_source[@]}" )
+	sha256sums=('SKIP')
+	if ${_is_efi};then
+		source+=("Shell-$_pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi")
+		source+=("Shell_Full-$_pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
+		sha256sums=('SKIP'
+			'dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
+			'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
+	fi
+fi
+
+
 
 prepare() {
 	cd ${srcdir}/${_pkgbase}
