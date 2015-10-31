@@ -3,7 +3,7 @@
 
 pkgname=cogl
 pkgver=1.22.0
-pkgrel=1.3
+pkgrel=1.4
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
 arch=('i686' 'x86_64')
 url="http://www.clutter-project.org/"
@@ -14,10 +14,12 @@ options=(!emptydirs)
 replaces=('cogl-catalyst')
 source=(http://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver:0:4}/$pkgname-$pkgver.tar.xz
         fix-black-login-screen.patch
-        cogl-driver-glsl120.patch)
+        gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD.patch::https://bug756306.bugzilla-attachments.gnome.org/attachment.cgi?id=314455
+        Use_better_vendor_strings_from_AMD.patch::https://bug756306.bugzilla-attachments.gnome.org/attachment.cgi?id=314462)
 sha256sums=('689dfb5d14fc1106e9d2ded0f7930dcf7265d0bc84fa846b4f03941633eeaa91'
             '78847e51a10b5cc7576e6025dbae76c6c25d2faf2c7061e3c8f2bc2c095dfb2f'
-            '3d10d7b543090450e7bc1e751c6a6bb99868e181221fd22c9573c7d8041e0fcd')
+            'cfe52d4f23b81a7d6440aaeb3dc15600e485376c57c80e0ecde181dcab5945fa'
+            '47a2ed89b5c6c1e3a6e5b64c97ae4dc000290b6bc9ef18b276934de4d29e8933')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -26,8 +28,9 @@ prepare() {
 build() {
   cd $pkgname-$pkgver
   patch -Np1 -i ../fix-black-login-screen.patch
-  # workaround for catalyst
-  patch -Np1 -i ../cogl-driver-glsl120.patch
+  patch -Np1 -i ../gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD.patch
+  patch -Np1 -i ../Use_better_vendor_strings_from_AMD.patch
+
   ./configure --prefix=/usr \
     --enable-gles{1,2} \
     --enable-{kms,wayland}-egl-platform \
