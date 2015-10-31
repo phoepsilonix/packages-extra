@@ -9,8 +9,9 @@ _linuxprefix=linux318
 _extramodules=extramodules-3.18-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=358.09
+pkgver=352.55
 pkgrel=1
+epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -27,12 +28,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('ce51529905fe32ade279959177a3162f95cb4860f8f8ed6e6fbacbea3ec348cf')
+    sha256sums+=('1d2f237b0885e0492f068786a5c3612f5e9751542826c4c7d51612193d9dd841')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('4bbf876f8c657488ad899116c0017aeb7e660cdac019e7660b873bf205e332fc')
+    sha256sums+=('12c24c0753ef0279b1e9bebb3c2e98e189aa5d0083cf5f97d34a71febbe66a01')
 fi
 
 prepare() {
@@ -45,20 +46,20 @@ build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
     cd "${_pkg}"/kernel
     make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+
+    if [[ "$CARCH" = "x86_64" ]]; then
+        cd uvm
+        make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+    fi
 }
 
 package() {
     install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
     if [[ "$CARCH" = "x86_64" ]]; then
-        install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-uvm.ko" \
+        install -D -m644 "${srcdir}/${_pkg}/kernel/uvm/nvidia-uvm.ko" \
             "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
     fi
-    # "nvidia-modeset.ko does not provide any new user-visible functionality or interfaces to third party applications.
-    #  However, in a later release, nvidia-modeset.ko will be used as a basis for the modesetting interface provided by
-    #  the kernel's direct rendering manager (DRM)."
-    install -Dm644 $_pkg/kernel/nvidia-modeset.ko \
-         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-modeset.ko"
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
 }

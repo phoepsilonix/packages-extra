@@ -4,8 +4,9 @@
 
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
-pkgver=358.09
+pkgver=352.55
 pkgrel=1
+epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -17,12 +18,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('ce51529905fe32ade279959177a3162f95cb4860f8f8ed6e6fbacbea3ec348cf')
+    sha256sums+=('1d2f237b0885e0492f068786a5c3612f5e9751542826c4c7d51612193d9dd841')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('4bbf876f8c657488ad899116c0017aeb7e660cdac019e7660b873bf205e332fc')
+    sha256sums+=('12c24c0753ef0279b1e9bebb3c2e98e189aa5d0083cf5f97d34a71febbe66a01')
 fi
 
 create_links() {
@@ -94,12 +95,9 @@ package_nvidia-utils() {
 
     # OpenGL library
     install -D -m755 "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so.${pkgver}"
-    install -D -m755 "libEGL.so.1" "${pkgdir}/usr/lib/nvidia/libEGL.so.${pkgver}"
-    install -D -m755 "libEGL_nvidia.so.0" "${pkgdir}/usr/lib/libEGL_nvidia.so.0"
+    install -D -m755 "libEGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libEGL.so.${pkgver}"
     install -D -m755 "libGLESv1_CM.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGLESv1_CM.so.${pkgver}"
     install -D -m755 "libGLESv2.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGLESv2.so.${pkgver}"
-    install -D -m755 "libGLdispatch.so.0" "${pkgdir}/usr/lib/libGLdispatch.so.0"
-    install -D -m755 "libOpenGL.so.0" "${pkgdir}/usr/lib/libOpenGL.so.0"
 
     # OpenGL core library
     install -D -m755 "libnvidia-glcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glcore.so.${pkgver}"
