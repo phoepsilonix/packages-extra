@@ -3,7 +3,7 @@
 
 pkgname=cogl
 pkgver=1.22.0
-pkgrel=1.4
+pkgrel=1.5
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
 arch=('i686' 'x86_64')
 url="http://www.clutter-project.org/"
@@ -13,12 +13,12 @@ makedepends=('gobject-introspection')
 options=(!emptydirs)
 replaces=('cogl-catalyst')
 source=(http://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver:0:4}/$pkgname-$pkgver.tar.xz
-        fix-black-login-screen.patch
-        gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD.patch::https://bug756306.bugzilla-attachments.gnome.org/attachment.cgi?id=314455
-        Use_better_vendor_strings_from_AMD.patch::https://bug756306.bugzilla-attachments.gnome.org/attachment.cgi?id=314462)
+        kms-winsys_dont_wait_for_a_flip_when_page_flipping_fails.patch
+        gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
+        Use_better_vendor_strings_from_AMD.patch)
 sha256sums=('689dfb5d14fc1106e9d2ded0f7930dcf7265d0bc84fa846b4f03941633eeaa91'
-            '78847e51a10b5cc7576e6025dbae76c6c25d2faf2c7061e3c8f2bc2c095dfb2f'
-            'cfe52d4f23b81a7d6440aaeb3dc15600e485376c57c80e0ecde181dcab5945fa'
+            '5a35239a5bdc573949bcd2e2845d2acd9adb1f4e5a904f40ab52f19090ba7220'
+            'bed12e762657b2a864fd3abe8722e8acf436576d8fd1e7325d69590294ac72b0'
             '47a2ed89b5c6c1e3a6e5b64c97ae4dc000290b6bc9ef18b276934de4d29e8933')
 
 prepare() {
@@ -27,8 +27,10 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  patch -Np1 -i ../fix-black-login-screen.patch
-  patch -Np1 -i ../gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD.patch
+  # https://bugzilla.gnome.org/show_bug.cgi?id=756926
+  patch -Np1 -i ../kms-winsys_dont_wait_for_a_flip_when_page_flipping_fails.patch
+  # https://bugzilla.gnome.org/show_bug.cgi?id=756306
+  patch -Np1 -i ../gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
   patch -Np1 -i ../Use_better_vendor_strings_from_AMD.patch
 
   ./configure --prefix=/usr \
