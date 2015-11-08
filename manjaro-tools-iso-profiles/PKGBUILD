@@ -27,7 +27,9 @@ prepare() {
 	mv {README.md,kde,kde-minimal,kde-next,net,shared,xfce,xfce-minimal} $srcdir/_official
 
 	install -dm 0755 $srcdir/_openrc
+	cd deprecated
 	mv {xfce-openrc,net-openrc} $srcdir/_openrc
+	rm -R deprecated
 }
 
 package_manjaro-iso-profiles() {
