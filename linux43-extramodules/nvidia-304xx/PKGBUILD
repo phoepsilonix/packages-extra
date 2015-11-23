@@ -8,7 +8,7 @@ _linuxprefix=linux43
 _extramodules=extramodules-4.3-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
-pkgver=304.128
+pkgver=304.131
 pkgrel=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
@@ -22,20 +22,19 @@ conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia")
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=('nvidia-3.18.patch' 'nvidia-4.3.patch')
-sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35'
-            '0e11d4d73556e39fffce5b8c14674ede0064cabee058d9fb8f8bd7c3035fca5d')
+source=('nvidia-3.18.patch')
+sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35')
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('f6aa695b3375473e3444412e4a3b7ef6bd8b13e3f3678f4cbe7a3649b5129068')
+    sha256sums+=('d2554bb6f7867e7762d0ecedcac5bde7de0634e43b952bf466323ea8b4032da8')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('f54bf11d1d315035fed1214233a92b97918ed3dabbb3fe8489bf8651f6d90ca1')
+    sha256sums+=('2f6e82c79ed4d1ac3d42b2c0f71d4fbdd9293db801de396e7e2cc3fdcafaf83e')
 fi
 
 prepare() {
@@ -45,7 +44,6 @@ prepare() {
   # patches here
   # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
   patch -Np0 -i ${srcdir}/nvidia-3.18.patch
-  patch -Np1 -i ${srcdir}/nvidia-4.3.patch
 }
 
 build() {

@@ -9,8 +9,8 @@ _linuxprefix=linux319
 _extramodules=extramodules-3.19-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=352.55
-pkgrel=2
+pkgver=352.63
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -28,12 +28,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('1d2f237b0885e0492f068786a5c3612f5e9751542826c4c7d51612193d9dd841')
+    sha256sums+=('484442dd5163c3249e86736b1e297cb4b500f60eeeaa2ac6f570335fa1e8b96f')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('12c24c0753ef0279b1e9bebb3c2e98e189aa5d0083cf5f97d34a71febbe66a01')
+    sha256sums+=('332c0f065038bef9190e2767e5852b88b521b568a31d84df7aba6df5bcdeaf85')
 fi
 
 prepare() {
