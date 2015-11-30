@@ -36,8 +36,8 @@ build() {
 
   # build host modules
   msg2 'Build modules'
-  dkms --dkmsframework dkms.conf build "spl/$pkgver" -k "$_kernver"
-  dkms --dkmsframework dkms.conf build "zfs/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "spl/$pkgver" -k "$_kernver" --verbose
+  dkms --dkmsframework dkms.conf build "zfs/$pkgver" -k "$_kernver" --verbose
 }
 
 package_linux44-zfs(){

@@ -4,15 +4,15 @@
 # Contributors: Pablo Lezaeta <prflr88 (arroba) gmail (dot) com>
 
 pkgname=mdm
-pkgver=2.0.5
+pkgver=2.0.7
 pkgrel=1
-_git=40971183e9e9a6791636732c446fff856886d779
+_git=694701be45385ed864952e9155d83430a23b799d
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
 license=('GPL')
 groups=()
-depends=('pam' 'libdmx' 'gtk2' 'libgnomecanvas' 'librsvg' 
+depends=('pam' 'libdmx' 'gtk2' 'libgnomecanvas' 'librsvg' 'tcp_wrappers'
          'libxml2' 'libart-lgpl' 'dbus-glib' 'libwebkit' 'polkit')
 makedepends=('gnome-common' 'intltool' 'perl' 'gnome-doc-utils' 'xorg-server' 'pango' 'zenity' 'popt')
 optdepends=('webkitgtk: mdm-theme-emulator' 'xorg-server-xnest: mdmthemetester')
@@ -31,7 +31,7 @@ source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pk
 	'defaults.conf'
 	'mdm-plymouth.service'
         'org.cinnamon.pkexec.mdmsetup.policy')
-sha256sums=('77138368e406cb0ab9385da168fc6737c83c2f30aed4a59fb593d48b69ed97a6'
+sha256sums=('3360a866fd8700f06a02fbcd1276410bf60bb82412c56d689912eae5a1d74be9'
             'dda153bd02aed1e27b3ddc729130907e185e270e7b2b8d0ccda5bc904d47ea6b'
             '110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c'
             '3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7'
