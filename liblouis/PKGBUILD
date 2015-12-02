@@ -2,7 +2,7 @@
 # Maintainer: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=liblouis
-pkgver=2.6.4
+pkgver=2.6.5
 pkgrel=0.1
 pkgdesc="Open-source braille translator and back-translator"
 arch=(i686 x86_64)
@@ -12,7 +12,7 @@ depends=(glibc)
 makedepends=(help2man python2 python)
 install=liblouis.install
 source=(https://github.com/$pkgname/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha1sums=('bfce99f1de457e12f91b414d2746099bea2b5c20')
+sha1sums=('b1faad22c9f2cee7d71992535cc6e24a30e35802')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
