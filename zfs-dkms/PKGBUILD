@@ -3,16 +3,26 @@
 
 pkgname=("zfs-dkms")
 pkgver=0.6.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Kernel modules for the Zettabyte File System."
 depends=("spl-dkms=${pkgver}" "zfs-utils=${pkgver}" "dkms")
 arch=("any")
 url="http://zfsonlinux.org/"
-source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz)
+source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz
+        4.4-support-make_request_fn-returns-blk_qc_t.patch::https://github.com/zfsonlinux/zfs/commit/1a093716788a08b5d038c49ab99a6e9363c97a64.patch
+        4.4-support-xattr-operations-takes-xattr_handler.patch::https://github.com/zfsonlinux/zfs/commit/61d482f7cd1687177185140699c6843c904b38d4.patch)
 groups=("manjarozfs")
-sha256sums=('f31728ff511b893327e7f33bf070b35cbff6e9b70fa6efe348e27906cec3e43e')
+sha256sums=('f31728ff511b893327e7f33bf070b35cbff6e9b70fa6efe348e27906cec3e43e'
+            '98194a6212f55138a891ba8db94a3effe91353082dd3bcf8e106e046eba403b0'
+            '59bd20d46aee8ce3d13965120d11d269921165ec6f502e6cc8cd1240100e586c')
 license=("CDDL")
 install=zfs-dkms.install
+
+prepare() {
+  cd "$srcdir/zfs-${pkgver}"
+  patch -Np1 -i $srcdir/4.4-support-make_request_fn-returns-blk_qc_t.patch
+  patch -Np1 -i $srcdir/4.4-support-xattr-operations-takes-xattr_handler.patch
+}
 
 build() {
   cd "$srcdir/zfs-${pkgver}"

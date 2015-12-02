@@ -4,7 +4,7 @@
 pkgbase=linux44-spl_zfs
 pkgname=('linux44-spl' 'linux44-zfs')
 pkgver=0.6.5.2
-pkgrel=0.2
+pkgrel=0.3
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -15,19 +15,10 @@ makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
 groups=('linux44-extramodules')
 install=install
 
-source=(4.4-support-patch::https://github.com/zfsonlinux/zfs/files/41928/4.4-support-patch.txt)
-sha256sums=('f60e21f52a3caff63935c185b7a74b6afb29be52432aebfc4e3a5d935399f47b')
-
 prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-
-  # workaround to patch for linux 4.4
-  rm -r $srcdir/dkms/zfs/$pkgver/source
-  cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source
-  cd dkms/zfs/$pkgver/source
-  patch -Np1 -i $srcdir/4.4-support-patch
 }
 
 build() {
