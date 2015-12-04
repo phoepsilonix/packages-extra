@@ -20,7 +20,7 @@ cd ${pwd}/*nvidia-304xx && makepkg --sign -d --noconfirm
 cd ${pwd}/*nvidia-340xx && makepkg --sign -d --noconfirm
 cd ${pwd}/*nvidiabl && makepkg --sign -sf --noconfirm
 cd ${pwd}/*open-vm-tools-modules && makepkg --sign -sf --noconfirm
-#cd ${pwd}/*spl_zfs && makepkg --sign -sf --noconfirm
+cd ${pwd}/*spl_zfs && makepkg --sign -sf --noconfirm
 cd ${pwd}/*r8168 && makepkg --sign -sf --noconfirm
 cd ${pwd}/*rt3562sta && makepkg --sign -sf --noconfirm
 cd ${pwd}/*tp_smapi && makepkg --sign -sf --noconfirm
