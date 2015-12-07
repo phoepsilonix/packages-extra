@@ -4,7 +4,7 @@
 _mt_ver=0.9.15
 
 pkgbase=manjaro-iso-profiles
-pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-community-minimal')
+pkgname=('manjaro-iso-profiles-base' 'manjaro-iso-profiles-official' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-community-minimal')
 # tarball=manjaro-tools-iso-profiles
 pkgver=15.12
 pkgrel=1
@@ -40,10 +40,10 @@ package_manjaro-iso-profiles-base() {
 	conflicts=('manjaro-iso-profiles-openrc')
 
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
-	cp $srcdir/shared $pkgdir/usr/share/manjaro-tools/iso-profiles/
+	cp -a $srcdir/shared $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
 
-package_manjaro-iso-profiles() {
+package_manjaro-iso-profiles-official() {
 	pkgdesc='Manjaro Linux official iso profiles'
 	depends=('manjaro-iso-profiles-base')
 
@@ -61,7 +61,7 @@ package_manjaro-iso-profiles-community() {
 }
 
 package_manjaro-iso-profiles-community-minimal() {
-	pkgdesc='Manjaro Linux openrc profiles'
+	pkgdesc='Manjaro Linux community-minimal profiles'
 	depends=('manjaro-iso-profiles-base')
 
 	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
