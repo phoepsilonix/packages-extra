@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.9.15rc2
+pkgver=0.9.15
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('x86_64' 'i686')
@@ -11,19 +11,19 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-_gitsource=fb86bfdc8236641f5bba153b927084887bffac2a
-source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz"
+# _gitsource=fb86bfdc8236641f5bba153b927084887bffac2a
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
 #source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
 sha256sums=('d3d1de248e5f2e06329db02a9d9334fb8559e96801ac57f7aea8414f79029320')
 
-prepare() {
-	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then
-		mv ${srcdir}/${pkgbase}-${_gitsource} ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
-		sed -i "s|Version=.*|Version=${pkgver}|" ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}/Makefile
-	fi
-	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
-	# patches here
-}
+# prepare() {
+# 	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then
+# 		mv ${srcdir}/${pkgbase}-${_gitsource} ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+# 		sed -i "s|Version=.*|Version=${pkgver}|" ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}/Makefile
+# 	fi
+# 	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+# 	# patches here
+# }
 
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
@@ -57,7 +57,7 @@ package_manjaro-tools-iso() {
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
                       'manjaro-tools-base' 'mkinitcpio-nfs-utils')
 	depends_x86_64=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
-                        'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-tools-efi-shell')
+                        'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-efi-shell')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
                     'manjaro-iso-profiles-community-minimal: Manjaro Linux ISO-Image community minimal profiles'
