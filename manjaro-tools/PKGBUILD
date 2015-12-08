@@ -2,12 +2,8 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgbase=manjaro-tools
-if [ "$CARCH" = "i686" ]; then
-    pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-else
-    pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso' 'manjaro-tools-efi-shell')
-fi
-pkgver=0.9.15rc1
+pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
+pkgver=0.9.15
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('x86_64' 'i686')
@@ -15,23 +11,19 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-_gitsource=fb86bfdc8236641f5bba153b927084887bffac2a
-source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz"
-#source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz"
-        "Shell-$pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/ShellBinPkg/UefiShell/X64/Shell.efi"
-        "Shell_Full-$pkgver.efi::https://raw.githubusercontent.com/tianocore/edk2/master/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
-sha256sums=('d3d1de248e5f2e06329db02a9d9334fb8559e96801ac57f7aea8414f79029320'
-            'dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
-            'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
+# _gitsource=fb86bfdc8236641f5bba153b927084887bffac2a
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+#source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
+sha256sums=('d3d1de248e5f2e06329db02a9d9334fb8559e96801ac57f7aea8414f79029320')
 
-prepare() {
-	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then
-		mv ${srcdir}/${pkgbase}-${_gitsource} ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
-		sed -i "s|Version=.*|Version=${pkgver}|" ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}/Makefile
-	fi
-	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
-	# patches here
-}
+# prepare() {
+# 	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then
+# 		mv ${srcdir}/${pkgbase}-${_gitsource} ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+# 		sed -i "s|Version=.*|Version=${pkgver}|" ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}/Makefile
+# 	fi
+# 	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+# 	# patches here
+# }
 
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
@@ -40,7 +32,6 @@ build() {
 
 package_manjaro-tools-base() {
  	pkgdesc='Development tools for Manjaro Linux (base tools)'
- 	arch=('any')
 	depends=('openssh' 'rsync' 'haveged' 'os-prober')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
                     'manjaro-tools-iso: Manjaro Linux iso tools')
@@ -54,7 +45,6 @@ package_manjaro-tools-base() {
 
 package_manjaro-tools-pkg() {
  	pkgdesc='Development tools for Manjaro Linux (packaging tools)'
- 	arch=('any')
 	depends=('namcap' 'manjaro-tools-base')
 	conflicts=('devtools')
 
@@ -62,25 +52,15 @@ package_manjaro-tools-pkg() {
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
-package_manjaro-tools-efi-shell() {
-        pkgdesc="efi shell for manjaro-tools-iso"
-        arch=('x86_64')
-        conflicts=('manjaro-tools-efiboot')
-        replaces=('manjaro-tools-efiboot')
-
-        install -Dm644 ${srcdir}/Shell-$pkgver.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v1.efi
-        install -Dm644 ${srcdir}/Shell_Full-$pkgver.efi ${pkgdir}/usr/share/manjaro-tools/efi_shell/shellx64_v2.efi
-}
-
 package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
                       'manjaro-tools-base' 'mkinitcpio-nfs-utils')
 	depends_x86_64=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
-                        'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-tools-efi-shell')
+                        'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-efi-shell')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
-                    'manjaro-iso-profiles-openrc: Manjaro Linux ISO-Image openrc profiles'
+                    'manjaro-iso-profiles-community-minimal: Manjaro Linux ISO-Image community minimal profiles'
                     'qemu: quickly test isos')
 	conflicts=('manjaroiso')
 

@@ -22,3 +22,5 @@ cd ../../linux42*/*virtualbox-modules
 makepkg --sign -df
 cd ../../linux43*/*virtualbox-modules
 makepkg --sign -df
+cd ../../linux44*/*virtualbox-modules
+makepkg --sign -df

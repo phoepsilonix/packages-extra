@@ -1,62 +1,69 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
+_mt_ver=0.9.15
+
 pkgbase=manjaro-iso-profiles
-pkgname=('manjaro-iso-profiles' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-openrc')
-tarball=manjaro-tools-iso-profiles
-pkgver=0.9.14
+pkgname=('manjaro-iso-profiles-base' 'manjaro-iso-profiles-official' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-community-minimal')
+# tarball=manjaro-tools-iso-profiles
+pkgver=15.12
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 groups=('manjaro-tools')
 options=('!strip')
-_gitsource=bb089f223e94fbe579eae8ed31fbb146dddb0cc6
-source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
-#source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/${pkgver}-2.tar.gz")
+# _gitsource=bb089f223e94fbe579eae8ed31fbb146dddb0cc6
+# source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
 
 
-prepare() {
-	if [ -e ${srcdir}/${tarball}-${_gitsource} ]; then
-		mv ${srcdir}/${tarball}-${_gitsource} ${srcdir}/${tarball}-${pkgver}
-	fi
-	cd ${tarball}-${pkgver}
-	# patches here
+# prepare() {
+# 	if [ -e ${srcdir}/${tarball}-${_gitsource} ]; then
+# 		mv ${srcdir}/${tarball}-${_gitsource} ${srcdir}/${tarball}-${pkgver}
+# 	fi
+# 	cd ${tarball}-${pkgver}
+# 	# patches here
+#
+# 	install -dm 0755 $srcdir/_official
+# 	mv {README.md,kde,kde-minimal,kde-next,net,shared,xfce,xfce-minimal} $srcdir/_official
+#
+# 	install -dm 0755 $srcdir/_openrc
+# 	cd deprecated
+# 	mv {xfce-openrc,net-openrc} $srcdir/_openrc
+# 	rm -R deprecated
+# }
 
-	install -dm 0755 $srcdir/_official
-	mv {README.md,kde,kde-minimal,kde-next,net,shared,xfce,xfce-minimal} $srcdir/_official
-
-	install -dm 0755 $srcdir/_openrc
-	cd deprecated
-	mv {xfce-openrc,net-openrc} $srcdir/_openrc
-	rm -R deprecated
-}
-
-package_manjaro-iso-profiles() {
-	pkgdesc='Manjaro Linux official iso profiles'
-	depends=("manjaro-tools-iso>=${pkgver}")
-	conflicts=('manjaroiso-profiles'
-		'manjaroiso-openrc-profiles'
-		'manjaroiso-community-profiles')
+package_manjaro-iso-profiles-base() {
+	pkgdesc='Manjaro Linux iso profiles base'
+	depends=("manjaro-tools-iso>=${_mt_ver}")
+	conflicts=('manjaro-iso-profiles-openrc')
 
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
-	mv $srcdir/_official/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
+	cp -a $srcdir/shared $pkgdir/usr/share/manjaro-tools/iso-profiles/
+}
+
+package_manjaro-iso-profiles-official() {
+	pkgdesc='Manjaro Linux official iso profiles'
+	depends=('manjaro-iso-profiles-base')
+
+	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
+	cp -a $srcdir/official $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
 
 package_manjaro-iso-profiles-community() {
 	pkgdesc='Manjaro Linux community iso profiles'
-	depends=('manjaro-iso-profiles')
+	depends=('manjaro-iso-profiles-base')
 
 	cd ${tarball}-${pkgver}
 	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
-	cp -a * $pkgdir/usr/share/manjaro-tools/iso-profiles
+	cp -a $srcdir/community $pkgdir/usr/share/manjaro-tools/iso-profiles
 }
 
-package_manjaro-iso-profiles-openrc() {
-	pkgdesc='Manjaro Linux openrc profiles'
-	depends=('manjaro-iso-profiles')
+package_manjaro-iso-profiles-community-minimal() {
+	pkgdesc='Manjaro Linux community-minimal profiles'
+	depends=('manjaro-iso-profiles-base')
 
 	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
-	mv $srcdir/_openrc/* $pkgdir/usr/share/manjaro-tools/iso-profiles/
+	cp -a $srcdir/community-minimal $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
-md5sums=('6a235adc9df43568b3f45135113d466d')
