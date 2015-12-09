@@ -1,24 +1,24 @@
-# Maintainer:  anexation
+# Maintainer: anexation
 # Contributor: Rob McCathie <rob@manjaro.org>
 
 pkgbase=menda-icon-themes
 pkgname=('menda-circle-icon-theme')
-pkgver=20141219
+pkgver=20151210
 pkgrel=1
-_git='06232a0098e88d33bef931083736141ab67976da'
+_git='b9e41fbf05cda5d15660342999d3e62965ff626e'
 arch=('any')
 url="https://github.com/manjaro/menda-icon-themes"
 license=('GPL')
 depends=('hicolor-icon-theme' 'librsvg')
-optdepends=('menda-themes: Recommended themes'
+optdepends=('menda-themes: Manjaro's official Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell themes'
             'menda-themes-dark: Recommended themes')
 options=(!emptydirs !strip)
 replaces=('menda-icon-themes')
 source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
-sha1sums=('SKIP')
+md5sums=('')
 
 
-package_menda-circle-icon-theme() {
+package() {
   pkgdesc="Menda Circle Icon Theme"
   
   install -dm755 "${pkgdir}/usr/share/icons"
