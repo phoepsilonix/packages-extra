@@ -4,35 +4,17 @@
 _mt_ver=0.9.15
 
 pkgbase=manjaro-iso-profiles
-pkgname=('manjaro-iso-profiles-base' 'manjaro-iso-profiles-official' 'manjaro-iso-profiles-community' 'manjaro-iso-profiles-community-minimal')
-# tarball=manjaro-tools-iso-profiles
+pkgname=('manjaro-iso-profiles-base'
+	'manjaro-iso-profiles-official'
+	'manjaro-iso-profiles-community'
+	'manjaro-iso-profiles-community-minimal')
 pkgver=15.12
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
-groups=('manjaro-tools')
-options=('!strip')
-# _gitsource=bb089f223e94fbe579eae8ed31fbb146dddb0cc6
-# source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_gitsource}.tar.gz")
+# options=('!strip')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
-
-
-# prepare() {
-# 	if [ -e ${srcdir}/${tarball}-${_gitsource} ]; then
-# 		mv ${srcdir}/${tarball}-${_gitsource} ${srcdir}/${tarball}-${pkgver}
-# 	fi
-# 	cd ${tarball}-${pkgver}
-# 	# patches here
-#
-# 	install -dm 0755 $srcdir/_official
-# 	mv {README.md,kde,kde-minimal,kde-next,net,shared,xfce,xfce-minimal} $srcdir/_official
-#
-# 	install -dm 0755 $srcdir/_openrc
-# 	cd deprecated
-# 	mv {xfce-openrc,net-openrc} $srcdir/_openrc
-# 	rm -R deprecated
-# }
 
 package_manjaro-iso-profiles-base() {
 	pkgdesc='Manjaro Linux iso profiles base'
@@ -45,6 +27,7 @@ package_manjaro-iso-profiles-base() {
 
 package_manjaro-iso-profiles-official() {
 	pkgdesc='Manjaro Linux official iso profiles'
+	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
@@ -53,6 +36,7 @@ package_manjaro-iso-profiles-official() {
 
 package_manjaro-iso-profiles-community() {
 	pkgdesc='Manjaro Linux community iso profiles'
+	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
 	cd ${tarball}-${pkgver}
@@ -62,6 +46,7 @@ package_manjaro-iso-profiles-community() {
 
 package_manjaro-iso-profiles-community-minimal() {
 	pkgdesc='Manjaro Linux community-minimal profiles'
+	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
 	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles

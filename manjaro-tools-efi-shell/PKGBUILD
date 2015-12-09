@@ -1,3 +1,6 @@
+# Maintainer: artoo <artoo@manjaro.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+
 _url=https://raw.githubusercontent.com/tianocore/edk2/master
 
 pkgname=manjaro-efi-shell
@@ -7,6 +10,7 @@ pkgdesc="efi shell for manjaro-tools-iso"
 arch=('x86_64')
 license=('GPL')
 url='https://github.com/manjaro/manjaro-tools'
+provides=('manjaro-tools-efi-shell')
 depends=("manjaro-iso-profiles-base=${pkgver}")
 conflicts=('manjaro-tools-efiboot' 'manjaro-tools-efi-shell')
 replaces=('manjaro-tools-efiboot' 'manjaro--tools-efi-shell')
