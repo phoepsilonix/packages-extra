@@ -3,7 +3,7 @@
 
 pkgname=manjaro-settings-manager
 pkgver=0.4.12
-pkgrel=4
+pkgrel=5
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/manjaro-settings-manager"
