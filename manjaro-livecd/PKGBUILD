@@ -18,7 +18,7 @@ sha256sums=('SKIP')
 
 _inst_dir(){
 	install -dm 755 $pkgdir
-	cp -a $srcdir/livecd-$1/* $pkgdir
+	cp -a $srcdir/manjaro-tools-livecd/livecd-$1/* $pkgdir
 }
 
 pkgver() {

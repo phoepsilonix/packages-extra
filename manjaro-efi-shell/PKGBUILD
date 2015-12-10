@@ -12,7 +12,7 @@ license=('GPL')
 url='https://github.com/manjaro/manjaro-tools'
 provides=('manjaro-tools-efi-shell')
 conflicts=('manjaro-tools-efi-shell')
-replaces=('manjaro--tools-efi-shell')
+replaces=('manjaro-tools-efi-shell')
 source=("Shell-$pkgver.efi::${_url}/ShellBinPkg/UefiShell/X64/Shell.efi"
         "Shell_Full-$pkgver.efi::${_url}/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
 sha256sums=('dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
