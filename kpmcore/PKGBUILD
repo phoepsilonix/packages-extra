@@ -2,8 +2,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=kpmcore
-pkgver=1.9.50
-pkgrel=1
+pkgver=1.9.50.r64.9d77168
+pkgrel=3
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('i686' 'x86_64')
 url='http://kde.org/applications/system/kdepartitionmanager/'
@@ -17,7 +17,7 @@ sha1sums=('SKIP')
 pkgver() {
   cd kpmcore
   _ver="$(cat CMakeLists.txt | grep -m3 -e VERSION_MAJOR -e VERSION_MINOR -e VERSION_RELEASE | grep -o "[[:digit:]]*" | xargs)"
-  echo -e "${_ver// /.}.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+  #echo -e "${_ver// /.}.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
 prepare() {
