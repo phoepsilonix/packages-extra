@@ -1,8 +1,8 @@
-# Maintainer: anexation
+# Maintainer: Alexandru Ianu <(alexandru . ianu @ gmail . com>
 # Contributor: Rob McCathie <rob@manjaro.org>
 
-pkgbase=menda-icon-themes
-pkgname=('menda-circle-icon-theme')
+pkgname=menda-circle-icon-theme
+_pkgbase=menda-icon-themes
 pkgver=20151210
 pkgrel=1
 _git='b9e41fbf05cda5d15660342999d3e62965ff626e'
@@ -22,8 +22,8 @@ package() {
   pkgdesc="Menda Circle Icon Theme"
   
   install -dm755 "${pkgdir}/usr/share/icons"
-  #install -Dm755 "${srcdir}/${pkgbase}-${_git}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  cp -r "${srcdir}/${pkgbase}-${_git}/Menda-Circle" "${pkgdir}/usr/share/icons"
+  #install -Dm755 "${srcdir}/${_pkgbase}-${_git}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cp -r "${srcdir}/${_pkgbase}-${_git}/Menda-Circle" "${pkgdir}/usr/share/icons"
   find "${pkgdir}/usr/share/icons" -type d -exec chmod 755 '{}' \;
   find "${pkgdir}/usr/share/icons" -type f -exec chmod 644 '{}' \;
 }
