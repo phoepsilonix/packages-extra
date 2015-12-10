@@ -16,13 +16,18 @@ license=('GPL')
 # options=('!strip')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
 
+_inst_dir(){
+	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
+	cp -a $srcdir/$1 $pkgdir/usr/share/manjaro-tools/iso-profiles/
+}
+
 package_manjaro-iso-profiles-base() {
 	pkgdesc='Manjaro Linux iso profiles base'
 	depends=("manjaro-tools-iso>=${_mt_ver}")
 	conflicts=('manjaro-iso-profiles-openrc')
+	replaces=('manjaro-iso-profiles-openrc')
 
-	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
-	cp -a $srcdir/shared $pkgdir/usr/share/manjaro-tools/iso-profiles/
+	_inst_dir 'shared'
 }
 
 package_manjaro-iso-profiles-official() {
@@ -30,8 +35,7 @@ package_manjaro-iso-profiles-official() {
 	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
-	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
-	cp -a $srcdir/official $pkgdir/usr/share/manjaro-tools/iso-profiles/
+	_inst_dir 'official'
 }
 
 package_manjaro-iso-profiles-community() {
@@ -39,9 +43,7 @@ package_manjaro-iso-profiles-community() {
 	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
-	cd ${tarball}-${pkgver}
-	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
-	cp -a $srcdir/community $pkgdir/usr/share/manjaro-tools/iso-profiles
+	_inst_dir 'community'
 }
 
 package_manjaro-iso-profiles-community-minimal() {
@@ -49,6 +51,5 @@ package_manjaro-iso-profiles-community-minimal() {
 	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
-	install -dm 0755 $pkgdir/usr/share/manjaro-tools/iso-profiles
-	cp -a $srcdir/community-minimal $pkgdir/usr/share/manjaro-tools/iso-profiles/
+	_inst_dir 'community-minimal'
 }
