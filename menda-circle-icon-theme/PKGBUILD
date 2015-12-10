@@ -1,4 +1,4 @@
-# Maintainer: Alexandru Ianu <(alexandru . ianu @ gmail . com>
+# Maintainer: Alexandru Ianu <(alexandru . ianu @ gmail . com> / Bernhard Landauer <oberon@manjaro.org>
 # Contributor: Rob McCathie <rob@manjaro.org>
 
 pkgname=menda-circle-icon-theme
@@ -10,12 +10,12 @@ arch=('any')
 url="https://github.com/manjaro/menda-icon-themes"
 license=('GPL')
 depends=('hicolor-icon-theme' 'librsvg')
-optdepends=('menda-themes: Manjaro's official Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell themes'
-            'menda-themes-dark: Recommended themes')
+optdepends=('menda-themes: Official Manjaro Gtk2, Gtk3, Metacity, Xfwm, Openbox, Cinnamon and GNOME Shell themes'
+	'menda-themes-dark: Recommended themes')
 options=(!emptydirs !strip)
 replaces=('menda-icon-themes')
-source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
-md5sums=('')
+source=("${_pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
+md5sums=('777717f212fbae5a422d918ebdd476b8')
 
 
 package() {
