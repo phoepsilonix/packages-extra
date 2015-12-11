@@ -11,22 +11,11 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-# _gitsource=fb86bfdc8236641f5bba153b927084887bffac2a
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-#source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${pkgver}-${pkgrel}.tar.gz")
-sha256sums=('d3d1de248e5f2e06329db02a9d9334fb8559e96801ac57f7aea8414f79029320')
-
-# prepare() {
-# 	if [ -e ${srcdir}/${pkgbase}-${_gitsource} ]; then
-# 		mv ${srcdir}/${pkgbase}-${_gitsource} ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
-# 		sed -i "s|Version=.*|Version=${pkgver}|" ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}/Makefile
-# 	fi
-# 	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
-# 	# patches here
-# }
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('')
 
 build() {
-	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr
 }
 
@@ -35,11 +24,9 @@ package_manjaro-tools-base() {
 	depends=('openssh' 'rsync' 'haveged' 'os-prober')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
                     'manjaro-tools-iso: Manjaro Linux iso tools')
-	conflicts=('manjaro-tools')
-	replaces=('manjaro-tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_base
 }
 
@@ -48,7 +35,7 @@ package_manjaro-tools-pkg() {
 	depends=('namcap' 'manjaro-tools-base')
 	conflicts=('devtools')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
@@ -56,14 +43,12 @@ package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
                       'manjaro-tools-base' 'mkinitcpio-nfs-utils')
-	depends_x86_64=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
-                        'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-efi-shell')
+	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
                     'manjaro-iso-profiles-community-minimal: Manjaro Linux ISO-Image community minimal profiles'
                     'qemu: quickly test isos')
-	conflicts=('manjaroiso')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
 }
