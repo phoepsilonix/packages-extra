@@ -1,0 +1,71 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+
+pkgname=calamares-exp
+pkgver=2.0a3
+pkgrel=1
+pkgdesc='Distribution-independent installer framework (experimental version)'
+arch=('i686' 'x86_64')
+license=(GPL)
+url="https://github.com/calamares"
+license=('LGPL')
+conflicts=('calamares' 'calamares-dev')
+provides=('calamares')
+install=calamares.install
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore'
+         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
+backup=('usr/share/calamares/modules/bootloader.conf'
+        'usr/share/calamares/modules/displaymanager.conf'
+        'usr/share/calamares/modules/initcpio.conf'
+        'usr/share/calamares/modules/unpackfs.conf')
+
+source+=(git+https://github.com/calamares/calamares.git#branch=choicepreview-replacewidget
+         git+https://github.com/calamares/calamares-manjaro.git)
+
+sha256sums=('SKIP'
+            'SKIP')
+
+pkgver() {
+	cd ${srcdir}/calamares
+	_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+	_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+	echo -e "${_ver// /.}${_git}"
+	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
+	rm -r ${srcdir}/calamares/.git
+	rm -r ${srcdir}/calamares-manjaro/.git
+}
+
+prepare() {
+	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
+	sed -i -e "s|'calamares'|'calamares-exp'|g" ${srcdir}/calamares/src/modules/postcfg/main.py
+	rm -r ${srcdir}/calamares-manjaro
+}
+
+build() {
+	cd ${srcdir}/calamares
+
+	mkdir -p build
+	cd build
+        cmake .. \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_INSTALL_PREFIX=/usr \
+              -DCMAKE_INSTALL_LIBDIR=lib \
+              -DSKIP_MODULES="webview interactiveterminal"
+        make
+}
+
+package() {
+	cd ${srcdir}/calamares/build
+	make DESTDIR="$pkgdir" install
+	install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
+	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
+	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
+	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
+	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
+	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
+	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
+	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
+	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
+	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
+}
