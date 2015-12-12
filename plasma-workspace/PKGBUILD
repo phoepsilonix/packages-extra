@@ -1,0 +1,89 @@
+# $Id: PKGBUILD 255744 2015-12-10 12:28:01Z arojas $
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Antonio Rojas
+# Contributor: Alexey D. <lq07829icatm at rambler.ru>
+
+pkgbase=plasma-workspace
+pkgname=('plasma-workspace' 'drkonqi')
+pkgver=5.5.0
+pkgrel=5
+pkgdesc='KDE Plasma Workspace'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
+license=('LGPL')
+# note on libxdamage:
+# not detected by namcap because libgl depends on it
+# but nvidia providing libgl does not depend on libxdamage
+depends=('knewstuff' 'kjsembed' 'knotifyconfig' 'libxdamage' 'kscreenlocker'
+         'libksysguard' 'libkscreen' 'ktexteditor' 'libqalculate'
+         'qt5-tools' 'kded' 'kde-cli-tools' 'xorg-xrdb' 'xorg-xsetroot'
+         'xorg-xmessage' 'xorg-xprop' 'milou' 'breeze' 'prison-frameworks')
+makedepends=('extra-cmake-modules' 'kdoctools' 'kwin' 'gpsd' 'baloo'
+             'krunner' 'kxmlrpcclient' 'networkmanager-qt')
+groups=('plasma')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgbase}-${pkgver}.tar.xz" 'kde.pam'
+	"bug356415.patch::https://quickgit.kde.org/?p=plasma-workspace.git&a=commitdiff&h=76cb47f12&o=plain"
+	"bug355684.patch" 
+	"errors_to_debug.startkde.patch")
+md5sums=('ac2d460f1e822df9da094c4e23d52bab'
+         '378ee33a9ec2870a1a899f2e05ee00d4'
+         '491473203c221398f52d631e1d40d92d'
+         '1619155237e3afb229dcca9791303098'
+         '72168599972754d6c705b210c02f753f')
+
+prepare() {
+  mkdir -p build
+
+  cd ${pkgbase}-${pkgver}
+  # be sure to use the Qt5 version of qtpaths
+  sed -e 's:qtpaths:qtpaths-qt5:' -i startkde/start*.cmake
+
+# Revert commit that causes https://bugs.kde.org/show_bug.cgi?id=356415
+  patch -p1 -R -i "${srcdir}/bug356415.patch"
+# Patch for xembedsniproxy system tray icons are blank 
+# https://bugs.kde.org/show_bug.cgi?id=355684
+  patch -p1 -i "${srcdir}/bug355684.patch"
+# disable print debug in journals
+# https://git.reviewboard.kde.org/r/121903/diff/1?file=338977#file338977line12
+  patch -p1 -i "${srcdir}/errors_to_debug.startkde.patch"
+}
+
+build() {
+  cd build
+  cmake ../${pkgbase}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package_plasma-workspace() {
+  optdepends=('plasma-workspace-wallpapers: additional wallpapers'
+              'gpsd: GPS based geolocation' 'networkmanager-qt: IP based geolocation')
+  conflicts=('kdebase-workspace')
+
+  cd build
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm644 "${srcdir}"/kde.pam \
+    "${pkgdir}"/etc/pam.d/kde
+
+  # Remove conflicts with drkonqi
+  rm "${pkgdir}"/usr/lib/drkonqi
+  rm -r "${pkgdir}"/usr/share/drkonqi
+
+  # Drop plasma-wayland session file, doesn't work
+  rm -r "$pkgdir"/usr/share/wayland-sessions
+}
+
+package_drkonqi() {
+  pkgdesc='KDE crash handler'
+  depends=('kxmlrpcclient' 'gdb')
+
+  cd build/drkonqi
+  make DESTDIR="${pkgdir}" install
+}
