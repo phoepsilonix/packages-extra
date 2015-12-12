@@ -4,27 +4,28 @@
 pkgbase=manjaro-artwork
 pkgname=('manjaro-artwork') # 'manjaro-artwork-extra' 'manjaro-artwork-openbox' 'manjaro-artwork-icons')
 pkgver=1.0.8
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="http://manjaro.org"
 makedeps=('git' 'imagemagick')
-source=('manjaro05.png'
-	"http://fc01.deviantart.net/fs70/f/2013/203/d/3/manjaro_linux_wallpapers_st2_by_ugoyak-d6egpxf.zip"
+source=('logo5.png'
+	'whiskermenu-manjaro.svg'
+	'Wallpaper-ST2-Red.jpg'
+	'Wallpaper-ST2-Purple.jpg'
+	'Wallpaper-ST2-Green.jpg'
+	'Wallpaper-ST2-Blue.jpg'
+	'Wallpaper-ST2-Black.jpg'
 )
 sha256sums=(
-            'SKIP' 'SKIP'
+            'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 package_manjaro-artwork() {
   pkgdesc="Artwork for Manjaro (default)"
   license=('GPL')
   optdepends=('manjaro-artwork-extra: extra wallpapers')
+  install -Dm644 "${srcdir}/whiskermenu-manjaro.svg" "${pkgdir}/usr/share/icons/whiskermenu-manjaro.svg"
   install -Dm644 "${srcdir}/logo5.png" "${pkgdir}/usr/share/icons/logo5.png"
-  for i in $(ls ${srcdir}/*ST2*.png | awk -F"/" '{print $NF}' | sed s'/.png//'g)
-  do
-      convert "${srcdir}/${i}.png" "${srcdir}/${i}.jpg"
-  done
-  convert "${srcdir}/*ST2*.png" "${srcdir}/*ST2*.jpg"
   install -Dm644 "${srcdir}/Wallpaper-ST2-Black.jpg" "${pkgdir}/usr/share/backgrounds/Wallpaper-ST2-Black.jpg"
   install -Dm644 "${srcdir}/Wallpaper-ST2-Blue.jpg" "${pkgdir}/usr/share/backgrounds/Wallpaper-ST2-Blue.jpg"
   install -Dm644 "${srcdir}/Wallpaper-ST2-Green.jpg" "${pkgdir}/usr/share/backgrounds/Wallpaper-ST2-Green.jpg"

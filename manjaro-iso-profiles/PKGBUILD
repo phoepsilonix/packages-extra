@@ -1,0 +1,55 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <artoo@manjaro.org>
+
+_mt_ver=0.9.15
+
+pkgbase=manjaro-iso-profiles
+pkgname=('manjaro-iso-profiles-base'
+	'manjaro-iso-profiles-official'
+	'manjaro-iso-profiles-community'
+	'manjaro-iso-profiles-community-minimal')
+pkgver=15.12
+pkgrel=1
+arch=('any')
+url="https://github.com/manjaro/manjaro-tools-iso-profiles"
+license=('GPL')
+# options=('!strip')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
+
+_inst_dir(){
+	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
+	cp -a $srcdir/$1 $pkgdir/usr/share/manjaro-tools/iso-profiles/
+}
+
+package_manjaro-iso-profiles-base() {
+	pkgdesc='Manjaro Linux iso profiles base'
+	depends=("manjaro-tools-iso>=${_mt_ver}")
+	conflicts=('manjaro-iso-profiles-openrc')
+	replaces=('manjaro-iso-profiles-openrc')
+
+	_inst_dir 'shared'
+}
+
+package_manjaro-iso-profiles-official() {
+	pkgdesc='Manjaro Linux official iso profiles'
+	groups=('manjaro-tools')
+	depends=('manjaro-iso-profiles-base')
+
+	_inst_dir 'official'
+}
+
+package_manjaro-iso-profiles-community() {
+	pkgdesc='Manjaro Linux community iso profiles'
+	groups=('manjaro-tools')
+	depends=('manjaro-iso-profiles-base')
+
+	_inst_dir 'community'
+}
+
+package_manjaro-iso-profiles-community-minimal() {
+	pkgdesc='Manjaro Linux community-minimal profiles'
+	groups=('manjaro-tools')
+	depends=('manjaro-iso-profiles-base')
+
+	_inst_dir 'community-minimal'
+}

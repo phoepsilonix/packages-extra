@@ -9,7 +9,7 @@
 
 pkgbase=linux43-virtualbox-modules
 pkgname=('linux43-virtualbox-host-modules' 'linux43-virtualbox-guest-modules')
-pkgver=5.0.8
+pkgver=5.0.10
 pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
