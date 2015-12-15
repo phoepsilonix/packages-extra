@@ -2,8 +2,8 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 pkgname=manjaro-settings-manager
-pkgver=0.4.12
-pkgrel=5
+pkgver=0.4.13
+pkgrel=1
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/manjaro-settings-manager"
@@ -19,24 +19,12 @@ replaces=('manjaro-system-settings')
 provides=('manjaro-system-settings')
 conflicts=('manjaro-system-settings')
 install=$pkgname.install
-source=("https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz"
-        "notification.patch::https://github.com/manjaro/manjaro-settings-manager/commit/9b1a3d59072bee327ca1e046a5df3763a84e1538.patch"
-        "pacman.patch::https://github.com/manjaro/manjaro-settings-manager/commit/4263d364d5c34490b8c5f45afb93bfdfb96a5248.patch"
-        "several-lines.patch::https://github.com/manjaro/manjaro-settings-manager/commit/619b933ab576285f308deb9cc9b46f241694a99e.patch"
-        "doubling.patch::https://github.com/manjaro/manjaro-settings-manager/commit/488b08cd508ade6b13e3551b2aba2fe5c0c27d8b.patch")
-sha256sums=('50f45758a3f439c03d272b30a110883dc41f9a9119305c02321358fea6279905'
-            '51de9a5c9b5464a27db44e07f546f81834631101a7193bb27512075be1e4f85c'
-            'a58e7abe9604993dc63836c2dfc6c7839ee3f1e1fcac74b0b70e04dc8e518577'
-            '5976884c9d4052b37c60f31503e944f74f073d8c918c639b823ccce1ebf7f7f2'
-            'e715e6898a37af468e4fc3653d57efc92d48739b11ffaab3bb80f5aca7b547c4')
+source=("https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz")
+sha256sums=('7eaedbab517ba9311f09dbb5455e95ab0c8ad810559251d92d629f7568e352bb')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver/"
   # patches here
-  patch -Np1 -i "$srcdir/notification.patch"
-  patch -Np1 -i "$srcdir/pacman.patch"
-  patch -Np1 -i "$srcdir/several-lines.patch"
-  patch -Np1 -i "$srcdir/doubling.patch"
 }
 
 build() {
