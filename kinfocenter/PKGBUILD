@@ -4,8 +4,8 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.5.0
-pkgrel=2.1
+pkgver=5.5.1
+pkgrel=1.1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
@@ -17,7 +17,7 @@ groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
         'manjaro-logo.svg'
         'kcm-about-distrorc')
-md5sums=('df05750ccea2401a3008769b79ac75e1'
+md5sums=('250438c863dd71930f546cdaac4f9509'
          '70743e3b0115c209d828f6323e7ba449'
          '97f52dc1d8dcfc96b5de7c9f823a021b')
 
