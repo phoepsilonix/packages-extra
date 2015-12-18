@@ -3,7 +3,7 @@
 pkgname=calamares
 _pointver=4.2
 pkgver=1.1.${_pointver}
-pkgrel=6
+pkgrel=7
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -20,7 +20,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 _git=No
 # This is the release package so the below _snapshot_master variable should (usually) be commented out.
 _snapshot_master=5456ed3b5342535208434ea5af4836c4b28423ec
-_snapshot_manjaro=66e4cb2c22e6d254c3bf82b79a891db4d53d1bce
+_snapshot_manjaro=6ee31fc75e17185b9774274a60932fc3ebdb9b6f
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git#branch=1.1.x-stable
@@ -38,10 +38,10 @@ if [ "$_git" == "Yes" ]; then
 	            'SKIP')
 elif [ "${_snapshot_master}" != "" ]; then
 	sha256sums=('ef43818941c771e737b5e1591c5ae511b68556bc9d915542a7b1b24c21b992d0'
-	            '1ef91acaa958c1617b56983c4f1c41096efcd8671662df6d3a914a826086c7d5')
+	            '19b0b131d8b7837752058dc259313018bd256a586b9d706125bd4669f12c9d96')
 else
 	sha256sums=('ed80e37666cf6cb0bcd346c8e5688e1558c6ee1e5ae07424c32ac4c17eb500d6'
-	            '1ef91acaa958c1617b56983c4f1c41096efcd8671662df6d3a914a826086c7d5')
+	            '19b0b131d8b7837752058dc259313018bd256a586b9d706125bd4669f12c9d96')
 fi
 
 pkgver() {

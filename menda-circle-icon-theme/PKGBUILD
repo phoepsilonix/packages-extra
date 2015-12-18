@@ -3,9 +3,9 @@
 
 pkgname=menda-circle-icon-theme
 _pkgbase=menda-icon-themes
-pkgver=20151210
+pkgver=20151218
 pkgrel=1
-_git='b9e41fbf05cda5d15660342999d3e62965ff626e'
+_git='19d251bce23ba64f30333dcddffb719bc813c504'
 arch=('any')
 url="https://github.com/manjaro/menda-icon-themes"
 license=('GPL')
@@ -15,7 +15,7 @@ optdepends=('menda-themes: Official Manjaro Gtk2, Gtk3, Metacity, Xfwm, Openbox,
 options=(!emptydirs !strip)
 replaces=('menda-icon-themes')
 source=("${_pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
-md5sums=('777717f212fbae5a422d918ebdd476b8')
+md5sums=('e5ddd179c6b46af66b305c54fb4c3dc0')
 
 
 package() {
