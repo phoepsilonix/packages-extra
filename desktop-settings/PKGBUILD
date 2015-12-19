@@ -15,8 +15,8 @@ source=("git+$url.git")
 sha256sums=('SKIP')
 
 _inst_dir(){
-	install -d $pkgdir/etc/skel
-	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc/skel
+	install -d $pkgdir/etc
+	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
 }
 
 pkgver() {
