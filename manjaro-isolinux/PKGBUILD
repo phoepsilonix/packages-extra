@@ -25,6 +25,6 @@ build() {
 
 package() {
 	cd ${srcdir}/artwork-gfxboot
-	install -d $pkgdir/usr/share
-	cp -a $srcdir/artwork-gfxboot/isolinux $pkgdir/usr/share
+	install -d $pkgdir/usr/share/manjaro-tools/isolinux
+	install -D $srcdir/artwork-gfxboot/isolinux/* $pkgdir/usr/share/manjaro-tools/isolinux
 }
