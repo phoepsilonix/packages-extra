@@ -2,20 +2,24 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=manjaro-isolinux
-pkgver=r19.187685b
+pkgver=20151220
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux (isolinux)'
 arch=('i686' 'x86_64')
 license=('GPL')
 url='https://github.com/manjaro/artwork-gfxboot'
 provides=("isolinux")
-makedepends=('gfxboot' 'cpio' 'git')
+makedepends=('gfxboot' 'cpio' 'fribidi' 'git')
 source=("git+$url.git")
 sha256sums=('SKIP')
 
+# pkgver() {
+# 	cd ${srcdir}/artwork-gfxboot
+# 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+# }
+
 pkgver() {
-	cd ${srcdir}/artwork-gfxboot
-	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+	date +%Y%m%d
 }
 
 build() {
