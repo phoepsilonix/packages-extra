@@ -2,7 +2,7 @@
 
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
-pkgver=15.12rc1
+pkgver=15.12
 _gitcommit=ac58c1a7d3f7f96b236380239aa4f30e228ca336
 pkgrel=1
 arch=('any')

@@ -2,7 +2,7 @@
 # Maintainer: Rob McCathie <rob[at]manjaro[dot]org>
 
 pkgname=manjaro-welcome
-pkgver=15.09
+pkgver=15.12
 pkgrel=1
 pkgdesc="The Manjaro Welcome utility provides a simple interface for accessing all the relevant information for a new user of Manjaro."
 arch=(any)
@@ -11,7 +11,7 @@ license=('GPL')
 depends=('python-gobject' 'pywebkitgtk')
 makedepends=('git')
 options=(!emptydirs)
-_git=No
+_git=Yes
 _branch=master
 
 if [ "$_git" == "No" ]; then
