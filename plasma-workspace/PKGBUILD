@@ -6,8 +6,8 @@
 
 pkgbase=plasma-workspace
 pkgname=('plasma-workspace' 'drkonqi' 'plasma-wayland-session')
-pkgver=5.5.1
-pkgrel=2.1
+pkgver=5.5.2
+pkgrel=1.1
 pkgdesc='KDE Plasma Workspace'
 arch=('i686' 'x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -22,10 +22,10 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'gpsd' 'baloo'
              'krunner' 'kxmlrpcclient' 'networkmanager-qt')
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgbase}-${pkgver}.tar.xz" 'kde.pam'
-	bug355055.patch::"https://quickgit.kde.org/?p=plasma-workspace.git&a=commitdiff&h=a0578e6e5&o=plain")
-md5sums=('9007fe743784f6b1f04956cbd3429fec'
+                'rb126408.patch')
+md5sums=('771be8128b03bc50d79b3579e631ae15'
          '378ee33a9ec2870a1a899f2e05ee00d4'
-         'f2f5593a1bf02ef2371876557352f0a5')
+         '8c166f19dc9a8073a4ccae53ca4de095')
 
 prepare() {
   mkdir -p build
@@ -33,9 +33,8 @@ prepare() {
   cd ${pkgbase}-${pkgver}
   # be sure to use the Qt5 version of qtpaths
   sed -e 's:qtpaths:qtpaths-qt5:' -i startkde/start*.cmake
-
-  # Workaround a system icon tray issue  
-  patch -p1 -i ../bug355055.patch
+  
+  patch -p1 -i ../rb126408.patch
 }
 
 build() {
@@ -83,31 +82,4 @@ package_plasma-wayland-session() {
   groups=()
 
   install -Dm644 build/plasmawayland.desktop "$pkgdir"/usr/share/wayland-sessions/plasmawayland.desktop
-}
-
-package_plasma-workspace() {
-  optdepends=('plasma-workspace-wallpapers: additional wallpapers'
-              'gpsd: GPS based geolocation' 'networkmanager-qt: IP based geolocation')
-  conflicts=('kdebase-workspace')
-
-  cd build
-  make DESTDIR="${pkgdir}" install
-
-  install -Dm644 "${srcdir}"/kde.pam \
-    "${pkgdir}"/etc/pam.d/kde
-
-  # Remove conflicts with drkonqi
-  rm "${pkgdir}"/usr/lib/drkonqi
-  rm -r "${pkgdir}"/usr/share/drkonqi
-
-  # Drop plasma-wayland session file, doesn't work
-  rm -r "$pkgdir"/usr/share/wayland-sessions
-}
-
-package_drkonqi() {
-  pkgdesc='KDE crash handler'
-  depends=('kxmlrpcclient' 'gdb')
-
-  cd build/drkonqi
-  make DESTDIR="${pkgdir}" install
 }
