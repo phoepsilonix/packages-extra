@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-dev
-pkgver=1.80.0.r1654.8239e12
-pkgrel=3
+pkgver=2.0b3
+pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -19,8 +19,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/calamares/calamares.git#branch=choicepreview
-         git+https://github.com/calamares/calamares-manjaro.git)
+source+=(git+https://github.com/calamares/calamares.git#branch=master
+         git+https://github.com/calamares/calamares-manjaro.git#branch=master)
 
 sha256sums=('SKIP'
             'SKIP')
@@ -30,7 +30,7 @@ pkgver() {
 	_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
 	_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-	#echo -e "${_ver// /.}${_git}"
+	echo -e "${_ver// /.}${_git}"
 	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
 	rm -r ${srcdir}/calamares/.git
 	rm -r ${srcdir}/calamares-manjaro/.git

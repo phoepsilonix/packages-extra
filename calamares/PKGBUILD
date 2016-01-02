@@ -3,7 +3,7 @@
 pkgname=calamares
 _pointver=4.2
 pkgver=1.1.${_pointver}
-pkgrel=8
+pkgrel=10
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -19,8 +19,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 _git=No
 # This is the release package so the below _snapshot_master variable should (usually) be commented out.
-_snapshot_master=5456ed3b5342535208434ea5af4836c4b28423ec
-_snapshot_manjaro=6ee31fc75e17185b9774274a60932fc3ebdb9b6f
+_snapshot_master=4c3d634df0bc341006632cea3a96227ba60c2038
+_snapshot_manjaro=7567bad4369477fb3f5a94d1b2d8329c865a16e7
 
 if [ "$_git" == "Yes" ]; then
    source+=(git+https://github.com/calamares/calamares.git#branch=1.1.x-stable
@@ -37,11 +37,11 @@ if [ "$_git" == "Yes" ]; then
 	sha256sums=('SKIP'
 	            'SKIP')
 elif [ "${_snapshot_master}" != "" ]; then
-	sha256sums=('ef43818941c771e737b5e1591c5ae511b68556bc9d915542a7b1b24c21b992d0'
-	            '19b0b131d8b7837752058dc259313018bd256a586b9d706125bd4669f12c9d96')
+	sha256sums=('3e4fd29f7b00edd80f89723bdd61c0bf1497c46747b2398bd0e026539f9e05d0'
+	            '8d95a2ad66aef8d3c4352556ebb18dab6b4694df5eb3fabc90eb498821e6e720')
 else
 	sha256sums=('ed80e37666cf6cb0bcd346c8e5688e1558c6ee1e5ae07424c32ac4c17eb500d6'
-	            '19b0b131d8b7837752058dc259313018bd256a586b9d706125bd4669f12c9d96')
+	            '8d95a2ad66aef8d3c4352556ebb18dab6b4694df5eb3fabc90eb498821e6e720')
 fi
 
 pkgver() {
@@ -53,7 +53,14 @@ pkgver() {
 		echo -e "${_ver// /.}${_gitver}"
 		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_gitver|g" CMakeLists.txt
 	else
+		if [ -e "$srcdir/$pkgname-$pkgver" ]; then
+			cd $srcdir/$pkgname-$pkgver
+		elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
+			cd ${srcdir}/$pkgname-$_snapshot_master
+		fi
 		echo "$pkgver"
+		_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_pointver-$pkgrel|g" CMakeLists.txt
 	fi
 }
 
