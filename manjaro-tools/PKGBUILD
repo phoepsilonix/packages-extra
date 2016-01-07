@@ -3,31 +3,25 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.9.15
-pkgrel=4
+pkgver=0.10.0
+pkgrel=0
 pkgdesc='Development tools for Manjaro Linux'
 arch=('x86_64' 'i686')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        reset_profile_vars.patch::https://github.com/manjaro/manjaro-tools/commit/ff51d0e050730f514c304382ca815904538f30ae.patch
-        reset_packages_vars.patch::https://github.com/manjaro/manjaro-tools/commit/f0e0b342bfaa5ed9f2e0bb6fb0c44e1b901e820f.patch
-        budgie_v10.1.patch::https://github.com/manjaro/manjaro-tools/commit/97d0a31e516cd96fd8ccf4b2500387696c55ba41.patch
-        update_docu.patch::https://github.com/manjaro/manjaro-tools/commit/89ffdb2dfc0d8704eae5e9a114f3b9251a9b2f96.patch)
-md5sums=('80d1960796e76e5d3a79bdcc04e35244'
-         '8eae0f84fd4da754b640971f10c97f19'
-         '04fc23978b1f593bbbee39a4288663b7'
-         '6f44c134256de70581deba98ead4dbf3'
-         '65625a2ec35ede6b3e00fe5c0720c51a')
+_git=94ff111a92884eea165d4a94dac9d505534a6030
+source=(#"${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
+md5sums=('29e11ebf9bab4bff2f8a502094da2f0e')
 
 prepare() {
+	# remove this
+	mv ${srcdir}/${pkgbase}-${_git} ${srcdir}/${pkgbase}-${pkgver}
+
 	cd ${srcdir}/${pkgbase}-${pkgver}
-	patch -Np1 -i $srcdir/reset_profile_vars.patch
-	patch -Np1 -i $srcdir/reset_packages_vars.patch
-	patch -Np1 -i $srcdir/budgie_v10.1.patch
-	patch -Np1 -i $srcdir/update_docu.patch
+	# patches here
 }
 
 build() {
@@ -57,7 +51,7 @@ package_manjaro-tools-pkg() {
 
 package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
-	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
+	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
                       'manjaro-tools-base' 'mkinitcpio-nfs-utils')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
