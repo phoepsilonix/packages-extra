@@ -56,7 +56,8 @@ package_manjaro-tools-iso() {
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
-                    'manjaro-iso-profiles-community-minimal: Manjaro Linux ISO-Image community minimal profiles'
+                    'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
+                    'sonar-iso-profiles: Sonar Linux ISO-Image profiles'
                     'qemu: quickly test isos')
 
 	cd ${srcdir}/${pkgbase}-${pkgver}
