@@ -10,7 +10,7 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
 pkgver=16.01
-pkgrel=0
+pkgrel=0.1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
@@ -68,5 +68,5 @@ package_sonar-iso-profiles() {
 	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
 
-	_inst_dir 'minimal'
+	_inst_dir 'sonar'
 }
