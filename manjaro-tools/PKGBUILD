@@ -4,21 +4,20 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.10.0
-pkgrel=0
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
-arch=('x86_64' 'i686')
+arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-_git=94ff111a92884eea165d4a94dac9d505534a6030
-source=(#"${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        "${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
-md5sums=('29e11ebf9bab4bff2f8a502094da2f0e')
+#_git=94ff111a92884eea165d4a94dac9d505534a6030
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('2526c5bd68c607f1a1d879a50e896d2d1c9842813594a411bf3e1ec2299d01df')
 
 prepare() {
 	# remove this
-	mv ${srcdir}/${pkgbase}-${_git} ${srcdir}/${pkgbase}-${pkgver}
+	#mv ${srcdir}/${pkgbase}-${_git} ${srcdir}/${pkgbase}-${pkgver}
 
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
