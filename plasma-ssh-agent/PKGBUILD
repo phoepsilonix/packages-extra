@@ -10,6 +10,7 @@ url='https://github.com/manjaro/packages-extra'
 license=('GPL')
 groups=('plasma')
 depends=('plasma-workspace' 'openssh')
+install=$pkgname.install
 source=('ssh-agent-shutdown.sh'
 	'ssh-agent-startup.sh')
 sha256sums=('1a3bf87644f9505ae2cdf11ec5fb3590071822cfc30a78e2d38dc0a6491228b3'

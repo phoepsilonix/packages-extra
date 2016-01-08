@@ -3,16 +3,26 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.9.15
-pkgrel=1
+pkgver=0.10.0
+pkgrel=0
 pkgdesc='Development tools for Manjaro Linux'
 arch=('x86_64' 'i686')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-md5sums=('80d1960796e76e5d3a79bdcc04e35244')
+_git=94ff111a92884eea165d4a94dac9d505534a6030
+source=(#"${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
+md5sums=('29e11ebf9bab4bff2f8a502094da2f0e')
+
+prepare() {
+	# remove this
+	mv ${srcdir}/${pkgbase}-${_git} ${srcdir}/${pkgbase}-${pkgver}
+
+	cd ${srcdir}/${pkgbase}-${pkgver}
+	# patches here
+}
 
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
@@ -41,12 +51,13 @@ package_manjaro-tools-pkg() {
 
 package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
-	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux'
+	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
                       'manjaro-tools-base' 'mkinitcpio-nfs-utils')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
-                    'manjaro-iso-profiles-community-minimal: Manjaro Linux ISO-Image community minimal profiles'
+                    'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
+                    'sonar-iso-profiles: Sonar Linux ISO-Image profiles'
                     'qemu: quickly test isos')
 
 	cd ${srcdir}/${pkgbase}-${pkgver}

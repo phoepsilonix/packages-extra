@@ -1,0 +1,48 @@
+# $Id: PKGBUILD 257542 2016-01-06 15:37:45Z arojas $
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Antonio Rojas
+
+pkgname=plasma-desktop
+pkgver=5.5.3
+pkgrel=1.1
+pkgdesc='KDE Plasma Desktop'
+arch=('i686' 'x86_64')
+url='https://www.kde.org/workspaces/plasmadesktop/'
+license=('LGPL')
+source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
+        "Fix-favorites-scripting-in-Kickoff.patch::https://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=456100e0f9770534f1bfbb79183f598733936961&hp=e7cf3fb98a1623f92240e55c6fca9af0588e7626&o=plain")
+depends=('powerdevil' 'polkit-kde-agent' 'libcanberra' 'libxkbfile' 'kmenuedit'
+         'systemsettings' 'ksysguard' 'kpeople' 'baloo' 'qt5-graphicaleffects')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'xf86-input-evdev' 'xf86-input-synaptics' 'xorg-server-devel')
+optdepends=('plasma-nm: Network manager applet')
+conflicts=('kdebase-workspace' 'kcm-touchpad-frameworks')
+replaces=('kcm-touchpad-frameworks')
+install="${pkgname}.install"
+groups=('plasma')
+md5sums=('ed01bcf7d3ad8a8e398d8d9ee489e971'
+         '9af18726df6ef395d2b19fc01b29eb3e')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i $srcdir/Fix-favorites-scripting-in-Kickoff.patch
+  cd ..
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+}

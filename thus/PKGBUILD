@@ -4,8 +4,8 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.9.1
-pkgrel=2
+pkgver=0.9.2
+pkgrel=0.2
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
 license=(GPL)
@@ -19,7 +19,7 @@ depends=(coreutils cryptsetup ckbcomp gptfdisk grep libtimezonemap hwinfo lvm2 m
 install=thus.install
 _git=No
 _development=No
-_snapshot=dda39918ee6bab91f859a2d435c406b5373afa1a
+_snapshot=f79858e0b6e250b26b0345542bd096c2b61f69e1
 
 if [ "$_git" == "Yes" ]; then
    makedepends=(git)
@@ -32,7 +32,7 @@ else
    fi
 fi
 
-sha256sums=('6e21c0a14ae48d9503ac968b1027efae132a891efcbd6666fce494ddf37d3798')
+sha256sums=('c862bda79e65bffa19d5da03c4fa151eb62321bd24ef4bbdc46b77973feba576')
 
 prepare() {
 	if [ "$_development" == "Yes" ]; then
