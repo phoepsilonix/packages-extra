@@ -38,6 +38,7 @@ package_manjaro-iso-profiles-base() {
 	replaces=('manjaro-iso-profiles-openrc')
 
 	_inst_dir 'shared'
+	echo "version_min=$_mt_ver" > $pkgdir/usr/share/manjaro-tools/iso-profiles/.buildiso
 }
 
 package_manjaro-iso-profiles-official() {
@@ -60,6 +61,8 @@ package_manjaro-iso-profiles-minimal() {
 	pkgdesc='Manjaro Linux minimal iso profiles'
 	groups=('manjaro-tools')
 	depends=('manjaro-iso-profiles-base')
+	conflicts=('manjaro-iso-profiles-community-minimal')
+	replaces=('manjaro-iso-profiles-community-minimal')
 
 	_inst_dir 'minimal'
 }
