@@ -3,11 +3,11 @@
 
 _branch=devel
 _pkgbase=manjaro-tools
-_ver=0.9.15
+_ver=0.10.0
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1786.3c10547
+pkgver=r1819.62772f4
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
@@ -64,9 +64,9 @@ package_manjaro-tools-iso-git() {
         depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
                       'manjaro-tools-base-git' 'mkinitcpio-nfs-utils')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
-	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
+	optdepends=('manjaro-iso-profiles-official: Manjaro Linux ISO-Image official profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
-                    'manjaro-iso-profiles-community-minimal: Manjaro Linux ISO-Image community-minimal profiles'
+                    'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
                     'qemu: quickly test isos')
 	conflicts=('manjaro-tools-iso')
 
