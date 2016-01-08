@@ -10,7 +10,7 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
 pkgver=16.01
-pkgrel=0.1
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
@@ -32,6 +32,7 @@ _inst_dir(){
 
 package_manjaro-iso-profiles-base() {
 	pkgdesc='Manjaro Linux iso profiles base'
+	provides=('iso-profiles-base')
 	depends=("manjaro-tools-iso>=${_mt_ver}")
 	conflicts=('manjaro-iso-profiles-openrc')
 	replaces=('manjaro-iso-profiles-openrc')
