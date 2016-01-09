@@ -5,7 +5,7 @@
 
 _b43=5.100.138
 _legacy=3.130.20.0
-_nouveau=325.15
+_nouveau=340.32
 _aic94xx=30-1
 _aic94xxver=7.1.1503
 
@@ -33,7 +33,7 @@ sha256sums=('f1e7067aac5b62b67b8b6e4c517990277804339ac16065eb13c731ff909ae46f'
             '0608a919b95e65e8fe3c0cbc15f7e559716bda39a6efca863417a65f75e15478'
             '6e0dd2831a66437e87659ed31384f11bdc7720bc539d2efa063fbb7f4ac0e46c'
             '154bbf69e593b407448fcdb4c7804464a827dd9c6cde1048ec484b06680cad0d'
-            '3d790e4bfed24641f7cc76879144ab5d52b12271012ba381b0d33aa1a2e08775')
+            '1d0489c35c5b332c9b949d9de3c3cbab4ac3a94385aa41e7a7b62ef23f4395f5')
             
 build() {
     #extract nouveau firmware
