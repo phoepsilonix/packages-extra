@@ -1,0 +1,36 @@
+# Maintainer: artoo <artoo@manjaro.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+
+pkgname=sonar-isolinux
+pkgver=20160110
+pkgrel=1
+pkgdesc='Development tools for Manjaro Linux (isolinux)'
+arch=('i686' 'x86_64')
+license=('GPL')
+url='https://github.com/manjaro/artwork-gfxboot-sonar'
+provides=("isolinux")
+makedepends=('gfxboot' 'cpio' 'fribidi' 'git')
+conflicts=('manjaro-isolinux')
+replaces=('manjaro-isolinux')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+# pkgver() {
+# 	cd ${srcdir}/artwork-gfxboot
+# 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+# }
+
+pkgver() {
+	date +%Y%m%d
+}
+
+build() {
+	cd ${srcdir}/artwork-gfxboot-sonar
+	make
+}
+
+package() {
+	cd ${srcdir}/artwork-gfxboot-sonar
+	install -d $pkgdir/usr/share/manjaro-tools/isolinux
+	install -D $srcdir/artwork-gfxboot-sonar/isolinux/* $pkgdir/usr/share/manjaro-tools/isolinux
+}
