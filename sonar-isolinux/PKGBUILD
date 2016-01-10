@@ -4,19 +4,18 @@
 pkgname=sonar-isolinux
 pkgver=20160110
 pkgrel=1
-pkgdesc='Development tools for Manjaro Linux (isolinux)'
+pkgdesc='Development tools for Sonar Linux (isolinux)'
 arch=('i686' 'x86_64')
 license=('GPL')
 url='https://github.com/manjaro/artwork-gfxboot-sonar'
 provides=("isolinux")
+conflicts=("manjaro-isolinux")
 makedepends=('gfxboot' 'cpio' 'fribidi' 'git')
-conflicts=('manjaro-isolinux')
-replaces=('manjaro-isolinux')
 source=("git+$url.git")
 sha256sums=('SKIP')
 
 # pkgver() {
-# 	cd ${srcdir}/artwork-gfxboot
+# 	cd ${srcdir}/artwork-gfxboot-sonar
 # 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 # }
 

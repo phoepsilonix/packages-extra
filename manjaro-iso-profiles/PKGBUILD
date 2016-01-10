@@ -10,15 +10,15 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
 pkgver=16.01
-pkgrel=0.4
+pkgrel=0.5
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 # options=('!strip')
-_git=6014a2aa493053a5c1f9a6d45b1ffe2d271cf5be
-source=(#"${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz"
-        "${pkgname}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('e1e046ac607ed2e641022cb67a0ef0d5c4d91f4087c034607e3230884341c687')
+_git=f0a786536289ee6517196135dcad3674581a71de
+source=(#"${pkgbase}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz"
+        "${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
+sha256sums=('40d0e4e46487e2a9b2ec77127599ce7ee9c8d1219fea70cf49f7f14bf4016490')
 
 prepare(){
 	# remove this
