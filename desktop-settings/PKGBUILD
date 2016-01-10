@@ -20,9 +20,13 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-lxqt-settings'
 	'manjaro-mate-settings'
 	'manjaro-netbook-settings'
-	'manjaro-pantheon-settings')
-pkgver=20151219
-pkgrel=1
+	'manjaro-pantheon-settings'
+	'manjaro-backgrounds'
+	'sonar-gnome-settings'
+	'sonar-mate-settings'
+	'sonar-backgrounds')
+pkgver=20160110
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -58,7 +62,9 @@ package_manjaro-xfce-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'official/xfce'
 }
@@ -82,7 +88,9 @@ package_manjaro-kde-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'official/kde'
 }
@@ -108,7 +116,9 @@ package_manjaro-xfce-minimal-settings() {
 		'manjaro-netbook-settings'
 		'manjaro-pantheon-settings'
 		'manjaro-lxqt-minimal-settings'
-		'manjaro-kde-minimal-settings')
+		'manjaro-kde-minimal-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'minimal/xfce'
 }
@@ -132,7 +142,9 @@ package_manjaro-kde-minimal-settings() {
 		'manjaro-netbook-settings'
 		'manjaro-pantheon-settings'
 		'manjaro-xfce-minimal-settings'
-		'manjaro-lxqt-minimal-settings')
+		'manjaro-lxqt-minimal-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'minimal/kde'
 }
@@ -156,7 +168,9 @@ package_manjaro-lxqt-minimal-settings() {
 		'manjaro-netbook-settings'
 		'manjaro-pantheon-settings'
 		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings')
+		'manjaro-kde-minimal-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'minimal/lxqt'
 }
@@ -182,7 +196,9 @@ package_manjaro-bspwm-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/bspwm'
 }
@@ -206,7 +222,9 @@ package_manjaro-budgie-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/budgie'
 }
@@ -230,7 +248,9 @@ package_manjaro-cinnamon-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/cinnamon'
 }
@@ -254,7 +274,9 @@ package_manjaro-deepin-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/deepin'
 }
@@ -278,7 +300,9 @@ package_manjaro-enlightenment-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/enlightenment'
 }
@@ -302,7 +326,9 @@ package_manjaro-fluxbox-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/fluxbox'
 }
@@ -326,7 +352,9 @@ package_manjaro-gnome-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/gnome'
 }
@@ -350,7 +378,9 @@ package_manjaro-i3-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/i3'
 }
@@ -374,7 +404,9 @@ package_manjaro-jwm-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/jwm'
 }
@@ -398,7 +430,9 @@ package_manjaro-lxde-settings() {
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/lxde'
 }
@@ -422,7 +456,9 @@ package_manjaro-lxqt-settings() {
 		'manjaro-lxde-settings'
 		'manjaro-mate-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/lxqt'
 }
@@ -446,7 +482,9 @@ package_manjaro-mate-settings() {
 		'manjaro-lxde-settings'
 		'manjaro-lxqt-settings'
 		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/mate'
 }
@@ -470,7 +508,9 @@ package_manjaro-netbook-settings() {
 		'manjaro-lxde-settings'
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
-		'manjaro-pantheon-settings')
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/netbook'
 }
@@ -494,7 +534,69 @@ package_manjaro-pantheon-settings() {
 		'manjaro-lxde-settings'
 		'manjaro-lxqt-settings'
 		'manjaro-mate-settings'
-		'manjaro-netbook-settings')
+		'manjaro-netbook-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
 
 	_inst_dir 'community/pantheon'
+}
+
+package_sonar-mate-settings() {
+	pkgdesc='Sonar Linux mate settings'
+	conflicts=('manjaro-kde-settings'
+		'manjaro-lxqt-minimal-settings'
+		'manjaro-xfce-minimal-settings'
+		'manjaro-kde-minimal-settings'
+		'manjaro-bspwm-settings'
+		'manjaro-budgie-settings'
+		'manjaro-cinnamon-settings'
+		'manjaro-deepin-settings'
+		'manjaro-enlightenment-settings'
+		'manjaro-fluxbox-settings'
+		'manjaro-gnome-settings'
+		'manjaro-i3-settings'
+		'manjaro-jwm-settings'
+		'manjaro-lxde-settings'
+		'manjaro-lxqt-settings'
+		'manjaro-mate-settings'
+		'manjaro-netbook-settings'
+		'manjaro-pantheon-settings'
+		'sonar-gnome-settings')
+
+	_inst_dir 'sonar/mate'
+}
+
+package_sonar-gnome-settings() {
+	pkgdesc='Sonar Linux gnome settings'
+	conflicts=('manjaro-kde-settings'
+		'manjaro-lxqt-minimal-settings'
+		'manjaro-xfce-minimal-settings'
+		'manjaro-kde-minimal-settings'
+		'manjaro-bspwm-settings'
+		'manjaro-budgie-settings'
+		'manjaro-cinnamon-settings'
+		'manjaro-deepin-settings'
+		'manjaro-enlightenment-settings'
+		'manjaro-fluxbox-settings'
+		'manjaro-gnome-settings'
+		'manjaro-i3-settings'
+		'manjaro-jwm-settings'
+		'manjaro-lxde-settings'
+		'manjaro-lxqt-settings'
+		'manjaro-mate-settings'
+		'manjaro-netbook-settings'
+		'manjaro-pantheon-settings'
+		'sonar-mate-settings')
+
+	_inst_dir 'sonar/gnome'
+}
+
+package_manjaro-backgrounds() {
+	install -d ${pkgdir}/usr/share/backgrounds
+	cp ${srcdir}/desktop-settings/backgrounds/* "${pkgdir}/usr/share/backgrounds"
+}
+
+package_sonar-backgrounds() {
+	install -d ${pkgdir}/usr/share/backgrounds
+	cp ${srcdir}/desktop-settings/sonar/backgrounds/* "${pkgdir}/usr/share/backgrounds"
 }
