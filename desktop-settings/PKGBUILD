@@ -7,6 +7,7 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-lxqt-minimal-settings'
 	'manjaro-xfce-minimal-settings'
 	'manjaro-kde-minimal-settings'
+	'manjaro-budgie-minimal-settings'
 	'manjaro-bspwm-settings'
 	'manjaro-budgie-settings'
 	'manjaro-cinnamon-settings'
@@ -21,13 +22,15 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-mate-settings'
 	'manjaro-netbook-settings'
 	'manjaro-pantheon-settings'
-	'manjaro-backgrounds'
 	'sonar-gnome-settings'
 	'sonar-mate-settings'
+	'manjaro-backgrounds'
 	'sonar-backgrounds'
-	'sonar-calamares-branding')
+	'sonar-calamares-branding'
+	'manjaro-firefox-settings')
+# 	'sonar-common')
 pkgver=20160111
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -50,6 +53,7 @@ package_manjaro-xfce-settings() {
 		'manjaro-lxqt-minimal-settings'
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -76,6 +80,7 @@ package_manjaro-kde-settings() {
 		'manjaro-lxqt-minimal-settings'
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -118,6 +123,7 @@ package_manjaro-xfce-minimal-settings() {
 		'manjaro-pantheon-settings'
 		'manjaro-lxqt-minimal-settings'
 		'manjaro-kde-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
 
@@ -144,6 +150,7 @@ package_manjaro-kde-minimal-settings() {
 		'manjaro-pantheon-settings'
 		'manjaro-xfce-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
 
@@ -170,10 +177,38 @@ package_manjaro-lxqt-minimal-settings() {
 		'manjaro-pantheon-settings'
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
 
 	_inst_dir 'minimal/lxqt'
+}
+
+package_manjaro-budgie-minimal-settings() {
+	pkgdesc='Manjaro Linux budgie-minimal settings'
+	conflicts=('manjaro-xfce-settings'
+		'manjaro-kde-settings'
+		'manjaro-bspwm-settings'
+		'manjaro-budgie-settings'
+		'manjaro-cinnamon-settings'
+		'manjaro-deepin-settings'
+		'manjaro-enlightenment-settings'
+		'manjaro-fluxbox-settings'
+		'manjaro-gnome-settings'
+		'manjaro-i3-settings'
+		'manjaro-jwm-settings'
+		'manjaro-lxde-settings'
+		'manjaro-lxqt-settings'
+		'manjaro-mate-settings'
+		'manjaro-netbook-settings'
+		'manjaro-pantheon-settings'
+		'manjaro-xfce-minimal-settings'
+		'manjaro-kde-minimal-settings'
+		'manjaro-lxqt-minimal-settings'
+		'sonar-gnome-settings'
+		'sonar-mate-settings')
+
+	_inst_dir 'minimal/budgie'
 }
 
 ##############community######################
@@ -185,6 +220,7 @@ package_manjaro-bspwm-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
 		'manjaro-deepin-settings'
@@ -211,6 +247,7 @@ package_manjaro-budgie-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-cinnamon-settings'
 		'manjaro-deepin-settings'
@@ -237,6 +274,7 @@ package_manjaro-cinnamon-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-deepin-settings'
@@ -263,6 +301,7 @@ package_manjaro-deepin-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -289,6 +328,7 @@ package_manjaro-enlightenment-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -315,6 +355,7 @@ package_manjaro-fluxbox-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -341,6 +382,7 @@ package_manjaro-gnome-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -367,6 +409,7 @@ package_manjaro-i3-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -393,6 +436,7 @@ package_manjaro-jwm-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -419,6 +463,7 @@ package_manjaro-lxde-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -445,6 +490,7 @@ package_manjaro-lxqt-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -471,6 +517,7 @@ package_manjaro-mate-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -497,6 +544,7 @@ package_manjaro-netbook-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -523,6 +571,7 @@ package_manjaro-pantheon-settings() {
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
 		'manjaro-lxqt-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -542,12 +591,15 @@ package_manjaro-pantheon-settings() {
 	_inst_dir 'community/pantheon'
 }
 
+##############sonar######################
+
 package_sonar-mate-settings() {
 	pkgdesc='Sonar Linux mate settings'
 	conflicts=('manjaro-kde-settings'
 		'manjaro-lxqt-minimal-settings'
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -573,6 +625,7 @@ package_sonar-gnome-settings() {
 		'manjaro-lxqt-minimal-settings'
 		'manjaro-xfce-minimal-settings'
 		'manjaro-kde-minimal-settings'
+		'manjaro-budgie-minimal-settings'
 		'manjaro-bspwm-settings'
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
@@ -592,6 +645,22 @@ package_sonar-gnome-settings() {
 	_inst_dir 'sonar/gnome'
 }
 
+##############misc######################
+
+package_manjaro-firefox-settings() {
+	pkgdesc='Manjaro Linux firefox settings'
+	depends=('firefox')
+
+	_inst_dir 'firefox'
+}
+
+package_manjaro-backgrounds() {
+	pkgdesc='Manjaro Linux backgrounds'
+
+	install -d ${pkgdir}/usr/share/backgrounds
+	cp ${srcdir}/$pkgbase/backgrounds/* "${pkgdir}/usr/share/backgrounds"
+}
+
 package_sonar-calamares-branding() {
 	pkgdesc='Sonar Linux calamares branding'
 	depends=('calamares')
@@ -600,12 +669,18 @@ package_sonar-calamares-branding() {
 	cp $srcdir/$pkgbase/sonar/calamares/branding/sonar/* ${pkgdir}/usr/share/calamares/branding/sonar
 }
 
-package_manjaro-backgrounds() {
-	install -d ${pkgdir}/usr/share/backgrounds
-	cp ${srcdir}/$pkgbase/backgrounds/* "${pkgdir}/usr/share/backgrounds"
-}
-
 package_sonar-backgrounds() {
 	install -d ${pkgdir}/usr/share/backgrounds
 	cp ${srcdir}/$pkgbase/sonar/backgrounds/* "${pkgdir}/usr/share/backgrounds"
 }
+
+# package_sonar-common() {
+# 	pkgdesc='Sonar Linux sounds and fonts'
+# 	depends=('sound-theme-freedesktop' 'ttf-droid')
+#
+# 	install -d ${pkgdir}/usr/share/sounds
+# 	cp $srcdir/$pkgbase/sonar/sounds/* ${pkgdir}/usr/share/sounds
+#
+# 	install -d ${pkgdir}/usr/share/fonts/TTF
+# 	cp $srcdir/$pkgbase/sonar/fonts/TTF/* ${pkgdir}/usr/share/fonts/TTF
+# }
