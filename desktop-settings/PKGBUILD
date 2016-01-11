@@ -24,9 +24,10 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-backgrounds'
 	'sonar-gnome-settings'
 	'sonar-mate-settings'
-	'sonar-backgrounds')
-pkgver=20160110
-pkgrel=2
+	'sonar-backgrounds'
+	'sonar-calamares-branding')
+pkgver=20160111
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -591,12 +592,20 @@ package_sonar-gnome-settings() {
 	_inst_dir 'sonar/gnome'
 }
 
+package_sonar-calamares-branding() {
+	pkgdesc='Sonar Linux calamares branding'
+	depends=('calamares')
+
+	install -d ${pkgdir}/usr/share/calamares/branding/sonar
+	cp $srcdir/$pkgbase/sonar/calamares/branding/sonar/* ${pkgdir}/usr/share/calamares/branding/sonar
+}
+
 package_manjaro-backgrounds() {
 	install -d ${pkgdir}/usr/share/backgrounds
-	cp ${srcdir}/desktop-settings/backgrounds/* "${pkgdir}/usr/share/backgrounds"
+	cp ${srcdir}/$pkgbase/backgrounds/* "${pkgdir}/usr/share/backgrounds"
 }
 
 package_sonar-backgrounds() {
 	install -d ${pkgdir}/usr/share/backgrounds
-	cp ${srcdir}/desktop-settings/sonar/backgrounds/* "${pkgdir}/usr/share/backgrounds"
+	cp ${srcdir}/$pkgbase/sonar/backgrounds/* "${pkgdir}/usr/share/backgrounds"
 }
