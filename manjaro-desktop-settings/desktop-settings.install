@@ -1,6 +1,6 @@
 post_install() {
 	if [ -d /etc/skel/bash ]; then
-		cp -vf /etc/skel/bash/* /etc/skel
+		 \cp -r /etc/skel/bash/. /etc/skel
 	fi
 }
 
