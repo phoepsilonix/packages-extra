@@ -24,7 +24,8 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-pantheon-settings'
 	'manjaro-backgrounds'
 	'manjaro-icons'
-	'manjaro-firefox-settings')
+	'manjaro-firefox-settings'
+	'manjaro-base-skel')
 pkgver=20160112
 pkgrel=2
 arch=('any')
@@ -588,6 +589,13 @@ package_manjaro-pantheon-settings() {
 }
 
 ##############misc######################
+
+package_manjaro-base-skel() {
+	pkgdesc='Manjaro Linux base skeleton files'
+
+	_inst_dir 'base'
+}
+
 
 package_manjaro-firefox-settings() {
 	pkgdesc='Manjaro Linux firefox settings'
