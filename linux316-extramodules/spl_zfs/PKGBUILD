@@ -4,7 +4,7 @@
 pkgbase=linux316-spl_zfs
 pkgname=('linux316-spl' 'linux316-zfs')
 pkgver=0.6.5.2
-pkgrel=1
+pkgrel=2
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")

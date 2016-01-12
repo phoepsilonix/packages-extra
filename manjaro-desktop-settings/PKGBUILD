@@ -26,7 +26,7 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-icons'
 	'manjaro-firefox-settings')
 pkgver=20160112
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -600,7 +600,7 @@ package_manjaro-backgrounds() {
 	pkgdesc='Manjaro Linux backgrounds'
 
 	install -d ${pkgdir}/usr/share/backgrounds
-	cp ${srcdir}/$pkgbase/backgrounds/* "${pkgdir}/usr/share/backgrounds"
+	cp ${srcdir}/$pkgbase/artwork/backgrounds/* "${pkgdir}/usr/share/backgrounds"
 }
 
 
