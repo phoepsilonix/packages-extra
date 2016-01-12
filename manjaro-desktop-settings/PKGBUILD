@@ -26,17 +26,21 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-icons'
 	'manjaro-firefox-settings')
 pkgver=20160112
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
+install=$pkgbase.install
 
 _inst_dir(){
 	install -d $pkgdir/etc
-	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+	cp -rv $srcdir/$pkgbase/$1/skel $pkgdir/etc
+	if [ -d $srcdir/$pkgbase/$1/bash ]; then
+		cp -rv $srcdir/$pkgbase/$1/bash $pkgdir/etc/skel
+	fi
 }
 
 pkgver() {
