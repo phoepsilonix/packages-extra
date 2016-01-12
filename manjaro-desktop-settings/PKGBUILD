@@ -27,7 +27,7 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-firefox-settings'
 	'manjaro-base-skel')
 pkgver=20160112
-pkgrel=4
+pkgrel=5
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
