@@ -22,12 +22,13 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-mate-settings'
 	'manjaro-netbook-settings'
 	'manjaro-pantheon-settings'
-	'manjaro-backgrounds'
-	'manjaro-icons'
 	'manjaro-firefox-settings'
-	'manjaro-base-skel')
+	'manjaro-base-skel'
+	'manjaro-live-skel')
+#	'manjaro-backgrounds'
+#	'manjaro-icons')
 pkgver=20160113
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -38,16 +39,26 @@ install=$pkgbase.install
 
 _inst_dir(){
 	install -d $pkgdir/etc
-	install -d $pkgdir/root
 	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+
 	if [ -d $srcdir/$pkgbase/$1/bash ]; then
 		install -d $pkgdir/usr/share/$pkgbase
 		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/usr/share/$pkgbase
 	fi
+
 	if [ -d $srcdir/$pkgbase/$1/root ]; then
+		install -d $pkgdir/root
 		cp -r $srcdir/$pkgbase/$1/root/. $pkgdir/root
+		chmod 750 $pkgdir/root
 # 	else
+# 		install -d $pkgdir/root
 # 		cp -r $srcdir/$pkgbase/$1/skel/. $pkgdir/root
+# 		chmod 750 $pkgdir/root
+	fi
+
+	if [[ $1 == 'base/live' ]]; then
+		install -d $pkgdir/usr/bin
+		cp $srcdir/$pkgbase/$1/scripts/* $pkgdir/usr/bin
 	fi
 }
 
@@ -614,6 +625,14 @@ package_manjaro-firefox-settings() {
 
 	_inst_dir 'firefox'
 }
+
+package_manjaro-live-skel(){
+	pkgdesc='Manjaro Linux live skeleton files'
+
+	_inst_dir 'base/live'
+}
+
+
 
 package_manjaro-backgrounds() {
 	pkgdesc='Manjaro Linux backgrounds'
