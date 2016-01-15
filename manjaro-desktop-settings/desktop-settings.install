@@ -1,6 +1,6 @@
 post_install() {
-	if [ -d /usr/share/desktop-settings/bash ]; then
-		 \cp -r /usr/share/desktop-settings/bash/. /etc/skel
+	if [ -d /etc/bash ]; then
+		 \cp -r /etc/bash/. /etc/skel
 	fi
 }
 
