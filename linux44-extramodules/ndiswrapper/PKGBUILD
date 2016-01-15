@@ -11,7 +11,7 @@ pkgbase=ndiswrapper
 pkgname=('linux44-ndiswrapper' 'ndiswrapper-utils')
 groups=('linux44-extramodules')
 pkgver=1.59
-pkgrel=0.9
+pkgrel=1
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -73,7 +73,7 @@ package_linux44-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=0.9
+  pkgrel=1
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils
