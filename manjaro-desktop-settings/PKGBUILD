@@ -2,12 +2,12 @@
 # Contributor: artoo <artoo@manjaro.org>
 
 pkgbase=desktop-settings
-pkgname=('manjaro-xfce-settings'
-	'manjaro-kde-settings'
-	'manjaro-lxqt-minimal-settings'
+pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-xfce-minimal-settings'
 	'manjaro-kde-minimal-settings'
 	'manjaro-budgie-minimal-settings'
+	'manjaro-xfce-settings'
+	'manjaro-kde-settings'
 	'manjaro-bspwm-settings'
 	'manjaro-budgie-settings'
 	'manjaro-cinnamon-settings'
@@ -25,10 +25,8 @@ pkgname=('manjaro-xfce-settings'
 	'manjaro-firefox-settings'
 	'manjaro-base-skel'
 	'manjaro-live-skel')
-#	'manjaro-backgrounds'
-#	'manjaro-icons')
-pkgver=20160113
-pkgrel=3
+pkgver=20160115
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -42,8 +40,7 @@ _inst_dir(){
 	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
 
 	if [ -d $srcdir/$pkgbase/$1/bash ]; then
-		install -d $pkgdir/usr/share/$pkgbase
-		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/usr/share/$pkgbase
+		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/etc
 	fi
 
 	if [ -d $srcdir/$pkgbase/$1/root ]; then
@@ -56,7 +53,7 @@ _inst_dir(){
 # 		chmod 750 $pkgdir/root
 	fi
 
-	if [[ $1 == 'base/live' ]]; then
+	if [[ $1 == 'shared/live' ]]; then
 		install -d $pkgdir/usr/bin
 		cp $srcdir/$pkgbase/$1/scripts/* $pkgdir/usr/bin
 	fi
@@ -615,7 +612,7 @@ package_manjaro-pantheon-settings() {
 package_manjaro-base-skel() {
 	pkgdesc='Manjaro Linux base skeleton files'
 
-	_inst_dir 'base'
+	_inst_dir 'shared'
 }
 
 
@@ -623,28 +620,11 @@ package_manjaro-firefox-settings() {
 	pkgdesc='Manjaro Linux firefox settings'
 	#depends=('firefox')
 
-	_inst_dir 'firefox'
+	_inst_dir 'shared/firefox'
 }
 
 package_manjaro-live-skel(){
 	pkgdesc='Manjaro Linux live skeleton files'
 
-	_inst_dir 'base/live'
-}
-
-
-
-package_manjaro-backgrounds() {
-	pkgdesc='Manjaro Linux backgrounds'
-
-	install -d ${pkgdir}/usr/share/backgrounds
-	cp ${srcdir}/$pkgbase/artwork/backgrounds/* "${pkgdir}/usr/share/backgrounds"
-}
-
-
-package_manjaro-icons() {
-	pkgdesc='Manjaro Linux logo icons'
-
-	install -d ${pkgdir}/usr/share/icons
-	cp ${srcdir}/$pkgbase/artwork/icons/* "${pkgdir}/usr/share/icons"
+	_inst_dir 'shared/live'
 }
