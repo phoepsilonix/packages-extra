@@ -26,7 +26,7 @@ pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-base-skel'
 	'manjaro-live-skel')
 pkgver=20160115
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
