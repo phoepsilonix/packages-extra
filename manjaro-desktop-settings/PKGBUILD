@@ -47,13 +47,9 @@ _inst_dir(){
 		install -d $pkgdir/root
 		cp -r $srcdir/$pkgbase/$1/root/. $pkgdir/root
 		chmod 750 $pkgdir/root
-# 	else
-# 		install -d $pkgdir/root
-# 		cp -r $srcdir/$pkgbase/$1/skel/. $pkgdir/root
-# 		chmod 750 $pkgdir/root
 	fi
 
-	if [[ $1 == 'shared/live' ]]; then
+	if [[ -d $srcdir/$pkgbase/$1/scripts ]]; then
 		install -d $pkgdir/usr/bin
 		cp $srcdir/$pkgbase/$1/scripts/* $pkgdir/usr/bin
 	fi
