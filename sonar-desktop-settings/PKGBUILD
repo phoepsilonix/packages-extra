@@ -4,10 +4,9 @@
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
 	'sonar-mate-settings'
-#	'sonar-backgrounds'
-	'sonar-calamares-branding')
-# 	'sonar-common')
-pkgver=20160117
+	'sonar-calamares-branding'
+	'sonar-common')
+pkgver=20160119
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -15,10 +14,25 @@ license=('GPL')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
+install=$pkgbase.install
 
 _inst_dir(){
 	install -d $pkgdir/etc
 	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+
+	if [ -d $srcdir/$pkgbase/$1/bash ]; then
+		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/etc
+	fi
+
+	if [[ -d $srcdir/$pkgbase/$1/scripts ]]; then
+		install -d $pkgdir/usr/bin
+		cp $srcdir/$pkgbase/$1/scripts/* $pkgdir/usr/bin
+	fi
+
+	if [[ -d $srcdir/$pkgbase/$1/schemas ]]; then
+		install -d $pkgdir/usr/share/glib-2.0/schemas
+		cp $srcdir/$pkgbase/$1/schemas/* $pkgdir/usr/share/glib-2.0/schemas
+	fi
 }
 
 pkgver() {
@@ -36,7 +50,6 @@ package_sonar-mate-settings() {
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
 		'manjaro-deepin-settings'
-		'manjaro-enlightenment-settings'
 		'manjaro-fluxbox-settings'
 		'manjaro-gnome-settings'
 		'manjaro-i3-settings'
@@ -62,7 +75,6 @@ package_sonar-gnome-settings() {
 		'manjaro-budgie-settings'
 		'manjaro-cinnamon-settings'
 		'manjaro-deepin-settings'
-		'manjaro-enlightenment-settings'
 		'manjaro-fluxbox-settings'
 		'manjaro-gnome-settings'
 		'manjaro-i3-settings'
@@ -90,13 +102,12 @@ package_sonar-backgrounds() {
 	cp ${srcdir}/$pkgbase/sonar/backgrounds/* "${pkgdir}/usr/share/backgrounds"
 }
 
-# package_sonar-common() {
-# 	pkgdesc='Sonar Linux sounds and fonts'
-# 	depends=('sound-theme-freedesktop' 'ttf-droid')
-#
-# 	install -d ${pkgdir}/usr/share/sounds
-# 	cp $srcdir/$pkgbase/sonar/sounds/* ${pkgdir}/usr/share/sounds
-#
-# 	install -d ${pkgdir}/usr/share/fonts/TTF
-# 	cp $srcdir/$pkgbase/sonar/fonts/TTF/* ${pkgdir}/usr/share/fonts/TTF
-# }
+package_sonar-common() {
+	pkgdesc='Sonar Linux common'
+
+	install -d ${pkgdir}/usr/share/applications
+	cp $srcdir/$pkgbase/shared/doc/sonar/apps/* ${pkgdir}/usr/share/applications
+
+	install -d ${pkgdir}/usr/share/sonar
+	cp $srcdir/$pkgbase/shared/doc/sonar/*.{txt,odt} ${pkgdir}/usr/share/sonar
+}
