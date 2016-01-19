@@ -5,13 +5,15 @@
 
 pkgname=plasma-desktop
 pkgver=5.5.3
-pkgrel=1.1
+pkgrel=2.1
 pkgdesc='KDE Plasma Desktop'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/workspaces/plasmadesktop/'
 license=('LGPL')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
-        "Fix-favorites-scripting-in-Kickoff.patch::https://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=456100e0f9770534f1bfbb79183f598733936961&hp=e7cf3fb98a1623f92240e55c6fca9af0588e7626&o=plain")
+        "bug336089.patch::https://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=9977ed&o=plain"
+        "Fix-favorites-scripting-in-Kickoff.patch::https://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=456100e0f9770534f1bfbb79183f598733936961&hp=e7cf3fb98a1623f92240e55c6fca9af0588e7626&o=plain"
+        "Test-against-provide-value.patch::https://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=68c132fa7cf7589ac3b7535699f5128dcda256d1&hp=eb3b3006b9e275688481be7eb57b798f73d12faf&o=plain")
 depends=('powerdevil' 'polkit-kde-agent' 'libcanberra' 'libxkbfile' 'kmenuedit'
          'systemsettings' 'ksysguard' 'kpeople' 'baloo' 'qt5-graphicaleffects')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'xf86-input-evdev' 'xf86-input-synaptics' 'xorg-server-devel')
@@ -21,11 +23,15 @@ replaces=('kcm-touchpad-frameworks')
 install="${pkgname}.install"
 groups=('plasma')
 md5sums=('ed01bcf7d3ad8a8e398d8d9ee489e971'
-         '9af18726df6ef395d2b19fc01b29eb3e')
+         'b472cc96e8883efacaacf7ffc0df3b37'
+         '9af18726df6ef395d2b19fc01b29eb3e'
+         'c295faca49e0cc4a9181f4535951a973')
 
 prepare() {
   cd $pkgname-$pkgver
+  patch -Np1 -i $srcdir/bug336089.patch
   patch -Np1 -i $srcdir/Fix-favorites-scripting-in-Kickoff.patch
+  patch -Np1 -i $srcdir/Test-against-provide-value.patch
   cd ..
   mkdir -p build
 }
