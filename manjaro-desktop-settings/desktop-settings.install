@@ -2,6 +2,7 @@ post_install() {
 	if [ -d /etc/bash ]; then
 		 \cp -r /etc/bash/. /etc/skel
 	fi
+	glib-compile-schemas usr/share/glib-2.0/schemas
 }
 
 post_upgrade() {
