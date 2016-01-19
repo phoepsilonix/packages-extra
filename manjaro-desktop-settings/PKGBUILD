@@ -25,8 +25,8 @@ pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-firefox-settings'
 	'manjaro-base-skel'
 	'manjaro-live-skel')
-pkgver=20160115
-pkgrel=2
+pkgver=20160119
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -46,6 +46,11 @@ _inst_dir(){
 	if [[ -d $srcdir/$pkgbase/$1/scripts ]]; then
 		install -d $pkgdir/usr/bin
 		cp $srcdir/$pkgbase/$1/scripts/* $pkgdir/usr/bin
+	fi
+
+	if [[ -d $srcdir/$pkgbase/$1/schemas ]]; then
+		install -d $pkgdir/usr/share/glib-2.0/schemas
+		cp $srcdir/$pkgbase/$1/schemas/* $pkgdir/usr/share/glib-2.0/schemas
 	fi
 }
 
@@ -213,6 +218,7 @@ package_manjaro-budgie-minimal-settings() {
 		'manjaro-lxqt-minimal-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
+	install=$pkgname.install
 
 	_inst_dir 'minimal/budgie'
 }
@@ -269,6 +275,7 @@ package_manjaro-budgie-settings() {
 		'manjaro-pantheon-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
+	install=$pkgname.install
 
 	_inst_dir 'community/budgie'
 }
@@ -296,6 +303,7 @@ package_manjaro-cinnamon-settings() {
 		'manjaro-pantheon-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
+	install=$pkgname.install
 
 	_inst_dir 'community/cinnamon'
 }
@@ -404,6 +412,7 @@ package_manjaro-gnome-settings() {
 		'manjaro-pantheon-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
+	install=$pkgname.install
 
 	_inst_dir 'community/gnome'
 }
@@ -539,6 +548,7 @@ package_manjaro-mate-settings() {
 		'manjaro-pantheon-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
+	install=$pkgname.install
 
 	_inst_dir 'community/mate'
 }
@@ -593,6 +603,7 @@ package_manjaro-pantheon-settings() {
 		'manjaro-netbook-settings'
 		'sonar-gnome-settings'
 		'sonar-mate-settings')
+	install=$pkgname.install
 
 	_inst_dir 'community/pantheon'
 }
