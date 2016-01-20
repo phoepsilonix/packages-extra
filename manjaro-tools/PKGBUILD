@@ -64,7 +64,7 @@ package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
                       'manjaro-tools-base' 'mkinitcpio-nfs-utils')
-	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
+	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' 'manjaro-iso-profiles-base')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
                     'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
