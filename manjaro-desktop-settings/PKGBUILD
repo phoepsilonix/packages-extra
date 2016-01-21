@@ -23,9 +23,10 @@ pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-pantheon-settings'
 	'manjaro-firefox-settings'
 	'manjaro-base-skel'
-	'manjaro-live-skel')
-pkgver=20160119
-pkgrel=2
+	'manjaro-live-skel'
+	'manjaro-cinnamon-live-skel')
+pkgver=20160121
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -35,8 +36,10 @@ sha256sums=('SKIP')
 install=$pkgbase.install
 
 _inst_dir(){
-	install -d $pkgdir/etc
-	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+	if [[ -d $srcdir/$pkgbase/$1/skel ]];then
+		install -d $pkgdir/etc
+		cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+	fi
 
 	if [ -d $srcdir/$pkgbase/$1/bash ]; then
 		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/etc
@@ -575,4 +578,10 @@ package_manjaro-live-skel(){
 	pkgdesc='Manjaro Linux live skeleton files'
 
 	_inst_dir 'shared/live'
+}
+
+package_manjaro-cinnamon-live-skel() {
+	pkgdesc='Manjaro Linux cinnamon live skeleton files'
+
+	_inst_dir 'community/cinnamon/live'
 }
