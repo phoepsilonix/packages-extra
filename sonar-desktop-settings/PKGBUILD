@@ -3,11 +3,10 @@
 
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
-	'sonar-mate-settings'
-	'sonar-common')
+	'sonar-mate-settings')
 	#'sonar-calamares-branding')
 pkgver=20160122
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -17,8 +16,10 @@ sha256sums=('SKIP')
 install=$pkgbase.install
 
 _inst_dir(){
-	install -d $pkgdir/etc
-	cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+	if [ -d $srcdir/$pkgbase/$1/skel ]; then
+		install -d $pkgdir/etc
+		cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+	fi
 
 	if [ -d $srcdir/$pkgbase/$1/bash ]; then
 		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/etc
