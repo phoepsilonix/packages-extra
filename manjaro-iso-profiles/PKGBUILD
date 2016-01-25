@@ -10,20 +10,20 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
 pkgver=16.01
-pkgrel=0.6
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 # options=('!strip')
-_git=ec649a8dfb6739ef19a7a8c5020be07c453e8dd3
-source=(#"${pkgbase}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz"
-        "${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('44a6252768b13990f65460a6575cf84330fc1ca7e8942d9a22b4c1c9887fbf30')
+#_git=ec649a8dfb6739ef19a7a8c5020be07c453e8dd3
+source=("${pkgbase}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
+       # "${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
+sha256sums=('1f47c7d0b7fe9d2e7da35c58fb5a4c309002c14fd1eb33aaa9bce0f35bc694fc')
 
-prepare(){
-	# remove this
-	mv $srcdir/manjaro-tools-iso-profiles-$_git $srcdir/manjaro-tools-iso-profiles-$pkgver
-}
+# prepare(){
+# 	# remove this
+# 	mv $srcdir/manjaro-tools-iso-profiles-$_git $srcdir/manjaro-tools-iso-profiles-$pkgver
+# }
 
 _inst_dir(){
 	install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
