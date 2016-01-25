@@ -3,8 +3,8 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.10.0
-pkgrel=3
+pkgver=0.10.1
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -12,27 +12,12 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 #_git=94ff111a92884eea165d4a94dac9d505534a6030
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        'os-list.patch::https://github.com/manjaro/manjaro-tools/commit/fa7b52de24c76ccacca1232706ddb420dde59108.patch'
-        'devtools-fix.patch::https://github.com/manjaro/manjaro-tools/commit/dfe860cafb6db1c9072e00a21d991c1a5ee31cdc.patch'
-        'util-iso-173.patch::https://github.com/manjaro/manjaro-tools/commit/2b2839c1d6dc9912b81f1f7bc8776491ab655f19.patch'
-        'util-iso-boot-173.patch::https://github.com/manjaro/manjaro-tools/commit/4ae057fa4b920d1c8801f28188a68edb8e9566e5.patch')
-sha256sums=('2526c5bd68c607f1a1d879a50e896d2d1c9842813594a411bf3e1ec2299d01df'
-            '7506593de1638c5968979db22c185b18ede22a0417bc7982e56325d7c31d422d'
-            'af0a17fb04c8717a0d5bf70940ae34a3759505ae1e87b53cd481156e0f0f6183'
-            '47cb312585fc4a1c4ef7e8eeb6b6533a8134722c600f421da111f7214c7b721f'
-            '0c71598c2aad99d10b1f93c9117418a24ba9d901869353680668a9a41a395a2b')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('55e9575dfa0d6bdc6cfc8e1eb90b80eccd68eaca403e2c3c2116475ced0d7db9')
 
 prepare() {
-	# remove this
-	#mv ${srcdir}/${pkgbase}-${_git} ${srcdir}/${pkgbase}-${pkgver}
-
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -Np1 -i ${srcdir}/os-list.patch
-	patch -Np1 -i ${srcdir}/devtools-fix.patch
-	patch -Np1 -i ${srcdir}/util-iso-173.patch
-	patch -Np1 -i ${srcdir}/util-iso-boot-173.patch
 }
 
 build() {
@@ -63,8 +48,8 @@ package_manjaro-tools-pkg() {
 package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                      'manjaro-tools-base' 'mkinitcpio-nfs-utils')
-	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' 'manjaro-iso-profiles-base')
+                      'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-iso-profiles-base')
+	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
                     'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
