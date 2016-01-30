@@ -2,7 +2,7 @@
 # Maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 
-_linuxprefix=linux44
+_linuxprefix=linux45
 _extramodules=extramodules-4.5-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
@@ -35,6 +35,7 @@ source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}-x86.x86_64.zi
         manjaro_fglrx_4.2.patch
         manjaro_fglrx_4.3.patch
         gentoo_fglrx_4.3_mtrr.patch
+        manjaro_fglrx_4.5.patch
 	LICENSE.TXT)
 
 sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
@@ -49,6 +50,7 @@ sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             '2bc280abeddef92832997433f3182063a51cd2e580426727e97f887ae8af485f'
             'a7cebf78578c68e6b765c5b821d5c0d4bc716ad8d97456478b60beecd35a7602'
             '2881026d607f242efc4569bd39d647eae4f2e402da06de5b90476a57c349777c'
+            'b60a04538f55e77b58351face25f2e12b55a2b1bc5be89e17b9b35e65f78cda8'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
@@ -98,6 +100,7 @@ build() {
         patch -Np1 -i ${srcdir}/manjaro_fglrx_4.2.patch
         patch -Np1 -i ${srcdir}/manjaro_fglrx_4.3.patch
         patch -Np6 -i ${srcdir}/gentoo_fglrx_4.3_mtrr.patch
+        patch -Np1 -i ${srcdir}/manjaro_fglrx_4.5.patch
 
 	## fix linux44 build
 	sed -i -e s'|XSTATE_FP|XFEATURE_MASK_FP|g' firegl_public.c
