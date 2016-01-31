@@ -3,8 +3,8 @@
 
 pkgbase=linux310-spl_zfs
 pkgname=('linux310-spl' 'linux310-zfs')
-pkgver=0.6.5.2
-pkgrel=2
+pkgver=0.6.5.4
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")

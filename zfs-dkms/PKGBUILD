@@ -2,22 +2,18 @@
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
 pkgname=("zfs-dkms")
-pkgver=0.6.5.2
-pkgrel=3
+pkgver=0.6.5.4
+pkgrel=1
 pkgdesc="Kernel modules for the Zettabyte File System."
 depends=("spl-dkms=${pkgver}" "zfs-utils=${pkgver}" "dkms")
 arch=("any")
 url="http://zfsonlinux.org/"
 source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz
-        4.4-support-make_request_fn-returns-blk_qc_t.patch::https://github.com/zfsonlinux/zfs/commit/1a093716788a08b5d038c49ab99a6e9363c97a64.patch
-        4.4-support-xattr-operations-takes-xattr_handler.patch::https://github.com/zfsonlinux/zfs/commit/61d482f7cd1687177185140699c6843c904b38d4.patch
         4.5-support-pfn_t-typedef.patch::https://github.com/zfsonlinux/zfs/commit/ae3a373566042ad086b51dce66059c8cae321faf.patch
         4.5-support-xattr-list-handler.patch::https://github.com/zfsonlinux/zfs/commit/4967a3eb9d9de0295626fc7a3c1d1da52ea1498d.patch
         4.5-support-get-put-link.patch::https://github.com/zfsonlinux/zfs/commit/beeed4596b192f879fbb13e656cc6458ccde1193.patch)
 groups=("manjarozfs")
-sha256sums=('f31728ff511b893327e7f33bf070b35cbff6e9b70fa6efe348e27906cec3e43e'
-            '98194a6212f55138a891ba8db94a3effe91353082dd3bcf8e106e046eba403b0'
-            '59bd20d46aee8ce3d13965120d11d269921165ec6f502e6cc8cd1240100e586c'
+sha256sums=('780862ec2301ccace412a324787e9df762cff6046e73e2ac0ebdce9e2bd59b0f'
             '6a456612313c33951b105cba4b968d4e1d94f6eb5e5a5c1e3b37148c8582375e'
             'c1ffce2ed354b974b732e158c3d7048d521089348479cfd9e070fc63500eeb45'
             '74ad2b770e154324a6ed8265c0f9e92bed2664ba37c94bb1d04d0d50d2d747ac')
@@ -26,8 +22,6 @@ install=zfs-dkms.install
 
 prepare() {
   cd "$srcdir/zfs-${pkgver}"
-  patch -Np1 -i $srcdir/4.4-support-make_request_fn-returns-blk_qc_t.patch
-  patch -Np1 -i $srcdir/4.4-support-xattr-operations-takes-xattr_handler.patch
   patch -Np1 -i $srcdir/4.5-support-pfn_t-typedef.patch
   patch -Np1 -i $srcdir/4.5-support-xattr-list-handler.patch
   patch -Np1 -i $srcdir/4.5-support-get-put-link.patch
