@@ -24,7 +24,7 @@ pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-firefox-settings'
 	'manjaro-base-skel'
 	'manjaro-live-skel')
-pkgver=20160128
+pkgver=20160201
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -299,6 +299,7 @@ package_manjaro-cinnamon-settings() {
 
 package_manjaro-deepin-settings() {
 	pkgdesc='Manjaro Linux deepin settings'
+	groups=('deepin-manjaro')
 	conflicts=('manjaro-xfce-settings'
 		'manjaro-kde-settings'
 		'manjaro-xfce-minimal-settings'
