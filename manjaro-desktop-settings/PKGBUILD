@@ -24,7 +24,7 @@ pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-firefox-settings'
 	'manjaro-base-skel'
 	'manjaro-live-skel')
-pkgver=20160201
+pkgver=20160202
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -193,7 +193,6 @@ package_manjaro-lxqt-minimal-settings() {
 
 package_manjaro-budgie-minimal-settings() {
 	pkgdesc='Manjaro Linux budgie-minimal settings'
-	provides=('filemanager-settings')
 	conflicts=('manjaro-xfce-settings'
 		'manjaro-kde-settings'
 		'manjaro-bspwm-settings'
@@ -248,7 +247,6 @@ package_manjaro-bspwm-settings() {
 
 package_manjaro-budgie-settings() {
 	pkgdesc='Manjaro Linux budgie settings'
-	provides=('filemanager-settings')
 	conflicts=('manjaro-xfce-settings'
 		'manjaro-kde-settings'
 		'manjaro-xfce-minimal-settings'
@@ -302,7 +300,6 @@ package_manjaro-cinnamon-settings() {
 package_manjaro-deepin-settings() {
 	pkgdesc='Manjaro Linux deepin settings'
 	groups=('deepin-manjaro')
-	provides=('filemanager-settings')
 	conflicts=('manjaro-xfce-settings'
 		'manjaro-kde-settings'
 		'manjaro-xfce-minimal-settings'
@@ -355,7 +352,6 @@ package_manjaro-fluxbox-settings() {
 
 package_manjaro-gnome-settings() {
 	pkgdesc='Manjaro Linux gnome settings'
-	provides=('filemanager-settings')
 	conflicts=('manjaro-xfce-settings'
 		'manjaro-kde-settings'
 		'manjaro-xfce-minimal-settings'
@@ -570,11 +566,10 @@ package_manjaro-base-skel() {
 	_inst_dir 'shared'
 }
 
-package_manjaro-filemanager-addons() {
-	pkgdesc='Manjaro Linux filemanager addons'
-	depends=('filemanager-settings')
+package_manjaro-live-skel(){
+	pkgdesc='Manjaro Linux live skeleton files'
 
-	_inst_dir 'shared/addons'
+	_inst_dir 'shared/live'
 }
 
 package_manjaro-firefox-settings() {
@@ -582,10 +577,4 @@ package_manjaro-firefox-settings() {
 	#depends=('firefox')
 
 	_inst_dir 'shared/firefox'
-}
-
-package_manjaro-live-skel(){
-	pkgdesc='Manjaro Linux live skeleton files'
-
-	_inst_dir 'shared/live'
 }
