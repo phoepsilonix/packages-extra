@@ -2,17 +2,24 @@
 # Contributor: Skunnyk <skunnyk@archlinux.fr>
 pkgname=package-query
 pkgver=1.7
-pkgrel=1
+_commit=58d0bfff828df1fdfd84dc12ee08bdff5000c715
+pkgrel=2
 pkgdesc="Query ALPM and AUR"
 arch=('i686' 'x86_64' 'mips64el' 'armv6h' 'armv7h' 'arm')
 url="https://github.com/archlinuxfr/package-query/"
 license=('GPL')
-depends=('pacman>=4.1' 'pacman<4.3' 'yajl>=2.0' 'curl')
-source=(http://mir.archlinux.fr/~tuxce/releases/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('16d233dcd2b5072b808cad030fa24e61')
+depends=('pacman>=5.0' 'pacman<5.1' 'yajl>=2.0' 'curl')
+source=(#http://mir.archlinux.fr/~tuxce/releases/$pkgname/$pkgname-$pkgver.tar.gz
+        $pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/archlinuxfr/package-query/archive/$_commit.tar.gz)
+md5sums=('02158a2ba846cf76f14e92bfd5c1fb72')
+
+prepare() {
+  mv "$srcdir/$pkgname-$_commit/" "$srcdir/$pkgname-$pkgver/"
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
+  ./autogen.sh
   ./configure --localstatedir=/var --prefix=/usr --sysconfdir=/etc --with-aur-url=https://aur.archlinux.org
   make
 }

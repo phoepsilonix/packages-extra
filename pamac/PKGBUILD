@@ -1,17 +1,17 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=2.4.3
-_pkgver=2.4.3
-pkgrel=6
+pkgver=3.0.0
+_pkgver=3.0.0
+pkgrel=1
 # This is the release package so the below _gitcommit variable should (usually) be commented out.
-_gitcommit="d7d393ed4e265ed0041a287e10306c6cf65971d8"
+#_gitcommit="00553e5e5875a9497f464abe8e86a762775cb2cc"
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
-depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.16'
-         'libnotify' 'desktop-file-utils' 'pacman>=4.2' 'pacman<4.3' 'gnutls>=3.4')
+depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.18'
+         'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4')
 optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome'
             'lxsession: needed for authentification in Xfce, LXDE etc.'
             'yaourt: needed for AUR support')
@@ -28,10 +28,7 @@ else
   source=("pamac-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 fi
 
-source+=('notification-improvment.patch::https://github.com/manjaro/pamac/pull/88.patch')
-
-sha256sums=('f8534a276a929ffdcc315d15e7a5b04274faacde2714e0a64bf8358b84d355db'
-            '749d9d153fbbe5b3709423983a6da6dfafae16a09acf8ccb6d35427f47cb804a')
+sha256sums=('e1806ea77d23dbb91c56ea70c0a7279d3bcaa25989f84f360900cf39e5e93b94')
 
 prepare() {
   if [ "$_gitcommit" != "" ]; then
@@ -40,10 +37,9 @@ prepare() {
 
   # adjust version string
   cd "$srcdir/pamac-$pkgver/src"
-  sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" manager_window.vala
+  sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" pamac_config.vala 
   cd "$srcdir/pamac-$pkgver/"
   # patches here
-  patch -Np1 -i $srcdir/notification-improvment.patch
 }
 
 build() {

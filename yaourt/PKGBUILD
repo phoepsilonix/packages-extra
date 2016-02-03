@@ -3,34 +3,37 @@
 
 pkgname=yaourt
 pkgver=1.7
-pkgrel=1
+_commit=afad69c6c3d925bf24bb16cc7709b66784f5611c
+pkgrel=2
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
 url="https://github.com/archlinuxfr/yaourt"
 license=(GPL)
-depends=('diffutils' 'pacman>=4.1' 'package-query>=1.4' 'gettext')
+depends=('diffutils' 'pacman>=5.0' 'package-query>=1.7' 'gettext')
 optdepends=('aurvote: vote for favorite packages from AUR'
       'customizepkg: automatically modify PKGBUILD during install/upgrade'
       'rsync: retrieve PKGBUILD from official repositories')
 backup=('etc/yaourtrc')
-source=(http://mir.archlinux.fr/~tuxce/releases/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('6ef48b88c7127b1edd45fee4763b1ced')
+source=(#http://mir.archlinux.fr/~tuxce/releases/$pkgname/$pkgname-$pkgver.tar.gz
+        $pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/archlinuxfr/$pkgname/archive/$_commit.tar.gz)
+md5sums=('d38c8237eb9dd915969d2f7706145a29')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver/"
+  mv "$srcdir/$pkgname-$_commit/" "$srcdir/$pkgname-$pkgver/"
+  cd "$srcdir/$pkgname-$pkgver/src"
   # Don't prompt the user to edit files
-  sed -i "s/\#EDITFILES\=1/EDITFILES\=0/g" yaourtrc.in
+  #sed -i "s/\#EDITFILES\=1/EDITFILES\=0/g" yaourtrc.in
   # Save package tarball to pacman cache
   sed -i "s/\#EXPORT\=0/EXPORT\=2/g" yaourtrc.in
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver/"
+  cd "$srcdir/$pkgname-$pkgver/src"
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver/"
+  cd "$srcdir/$pkgname-$pkgver/src"
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var DESTDIR="$pkgdir" install
 }
 
