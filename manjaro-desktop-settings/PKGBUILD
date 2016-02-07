@@ -22,7 +22,7 @@ pkgname=('manjaro-lxqt-minimal-settings'
 # 	'manjaro-firefox-settings'
 # 	'manjaro-base-skel'
 # 	'manjaro-live-skel')
-pkgver=20160204
+pkgver=20$(date +%y%m%d)
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
