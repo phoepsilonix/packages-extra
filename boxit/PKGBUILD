@@ -1,7 +1,8 @@
 # maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
-pkgname=boxit
+pkgbase=boxit
+pkgname=(boxit boxit-server)
 #pkgver=2.0.$(date +%m%d)
 pkgver=2.1.2
 pkgrel=2
@@ -22,10 +23,11 @@ else
 fi
 
 build() {
-  if [ -e "$srcdir/core-$pkgname" ]; then
-	   cd "$srcdir/core-$pkgname/$pkgname/src"
+  msg "build $pkgbase"
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase/src"
   else
-     cd "$srcdir/$pkgname/$pkgname/src"
+     cd "$srcdir/$pkgbase/$pkgbase/src"
   fi
 
   qmake-qt4
@@ -35,13 +37,37 @@ build() {
   cp DBus/libDBus.a libDBus.a
 
   make all
+
+  msg "build $pkgbase-server"
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase-server/src"
+  else
+     cd "$srcdir/$pkgbase/$pkgbase-server/src"
+  fi
+
+  qmake-qt4
+
+  make all
 }
 
-package() {
-  if [ -e "$srcdir/core-$pkgname" ]; then
-	   cd "$srcdir/core-$pkgname/$pkgname/src"
+package_boxit() {
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgname/src"
   else
-     cd "$srcdir/$pkgname/$pkgname/src"
+     cd "$srcdir/$pkgbase/$pkgname/src"
   fi
+  make INSTALL_ROOT="${pkgdir}" install
+}
+
+package_boxit-server() {
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase-server/src"
+  else
+     cd "$srcdir/$pkgbase/$pkgbase-server/src"
+  fi
+  # TODO - convert to systemd-scripts
+  #mkdir -p ${pkgdir}/etc/init.d
+  #mkdir -p ${pkgdir}/usr/bin
+  #mkdir -p ${pkgdir}/etc/boxit
   make INSTALL_ROOT="${pkgdir}" install
 }
