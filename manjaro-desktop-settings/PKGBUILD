@@ -8,10 +8,9 @@ pkgname=('manjaro-lxqt-minimal-settings'
 	'manjaro-kde-minimal-settings'
 	'manjaro-budgie-minimal-settings'
 	'manjaro-xfce-settings'
-	'manjaro-kde-settings')
-# 	'manjaro-i3-settings'
+	'manjaro-kde-settings'
+	'manjaro-base-skel')
 # 	'manjaro-firefox-settings'
-# 	'manjaro-base-skel'
 # 	'manjaro-live-skel')
 pkgver=20$(date +%y%m%d)
 pkgrel=1
@@ -29,8 +28,10 @@ _inst_dir(){
 		cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
 	fi
 
-	if [ -d $srcdir/$pkgbase/$1/bash ]; then
-		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/etc
+	if [ -f $srcdir/$pkgbase/$1/bash/.bashrc ] && \
+		[ -f $srcdir/$pkgbase/$1/bash/.bash_profile ]; then
+		install -d $pkgdir/etc/bash
+		cp $srcdir/$pkgbase/$1/bash/.bash{rc,_profile} $pkgdir/etc/bash
 	fi
 
 	if [[ -d $srcdir/$pkgbase/$1/scripts ]]; then
