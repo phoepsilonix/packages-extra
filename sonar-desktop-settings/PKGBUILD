@@ -1,15 +1,35 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
+_is_cal=false
+
+_profiles=('xfce-minimal'
+	'kde-minimal'
+	'xfce'
+	'kde'
+	'lxqt-minimal'
+	'bspwm'
+	'budgie'
+	'cinnamon'
+	'deepin'
+	'gnome'
+	'i3'
+	'lxde'
+	'lxqt'
+	'mate'
+	'netbook'
+	'pantheon')
+
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
 	'sonar-mate-settings')
-	#'sonar-calamares-branding')
+${_is_cal} && pkgname+=('sonar-calamares-branding')
 pkgver=20160212
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
+depends=('manjaro-base-skel')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -27,56 +47,30 @@ _inst_dir(){
 	fi
 }
 
+_get_conflicts(){
+	local c=()
+	for p in ${_profiles[@]};do
+		if [[ "$pkgname" != "manjaro-$p-settings" ]];then
+			c+=("manjaro-$p-settings")
+		fi
+	done
+	echo ${c[@]}
+}
+
 pkgver() {
 	date +%Y%m%d
 }
 
 package_sonar-mate-settings() {
 	pkgdesc='Sonar Linux mate settings'
-	conflicts=('manjaro-kde-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-bspwm-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-fluxbox-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-jwm-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings')
+	conflicts=( $(_get_conflicts) 'sonar-gnome-settings' )
 
 	_inst_dir 'sonar/mate'
 }
 
 package_sonar-gnome-settings() {
 	pkgdesc='Sonar Linux gnome settings'
-	conflicts=('manjaro-kde-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-bspwm-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-fluxbox-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-jwm-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-mate-settings')
+	conflicts=( $(_get_conflicts) 'sonar-mate-settings' )
 
 	_inst_dir 'sonar/gnome'
 }
