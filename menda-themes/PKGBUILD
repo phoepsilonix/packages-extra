@@ -3,9 +3,9 @@
 
 pkgbase=menda-themes
 pkgname=("${pkgbase}" "${pkgbase}-dark")
-pkgver=20160211
+pkgver=20160212
 pkgrel=1
-_git='60d6f7886b39f5f6d739456cab55d4d083274dac'
+_git='e558d930e3e2f1326059a84020f7a3e0bd4e23c3'
 arch=('any')
 url="https://github.com/manjaro/artwork-menda"
 license=('GPL3')
@@ -13,7 +13,7 @@ depends=('gtk-engine-murrine' 'gtk-engines')
 optdepends=('menda-circle-icon-theme: Recommended icon theme'
             'faenza-green-icon-theme: Recommended icon theme')
 source=("${pkgbase}-${pkgver}-${pkgrel}.tar.gz::${url}/archive/${_git}.tar.gz")
-md5sums=('a78f49c851c848615cc16872e4a605ec')
+md5sums=('55daddcb5877260a33fb7897bb5c24f3')
 
 package_menda-themes() {
   pkgdesc="Manjaro's official Gtk2, Gtk3, Metacity, Xfwm4, Openbox, Cinnamon and GNOME Shell themes"
