@@ -1,32 +1,42 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
+_is_live=false
+_is_ff=false
+
+_profiles=('xfce-minimal'
+	'kde-minimal'
+	'xfce'
+	'kde'
+	'lxqt-minimal'
+	'bspwm'
+	'budgie'
+	'cinnamon'
+	'deepin'
+	'gnome'
+	'i3'
+	'lxde'
+	'lxqt'
+	'mate'
+	'netbook'
+	'pantheon')
+
 pkgbase=desktop-settings
-pkgname=('manjaro-lxqt-minimal-settings'
-	'manjaro-openbox-minimal-settings'
+pkgname=('manjaro-base-skel'
 	'manjaro-xfce-minimal-settings'
 	'manjaro-kde-minimal-settings'
-	'manjaro-budgie-minimal-settings'
 	'manjaro-xfce-settings'
 	'manjaro-kde-settings'
-	'manjaro-budgie-settings'
-	'manjaro-cinnamon-settings'
-	'manjaro-deepin-settings'
-	'manjaro-gnome-settings'
-	'manjaro-lxde-settings'
-	'manjaro-lxqt-settings'
-	'manjaro-mate-settings'
-	'manjaro-netbook-settings'
-	'manjaro-pantheon-settings')
-# 	'manjaro-i3-settings'
-# 	'manjaro-firefox-settings'
-# 	'manjaro-base-skel'
-# 	'manjaro-live-skel')
-pkgver=20$(date +%y%m%d)
+	'manjaro-openbox-minimal-settings'
+	'manjaro-lxqt-minimal-settings')
+${_is_live} && pkgname+=('manjaro-live-skel')
+${_is_ff} && pkgname+=('manjaro-firefox-settings')
+pkgver=20160213
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
+depends=('manjaro-base-skel')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -57,50 +67,32 @@ pkgver() {
 	date +%Y%m%d
 }
 
+_get_conflicts(){
+	local c=()
+	for p in ${_profiles[@]};do
+		if [[ "$pkgname" != "manjaro-$p-settings" ]];then
+			c+=("manjaro-$p-settings")
+		fi
+	done
+	echo ${c[@]}
+}
+
+package_manjaro-base-skel() {
+	pkgdesc='Manjaro Linux base skeleton files'
+
+	_inst_dir 'shared'
+}
+
 package_manjaro-xfce-settings() {
 	pkgdesc='Manjaro Linux xfce settings'
-# 	depends=('manjaro-xfce-minimal-settings')
-	conflicts=('manjaro-kde-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
+	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'official/xfce'
 }
 
 package_manjaro-kde-settings() {
 	pkgdesc='Manjaro Linux kde settings'
-# 	depends=('manjaro-kde-minimal-settings')
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
+	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'official/kde'
 }
@@ -109,358 +101,37 @@ package_manjaro-kde-settings() {
 
 package_manjaro-xfce-minimal-settings() {
 	pkgdesc='Manjaro Linux xfce-minimal settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
+	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'minimal/xfce'
 }
 
 package_manjaro-kde-minimal-settings() {
 	pkgdesc='Manjaro Linux kde-minimal settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
+	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'minimal/kde'
 }
 
 package_manjaro-openbox-minimal-settings() {
 	pkgdesc='Manjaro Linux openbox-minimal settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
+# 	depends=('manjaro-base-skel' 'obmenu-generator' 'tint2' 'feh' 'openbox-themes')
+	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'minimal/openbox'
 }
 
 package_manjaro-lxqt-minimal-settings() {
 	pkgdesc='Manjaro Linux lxqt-minimal settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
+# 	depends=('manjaro-openbox-minimal-settings' 'compton' 'qterminal'
+# 		'pcmanfm-qt' 'lxqt-panel')
+	depends=('manjaro-openbox-minimal')
+	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'minimal/lxqt'
 }
 
-package_manjaro-budgie-minimal-settings() {
-	pkgdesc='Manjaro Linux budgie-minimal settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'minimal/budgie'
-}
-
-##############community######################
-
-package_manjaro-budgie-settings() {
-	pkgdesc='Manjaro Linux budgie settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/budgie'
-}
-
-package_manjaro-cinnamon-settings() {
-	pkgdesc='Manjaro Linux cinnamon settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/cinnamon'
-}
-
-package_manjaro-deepin-settings() {
-	pkgdesc='Manjaro Linux deepin settings'
-	groups=('deepin-manjaro')
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/deepin'
-}
-
-package_manjaro-gnome-settings() {
-	pkgdesc='Manjaro Linux gnome settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/gnome'
-}
-
-package_manjaro-i3-settings() {
-	pkgdesc='Manjaro Linux i3 settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/i3'
-}
-
-package_manjaro-lxde-settings() {
-	pkgdesc='Manjaro Linux lxde settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/lxde'
-}
-
-package_manjaro-lxqt-settings() {
-	pkgdesc='Manjaro Linux lxqt settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/lxqt'
-}
-
-package_manjaro-mate-settings() {
-	pkgdesc='Manjaro Linux mate settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/mate'
-}
-
-package_manjaro-netbook-settings() {
-	pkgdesc='Manjaro Linux netbook settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/netbook'
-}
-
-package_manjaro-pantheon-settings() {
-	pkgdesc='Manjaro Linux pantheon settings'
-	conflicts=('manjaro-xfce-settings'
-		'manjaro-kde-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'sonar-gnome-settings'
-		'sonar-mate-settings')
-
-	_inst_dir 'community/pantheon'
-}
-
 ##############misc######################
-
-package_manjaro-base-skel() {
-	pkgdesc='Manjaro Linux base skeleton files'
-
-	_inst_dir 'shared'
-}
 
 package_manjaro-live-skel(){
 	pkgdesc='Manjaro Linux live skeleton files'

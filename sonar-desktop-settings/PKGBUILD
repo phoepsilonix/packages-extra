@@ -1,15 +1,35 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
+_is_cal=false
+
+_profiles=('xfce-minimal'
+	'kde-minimal'
+	'xfce'
+	'kde'
+	'lxqt-minimal'
+	'bspwm'
+	'budgie'
+	'cinnamon'
+	'deepin'
+	'gnome'
+	'i3'
+	'lxde'
+	'lxqt'
+	'mate'
+	'netbook'
+	'pantheon')
+
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
 	'sonar-mate-settings')
-	#'sonar-calamares-branding')
-pkgver=20160122
-pkgrel=2
+${_is_cal} && pkgname+=('sonar-calamares-branding')
+pkgver=20160213
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
+depends=('manjaro-base-skel')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -21,19 +41,20 @@ _inst_dir(){
 		cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
 	fi
 
-	if [ -d $srcdir/$pkgbase/$1/bash ]; then
-		cp -r $srcdir/$pkgbase/$1/bash $pkgdir/etc
-	fi
-
-	if [[ -d $srcdir/$pkgbase/$1/scripts ]]; then
-		install -d $pkgdir/usr/bin
-		cp $srcdir/$pkgbase/$1/scripts/* $pkgdir/usr/bin
-	fi
-
 	if [[ -d $srcdir/$pkgbase/$1/schemas ]]; then
 		install -d $pkgdir/usr/share/glib-2.0/schemas
 		cp $srcdir/$pkgbase/$1/schemas/* $pkgdir/usr/share/glib-2.0/schemas
 	fi
+}
+
+_get_conflicts(){
+	local c=()
+	for p in ${_profiles[@]};do
+		if [[ "$pkgname" != "manjaro-$p-settings" ]];then
+			c+=("manjaro-$p-settings")
+		fi
+	done
+	echo ${c[@]}
 }
 
 pkgver() {
@@ -42,50 +63,14 @@ pkgver() {
 
 package_sonar-mate-settings() {
 	pkgdesc='Sonar Linux mate settings'
-	conflicts=('manjaro-kde-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-bspwm-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-fluxbox-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-jwm-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-gnome-settings')
+	conflicts=( $(_get_conflicts) 'sonar-gnome-settings' )
 
 	_inst_dir 'sonar/mate'
 }
 
 package_sonar-gnome-settings() {
 	pkgdesc='Sonar Linux gnome settings'
-	conflicts=('manjaro-kde-settings'
-		'manjaro-lxqt-minimal-settings'
-		'manjaro-xfce-minimal-settings'
-		'manjaro-kde-minimal-settings'
-		'manjaro-budgie-minimal-settings'
-		'manjaro-bspwm-settings'
-		'manjaro-budgie-settings'
-		'manjaro-cinnamon-settings'
-		'manjaro-deepin-settings'
-		'manjaro-fluxbox-settings'
-		'manjaro-gnome-settings'
-		'manjaro-i3-settings'
-		'manjaro-jwm-settings'
-		'manjaro-lxde-settings'
-		'manjaro-lxqt-settings'
-		'manjaro-mate-settings'
-		'manjaro-netbook-settings'
-		'manjaro-pantheon-settings'
-		'sonar-mate-settings')
+	conflicts=( $(_get_conflicts) 'sonar-mate-settings' )
 
 	_inst_dir 'sonar/gnome'
 }
@@ -96,19 +81,4 @@ package_sonar-calamares-branding() {
 
 	install -d ${pkgdir}/usr/share/calamares/branding/sonar
 	cp $srcdir/$pkgbase/sonar/calamares/branding/sonar/* ${pkgdir}/usr/share/calamares/branding/sonar
-}
-
-package_sonar-backgrounds() {
-	install -d ${pkgdir}/usr/share/backgrounds
-	cp ${srcdir}/$pkgbase/sonar/backgrounds/* "${pkgdir}/usr/share/backgrounds"
-}
-
-package_sonar-common() {
-	pkgdesc='Sonar Linux common'
-
-	install -d ${pkgdir}/usr/share/applications
-	cp $srcdir/$pkgbase/shared/doc/sonar/apps/* ${pkgdir}/usr/share/applications
-
-	install -d ${pkgdir}/usr/share/sonar
-	cp $srcdir/$pkgbase/shared/doc/sonar/*.{txt,odt} ${pkgdir}/usr/share/sonar
 }
