@@ -1,0 +1,38 @@
+# Maintainer: artoo <artoo@manjaro.org>
+# Maintainer: Philip Müller <philm@manjaro.org>
+
+pkgbase=plasma-agents
+pkgname=('plasma-ssh-agent' 'plasma-gpg-agent')
+pkgver=5.5
+pkgrel=2
+arch=('any')
+url='https://github.com/manjaro/packages-extra'
+license=('GPL')
+groups=('plasma')
+source=('ssh-agent-shutdown.sh'
+	'ssh-agent-startup.sh'
+	'gpg-agent-shutdown.sh'
+	'gpg-agent-startup.sh')
+sha256sums=('1a3bf87644f9505ae2cdf11ec5fb3590071822cfc30a78e2d38dc0a6491228b3'
+            'c7361253432a5c27e1430371c0fa9f905873caa53688a21f938c499adf9774cd'
+            'eeb84474b2dc6f3bb69653e68aa91401e16218bff8f68d763fe66d44087e6113'
+            '2c4801b6618171186e1860598672275897dd37f273742d24dfa8da7595651441')
+
+package_plasma-ssh-agent() {
+	pkgdesc='KDE Plasma Workspace ssh-agent'
+	depends=('plasma-workspace' 'openssh')
+	install=$pkgname.install
+
+	install -d $pkgdir/etc/xdg/plasma-workspace/{env,shutdown}
+	install -D $srcdir/ssh-agent-shutdown.sh $pkgdir/etc/xdg/plasma-workspace/shutdown
+	install -D $srcdir/ssh-agent-startup.sh $pkgdir/etc/xdg/plasma-workspace/env
+}
+
+package_plasma-gpg-agent() {
+	pkgdesc='KDE Plasma Workspace gpg-agent'
+	depends=('plasma-workspace' 'gnupg')
+
+	install -d $pkgdir/etc/xdg/plasma-workspace/{env,shutdown}
+	install -D $srcdir/gpg-agent-shutdown.sh $pkgdir/etc/xdg/plasma-workspace/shutdown
+	install -D $srcdir/gpg-agent-startup.sh $pkgdir/etc/xdg/plasma-workspace/env
+}
