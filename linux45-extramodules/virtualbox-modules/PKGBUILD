@@ -10,7 +10,7 @@
 pkgbase=linux45-virtualbox-modules
 pkgname=('linux45-virtualbox-host-modules' 'linux45-virtualbox-guest-modules')
 pkgver=5.0.14
-pkgrel=0.1
+pkgrel=0.2
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
