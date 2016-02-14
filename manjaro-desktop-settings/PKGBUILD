@@ -31,7 +31,7 @@ pkgname=('manjaro-base-skel'
 	'manjaro-lxqt-minimal-settings')
 ${_is_live} && pkgname+=('manjaro-live-skel')
 ${_is_ff} && pkgname+=('manjaro-firefox-settings')
-pkgver=20160214
+pkgver=20160215
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -126,7 +126,6 @@ package_manjaro-lxqt-minimal-settings() {
 # 	depends=('manjaro-openbox-minimal-settings' 'compton' 'qterminal'
 # 		'pcmanfm-qt' 'lxqt-panel')
 	depends=('manjaro-openbox-minimal-settings')
-	conflicts=( $(_get_conflicts) )
 
 	_inst_dir 'minimal/lxqt'
 }
