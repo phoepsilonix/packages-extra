@@ -3,7 +3,7 @@
 
 _branch=devel
 _pkgbase=manjaro-tools
-_ver=0.10.2
+_ver=0.10.3
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
