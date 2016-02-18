@@ -7,7 +7,7 @@ _ver=0.11.0
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1872.5941cd5
+pkgver=r1886.f5b56e6
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
@@ -62,7 +62,8 @@ package_manjaro-tools-iso-git() {
         pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	provides=("manjaro-tools-iso=$_ver")
         depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                      'manjaro-tools-base-git' 'mkinitcpio-nfs-utils' 'manjaro-iso-profiles-base')
+                      'manjaro-tools-base-git' 'mkinitcpio-nfs-utils'
+                      'manjaro-iso-profiles-base' 'mktorrent')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
 	optdepends=('manjaro-iso-profiles-official: Manjaro Linux ISO-Image official profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
