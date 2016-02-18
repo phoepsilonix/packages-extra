@@ -3,7 +3,7 @@
 # Maintainer: Jan de Groot <jgc@archlinux.org>
 
 pkgname=xf86-video-intel
-pkgver=2.99.917+550+g636b529
+pkgver=2.99.917+556+g0532031
 pkgrel=0.1
 epoch=1
 arch=(i686 x86_64)
@@ -28,7 +28,7 @@ conflicts=('xorg-server<1.16' 'X-ABI-VIDEODRV_VERSION<19' 'X-ABI-VIDEODRV_VERSIO
            'xf86-video-intel-sna' 'xf86-video-intel-uxa' 'xf86-video-i810' 'xf86-video-intel-legacy')
 groups=('xorg-drivers' 'xorg')
 #source=(${url}/archive/individual/driver/${pkgname}-${pkgver}.tar.bz2)
-source=('git://anongit.freedesktop.org/xorg/driver/xf86-video-intel#commit=636b529')
+source=('git://anongit.freedesktop.org/xorg/driver/xf86-video-intel#commit=0532031')
 sha256sums=('SKIP')
 
 pkgver() {
