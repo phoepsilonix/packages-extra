@@ -3,13 +3,14 @@
 
 pkgname=manjaro-welcome
 pkgver=15.12
-pkgrel=2
+pkgrel=3
 pkgdesc="The Manjaro Welcome utility provides a simple interface for accessing all the relevant information for a new user of Manjaro."
 arch=(any)
 url="https://github.com/manjaro/$pkgname"
 license=('GPL')
 depends=('python-gobject' 'pywebkitgtk')
 makedepends=('git')
+install=$pkgname.install
 options=(!emptydirs)
 _git=Yes
 _branch=master
@@ -17,7 +18,7 @@ _branch=master
 if [ "$_git" == "No" ]; then
    ## Stable release
    source=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/$pkgname/archive/$pkgver.tar.gz")
-   sha256sums=('7434fb2cbb3f6e551661c16233c0532f7b7baf2051810fe99e5792709e678ffe')
+   sha256sums=('')
 else
    ## Git release
    source=(git+https://github.com/manjaro/$pkgname.git#branch=$_branch)
@@ -41,5 +42,5 @@ package() {
     install -D -m755 "${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
     install -D -m755 "${pkgname}-terminal" "${pkgdir}/usr/bin/${pkgname}-terminal"
     install -D -m755 "${pkgname}-terminal" "${pkgdir}/usr/bin/${pkgname}-irc"
-
+    install -D -m644 ${pkgname}.png "${pkgdi}r/usr/share/icons/hicolor/48x48/apps/${pkgname}.png"
 }
