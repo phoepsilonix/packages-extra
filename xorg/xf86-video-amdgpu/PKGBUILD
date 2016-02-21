@@ -1,8 +1,8 @@
-# $Id: PKGBUILD 251243 2015-11-19 09:42:44Z lcarlier $
+# $Id$
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=xf86-video-amdgpu
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=0.1
 pkgdesc="X.org amdgpu video driver"
 arch=('i686' 'x86_64')
@@ -13,7 +13,9 @@ makedepends=('xorg-server-devel' 'X-ABI-VIDEODRV_VERSION=19')
 conflicts=('xorg-server<1.17.0' 'X-ABI-VIDEODRV_VERSION<19' 'X-ABI-VIDEODRV_VERSION>=20')
 groups=('xorg-drivers' 'xorg')
 source=(${url}/releases/individual/driver/${pkgname}-${pkgver}.tar.bz2)
-md5sums=('251e86a21b7d4b5c3906b42c087c47b2')
+md5sums=('f989e7a564afca970631a7b37ab78004')
+#         'SKIP')
+#validpgpkeys=('B09FAF35BE914521980951145A81AF8E6ADBB200') # Michel Daenzer <michel@daenzer.net>
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -30,3 +32,4 @@ package() {
   install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
+
