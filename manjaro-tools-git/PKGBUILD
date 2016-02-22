@@ -7,7 +7,7 @@ _ver=0.11.0
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1909.6a8a408
+pkgver=r1915.88790a9
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
@@ -37,7 +37,7 @@ build() {
 package_manjaro-tools-base-git() {
         pkgdesc='Development tools for Manjaro Linux (base tools)'
 	provides=("manjaro-tools-base=$_ver")
-	depends=('openssh' 'rsync' 'haveged' 'os-prober')
+	depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
                     'manjaro-tools-iso: Manjaro Linux iso tools')
 	conflicts=('manjaro-tools-base')
