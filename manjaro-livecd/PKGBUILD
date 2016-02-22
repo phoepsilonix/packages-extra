@@ -8,7 +8,7 @@ pkgname=('manjaro-livecd-base'
          'manjaro-livecd-systemd'
          'manjaro-livecd-cli-installer')
 pkgver=20160222
-pkgrel=1
+pkgrel=3
 pkgdesc='Manjaro Linux livecd'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"
@@ -30,7 +30,7 @@ package_manjaro-livecd-base() {
 	pkgdesc='Manjaro Linux livecd base'
 	depends=('manjaro-tools-base')
 
-	_inst_dir 'init-base'
+	_inst_dir 'base'
 }
 
 package_manjaro-livecd-cli-installer() {
