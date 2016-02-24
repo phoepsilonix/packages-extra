@@ -1,137 +1,58 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-_pointver=4.2
-pkgver=1.1.${_pointver}
-pkgrel=11
+pkgver=2.0
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
 install=calamares.install
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'python' 'parted'
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
-_git=No
-# This is the release package so the below _snapshot_master variable should (usually) be commented out.
-_snapshot_master=4c3d634df0bc341006632cea3a96227ba60c2038
-_snapshot_manjaro=7567bad4369477fb3f5a94d1b2d8329c865a16e7
 
-if [ "$_git" == "Yes" ]; then
-   source+=(git+https://github.com/calamares/calamares.git#branch=1.1.x-stable
-            git+https://github.com/calamares/calamares-manjaro.git#branch=1.1.x-stable)
-elif [ "${_snapshot_master}" != "" ]; then
-   source+=("$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares/archive/$_snapshot_master.tar.gz"
-            "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
-else
-   source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$pkgver/calamares-$pkgver.tar.gz"
-            "$pkgname-manjaro-$pkgver-$pkgrel.tar.gz::https://github.com/calamares/calamares-manjaro/archive/$_snapshot_manjaro.tar.gz")
-fi
+source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$pkgver/calamares-$pkgver.tar.gz"
+         git+https://github.com/calamares/calamares-manjaro.git#branch=master
+         prefer_budgie_before_gnome.patch)
 
-if [ "$_git" == "Yes" ]; then
-	sha256sums=('SKIP'
-	            'SKIP')
-elif [ "${_snapshot_master}" != "" ]; then
-	sha256sums=('3e4fd29f7b00edd80f89723bdd61c0bf1497c46747b2398bd0e026539f9e05d0'
-	            '8d95a2ad66aef8d3c4352556ebb18dab6b4694df5eb3fabc90eb498821e6e720')
-else
-	sha256sums=('ed80e37666cf6cb0bcd346c8e5688e1558c6ee1e5ae07424c32ac4c17eb500d6'
-	            '8d95a2ad66aef8d3c4352556ebb18dab6b4694df5eb3fabc90eb498821e6e720')
-fi
-
-pkgver() {
-	if [ "$_git" == "Yes" ]; then
-		cd ${srcdir}/calamares
-		_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-		_gitver=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
-		_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-		echo -e "${_ver// /.}${_gitver}"
-		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_gitver|g" CMakeLists.txt
-	else
-		if [ -e "$srcdir/$pkgname-$pkgver" ]; then
-			cd $srcdir/$pkgname-$pkgver
-		elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
-			cd ${srcdir}/$pkgname-$_snapshot_master
-		fi
-		echo "$pkgver"
-		_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-		sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_pointver-$pkgrel|g" CMakeLists.txt
-	fi
-}
-
-checkout_partitionmanager() {
-	mkdir -p src/modules/partition/
-	cd src/modules/partition/
-	git clone https://github.com/calamares/partitionmanager.git
-	cd partitionmanager
-	git checkout calamares
-	rm -rf .git
-}
+sha256sums=('ad732501d685af35cbe7853aabc7ca2b1de9333851c7d1d3ceb16d42b3cc1834'
+            'SKIP'
+            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
 
 prepare() {
-	if [ "$_git" == "Yes" ]; then
-		cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
-		cd ${srcdir}/calamares
-
-		#this seems not to work with 'buildpkg'
-		#git submodule init
-		#git submodule update
-
-		checkout_partitionmanager
-
-		rm -rf ${srcdir}/calamares/.git
-		rm -rf ${srcdir}/calamares-manjaro
-	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
-		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$pkgver"
-		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
-		cp -a "$srcdir/$pkgname-manjaro-$_snapshot_manjaro/." "$srcdir/$pkgname-$_snapshot_master"
-		cd "$srcdir/$pkgname-$_snapshot_master"
-		checkout_partitionmanager
-	fi
+	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares-${pkgver}
+	rm -r ${srcdir}/calamares-manjaro
+	cd ${srcdir}/calamares-${pkgver}
+	patch -Np1 -i ${srcdir}/prefer_budgie_before_gnome.patch
 }
 
 build() {
-	if [ "$_git" == "Yes" ]; then
-		cd ${srcdir}/calamares
-	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
-		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
-		cd "$srcdir/$pkgname-$_snapshot_master"
-	fi
+	cd ${srcdir}/calamares-${pkgver}
 
 	mkdir -p build
 	cd build
         cmake .. \
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
-              -DWITH_PARTITIONMANAGER=1 \
-              -DCMAKE_INSTALL_LIBDIR=lib
+              -DCMAKE_INSTALL_LIBDIR=lib \
+              -DSKIP_MODULES="webview interactiveterminal"
         make
 }
 
 package() {
-	if [ "$_git" == "Yes" ]; then
-		cd ${srcdir}/calamares
-	elif [ -e "$srcdir/$pkgname-$pkgver" ]; then
-		cd "$srcdir/$pkgname-$pkgver"
-	elif [ -e "$srcdir/$pkgname-$_snapshot_master" ]; then
-		cd "$srcdir/$pkgname-$_snapshot_master"
-	fi
-
-	cd build
+	cd ${srcdir}/calamares-${pkgver}/build
 	make DESTDIR="$pkgdir" install
 	install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
 	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
 	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
 	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
-	mkdir -p /usr/share/icons/hicolor/scalable/apps/
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
