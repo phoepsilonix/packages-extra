@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.10.3
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
@@ -11,9 +11,8 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-#_git=94ff111a92884eea165d4a94dac9d505534a6030
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('2427477a04741c2ae17b19768ef158b97e2b78395ca82a19c6d9316bf34a62ff')
+sha256sums=('046d788c33db849c25cd500abaa5697d8b6bd1a8eb67b08ac06f74947259b972')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
@@ -48,7 +47,8 @@ package_manjaro-tools-pkg() {
 package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                      'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'manjaro-iso-profiles-base')
+                      'manjaro-tools-base' 'mkinitcpio-nfs-utils'
+                      'mktorrent' 'manjaro-iso-profiles-base')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
