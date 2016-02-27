@@ -45,5 +45,5 @@ build() {
 }
 
 package() {
-  make -C build prefix="${pkgdir}" install
+  make -C build DESTDIR="${pkgdir}" install
 }
