@@ -10,7 +10,7 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
 pkgver=16.02
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
@@ -33,7 +33,6 @@ _inst_dir(){
 package_manjaro-iso-profiles-base() {
 	pkgdesc='Manjaro Linux iso profiles base'
 	provides=('iso-profiles-base')
-	depends=("manjaro-tools-iso>=${_mt_ver}")
 	conflicts=('manjaro-iso-profiles-openrc')
 	replaces=('manjaro-iso-profiles-openrc')
 
@@ -44,7 +43,7 @@ package_manjaro-iso-profiles-base() {
 package_manjaro-iso-profiles-official() {
 	pkgdesc='Manjaro Linux official iso profiles'
 	groups=('manjaro-tools')
-	depends=('manjaro-iso-profiles-base')
+	depends=("manjaro-tools-iso>=${_mt_ver}")
 
 	_inst_dir 'official'
 }
@@ -52,7 +51,7 @@ package_manjaro-iso-profiles-official() {
 package_manjaro-iso-profiles-community() {
 	pkgdesc='Manjaro Linux community iso profiles'
 	groups=('manjaro-tools')
-	depends=('manjaro-iso-profiles-base')
+	depends=("manjaro-tools-iso>=${_mt_ver}")
 
 	_inst_dir 'community'
 }
@@ -60,7 +59,7 @@ package_manjaro-iso-profiles-community() {
 package_manjaro-iso-profiles-minimal() {
 	pkgdesc='Manjaro Linux minimal iso profiles'
 	groups=('manjaro-tools')
-	depends=('manjaro-iso-profiles-base')
+	depends=("manjaro-tools-iso>=${_mt_ver}")
 	conflicts=('manjaro-iso-profiles-community-minimal')
 	replaces=('manjaro-iso-profiles-community-minimal')
 
@@ -70,7 +69,7 @@ package_manjaro-iso-profiles-minimal() {
 package_sonar-iso-profiles() {
 	pkgdesc='Sonar Linux iso profiles'
 	groups=('manjaro-tools')
-	depends=('manjaro-iso-profiles-base')
+	depends=("manjaro-tools-iso>=${_mt_ver}")
 
 	_inst_dir 'sonar'
 }

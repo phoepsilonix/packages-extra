@@ -4,7 +4,7 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -26,7 +26,7 @@ build() {
 
 package_manjaro-tools-base() {
  	pkgdesc='Development tools for Manjaro Linux (base tools)'
-	depends=('openssh' 'rsync' 'haveged' 'os-prober')
+	depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
                     'manjaro-tools-iso: Manjaro Linux iso tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
