@@ -4,7 +4,7 @@
 
 _pkgname=thus
 pkgname=thus
-pkgver=0.9.3
+pkgver=0.9.4
 pkgrel=1
 pkgdesc='Graphical Installer for Manjaro Linux'
 arch=(any)
@@ -32,7 +32,7 @@ else
    fi
 fi
 
-sha256sums=('3870c3766d56b7090357e0fa0478a3572bca271ddddffeab72e4bb99b6cebc78')
+sha256sums=('666ce8be63ed9ee3358b25e628aab78af0daf468649a56dcb36244451058dea9')
 
 prepare() {
 	if [ "$_development" == "Yes" ]; then
