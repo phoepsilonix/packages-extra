@@ -5,8 +5,7 @@
 pkgbase=manjaro-livecd
 pkgname=('manjaro-livecd-base'
 	'manjaro-livecd-openrc'
-         'manjaro-livecd-systemd'
-         'manjaro-livecd-cli-installer')
+         'manjaro-livecd-systemd')
 pkgver=20160225
 pkgrel=1
 pkgdesc='Manjaro Linux livecd'
@@ -31,14 +30,6 @@ package_manjaro-livecd-base() {
 	depends=('manjaro-tools-base')
 
 	_inst_dir 'base'
-}
-
-package_manjaro-livecd-cli-installer() {
-	pkgdesc='Manjaro Linux cli-installer'
-	depends=('dialog' 'dmidecode' 'gptfdisk' 'parted' 'pv'
-		'tcpdump' 'wget' 'manjaro-livecd-base')
-
-	_inst_dir 'cli-installer'
 }
 
 package_manjaro-livecd-openrc() {
