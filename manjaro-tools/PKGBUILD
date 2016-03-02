@@ -4,19 +4,22 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('3a0c7230855a9eafe11d25432913c1787f4afc799fe955eee5709e70037dc57a')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        pm.patch::https://github.com/manjaro/manjaro-tools/commit/7a9d3028e0c17f1d2a3064748eedd1ec2de24dcb.patch)
+sha256sums=('3a0c7230855a9eafe11d25432913c1787f4afc799fe955eee5709e70037dc57a'
+            'ecf754cc79448e5595de658479450fe8bbeb466c95d71aa6f47da21c7ac45d01')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -Np1 -i "$srcdir"/pm.patch
 }
 
 build() {
