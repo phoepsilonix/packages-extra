@@ -26,7 +26,7 @@ build() {
 
 package_manjaro-tools-base() {
  	pkgdesc='Development tools for Manjaro Linux (base tools)'
-	depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg')
+	depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg' 'pacman-mirrorlist>=20160301')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
                     'manjaro-tools-iso: Manjaro Linux iso tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
