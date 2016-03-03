@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.11.1
+pkgver=0.11.2
 pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
@@ -12,14 +12,14 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	"dm.patch::${url}/commit/8f362a29826e6ff895b16f29cc3d55c41fd07526.patch")
-sha256sums=('c5f8ce509851aab528b9f4f5bc21a361507908dfbd4c9ced28dc42909b1e703d'
-            '912b0c7f9c4d7488dab64d2d77d10a8d0e623649da6426b805e64a970e771953')
+        pm.patch::https://github.com/manjaro/manjaro-tools/commit/7a9d3028e0c17f1d2a3064748eedd1ec2de24dcb.patch)
+sha256sums=('3a0c7230855a9eafe11d25432913c1787f4afc799fe955eee5709e70037dc57a'
+            'ecf754cc79448e5595de658479450fe8bbeb466c95d71aa6f47da21c7ac45d01')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -Np1 -i $srcdir/dm.patch
+	patch -Np1 -i "$srcdir"/pm.patch
 }
 
 build() {
@@ -29,7 +29,7 @@ build() {
 
 package_manjaro-tools-base() {
  	pkgdesc='Development tools for Manjaro Linux (base tools)'
-	depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg')
+	depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg' 'pacman-mirrorlist>=20160301')
 	optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
                     'manjaro-tools-iso: Manjaro Linux iso tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
