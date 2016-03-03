@@ -1,7 +1,6 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_is_live=false
 _is_ff=false
 
 _profiles=('kde'
@@ -29,7 +28,6 @@ pkgname=('manjaro-base-skel'
 	'manjaro-kde-settings'
 	'manjaro-openbox-minimal-settings'
 	'manjaro-lxqt-minimal-settings')
-${_is_live} && pkgname+=('manjaro-live-skel')
 ${_is_ff} && pkgname+=('manjaro-firefox-settings')
 pkgver=20160304
 pkgrel=1
@@ -131,12 +129,6 @@ package_manjaro-lxqt-minimal-settings() {
 }
 
 ##############misc######################
-
-package_manjaro-live-skel(){
-	pkgdesc='Manjaro Linux live skeleton files'
-
-	_inst_dir 'shared/live'
-}
 
 package_manjaro-firefox-settings() {
 	pkgdesc='Manjaro Linux firefox settings'
