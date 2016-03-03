@@ -2,8 +2,8 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=manjaro-cli-installer
-pkgver=20160303
-pkgrel=3
+pkgver=20160304
+pkgrel=1
 pkgdesc='Cli installer for Manjaro Linux'
 url='https://github.com/manjaro/manjaro-cli-installer'
 arch=('any')
