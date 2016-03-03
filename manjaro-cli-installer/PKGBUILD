@@ -2,13 +2,15 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=manjaro-cli-installer
-pkgver=20160227
-pkgrel=1
+pkgver=20160303
+pkgrel=2
 pkgdesc='Cli installer for Manjaro Linux'
 url='https://github.com/manjaro/manjaro-cli-installer'
-arch=('i686' 'x86_64')
+arch=('any')
 license=('GPL')
 depends=('dialog' 'dmidecode' 'gptfdisk' 'parted' 'pv' 'tcpdump' 'wget' 'manjaro-livecd-base')
+conflicts=('manjaro-livecd-cli-installer')
+replaces=('manjaro-livecd-cli-installer')
 backup=('etc/manjaro-tools/cli-installer.conf')
 source=("git+$url.git")
 sha256sums=('SKIP')
