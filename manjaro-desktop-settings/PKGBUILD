@@ -1,40 +1,17 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_is_ff=false
-
-_profiles=('kde'
-	'kde-minimal'
-	'xfce'
-	'xfce-minimal'
-	'bspwm'
-	'budgie'
-	'cinnamon'
-	'deepin'
-	'gnome'
-	'i3'
-	'lxde'
-	'lxqt'
-	'lxqt-minimal'
-	'mate'
-	'netbook'
-	'pantheon')
-
 pkgbase=desktop-settings
 pkgname=('manjaro-base-skel'
 	'manjaro-xfce-minimal-settings'
-	'manjaro-kde-minimal-settings'
 	'manjaro-xfce-settings'
-	'manjaro-kde-settings'
 	'manjaro-openbox-minimal-settings'
 	'manjaro-lxqt-minimal-settings')
-${_is_ff} && pkgname+=('manjaro-firefox-settings')
 pkgver=20160304
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
-depends=('manjaro-base-skel')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -65,16 +42,6 @@ pkgver() {
 	date +%Y%m%d
 }
 
-_get_conflicts(){
-	local c=()
-	for p in ${_profiles[@]};do
-		if [[ "$pkgname" != "manjaro-$p-settings" ]];then
-			c+=("manjaro-$p-settings")
-		fi
-	done
-	echo ${c[@]}
-}
-
 package_manjaro-base-skel() {
 	pkgdesc='Manjaro Linux base skeleton files'
 
@@ -83,36 +50,25 @@ package_manjaro-base-skel() {
 
 package_manjaro-xfce-settings() {
 	pkgdesc='Manjaro Linux xfce settings'
-	conflicts=( $(_get_conflicts) )
+	depends=('manjaro-base-skel')
+	provides=('manjaro-desktop-settings')
 
 	_inst_dir 'official/xfce'
-}
-
-package_manjaro-kde-settings() {
-	pkgdesc='Manjaro Linux kde settings'
-	conflicts=( $(_get_conflicts) )
-
-	_inst_dir 'official/kde'
 }
 
 ##############minimal######################
 
 package_manjaro-xfce-minimal-settings() {
 	pkgdesc='Manjaro Linux xfce-minimal settings'
-	conflicts=( $(_get_conflicts) )
+	depends=('manjaro-base-skel')
+	provides=('manjaro-desktop-settings')
 
 	_inst_dir 'minimal/xfce'
 }
 
-package_manjaro-kde-minimal-settings() {
-	pkgdesc='Manjaro Linux kde-minimal settings'
-	conflicts=( $(_get_conflicts) )
-
-	_inst_dir 'minimal/kde'
-}
-
 package_manjaro-openbox-minimal-settings() {
 	pkgdesc='Manjaro Linux openbox-minimal settings'
+	depends=('manjaro-base-skel')
 # 	depends=('manjaro-base-skel' 'obmenu-generator' 'tint2' 'feh' 'openbox-themes')
 
 	_inst_dir 'minimal/openbox'
@@ -123,16 +79,8 @@ package_manjaro-lxqt-minimal-settings() {
 # 	depends=('manjaro-openbox-minimal-settings' 'compton' 'qterminal'
 # 		'pcmanfm-qt' 'lxqt-panel')
 	depends=('manjaro-openbox-minimal-settings')
-	conflicts=( $(_get_conflicts) )
+	provides=('manjaro-desktop-settings')
 
 	_inst_dir 'minimal/lxqt'
 }
 
-##############misc######################
-
-package_manjaro-firefox-settings() {
-	pkgdesc='Manjaro Linux firefox settings'
-	#depends=('firefox')
-
-	_inst_dir 'shared/firefox'
-}
