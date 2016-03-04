@@ -21,7 +21,7 @@ sha256sums=('SKIP')
 prepare() {
 	cd ${srcdir}/${_pkgbase}
 	# patches here
-	sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
+	sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
 }
 
 pkgver() {
