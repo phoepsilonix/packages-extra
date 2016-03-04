@@ -51,6 +51,7 @@ package_manjaro-base-skel() {
 package_manjaro-xfce-settings() {
 	pkgdesc='Manjaro Linux xfce settings'
 	depends=('manjaro-base-skel')
+	conflicts=('manjaro-desktop-settings')
 	provides=('manjaro-desktop-settings')
 
 	_inst_dir 'official/xfce'
@@ -61,6 +62,7 @@ package_manjaro-xfce-settings() {
 package_manjaro-xfce-minimal-settings() {
 	pkgdesc='Manjaro Linux xfce-minimal settings'
 	depends=('manjaro-base-skel')
+	conflicts=('manjaro-desktop-settings')
 	provides=('manjaro-desktop-settings')
 
 	_inst_dir 'minimal/xfce'
@@ -79,6 +81,7 @@ package_manjaro-lxqt-minimal-settings() {
 # 	depends=('manjaro-openbox-minimal-settings' 'compton' 'qterminal'
 # 		'pcmanfm-qt' 'lxqt-panel')
 	depends=('manjaro-openbox-minimal-settings')
+	conflicts=('manjaro-desktop-settings')
 	provides=('manjaro-desktop-settings')
 
 	_inst_dir 'minimal/lxqt'
