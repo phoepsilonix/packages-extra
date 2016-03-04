@@ -7,9 +7,10 @@ _repo=manjaro-tools-livecd
 pkgbase=manjaro-live
 pkgname=('manjaro-live-base'
 	'manjaro-live-openrc'
-	'manjaro-live-systemd')
+	'manjaro-live-systemd'
+	'manjaro-live-skel')
 pkgver=20160304
-pkgrel=1
+pkgrel=2
 pkgdesc='Manjaro Linux live session'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"
@@ -55,4 +56,11 @@ package_manjaro-live-systemd() {
 
 	cd ${srcdir}/${_repo} #-${pkgver}
 	make PREFIX=/usr DESTDIR=${pkgdir} install_sd
+}
+
+package_manjaro-live-skel() {
+	pkgdesc='Manjaro Linux live session autostart items'
+
+	cd ${srcdir}/${_repo} #-${pkgver}
+	make PREFIX=/usr DESTDIR=${pkgdir} install_xdg
 }
