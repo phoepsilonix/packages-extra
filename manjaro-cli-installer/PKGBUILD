@@ -2,7 +2,7 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=manjaro-cli-installer
-pkgver=20160304
+pkgver=20160305
 pkgrel=1
 pkgdesc='Cli installer for Manjaro Linux'
 url='https://github.com/manjaro/manjaro-cli-installer'
@@ -28,4 +28,5 @@ build() {
 package() {
 	cd ${srcdir}/${pkgname} #-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install
+	ln -sf cli-installer ${pkgdir}/usr/bin/setup
 }
