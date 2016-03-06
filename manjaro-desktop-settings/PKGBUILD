@@ -7,8 +7,8 @@ pkgname=('manjaro-base-skel'
 	'manjaro-xfce-settings'
 	'manjaro-openbox-minimal-settings'
 	'manjaro-lxqt-minimal-settings')
-pkgver=20160304
-pkgrel=1
+pkgver=20160306
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -50,7 +50,8 @@ package_manjaro-base-skel() {
 
 package_manjaro-xfce-settings() {
 	pkgdesc='Manjaro Linux xfce settings'
-	depends=('manjaro-base-skel')
+	depends=('manjaro-base-skel' 'maia-wallpaper' 'maia-icon-theme' 'vertex-maia-themes'
+                 'xcursor-menda' 'manjaro-artwork')
 	conflicts=('manjaro-desktop-settings')
 	provides=('manjaro-desktop-settings')
 
@@ -61,7 +62,8 @@ package_manjaro-xfce-settings() {
 
 package_manjaro-xfce-minimal-settings() {
 	pkgdesc='Manjaro Linux xfce-minimal settings'
-	depends=('manjaro-base-skel')
+	depends=('manjaro-base-skel' 'maia-wallpaper' 'maia-icon-theme' 'vertex-maia-themes'
+                 'xcursor-menda' 'manjaro-artwork')
 	conflicts=('manjaro-desktop-settings')
 	provides=('manjaro-desktop-settings')
 
