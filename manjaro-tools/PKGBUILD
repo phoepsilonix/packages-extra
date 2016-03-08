@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.11.3
+pkgver=0.11.4
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('98fe951ab3aef3f82f448d5b34953d414e0bae0f6f33808631b225327b2b5d89')
+sha256sums=('eba6dbe65dff78d86f6c9f3661b866750cc361fbc471f2d1d84eb1c532c1da02')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}

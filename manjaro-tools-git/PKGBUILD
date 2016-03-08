@@ -3,11 +3,11 @@
 
 _branch=devel
 _pkgbase=manjaro-tools
-_ver=0.11.3
+_ver=0.11.4
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1931.01e4382
+pkgver=r1982.5293f9a
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
