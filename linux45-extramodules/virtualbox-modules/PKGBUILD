@@ -16,6 +16,7 @@ url='http://virtualbox.org'
 license=('GPL')
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
+             'virtualbox-dkms-manjaro'
              'dkms'
              'linux45' 'linux45-headers')
 
@@ -26,6 +27,10 @@ prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+  if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
+     rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko
+     rm -v dkms/vboxhost/$pkgver/$_kernver/$CARCH/module/*.ko
+  fi
 }
 
 build() {

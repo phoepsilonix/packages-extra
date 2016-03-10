@@ -10,12 +10,13 @@
 pkgbase=linux314-virtualbox-modules
 pkgname=('linux314-virtualbox-host-modules' 'linux314-virtualbox-guest-modules')
 pkgver=5.0.14
-pkgrel=4
+pkgrel=5
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
+             'virtualbox-dkms-manjaro'
              'dkms'
              'linux314' 'linux314-headers')
 
