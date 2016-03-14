@@ -9,8 +9,8 @@
 
 pkgbase=linux45-virtualbox-modules
 pkgname=('linux45-virtualbox-host-modules' 'linux45-virtualbox-guest-modules')
-pkgver=5.0.14
-pkgrel=0.6
+pkgver=5.0.16
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -21,7 +21,7 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
              'linux45' 'linux45-headers')
 
 _extraver=extramodules-4.5-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+_pkgver="${pkgver}_OSE"
 
 prepare() {
   # dkms need modification to be run as user
@@ -34,12 +34,13 @@ prepare() {
 }
 
 build() {
+  _kernver="$(cat /usr/lib/modules/$_extraver/version)"
   # build host modules
   msg2 'Host modules'
-  dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "vboxhost/$_pkgver" -k "$_kernver"
   # build guest modules  
   msg2 'Guest modules'
-  dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
 }
 
 package_linux45-virtualbox-host-modules(){
@@ -51,9 +52,10 @@ package_linux45-virtualbox-host-modules(){
   install=virtualbox-host-modules.install
   groups=('linux45-extramodules')
 
+  _kernver="$(cat /usr/lib/modules/$_extraver/version)"
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/vboxhost/$pkgver/$_kernver/$CARCH/module"
+  cd "dkms/vboxhost/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-host-modules.install"
@@ -75,9 +77,10 @@ package_linux45-virtualbox-guest-modules(){
   install=virtualbox-guest-modules.install
   groups=('linux45-extramodules')
 
+  _kernver="$(cat /usr/lib/modules/$_extraver/version)"
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/vboxguest/$pkgver/$_kernver/$CARCH/module"
+  cd "dkms/vboxguest/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-guest-modules.install"
