@@ -24,6 +24,7 @@ _extraver=extramodules-4.5-MANJARO
 _pkgver="${pkgver}_OSE"
 
 prepare() {
+  _kernver="$(cat /usr/lib/modules/$_extraver/version)"
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf

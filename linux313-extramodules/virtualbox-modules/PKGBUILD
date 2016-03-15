@@ -9,30 +9,39 @@
 
 pkgbase=linux313-virtualbox-modules
 pkgname=('linux313-virtualbox-host-modules' 'linux313-virtualbox-guest-modules')
-pkgver=5.0.14
-pkgrel=3
+pkgver=5.0.16
+pkgrel=4
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
+             'virtualbox-dkms-manjaro'
              'dkms'
              'linux313' 'linux313-headers')
 
 _extraver=extramodules-3.13-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+_pkgver="${pkgver}_OSE"
 
-build() {
+prepare() {
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+  if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
+     rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko
+     rm -v dkms/vboxhost/$pkgver/$_kernver/$CARCH/module/*.ko
+  fi
+}
 
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
   # build host modules
   msg2 'Host modules'
-  dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
-  # build guest modules       
+  dkms --dkmsframework dkms.conf build "vboxhost/$_pkgver" -k "$_kernver"
+  # build guest modules  
   msg2 'Guest modules'
-  dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
 }
 
 package_linux313-virtualbox-host-modules(){
@@ -44,9 +53,10 @@ package_linux313-virtualbox-host-modules(){
   install=virtualbox-host-modules.install
   groups=('linux313-extramodules')
 
-
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
+  
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/vboxhost/$pkgver/$_kernver/$CARCH/module"
+  cd "dkms/vboxhost/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-host-modules.install"
@@ -67,10 +77,11 @@ package_linux313-virtualbox-guest-modules(){
   provides=('virtualbox-guest-modules')
   install=virtualbox-guest-modules.install
   groups=('linux313-extramodules')
-
+  
+  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/vboxguest/$pkgver/$_kernver/$CARCH/module"
+  cd "dkms/vboxguest/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-guest-modules.install"
