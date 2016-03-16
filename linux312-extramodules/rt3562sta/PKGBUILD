@@ -7,10 +7,10 @@
 
 pkgbase=rt3562sta
 pkgname=('linux312-rt3562sta' 'rt3562sta-common')
-pkgver=2.4.1.1_r2
+pkgver=2.4.1.1_r3
 _patchrel=${pkgver/*_r/}
-pkgrel=4
-_subpkgrel=4
+pkgrel=1
+_subpkgrel=1
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
@@ -23,11 +23,9 @@ build() {
 
 	cd "$srcdir"/rt3562sta-linux-r$_patchrel
 
-        CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe"
-        CCXFLAGS="${CFLAGS}"
-        EXTRA_CFLAGS="${CFLAGS} -DVERSION=$pkgver"
-        LINUX_SRC="/usr/lib/modules/$KERNEL_RELEASE/build"
-	make
+	EXTRA_CFLAGS="-DVERSION=$pkgver" \
+	LINUX_SRC="/usr/lib/modules/$KERNEL_RELEASE/build" \
+		make
 }
 
 package_rt3562sta-common() {
@@ -60,4 +58,4 @@ package_linux312-rt3562sta() {
 	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 }
 
-sha256sums=('fbb31034fac14d63f9ed16039b79743746d91e0587e3bdd036697f7fd39cef9a')
+sha256sums=('3428c37e91f04dfb0d5e4aae9bbcbf72a3816e8804d0735110a53d1140c37eaa')
