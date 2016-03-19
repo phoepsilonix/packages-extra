@@ -16,15 +16,18 @@ replaces=('lightdm-gtk2-greeter' 'lightdm-gtk3-greeter')
 backup=('etc/lightdm/lightdm-gtk-greeter.conf')
 install='lightdm-gtk-greeter.install'
 source=("https://launchpad.net/lightdm-gtk-greeter/${pkgver%.?}/${pkgver}/+download/lightdm-gtk-greeter-${pkgver}.tar.gz"
-        "a11y.patch")
+        "a11y.patch"
+	'cursor_theme.patch')
 sha256sums=('3264008c8f51323413c2a6ac16523930b75f4ecdde6da8b6fe47ec9bffd9310c'
-            '1c07a8175784f80fbf8e0217f46405ec0726db4e860e8970c647136c5680fb05')
+            '1c07a8175784f80fbf8e0217f46405ec0726db4e860e8970c647136c5680fb05'
+            'd2b48b0a3e8b0a1b5528f52051f929c50da5f5752e8fe1374b348b85a997f651')
 
 prepare() {
   cd lightdm-gtk-greeter-${pkgver}
   
   # https://bugs.launchpad.net/lightdm-gtk-greeter/+bug/1483864
   patch -Np1 -i ../a11y.patch
+  # patch -Np1 -i ../cursor_theme.patch # added by oberon 20160320, in case we'd like to adopt this
 }
 
 build() {

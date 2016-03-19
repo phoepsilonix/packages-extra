@@ -1,0 +1,53 @@
+diff --git a/src/greeterconfiguration.h b/src/greeterconfiguration.h
+index fee59f4..bec3cd4 100644
+--- a/src/greeterconfiguration.h
++++ b/src/greeterconfiguration.h
+@@ -10,6 +10,7 @@
+ #define CONFIG_KEY_DEBUGGING            "allow-debugging"
+ #define CONFIG_KEY_SCREENSAVER_TIMEOUT  "screensaver-timeout"
+ #define CONFIG_KEY_THEME                "theme-name"
++#define CONFIG_KEY_CURSOR_THEME         "cursor-theme-name"
+ #define CONFIG_KEY_ICON_THEME           "icon-theme-name"
+ #define CONFIG_KEY_FONT                 "font-name"
+ #define CONFIG_KEY_DPI                  "xft-dpi"
+diff --git a/src/lightdm-gtk-greeter.c b/src/lightdm-gtk-greeter.c
+index 1518abc..99cde3e 100644
+--- a/src/lightdm-gtk-greeter.c
++++ b/src/lightdm-gtk-greeter.c
+@@ -275,6 +275,7 @@ static GdkFilterReturn xkl_xevent_filter (GdkXEvent *xev, GdkEvent *event, gpoin
+ /* a11y indicator */
+ static gchar *default_font_name,
+              *default_theme_name,
++             *default_cursor_theme_name,
+              *default_icon_theme_name;
+ void a11y_font_cb (GtkCheckMenuItem *item);
+ void a11y_contrast_cb (GtkCheckMenuItem *item);
+@@ -2677,7 +2681,10 @@ main (int argc, char **argv)
+         return EXIT_FAILURE;
+ 
+     /* Set default cursor */
+-    gdk_window_set_cursor (gdk_get_default_root_window (), gdk_cursor_new (GDK_LEFT_PTR));
++    if (default_icon_theme_name)
++        gdk_window_set_cursor (gdk_get_default_root_window (), (gdk_cursor_new_from_name (gdk_display_get_default (), default_icon_theme_name)));
++    else
++        gdk_window_set_cursor (gdk_get_default_root_window (), gdk_cursor_new (GDK_LEFT_PTR));
+ 
+     /* Make the greeter behave a bit more like a screensaver if used as un/lock-screen by blanking the screen */
+     if (lightdm_greeter_get_lock_hint (greeter))
+@@ -2700,6 +2707,16 @@ main (int argc, char **argv)
+     g_object_get (gtk_settings_get_default (), "gtk-theme-name", &default_theme_name, NULL);
+     g_debug ("[Configuration] GTK+ theme: '%s'", default_theme_name);
+ 
++    value = config_get_string (NULL, CONFIG_KEY_CURSOR_THEME, NULL);
++    if (value)
++    {
++        g_debug ("[Configuration] Changing GTK+ cursor theme to '%s'", value);
++        g_object_set (gtk_settings_get_default (), "gtk-cursor-theme-name", value, NULL);
++        g_free (value);
++    }
++    g_object_get (gtk_settings_get_default (), "gtk-cursor-theme-name", &default_cursor_theme_name, NULL);
++    g_debug ("[Configuration] GTK+ cursor theme: '%s'", default_cursor_theme_name);
++
+     value = config_get_string (NULL, CONFIG_KEY_ICON_THEME, NULL);
+     if (value)
+     {
