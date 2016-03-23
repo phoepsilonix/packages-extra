@@ -1,25 +1,19 @@
 # Contributor: tuxce <tuxce.net@gmail.com>
 # Contributor: Skunnyk <skunnyk@archlinux.fr>
+
 pkgname=package-query
-pkgver=1.7
-_commit=58d0bfff828df1fdfd84dc12ee08bdff5000c715
-pkgrel=2
+pkgver=1.8
+pkgrel=1
 pkgdesc="Query ALPM and AUR"
 arch=('i686' 'x86_64' 'mips64el' 'armv6h' 'armv7h' 'arm')
-url="https://github.com/archlinuxfr/package-query/"
+url="https://github.com/archlinuxfr/$pkgname/"
 license=('GPL')
-depends=('pacman>=5.0' 'pacman<5.1' 'yajl>=2.0' 'curl')
-source=(#http://mir.archlinux.fr/~tuxce/releases/$pkgname/$pkgname-$pkgver.tar.gz
-        $pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/archlinuxfr/package-query/archive/$_commit.tar.gz)
-md5sums=('02158a2ba846cf76f14e92bfd5c1fb72')
-
-prepare() {
-  mv "$srcdir/$pkgname-$_commit/" "$srcdir/$pkgname-$pkgver/"
-}
+depends=('pacman>=5.0' 'yajl>=2.0')
+source=("http://mir.archlinux.fr/releases/$pkgname/$pkgname-$pkgver.tar.gz")
+md5sums=('dd3465672fff2a65db6768a5f20efc9a')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  ./autogen.sh
   ./configure --localstatedir=/var --prefix=/usr --sysconfdir=/etc --with-aur-url=https://aur.archlinux.org
   make
 }
@@ -29,5 +23,3 @@ package ()
   cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:

@@ -2,25 +2,22 @@
 # Author: tuxce <tuxce.net@gmail.com>
 
 pkgname=yaourt
-pkgver=1.7
-_commit=afad69c6c3d925bf24bb16cc7709b66784f5611c
-pkgrel=2
+pkgver=1.8.1
+pkgrel=1
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
-url="https://github.com/archlinuxfr/yaourt"
+url="https://github.com/archlinuxfr/$pkgname"
 license=(GPL)
-depends=('diffutils' 'pacman>=5.0' 'package-query>=1.7' 'gettext')
+depends=('diffutils' 'pacman>=5.0' 'package-query>=1.8' 'gettext')
 optdepends=('aurvote: vote for favorite packages from AUR'
       'customizepkg: automatically modify PKGBUILD during install/upgrade'
       'rsync: retrieve PKGBUILD from official repositories')
 backup=('etc/yaourtrc')
-source=(#http://mir.archlinux.fr/~tuxce/releases/$pkgname/$pkgname-$pkgver.tar.gz
-        $pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/archlinuxfr/$pkgname/archive/$_commit.tar.gz)
-md5sums=('d38c8237eb9dd915969d2f7706145a29')
+source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=('SKIP')
 
 prepare() {
-  mv "$srcdir/$pkgname-$_commit/" "$srcdir/$pkgname-$pkgver/"
-  cd "$srcdir/$pkgname-$pkgver/src"
+  cd "$srcdir/$pkgname-$pkgver"
   # Don't prompt the user to edit files
   #sed -i "s/\#EDITFILES\=1/EDITFILES\=0/g" yaourtrc.in
   # Save package tarball to pacman cache
@@ -28,13 +25,11 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver/src"
+  cd "$srcdir/$pkgname-$pkgver"
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver/src"
+  cd "$srcdir/$pkgname-$pkgver"
   make PREFIX=/usr sysconfdir=/etc localstatedir=/var DESTDIR="$pkgdir" install
 }
-
-# vim:set ft=sh ts=2 sw=2 et:
