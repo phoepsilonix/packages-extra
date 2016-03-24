@@ -4,7 +4,7 @@
 pkgbase=linux312-spl_zfs
 pkgname=('linux312-spl' 'linux312-zfs')
 pkgver=0.6.5.4
-pkgrel=3
+pkgrel=4
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -57,3 +57,4 @@ package_linux312-spl(){
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
 }
+
