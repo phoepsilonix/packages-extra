@@ -5,12 +5,12 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 
-_linuxprefix=linux45
-_extramodules=extramodules-4.5-MANJARO
+_linuxprefix=linux46
+_extramodules=extramodules-4.6-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=352.79
-pkgrel=2
+pkgrel=0.1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -23,8 +23,10 @@ conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 options=(!strip)
+source=('missing_VM_FAULT_MINOR.patch')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+md5sums=('4e2ef844a4ccca2704e58c40a9d57d02')
 md5sums_i686=('8f5b2c809490e0ebec17b9074a5a8363')
 md5sums_x86_64=('a9440d3f4b38c25ebb2ddf56739d404a')
 
@@ -35,12 +37,17 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    # https://devtalk.nvidia.com/default/topic/926824/linux/364-12-won-t-compile-against-latest-git-tree-patches-for-4-6-0-rc1-included-/
+    if [[ "$CARCH" = "x86_64" ]]; then
+        patch -Np0 -i ${srcdir}/missing_VM_FAULT_MINOR.patch
+    fi
 }
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
     cd "${_pkg}"/kernel
-    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module 
 
     if [[ "$CARCH" = "x86_64" ]]; then
         cd uvm
