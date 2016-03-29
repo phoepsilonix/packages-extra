@@ -9,7 +9,7 @@ pkgname=('manjaro-live-base'
 	'manjaro-live-openrc'
 	'manjaro-live-systemd'
 	'manjaro-live-skel')
-pkgver=20160328
+pkgver=20160329
 pkgrel=1
 pkgdesc='Manjaro Linux live session'
 arch=('any')
