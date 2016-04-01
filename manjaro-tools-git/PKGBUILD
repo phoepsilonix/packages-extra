@@ -1,9 +1,8 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
 
-_branch=devel
 _pkgbase=manjaro-tools
-_ver=0.11.4
+_ver=0.11.5
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
@@ -15,7 +14,7 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('git' 'docbook2x')
-source=("git+$url.git#branch=$_branch")
+source=("git+$url.git")
 sha256sums=('SKIP')
 
 prepare() {
