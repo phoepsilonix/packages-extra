@@ -20,6 +20,8 @@ install=partitionmanager.install
 
 pkgver() {
   cd partitionmanager
+  # small workaround
+  sed -i 's|VERSION_MINOR "0"|VERSION_MINOR "1"|' CMakeLists.txt
   _ver="$(cat CMakeLists.txt | grep -m3 -e VERSION_MAJOR -e VERSION_MINOR -e VERSION_RELEASE | cut -d '"' -f2 | paste -sd'.')"
   echo "${_ver}.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
