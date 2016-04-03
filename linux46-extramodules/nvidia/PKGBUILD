@@ -27,8 +27,8 @@ source=('missing_VM_FAULT_MINOR.patch')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 md5sums=('4e2ef844a4ccca2704e58c40a9d57d02')
-md5sums_i686=('8f5b2c809490e0ebec17b9074a5a8363')
-md5sums_x86_64=('a9440d3f4b38c25ebb2ddf56739d404a')
+md5sums_i686=('7b2c6f74ebbaccd53dcc89d7166b0680')
+md5sums_x86_64=('e70ece47407c53ebb527fa684ca759e7')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -37,10 +37,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    # https://devtalk.nvidia.com/default/topic/926824/linux/364-12-won-t-compile-against-latest-git-tree-patches-for-4-6-0-rc1-included-/
-    if [[ "$CARCH" = "x86_64" ]]; then
-        patch -Np0 -i ${srcdir}/missing_VM_FAULT_MINOR.patch
-    fi
 }
 
 build() {
