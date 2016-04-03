@@ -23,20 +23,15 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 source=('nvidia-3.18.patch' 'nvidia-4.2.patch')
-sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35'
-            'c1c27b4f730aec295cb43aaec1487b3e5dbbed46dc10e46b15d30f089278ae6f')
+source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
+source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+md5sums=('79671a27131da619a33eb02ed0c2c031'
+         '271b29a42a0c6fa52d4fc15922e56a4b')
+md5sums_i686=('9f3222fd7287d9b31f54f1d75760e183')
+md5sums_x86_64=('24c9c6a8679edae3b2a608b191fdc727')
 
-if [ "$CARCH" = "i686" ]; then
-    _arch='x86'
-    _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
-    source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('d2554bb6f7867e7762d0ecedcac5bde7de0634e43b952bf466323ea8b4032da8')
-elif [ "$CARCH" = "x86_64" ]; then
-    _arch='x86_64'
-    _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
-    source+=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums+=('2f6e82c79ed4d1ac3d42b2c0f71d4fbdd9293db801de396e7e2cc3fdcafaf83e')
-fi
+[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
 prepare() {
   cd "$srcdir"
