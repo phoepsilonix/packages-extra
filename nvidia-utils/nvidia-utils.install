@@ -20,6 +20,9 @@ post_install() {
 	mhwd-gpu --check
 
 	msg "use mhwd-gpu to set nvidia as default: 'mhwd-gpu --setgl nvidia'"
+
+	getent group nvidia-persistenced &>/dev/null || groupadd -g 143 nvidia-persistenced
+	getent passwd nvidia-persistenced &>/dev/null || useradd -c 'NVIDIA Persistence Daemon' -u 143 -g nvidia-persistenced -d '/' -s /sbin/nologin nvidia-persistenced
 }
 
 
