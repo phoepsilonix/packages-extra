@@ -2,30 +2,17 @@
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
 pkgname=("zfs-dkms")
-pkgver=0.6.5.4
+pkgver=0.6.5.6
 pkgrel=1
 pkgdesc="Kernel modules for the Zettabyte File System."
 depends=("spl-dkms=${pkgver}" "zfs-utils=${pkgver}" "dkms")
 arch=("any")
 url="http://zfsonlinux.org/"
-source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz
-        4.5-support-pfn_t-typedef.patch::https://github.com/zfsonlinux/zfs/commit/ae3a373566042ad086b51dce66059c8cae321faf.patch
-        4.5-support-xattr-list-handler.patch::https://github.com/zfsonlinux/zfs/commit/4967a3eb9d9de0295626fc7a3c1d1da52ea1498d.patch
-        4.5-support-get-put-link.patch::https://github.com/zfsonlinux/zfs/commit/beeed4596b192f879fbb13e656cc6458ccde1193.patch)
+source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz)
 groups=("manjarozfs")
-sha256sums=('780862ec2301ccace412a324787e9df762cff6046e73e2ac0ebdce9e2bd59b0f'
-            '6a456612313c33951b105cba4b968d4e1d94f6eb5e5a5c1e3b37148c8582375e'
-            'c1ffce2ed354b974b732e158c3d7048d521089348479cfd9e070fc63500eeb45'
-            '74ad2b770e154324a6ed8265c0f9e92bed2664ba37c94bb1d04d0d50d2d747ac')
+sha256sums=('c349d46d86b4f61cd53a0891acad916cfc3f0d6754127db7f60a0bd98185aeff')
 license=("CDDL")
 install=zfs-dkms.install
-
-prepare() {
-  cd "$srcdir/zfs-${pkgver}"
-  patch -Np1 -i $srcdir/4.5-support-pfn_t-typedef.patch
-  patch -Np1 -i $srcdir/4.5-support-xattr-list-handler.patch
-  patch -Np1 -i $srcdir/4.5-support-get-put-link.patch
-}
 
 build() {
   cd "$srcdir/zfs-${pkgver}"
