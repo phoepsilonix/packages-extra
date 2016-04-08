@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=2.2
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -21,7 +21,7 @@ source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releas
          git+https://github.com/calamares/calamares-manjaro.git#branch=master
          prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
 
-sha256sums=('b75d1462a8a7bd2bdc57ec38bd3b2e0485be573d8af13d05f44df2fc7a7dcaa4'
+sha256sums=('1775444f286b37994a6970e878db09bf48dfa687c57435eed05c27d3064f34fa'
             'SKIP'
             '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
 
