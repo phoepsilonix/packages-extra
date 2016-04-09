@@ -13,7 +13,8 @@ url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         utf8.patch::https://github.com/manjaro/manjaro-tools/commit/1997440c299623164500255e0ea1f6faa95b14fe.patch)
-sha256sums=('465f26d97e53a745a0c191739587a9ed97f770ced790c8ec00bf31825abe2a5f')
+sha256sums=('465f26d97e53a745a0c191739587a9ed97f770ced790c8ec00bf31825abe2a5f'
+            '2b24633dcd66606d3a2238675dde9c2b213633b7976ac6e2470ee02ae6ace20b')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
