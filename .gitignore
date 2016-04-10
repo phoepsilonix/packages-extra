@@ -10,4 +10,5 @@ pkg
 *.log
 *~
 .AURINFO
+.SRCINFO
 .lock
