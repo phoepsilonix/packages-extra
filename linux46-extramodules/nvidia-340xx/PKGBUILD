@@ -41,6 +41,9 @@ prepare() {
     patch -Np0 -i ${srcdir}/nvidia-3.18.patch
     # https://devtalk.nvidia.com/default/topic/926824/linux/364-12-won-t-compile-against-latest-git-tree-patches-for-4-6-0-rc1-included-/
     patch -Np1 -i ${srcdir}/missing_VM_FAULT_MINOR.patch
+
+    # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+    sed -i 's|page_cache_release|put_page|g' kernel/os-mlock.c
 }
 
 build() {

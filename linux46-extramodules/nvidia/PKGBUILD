@@ -35,6 +35,9 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+
+    # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+    sed -i 's|page_cache_release|put_page|g' kernel/nvidia/os-mlock.c
 }
 
 build() {

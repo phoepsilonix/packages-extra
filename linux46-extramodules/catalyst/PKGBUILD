@@ -65,6 +65,9 @@ prepare() {
 	#mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
 	mkdir -p fglrx-$_pkgver
 	mv archive_files fglrx-$_pkgver
+
+	# page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+	sed -i 's|page_cache_release|put_page|g' ${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c
 }
 
 build() {

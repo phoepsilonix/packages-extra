@@ -39,6 +39,9 @@ prepare() {
   # patches here
   # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
   patch -Np0 -i ${srcdir}/nvidia-3.18.patch
+
+  # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+  sed -i 's|page_cache_release|put_page|g' kernel/nv-mlock.c
 }
 
 build() {
