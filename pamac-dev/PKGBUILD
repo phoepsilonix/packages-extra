@@ -2,8 +2,8 @@
 
 pkgname=pamac-dev
 _pkgname=pamac
-pkgver=4.0alpha1
-_pkgver=4-sans-git
+pkgver=4.0beta1
+_pkgver=b59e68459b9c0f0f841ae38fedbc572171a2ca69
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -21,8 +21,8 @@ conflicts=("$_pkgname")
 options=(!emptydirs)
 install=$_pkgname.install
 
-source=("pamac-4-alpha.tar.xz::http://lists.manjaro.org/pipermail/manjaro-dev/attachments/20160409/a11de4e7/attachment-0001.bin")
-sha256sums=('02784d57e0d39b089dde19c6874a3b2270c688a281201ed27b44e71475e5bb11')
+source=("pamac-4-beta.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
+sha256sums=('e6ed3fad7a6508879e2fb4b5f97216fd15c41eac28946c04ea83b0a0f161305b')
   
 prepare() {
   # adjust version string
