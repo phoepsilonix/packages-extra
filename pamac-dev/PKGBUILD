@@ -2,8 +2,8 @@
 
 pkgname=pamac-dev
 _pkgname=pamac
-pkgver=4.0beta2
-_pkgver=b9a9b49b8015e3c4085eaabee88763fb82b376ff
+pkgver=4.0beta3
+_pkgver=0105b98f9ee6ff36b5560b0b9a30926ea0452bcc
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -21,8 +21,10 @@ conflicts=("$_pkgname")
 options=(!emptydirs)
 install=$_pkgname.install
 
-source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
-sha256sums=('cc7bf3e8b3324782c8c4a230ce2d9254583a777e5e2ec9e286b676ffd5c6591e')
+source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz"
+        "headerbar-$pkgver.patch::https://github.com/manjaro/pamac/pull/114.patch")
+sha256sums=('a75c5e1ffa728576eff9994f7a8fdb477df7e07230e65bb7b3a300d6ccce199b'
+            'b51610c4fb1aa204214fde6e0d11f9dc4aa66d0fa9b56b29d98a8cc449df0218')
   
 prepare() {
   # adjust version string
@@ -30,6 +32,7 @@ prepare() {
   sed -i -e "s|\"4.0.0\"|\"$pkgver-$pkgrel\"|g" manager_window.vala 
   cd "$srcdir/pamac-$_pkgver/"
   # patches here
+  patch -p1 -i "$srcdir/headerbar-$pkgver.patch"
 }
 
 build() {
