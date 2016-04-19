@@ -9,7 +9,7 @@ _extramodules=extramodules-4.6-MANJARO
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
 pkgver=340.96
-pkgrel=0.4
+pkgrel=0.5
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -43,7 +43,9 @@ prepare() {
     patch -Np1 -i ${srcdir}/missing_VM_FAULT_MINOR.patch
 
     # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+    # get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
     sed -i 's|page_cache_release|put_page|g' kernel/os-mlock.c
+    sed -i 's|get_user_pages(current, mm, |get_user_pages(|g' kernel/os-mlock.c
 }
 
 build() {

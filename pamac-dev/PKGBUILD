@@ -4,7 +4,7 @@ pkgname=pamac-dev
 _pkgname=pamac
 pkgver=4.0beta3
 _pkgver=0105b98f9ee6ff36b5560b0b9a30926ea0452bcc
-pkgrel=1
+pkgrel=2
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/guinux/pamac2"
@@ -32,7 +32,7 @@ prepare() {
   sed -i -e "s|\"4.0.0\"|\"$pkgver-$pkgrel\"|g" manager_window.vala 
   cd "$srcdir/pamac-$_pkgver/"
   # patches here
-  patch -p1 -i "$srcdir/headerbar-$pkgver.patch"
+  #patch -p1 -i "$srcdir/headerbar-$pkgver.patch"
 }
 
 build() {

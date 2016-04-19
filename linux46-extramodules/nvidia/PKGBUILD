@@ -10,7 +10,7 @@ _extramodules=extramodules-4.6-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=361.42
-pkgrel=0.4
+pkgrel=0.5
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -37,8 +37,14 @@ prepare() {
     # patches here
 
     # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+    # get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
     sed -i 's|page_cache_release|put_page|g' kernel/nvidia/os-mlock.c
-    sed -i 's|page_cache_release|put_page|g' kernel/nvidia-uvm/uvm_full_pagetbl_mgmt.c
+    sed -i 's|get_user_pages(current, mm, |get_user_pages(|g' kernel/nvidia/os-mlock.c
+    if [[ "$CARCH" = "x86_64" ]]; then
+        sed -i 's|page_cache_release|put_page|g' kernel/nvidia-uvm/uvm_full_pagetbl_mgmt.c
+        sed -i 's|get_user_pages(current, current->mm, |get_user_pages(|g' kernel/nvidia-uvm/uvm_full_pagetbl_mgmt.c
+        sed -i 's|get_user_pages(current, current->mm, |get_user_pages(|g' kernel/nvidia-uvm/uvm8_tools.c
+    fi
 }
 
 build() {

@@ -7,7 +7,7 @@ _extramodules=extramodules-4.6-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=0.4
+pkgrel=0.5
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -67,7 +67,9 @@ prepare() {
 	mv archive_files fglrx-$_pkgver
 
 	# page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+	# get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
 	sed -i 's|page_cache_release|put_page|g' ${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c
+	sed -i 's|get_user_pages(current, current->mm, |get_user_pages(|g'  ${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c
 }
 
 build() {

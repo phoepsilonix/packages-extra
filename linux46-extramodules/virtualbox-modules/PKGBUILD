@@ -12,7 +12,7 @@ pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
 pkgver=5.0.16
 _pkgver="${pkgver}_OSE"
-pkgrel=0.4
+pkgrel=0.5
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -35,14 +35,18 @@ prepare() {
   cp -r /usr/src/vboxhost-$_pkgver $srcdir/dkms/vboxhost/$_pkgver/source
   cd $srcdir/dkms/vboxhost/$_pkgver/source
   # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+	# Introduce get_user_pages_remote(); 1e9877902dc7e11d2be038371c6fbf2dfcd469d7
   sed -i 's|page_cache_release|put_page|g' vboxdrv/r0drv/linux/memobj-r0drv-linux.c
+  sed -i 's|get_user_pages|get_user_pages_remote|g' vboxdrv/r0drv/linux/memobj-r0drv-linux.c
 
   rm -r $srcdir/dkms/vboxguest/$_pkgver/source
   cp -r /usr/src/vboxguest-$_pkgver $srcdir/dkms/vboxguest/$_pkgver/source
   cd $srcdir/dkms/vboxguest/$_pkgver/source
   # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+	# Introduce get_user_pages_remote(); 1e9877902dc7e11d2be038371c6fbf2dfcd469d7
   sed -i 's|page_cache_release|put_page|g' vboxsf/regops.c
   sed -i 's|page_cache_release|put_page|g' vboxguest/r0drv/linux/memobj-r0drv-linux.c
+  sed -i 's|get_user_pages|get_user_pages_remote|g' vboxguest/r0drv/linux/memobj-r0drv-linux.c
 
   if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
      rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko
@@ -64,7 +68,7 @@ package_linux46-virtualbox-host-modules(){
   pkgdesc='Host kernel modules for VirtualBox'
   replaces=("$_linuxprefix-virtualbox-modules")
   conflicts=("$_linuxprefix-virtualbox-modules")
-  provides=('virtualbox-host-modules')
+  provides=('VIRTUALBOX-HOST-MODULES')
   install=virtualbox-host-modules.install
 
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
@@ -86,7 +90,7 @@ package_linux46-virtualbox-guest-modules(){
   pkgdesc='Guest kernel modules for VirtualBox'
   replaces=("$_linuxprefix-virtualbox-manjaro-modules")
   conflicts=("$_linuxprefix-virtualbox-manjaro-modules")
-  provides=('virtualbox-guest-modules')
+  provides=('VIRTUALBOX-GUEST-MODULES')
   install=virtualbox-guest-modules.install
 
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
