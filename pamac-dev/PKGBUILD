@@ -21,18 +21,14 @@ conflicts=("$_pkgname")
 options=(!emptydirs)
 install=$_pkgname.install
 
-source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz"
-        "headerbar-$pkgver.patch::https://github.com/manjaro/pamac/pull/114.patch")
-sha256sums=('5241df29635561bca5c3365697285fb05381d76640f7d48516ccdbe5123d16eb'
-            '7658a37f288bd096c3e9641fc1b40c5423e924fb8abc959a62da43480ab13868')
+source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
+sha256sums=('5241df29635561bca5c3365697285fb05381d76640f7d48516ccdbe5123d16eb')
   
 prepare() {
   # adjust version string
-  cd "$srcdir/pamac-$_pkgver/src"
-  sed -i -e "s|\"4.0.0\"|\"$pkgver-$pkgrel\"|g" manager_window.vala 
-  cd "$srcdir/pamac-$_pkgver/"
+  cd "$srcdir/pamac-$_pkgver"
+  sed -i -e "s|\"4.0.0\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
   # patches here
-  #patch -p1 -i "$srcdir/headerbar-$pkgver.patch"
 }
 
 build() {
