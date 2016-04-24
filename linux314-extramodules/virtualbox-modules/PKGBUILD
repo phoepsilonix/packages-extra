@@ -8,7 +8,7 @@
 
 
 pkgbase=linux314-virtualbox-modules
-pkgname=('linux314-VIRTUALBOX-HOST-MODULES' 'linux314-VIRTUALBOX-GUEST-MODULES')
+pkgname=('linux314-virtualbox-host-modules' 'linux314-virtualbox-guest-modules')
 pkgver=5.0.18
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -44,13 +44,13 @@ build() {
   dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
 }
 
-package_linux314-VIRTUALBOX-HOST-MODULES(){
+package_linux314-virtualbox-host-modules(){
   pkgdesc='Host kernel modules for VirtualBox'
   depends=('linux314')
   replaces=('linux314-virtualbox-modules')
   conflicts=('linux314-virtualbox-modules')
   provides=('VIRTUALBOX-HOST-MODULES')
-  install=VIRTUALBOX-HOST-MODULES.install
+  install=virtualbox-host-modules.install
   groups=('linux314-extramodules')
 
   _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
@@ -59,23 +59,23 @@ package_linux314-VIRTUALBOX-HOST-MODULES(){
   cd "dkms/vboxhost/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/VIRTUALBOX-HOST-MODULES.install"
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-host-modules.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxdrv" > "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-HOST-MODULES.conf"
-  echo "vboxnetadp" >> "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-HOST-MODULES.conf"
-  echo "vboxnetflt" >> "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-HOST-MODULES.conf"
-  echo "vboxpci" >> "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-HOST-MODULES.conf"
+  echo "vboxdrv" > "$pkgdir/etc/modules-load.d/linux314-virtualbox-host-modules.conf"
+  echo "vboxnetadp" >> "$pkgdir/etc/modules-load.d/linux314-virtualbox-host-modules.conf"
+  echo "vboxnetflt" >> "$pkgdir/etc/modules-load.d/linux314-virtualbox-host-modules.conf"
+  echo "vboxpci" >> "$pkgdir/etc/modules-load.d/linux314-virtualbox-host-modules.conf"
 }
 
-package_linux314-VIRTUALBOX-GUEST-MODULES(){
+package_linux314-virtualbox-guest-modules(){
   pkgdesc='Guest kernel modules for VirtualBox'
   license=('GPL')
   depends=('linux314')
   replaces=('linux314-virtualbox-manjaro-modules')
   conflicts=('linux314-virtualbox-manjaro-modules')
   provides=('VIRTUALBOX-GUEST-MODULES')
-  install=VIRTUALBOX-GUEST-MODULES.install
+  install=virtualbox-guest-modules.install
   groups=('linux314-extramodules')
   
   _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
@@ -84,12 +84,12 @@ package_linux314-VIRTUALBOX-GUEST-MODULES(){
   cd "dkms/vboxguest/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/VIRTUALBOX-GUEST-MODULES.install"
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/virtualbox-guest-modules.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxguest" > "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-GUEST-MODULES.conf"
-  echo "vboxsf" >> "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-GUEST-MODULES.conf"
-  echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/linux314-VIRTUALBOX-GUEST-MODULES.conf"
+  echo "vboxguest" > "$pkgdir/etc/modules-load.d/linux314-virtualbox-guest-modules.conf"
+  echo "vboxsf" >> "$pkgdir/etc/modules-load.d/linux314-virtualbox-guest-modules.conf"
+  echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/linux314-virtualbox-guest-modules.conf"
 }
 
 # vim:set ts=2 sw=2 et:
