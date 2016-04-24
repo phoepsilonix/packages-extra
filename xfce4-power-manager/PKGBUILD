@@ -17,13 +17,19 @@ makedepends=('intltool' 'xfce4-panel' 'lxpanel')
 install=$pkgname.install
 source=(http://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2
         remove-dbus-includes.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/id=42892ec44912c9eaef1e9e2ad4d96c07b59fabb5
+        replace-dbus-binding-tool-with-gdbus-codegen.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08b4182abda32902e67de91e1ac7d5bf78c3c600
         port-xfpm-dbus-to-lowlevel-cmds.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8e02aafbd0247e93baa267980c8860253907af2a
+        port-xfpm-dbus-monitor-to-lowlevel-cmds.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=0b7bb8c0215ca2d5f51e2c052cd7cfa3f8a0eecc
+        port-xfpm-errors-to-gdbus-errors.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8499aa632ae2445d3cb7de64ced42063db0189e2
         port-to-dbus.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=721055567c1d0dfccfc519ba492b709a13f3b0fe
         fix-suspend-hibernate-calls.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=a055fa2e42204b484b6000afe1e519321948c455
         fix-some-warnings.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=fb190d279fab075e24f40dafc979a5d2565cbd3a)
 sha256sums=('c50ec8aa7e7848c57c0f856dceb8132eb5f37585f0ac1627459ab8c882c73b07'
             '99d731c5d729b2834700ff14de6ba7018e51f88c9ad9d5e9adb96e4b8274aefb'
+            '1afd4b6ee076237b452230eea21e05079de0fae5707384ebd20bb2a638733c7b'
             'ba562b6dfc5c23e0979d3b946ffc629e0889243758fc58f15d1f77d92fb5e2cb'
+            'b23c79fb091f752389f1b5c6ff925960bb41b01745c4ab304445665e3a2d1993'
+            'f8b7257c9f993a57e12b93bf1c4d9fe7cd4bf7dd6a7712bc0c339ccce4a4997f'
             'd1ce6edfe7632038d52ac6a1b7aa2074f200523bcfbc2fe02258992927e6cc58'
             'c42126fc20f8774c204146b4b824e015307c61af72898ffa8f903d2c2eff93fa'
             'f321fe1a989d1e4eaa4375e25666f906aeb68dfc7a63cdc35bd98302bd5974ce')
@@ -32,7 +38,10 @@ prepare() {
   cd "$srcdir/$pkgname-$pkgver"
   sed -i "s|configure.ac.in|configure.ac|g" $srcdir/remove-dbus-includes.patch
   patch -Np1 -i $srcdir/remove-dbus-includes.patch
+  patch -Np1 -i $srcdir/replace-dbus-binding-tool-with-gdbus-codegen.patch
   patch -Np1 -i $srcdir/port-xfpm-dbus-to-lowlevel-cmds.patch
+  patch -Np1 -i $srcdir/port-xfpm-dbus-monitor-to-lowlevel-cmds.patch
+  patch -Np1 -i $srcdir/port-xfpm-errors-to-gdbus-errors.patch
   patch -Np1 -i $srcdir/port-to-dbus.patch
   patch -Np1 -i $srcdir/fix-suspend-hibernate-calls.patch
   patch -Np1 -i $srcdir/fix-some-warnings.patch
