@@ -25,7 +25,9 @@ source=(#http://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver
         port-xfpm-dbus-monitor-to-lowlevel-cmds.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=0b7bb8c0215ca2d5f51e2c052cd7cfa3f8a0eecc
         removed-dbus-binding-tool-annotation.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08a1359cde81558847802669b897ae062d4b33fe
         port-xfpm-errors-to-gdbus-errors.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8499aa632ae2445d3cb7de64ced42063db0189e2
+        remove-remaining-org.xfce.unique.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=52e74ba9d1267649f72381a3cbace9a0f86684f6
         port-to-dbus.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=721055567c1d0dfccfc519ba492b709a13f3b0fe
+        drop-forgotten-dbus-client.h.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=4655f711a6d9bf72f7f6276a1c65d2de696e4d1d
         fix-suspend-hibernate-calls.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=a055fa2e42204b484b6000afe1e519321948c455
         fix-some-warnings.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=fb190d279fab075e24f40dafc979a5d2565cbd3a)
 sha256sums=('9329f0d03eaf1484e3c9f488f3cc21f60188e5b211660113680b7247c582c202'
@@ -36,7 +38,9 @@ sha256sums=('9329f0d03eaf1484e3c9f488f3cc21f60188e5b211660113680b7247c582c202'
             'b23c79fb091f752389f1b5c6ff925960bb41b01745c4ab304445665e3a2d1993'
             '49f51a953366e5752f32d46283a933dccf6c5c81c0771d44a407476af1f2f160'
             'f8b7257c9f993a57e12b93bf1c4d9fe7cd4bf7dd6a7712bc0c339ccce4a4997f'
+            '4c53c23d50a050d7663c9236403de9f0545a26bc6de8417f313520b729ddf364'
             'd1ce6edfe7632038d52ac6a1b7aa2074f200523bcfbc2fe02258992927e6cc58'
+            '983e58e40c49b7e343f053054dca9dae0ec69a9b52a96d9601fcab73809bedf5'
             'c42126fc20f8774c204146b4b824e015307c61af72898ffa8f903d2c2eff93fa'
             'f321fe1a989d1e4eaa4375e25666f906aeb68dfc7a63cdc35bd98302bd5974ce')
 
@@ -51,6 +55,9 @@ prepare() {
   patch -Np1 -i $srcdir/removed-dbus-binding-tool-annotation.patch
   patch -Np1 -i $srcdir/port-xfpm-errors-to-gdbus-errors.patch
   patch -Np1 -i $srcdir/port-to-dbus.patch
+  patch -Np1 -i $srcdir/remove-remaining-org.xfce.unique.patch
+  sed -i /xfpm-unique/d libdbus/Makefile.am
+  patch -Np1 -i $srcdir/drop-forgotten-dbus-client.h.patch
   patch -Np1 -i $srcdir/fix-suspend-hibernate-calls.patch
   patch -Np1 -i $srcdir/fix-some-warnings.patch
 }
