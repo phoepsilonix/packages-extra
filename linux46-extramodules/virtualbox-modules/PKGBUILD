@@ -9,8 +9,8 @@
 _linuxprefix=linux46
 _extramodules=extramodules-4.6-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
-pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.0.16
+pkgname=("$_linuxprefix-VIRTUALBOX-HOST-MODULES" "$_linuxprefix-VIRTUALBOX-GUEST-MODULES")
+pkgver=5.0.18
 _pkgver="${pkgver}_OSE"
 pkgrel=0.5
 arch=('i686' 'x86_64')
@@ -64,12 +64,12 @@ build() {
   dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
 }
 
-package_linux46-virtualbox-host-modules(){
+package_linux46-VIRTUALBOX-HOST-MODULES(){
   pkgdesc='Host kernel modules for VirtualBox'
   replaces=("$_linuxprefix-virtualbox-modules")
   conflicts=("$_linuxprefix-virtualbox-modules")
   provides=('VIRTUALBOX-HOST-MODULES')
-  install=virtualbox-host-modules.install
+  install=VIRTUALBOX-HOST-MODULES.install
 
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 
@@ -77,21 +77,21 @@ package_linux46-virtualbox-host-modules(){
   cd "dkms/vboxhost/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extramodules"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/virtualbox-host-modules.install"
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/VIRTUALBOX-HOST-MODULES.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxdrv" > "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-host-modules.conf"
-  echo "vboxnetadp" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-host-modules.conf"
-  echo "vboxnetflt" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-host-modules.conf"
-  echo "vboxpci" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-host-modules.conf"
+  echo "vboxdrv" > "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-HOST-MODULES.conf"
+  echo "vboxnetadp" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-HOST-MODULES.conf"
+  echo "vboxnetflt" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-HOST-MODULES.conf"
+  echo "vboxpci" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-HOST-MODULES.conf"
 }
 
-package_linux46-virtualbox-guest-modules(){
+package_linux46-VIRTUALBOX-GUEST-MODULES(){
   pkgdesc='Guest kernel modules for VirtualBox'
   replaces=("$_linuxprefix-virtualbox-manjaro-modules")
   conflicts=("$_linuxprefix-virtualbox-manjaro-modules")
   provides=('VIRTUALBOX-GUEST-MODULES')
-  install=virtualbox-guest-modules.install
+  install=VIRTUALBOX-GUEST-MODULES.install
 
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 
@@ -99,12 +99,12 @@ package_linux46-virtualbox-guest-modules(){
   cd "dkms/vboxguest/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extramodules"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/virtualbox-guest-modules.install"
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/VIRTUALBOX-GUEST-MODULES.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxguest" > "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
-  echo "vboxsf" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
-  echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
+  echo "vboxguest" > "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-GUEST-MODULES.conf"
+  echo "vboxsf" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-GUEST-MODULES.conf"
+  echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-VIRTUALBOX-GUEST-MODULES.conf"
 }
 
 # vim:set ts=2 sw=2 et:
