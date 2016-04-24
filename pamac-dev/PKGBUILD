@@ -3,8 +3,8 @@
 pkgname=pamac-dev
 _pkgname=pamac
 pkgver=4.0beta4
-_pkgver=f0ac44bc4fd1080e04bee24479f213a9b152b351
-pkgrel=1
+_pkgver=f96fbbd2d495de34c1aa2734dd94a03b38449e7b
+pkgrel=3
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/guinux/pamac2"
@@ -22,7 +22,7 @@ options=(!emptydirs)
 install=$_pkgname.install
 
 source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
-sha256sums=('5241df29635561bca5c3365697285fb05381d76640f7d48516ccdbe5123d16eb')
+sha256sums=('2c8a28aef202d83b67c0c35855e0217416802068ba35039dc5de85af1aea324e')
   
 prepare() {
   # adjust version string
