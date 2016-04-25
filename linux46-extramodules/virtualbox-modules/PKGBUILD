@@ -30,24 +30,6 @@ prepare() {
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
-  # workaround to patch for linux 4.6
-  rm -r $srcdir/dkms/vboxhost/$_pkgver/source
-  cp -r /usr/src/vboxhost-$_pkgver $srcdir/dkms/vboxhost/$_pkgver/source
-  cd $srcdir/dkms/vboxhost/$_pkgver/source
-  # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
-	# Introduce get_user_pages_remote(); 1e9877902dc7e11d2be038371c6fbf2dfcd469d7
-  sed -i 's|page_cache_release|put_page|g' vboxdrv/r0drv/linux/memobj-r0drv-linux.c
-  sed -i 's|get_user_pages|get_user_pages_remote|g' vboxdrv/r0drv/linux/memobj-r0drv-linux.c
-
-  rm -r $srcdir/dkms/vboxguest/$_pkgver/source
-  cp -r /usr/src/vboxguest-$_pkgver $srcdir/dkms/vboxguest/$_pkgver/source
-  cd $srcdir/dkms/vboxguest/$_pkgver/source
-  # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
-	# Introduce get_user_pages_remote(); 1e9877902dc7e11d2be038371c6fbf2dfcd469d7
-  sed -i 's|page_cache_release|put_page|g' vboxsf/regops.c
-  sed -i 's|page_cache_release|put_page|g' vboxguest/r0drv/linux/memobj-r0drv-linux.c
-  sed -i 's|get_user_pages|get_user_pages_remote|g' vboxguest/r0drv/linux/memobj-r0drv-linux.c
-
   if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
      rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko
      rm -v dkms/vboxhost/$pkgver/$_kernver/$CARCH/module/*.ko

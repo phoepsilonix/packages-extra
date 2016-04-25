@@ -20,9 +20,11 @@ cd ../../linux41*/*virtualbox-modules
 makepkg --sign -df
 cd ../../linux42*/*virtualbox-modules
 makepkg --sign -df
-cd ../../linux43*/*virtualbox-modules
-makepkg --sign -df
+#cd ../../linux43*/*virtualbox-modules
+#makepkg --sign -df
 cd ../../linux44*/*virtualbox-modules
 makepkg --sign -df
 cd ../../linux45*/*virtualbox-modules
+makepkg --sign -df
+cd ../../linux46*/*virtualbox-modules
 makepkg --sign -df
