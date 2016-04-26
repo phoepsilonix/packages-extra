@@ -1,0 +1,74 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
+
+_pkgname=xfce4-power-manager
+pkgname=$_pkgname-exp
+pkgver=1.4.4
+pkgrel=1.1
+_git=719234b98ec876b491b11a86959510802fc33a99
+pkgdesc="Power manager for Xfce desktop"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4')
+depends=('hicolor-icon-theme'
+	'libnotify'
+	'libxfce4ui'
+	'upower')
+optdepends=('xfce4-panel: for the Xfce panel plugin'
+            'lxpanel: for the LXDE panel plugin')
+makedepends=('intltool' 'xfce4-panel' 'lxpanel' 'autogen' 'xfce4-dev-tools')
+install=$_pkgname.install
+source=(http://git.xfce.org/xfce/xfce4-power-manager/snapshot/xfce4-power-manager-719234b98ec876b491b11a86959510802fc33a99.tar.bz2
+	Removed_all_dbus_includes_and_add_gio_dependency.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=42892ec44912c9eaef1e9e2ad4d96c07b59fabb5
+	Replaced_dbus_binding_tool_with_gdbus-codegen.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08b4182abda32902e67de91e1ac7d5bf78c3c600
+	Ported_xfpm-dbus_to_lowlevel_commands.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8e02aafbd0247e93baa267980c8860253907af2a
+	Ported_xfpm-dbus-monitor_to_lowlevel_commands.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=0b7bb8c0215ca2d5f51e2c052cd7cfa3f8a0eecc
+	Removed_dbus-binding-tool_annotation.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08a1359cde81558847802669b897ae062d4b33fe
+	Ported_xfpm-errors_to_gdbus_errors.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8499aa632ae2445d3cb7de64ced42063db0189e2
+	Ported_to_gdbus.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=721055567c1d0dfccfc519ba492b709a13f3b0fe
+	Fix_CK_suspend-hibernate_calls.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=a055fa2e42204b484b6000afe1e519321948c455)
+
+md5sums=('0a2821583210a2dcade01f3349940e2f'
+         'b8028c692c18981b3664f0fdce164b44'
+         '005be22b4d827e16db80ac619708d1a8'
+         '52371de9a77c309c80930f8c2d56a26f'
+         '66f81d1c092155474757ded1ddca2172'
+         '5b18758db8771d8ef1eac86e662932aa'
+         '375465f9a9d971d78a9dfe55b7c2d9a8'
+         'e6155f08c27e3b7065860e022db2ed2e'
+         '7c7a724fccc69cc3fd60d3da4909a4e3')
+
+prepare() {
+  mv "$srcdir/$_pkgname-$_git" "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$_pkgname-$pkgver"
+  patch -Np1 -i $srcdir/Removed_all_dbus_includes_and_add_gio_dependency.patch
+  patch -Np1 -i $srcdir/Replaced_dbus_binding_tool_with_gdbus-codegen.patch
+  patch -Np1 -i $srcdir/Ported_xfpm-dbus_to_lowlevel_commands.patch
+  patch -Np1 -i $srcdir/Ported_xfpm-dbus-monitor_to_lowlevel_commands.patch
+  patch -Np1 -i $srcdir/Removed_dbus-binding-tool_annotation.patch
+  patch -Np1 -i $srcdir/Ported_xfpm-errors_to_gdbus_errors.patch
+  patch -Np1 -i $srcdir/Ported_to_gdbus.patch
+  patch -Np1 -i $srcdir/Fix_CK_suspend-hibernate_calls.patch
+}
+
+build() {
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-network-manager \
+    --enable-polkit \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+}
+
