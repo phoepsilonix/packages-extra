@@ -27,7 +27,11 @@ source=(http://git.xfce.org/xfce/xfce4-power-manager/snapshot/xfce4-power-manage
 	Removed_dbus-binding-tool_annotation.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08a1359cde81558847802669b897ae062d4b33fe
 	Ported_xfpm-errors_to_gdbus_errors.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8499aa632ae2445d3cb7de64ced42063db0189e2
 	Ported_to_gdbus.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=721055567c1d0dfccfc519ba492b709a13f3b0fe
-	Fix_CK_suspend-hibernate_calls.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=a055fa2e42204b484b6000afe1e519321948c455)
+	Fix_CK_suspend-hibernate_calls.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=a055fa2e42204b484b6000afe1e519321948c455
+	Fix_some_runtime_warnings.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=fb190d279fab075e24f40dafc979a5d2565cbd3a
+	Removed_remaining_org.xfce.unique.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=52e74ba9d1267649f72381a3cbace9a0f86684f6
+	Look_up_the_schema_for_light-lockers_settings_recursively.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=c5acaa8649c8f5eaca14fd7e507b286d5ec68d82
+	Drop_forgotten_dbus-client.h_from_Makefile.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=4655f711a6d9bf72f7f6276a1c65d2de696e4d1d)
 
 md5sums=('0a2821583210a2dcade01f3349940e2f'
          'b8028c692c18981b3664f0fdce164b44'
@@ -37,7 +41,11 @@ md5sums=('0a2821583210a2dcade01f3349940e2f'
          '5b18758db8771d8ef1eac86e662932aa'
          '375465f9a9d971d78a9dfe55b7c2d9a8'
          'e6155f08c27e3b7065860e022db2ed2e'
-         '7c7a724fccc69cc3fd60d3da4909a4e3')
+         '7c7a724fccc69cc3fd60d3da4909a4e3'
+         'b07854680dc2f158a0e600e5220397f4'
+         '7c0180bcf22199818e01e204409b52e8'
+         'f3cd31a7488bd382638f88c125d01616'
+         '22666bdb3e4cbd0e856daa8108bf2fdd')
 
 prepare() {
   mv "$srcdir/$_pkgname-$_git" "$srcdir/$_pkgname-$pkgver"
@@ -50,6 +58,10 @@ prepare() {
   patch -Np1 -i $srcdir/Ported_xfpm-errors_to_gdbus_errors.patch
   patch -Np1 -i $srcdir/Ported_to_gdbus.patch
   patch -Np1 -i $srcdir/Fix_CK_suspend-hibernate_calls.patch
+  patch -Np1 -i $srcdir/Fix_some_runtime_warnings.patch
+  patch -Np1 -i $srcdir/Removed_remaining_org.xfce.unique.patch
+  patch -Np1 -i $srcdir/Look_up_the_schema_for_light-lockers_settings_recursively.patch
+  patch -Np1 -i $srcdir/Drop_forgotten_dbus-client.h_from_Makefile.patch
 }
 
 build() {
