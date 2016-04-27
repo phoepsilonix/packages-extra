@@ -14,7 +14,6 @@ depends=('icu' 'qt5-base' 'hwinfo' 'kitemmodels' 'kauth'
 makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools'
              'kconfigwidgets' 'kcmutils')
 conflicts=('kcm-msm')
-install=${pkgname}.install
 source=(git+$url.git)
 sha256sums=(SKIP)
 
