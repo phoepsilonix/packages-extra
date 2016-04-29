@@ -20,7 +20,6 @@ backup=('etc/pamac.conf')
 replaces=('pamac-aur')
 conflicts=('pamac-dev')
 options=(!emptydirs)
-install=pamac.install
 
 if [ "${_gitcommit}" != "" ]; then
   source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")

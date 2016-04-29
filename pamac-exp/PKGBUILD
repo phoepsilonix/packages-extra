@@ -19,7 +19,6 @@ backup=('etc/pamac.conf')
 replaces=('pamac-aur')
 conflicts=("$_pkgname" "$_pkgname"-dev)
 options=(!emptydirs)
-install=$_pkgname.install
 
 source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz"
         "headerbar-$pkgver.patch::https://github.com/manjaro/pamac/pull/114.patch")

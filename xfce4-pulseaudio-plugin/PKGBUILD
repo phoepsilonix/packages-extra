@@ -16,7 +16,6 @@ depends=('xfce4-panel>=4.11.0' 'libpulse' 'libkeybinder3')
 optdepends=('ido: appindicator support'
             'pavucontrol: default pulseaudio mixer')
 makedepends=('intltool')
-install="${pkgname}.install"
 source=(http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
         use-panel-icons.patch)
 sha256sums=('8d9330ddf1d44a864a36d566cce4b76d4f859c5984bba7653d7dc39aa24d5c3e'

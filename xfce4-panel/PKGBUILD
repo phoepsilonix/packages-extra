@@ -15,7 +15,6 @@ depends=('exo' 'garcon' 'libxfce4ui' 'libwnck' 'hicolor-icon-theme'
          'desktop-file-utils')
 makedepends=('intltool' 'gtk-doc' 'gtk3' 'xfce4-dev-tools')
 optdepends=('gtk3: for GTK3 support')
-install=$pkgname.install
 options=('!libtool')
 source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2)
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)

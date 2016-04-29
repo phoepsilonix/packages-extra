@@ -16,7 +16,6 @@ conflicts=('partitionmanager')
 #source=("$pkgname-$pkgver.tar.gz::https://github.com/KDE/$pkgname/archive/v$pkgver.tar.gz")
 source=('git://anongit.kde.org/partitionmanager')
 sha1sums=('SKIP')
-install=partitionmanager.install
 
 pkgver() {
   cd partitionmanager

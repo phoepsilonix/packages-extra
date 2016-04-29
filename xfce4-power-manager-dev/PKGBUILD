@@ -18,7 +18,6 @@ depends=('libxfce4ui' 'upower' 'libnotify' 'hicolor-icon-theme' 'gtk3')
 optdepends=('xfce4-panel: for the Xfce panel plugin'
             'lxpanel: for the LXDE panel plugin')
 makedepends=('intltool' 'xfce4-panel' 'lxpanel')
-install=$pkgname.install
 provides=('xfce4-power-manager')
 conflicts=('xfce4-power-manager')
 source=(http://archive.xfce.org/src/apps/$_pkgname/${pkgver%.*}/$_pkgname-$pkgver.tar.bz2)

@@ -17,7 +17,6 @@ groups=('xfce4')
 depends=('libxfce4ui' 'libwnck' 'libdrm' 'libxpresent' 'hicolor-icon-theme' 'exo')
 makedepends=('intltool' 'xfce4-dev-tools')
 options=('!libtool')
-install=$_pkgname.install
 source=(#http://archive.xfce.org/src/xfce/$_pkgname/4.12/$_pkgname-$pkgver.tar.bz2
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/$pkgname/snapshot/$pkgname-$_git.tar.bz2)
 sha256sums=('e612b6d17482315de1e3e21c1cda8ed44010fd6aeba923e8461b4a7e77901cb6')

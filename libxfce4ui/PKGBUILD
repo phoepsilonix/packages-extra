@@ -19,7 +19,6 @@ makedepends=('intltool' 'gtk-doc' 'gtk3' 'xfce4-dev-tools')
 optdepends=('gtk3: for GTK3 support')
 #replaces=('libxfcegui4') - later when all is ported
 options=('!libtool')
-install=$_pkgname.install
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 source=(#http://archive.xfce.org/src/xfce/$pkgname/4.11/$pkgname-$pkgver.tar.bz2

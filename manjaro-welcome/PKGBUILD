@@ -10,7 +10,6 @@ url="https://github.com/manjaro/$pkgname"
 license=('GPL')
 depends=('python-gobject' 'pywebkitgtk')
 makedepends=('git')
-install=$pkgname.install
 options=(!emptydirs)
 _git=Yes
 _branch=master

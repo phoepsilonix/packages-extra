@@ -19,7 +19,6 @@ backup=('etc/pamac.conf')
 replaces=('pamac-aur')
 conflicts=("$_pkgname")
 options=(!emptydirs)
-install=$_pkgname.install
 
 source=("pamac-$pkgver.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
 sha256sums=('6b5156560ca2f91d2d3e355838d5846b243aebed0db8f3166cfeaab03625bcd4')

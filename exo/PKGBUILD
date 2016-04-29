@@ -14,7 +14,6 @@ groups=('xfce4')
 depends=('libxfce4ui' 'gtk2' 'hicolor-icon-theme' )
 makedepends=('perl-uri' 'intltool' 'gtk-doc' 'xorg-iceauth')
 optdepends=('perl-uri: for mail-compose helper script')
-install=$pkgname.install
 source=(http://archive.xfce.org/src/xfce/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2
         0001-Don-t-quote-arguments-passed-to-terminal-emulators-b.patch::http://git.xfce.org/xfce/exo/patch/?id=b4200c9bab9f60e61a100dd12d841c2588b360d8
         0002-Fix-StartupNotify.patch::http://git.xfce.org/xfce/exo/patch/?id=3a2c05bd68f924f5c8bd530a2fe8f4cc5b671b16)
