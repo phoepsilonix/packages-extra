@@ -6,7 +6,7 @@
 
 pkgname=xfce4-pulseaudio-plugin
 pkgver=0.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
 license=('GPL2')
