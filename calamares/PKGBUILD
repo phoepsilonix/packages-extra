@@ -2,7 +2,7 @@
 
 pkgname=calamares
 pkgver=2.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -55,6 +55,7 @@ package() {
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
+	chmod 750      "$pkgdir"/polkit-1/rules.d
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
 	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
