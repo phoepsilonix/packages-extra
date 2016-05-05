@@ -4,7 +4,7 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.11.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -12,14 +12,17 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        utf8.patch::https://github.com/manjaro/manjaro-tools/commit/1997440c299623164500255e0ea1f6faa95b14fe.patch)
+        utf8.patch::https://github.com/manjaro/manjaro-tools/commit/1997440c299623164500255e0ea1f6faa95b14fe.patch
+        configure_accountsservice.patch::https://github.com/manjaro/manjaro-tools/commit/eccbd743b1f16846e35091d71584621b3f791650.patch)
 sha256sums=('465f26d97e53a745a0c191739587a9ed97f770ced790c8ec00bf31825abe2a5f'
-            '2b24633dcd66606d3a2238675dde9c2b213633b7976ac6e2470ee02ae6ace20b')
+            '2b24633dcd66606d3a2238675dde9c2b213633b7976ac6e2470ee02ae6ace20b'
+            '07c04f006ea1c44a6588be4a6fef3689d3daa15a6721fb804667a4edd5caf60b')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
 	patch -Np1 -i ${srcdir}/utf8.patch
+	patch -Np1 -i ${srcdir}/configure_accountsservice.patch
 }
 
 build() {
