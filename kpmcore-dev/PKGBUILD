@@ -20,7 +20,7 @@ optdepends=('e2fsprogs: ext2/3/4 support'
 	    'ntfs-3g: NTFS support'
 	    'dosfstools: FAT32 support')
 #source=("$pkgname-$pkgver.tar.gz::https://github.com/KDE/$pkgname/archive/v$pkgver.tar.gz")
-source=('git://anongit.kde.org/kpmcore.git')
+source=('git://anongit.kde.org/kpmcore.git#branch=luks-decorator')
 sha1sums=('SKIP')
 
 pkgver() {

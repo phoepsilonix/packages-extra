@@ -14,7 +14,7 @@ makedepends+=('git')
 provides=("partitionmanager=$pkgver")
 conflicts=('partitionmanager')
 #source=("$pkgname-$pkgver.tar.gz::https://github.com/KDE/$pkgname/archive/v$pkgver.tar.gz")
-source=('git://anongit.kde.org/partitionmanager')
+source=('git://anongit.kde.org/partitionmanager#branch=luks-decorator')
 sha1sums=('SKIP')
 
 pkgver() {
