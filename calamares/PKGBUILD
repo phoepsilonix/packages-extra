@@ -2,7 +2,7 @@
 
 pkgname=calamares
 pkgver=2.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,17 +18,20 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$pkgver/calamares-$pkgver.tar.gz"
          git+https://github.com/calamares/calamares-manjaro.git#branch=2.2.x-stable
-         prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
+         prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch
+         zram.patch::https://github.com/calamares/calamares/commit/a9b9fcd9ad9ac9479e0f2d8816be640ea3a94ed0.patch)
 
 sha256sums=('d9cf132ae263a48455596d4a7e522d5199c7717dc9b7f3568cefe588082667a9'
             'SKIP'
-            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
+            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f'
+            'f1fb577312306292459c97f2359be8c655676744c6dd440c92b69c58692a7d36')
 
 prepare() {
 	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares-${pkgver}
 	rm -r ${srcdir}/calamares-manjaro
 	cd ${srcdir}/calamares-${pkgver}
 	patch -Np1 -i ${srcdir}/prefer_budgie_before_gnome.patch
+	patch -Np1 -i ${srcdir}/zram.patch
 }
 
 build() {
