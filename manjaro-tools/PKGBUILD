@@ -3,8 +3,8 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.11.5
-pkgrel=4
+pkgver=0.11.6
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -12,23 +12,14 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        utf8.patch::https://github.com/manjaro/manjaro-tools/commit/1997440c299623164500255e0ea1f6faa95b14fe.patch
-        copy-flag.patch::https://github.com/manjaro/manjaro-tools/commit/2825dfaae4a7fd688fa4bd135655df67cf3ad9b6.patch
-        chroot_args.patch::https://github.com/manjaro/manjaro-tools/commit/35985c4254ea6e7b584864123affa2089cb5dcd8.patch
-        revert_copy-flag.patch::https://github.com/manjaro/manjaro-tools/commit/7686101a9c3b2aca53aeacbfc7af6b530359c423.patch)
-sha256sums=('465f26d97e53a745a0c191739587a9ed97f770ced790c8ec00bf31825abe2a5f'
-            '2b24633dcd66606d3a2238675dde9c2b213633b7976ac6e2470ee02ae6ace20b'
-            '95725d734557ffb5a58f29875e23a1ed7ae9995c0b5b965b5125ed266666b3f1'
-            '25ec6b81a0b8728389384da22eda526e81ae6a50ab9faec5085cac4812756306'
-            '00dc14a2a16ede083e7e7d5e2f596013a6f2be77cadead2ddb54091b320b02e6')
+        'preloader.patch::https://github.com/manjaro/manjaro-tools/commit/32c9f536ccd8b2cf5eda09f8858449ad766eb60c.patch')
+sha256sums=('2daa924908e58e38296603c5a49e7c6a00ccb3506e9440ddde7fdd69d5885f03'
+            'a74bfb781373e4a95c12b9e4cb07ddb5327b552041a89e034b5d93b8eed54799')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -Np1 -i ${srcdir}/utf8.patch
-	patch -Np1 -i ${srcdir}/copy-flag.patch
-	patch -Np1 -i ${srcdir}/chroot_args.patch
-	patch -Np1 -i ${srcdir}/revert_copy-flag.patch
+	patch -Np1 -i "${srcdir}/preloader.patch"
 }
 
 build() {
