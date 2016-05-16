@@ -4,7 +4,7 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.11.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -12,14 +12,17 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        'preloader.patch::https://github.com/manjaro/manjaro-tools/commit/32c9f536ccd8b2cf5eda09f8858449ad766eb60c.patch')
+        'preloader.patch::https://github.com/manjaro/manjaro-tools/commit/32c9f536ccd8b2cf5eda09f8858449ad766eb60c.patch'
+        'audio-group.patch::https://github.com/manjaro/manjaro-tools/commit/bdadb4d3d7c92c6f8340305b4f305da4b328d74e.patch')
 sha256sums=('2daa924908e58e38296603c5a49e7c6a00ccb3506e9440ddde7fdd69d5885f03'
-            'a74bfb781373e4a95c12b9e4cb07ddb5327b552041a89e034b5d93b8eed54799')
+            'a74bfb781373e4a95c12b9e4cb07ddb5327b552041a89e034b5d93b8eed54799'
+            '6b6f08ab186367c0b89258a7194ac9430c93e12f7b9fa6ab63341e64914c6149')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
 	patch -Np1 -i "${srcdir}/preloader.patch"
+	patch -Np1 -i "${srcdir}/audio-group.patch"
 }
 
 build() {

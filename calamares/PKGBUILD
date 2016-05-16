@@ -2,7 +2,7 @@
 
 pkgname=calamares
 pkgver=2.2.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -54,6 +54,7 @@ package() {
 	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
 	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
+	install -Dm644 "../conf/users.conf" "$pkgdir/usr/share/calamares/modules/users.conf"
 	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
