@@ -37,7 +37,7 @@ package_linux318-zfs(){
   _pkgname=zfs
   pkgdesc='Kernel modules for the Zettabyte File System.'
   provides=("$_pkgname=$pkgver")
-  depends=('linux318' "zfs-utils=${pkgver}")
+  depends=('linux318-spl' "zfs-utils=${pkgver}")
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
@@ -52,7 +52,7 @@ package_linux318-spl(){
   _pkgname=spl
   pkgdesc='Solaris Porting Layer kernel modules.'
   provides=("$_pkgname=$pkgver")
-  depends=('linux318' "spl-utils=${pkgver}")
+  depends=('kmod' 'linux318' "spl-utils=${pkgver}")
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"

@@ -34,7 +34,7 @@ package_linux316-zfs(){
   _pkgname=zfs
   pkgdesc='Kernel modules for the Zettabyte File System.'
   provides=("$_pkgname=$pkgver")
-  depends=('linux316' "zfs-utils=${pkgver}")
+  depends=('linux316-spl' "zfs-utils=${pkgver}")
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
@@ -49,7 +49,7 @@ package_linux316-spl(){
   _pkgname=spl
   pkgdesc='Solaris Porting Layer kernel modules.'
   provides=("$_pkgname=$pkgver")
-  depends=('linux316' "spl-utils=${pkgver}")
+  depends=('kmod' 'linux316' "spl-utils=${pkgver}")
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
   cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"
