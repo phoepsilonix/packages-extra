@@ -4,7 +4,7 @@
 pkgbase=linux45-spl_zfs
 pkgname=('linux45-spl' 'linux45-zfs')
 pkgver=0.6.5.7
-pkgrel=1
+pkgrel=2
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")

@@ -24,7 +24,7 @@ pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
 	'sonar-mate-settings')
 ${_is_cal} && pkgname+=('sonar-calamares-branding')
-pkgver=20160514
+pkgver=20160521
 pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"

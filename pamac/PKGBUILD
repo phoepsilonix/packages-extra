@@ -1,8 +1,8 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=4.0.1
-_pkgver=4.0.0
+pkgver=4.1.0
+_pkgver=4.1.0
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -17,17 +17,14 @@ replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname.install
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz"
-        recurse.patch::https://github.com/manjaro/pamac/commit/2282fa561b6e9b3a93db081c59143743ad6aef1b.patch)
-sha256sums=('4a6a592b47713f6c9d058c240386f4f9456362ecda33251b324e18410d2e70d1'
-            '7840c045c02a49b75158f54faff35c7b12e32a02bdc364790835ef2639ae580a')
+source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
+sha256sums=('11378b4e3580242a24e2f3988b34f6310c65d19defeb69c096390964209fcf85')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"4.0.0\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
+  sed -i -e "s|\"4.1.0\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
   # patches here
-  patch -Np1 -i $srcdir/recurse.patch
 }
 
 build() {
