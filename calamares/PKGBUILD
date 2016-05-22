@@ -2,7 +2,7 @@
 
 pkgname=calamares
 pkgver=2.2.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -63,4 +63,6 @@ package() {
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
 	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
+        # Install launcher script
+  	install -Dm755 "../data/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
 }
