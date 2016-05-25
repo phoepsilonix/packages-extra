@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.11.7rc2
+pkgver=0.11.7rc3
 _pkgver=0.11.6
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
