@@ -24,18 +24,21 @@ makedepends=("$_linuxprefix-headers")
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
         "kernel-3.14.patch"
         "kernel-4.0.patch"
-        "kernel-4.2.patch")
+        "kernel-4.2.patch"
+        "kernel-4.7.patch")
 options=('!strip')
 sha256sums=('66a5d3ffb3fc8a63d87e381bbc627511597dfd25c4c37dda3b953ccf98f5d4bc'
             '7c5df135911c54edee7cd606ca2b248064557368c3348c3d2a46e4987054d80f'
             '80f89025a3de4b1decb82550bd89a3b4e43732b8f5104bac6e2e4b66d20d2d57'
-            '4019d3f06f69dc1f67b3bf2faa7632ed2d58eb2c22878d52daece0d496bb3810')
+            '4019d3f06f69dc1f67b3bf2faa7632ed2d58eb2c22878d52daece0d496bb3810'
+            '49b600e75f23d6298644a3b0aa0b6a8ab83d81f3cc2b9ba20592508b7688ddbc')
 
 prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
   patch -Np1 -i $srcdir/kernel-3.14.patch
   patch -Np1 -i $srcdir/kernel-4.0.patch
   patch -Np1 -i $srcdir/kernel-4.2.patch
+  patch -Np1 -i $srcdir/kernel-4.7.patch
 }
 
 build() {
