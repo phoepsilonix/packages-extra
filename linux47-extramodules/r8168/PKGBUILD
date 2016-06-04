@@ -21,13 +21,16 @@ depends=('glibc' "$_linuxprefix")
 makedepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
-source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('1f7aad3a066c152837e03e558ba720742e792d281c96c5412cff32d68875415b')
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgname-$pkgver.tar.gz" kernel-47.patch)
+sha256sums=('1f7aad3a066c152837e03e558ba720742e792d281c96c5412cff32d68875415b'
+            'e07268ca066f3ebefa1455465eabb601a4670deef56313580de80eb45ef2e1ce')
 install=$_pkgname.install
 
 prepare() {
 	# https://github.com/torvalds/linux/commit/a188222b6ed29404ac2d4232d35d1fe0e77af370
 	sed -i 's|NETIF_F_ALL_CSUM|NETIF_F_CSUM_MASK|g' "$_pkgname-$pkgver"/src/r8168_n.c
+	cd "$_pkgname-$pkgver"
+	patch -p1 -i "${srcdir}/kernel-47.patch"
 }
 
 build() {
