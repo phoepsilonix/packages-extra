@@ -2,7 +2,7 @@
 
 pkgname=calamares
 pkgver=2.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,17 +18,23 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$pkgver/calamares-$pkgver.tar.gz"
          git+https://github.com/calamares/calamares-manjaro.git#branch=2.2.x-stable
-         prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
+         prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch
+	 keyboard-layout.patch::https://github.com/calamares/calamares/commit/d11b3fb4c88aa198acc7583f306d473a275d3eb8.patch
+	 keyboard-layout-qlistview.patch::https://github.com/calamares/calamares/commit/90097f6bcb0845750f8065e2ce148d359f962e07.patch)
 
 sha256sums=('29478a25db155ba2eb9294d626d9b1f22961d3009e0f850ba039595c33c2ef4b'
             'SKIP'
-            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
+            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f'
+            'e6a226f7aae286a3de5631713ac9f9f41edf808355b0f13d9caa15c029afd4a6'
+            '1d481b8ba0c2cf8b33d7e583ac3e417cd78ada08f48bdf10f2234308884305e1')
 
 prepare() {
 	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares-${pkgver}
 	rm -r ${srcdir}/calamares-manjaro
 	cd ${srcdir}/calamares-${pkgver}
 	patch -Np1 -i ${srcdir}/prefer_budgie_before_gnome.patch
+	patch -Np1 -i ${srcdir}/keyboard-layout.patch
+	patch -Np1 -i ${srcdir}/keyboard-layout-qlistview.patch
 }
 
 build() {

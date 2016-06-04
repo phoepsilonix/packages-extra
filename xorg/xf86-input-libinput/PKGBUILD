@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 license=('custom')
 url="http://xorg.freedesktop.org/"
 depends=('libinput>=1.2.0')
-makedepends=('xorg-server-devel' 'X-ABI-XINPUT_VERSION=21.1' 'libxi' 'libx11' 'resourceproto' 'scrnsaverproto')
+makedepends=('xorg-server-devel' 'X-ABI-XINPUT_VERSION=21' 'libxi' 'libx11' 'resourceproto' 'scrnsaverproto')
 provides=('xf86-input-driver')
 conflicts=('xorg-server<1.17.0' 'X-ABI-XINPUT_VERSION<21' 'X-ABI-XINPUT_VERSION>=22')
 groups=('xorg-drivers' 'xorg')

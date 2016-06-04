@@ -19,12 +19,14 @@ install=spl_zfs.install
 
 source=(linux47-spl-01.patch
          linux47-spl-02.patch
+         linux47-spl-03.patch::https://github.com/zfsonlinux/spl/commit/628fc52137fc14377eba46c66b57d8d094e88507.patch
          linux47-zfs-01.patch::https://github.com/zfsonlinux/zfs/commit/fd4c7b7a73fda391f94f58530c86ffa5b2ef8e6f.patch
          linux47-zfs-02.patch::https://github.com/zfsonlinux/zfs/commit/68e8f59afb0fa1b388c7dbb8720ac6756d390146.patch
          linux47-zfs-03.patch::https://github.com/zfsonlinux/zfs/commit/9baaa7deae45c8556dfd79b2011234da5cb37b3a.patch
          linux47-zfs-04.patch::https://github.com/zfsonlinux/zfs/commit/8fbbc6b4cf13f73d517ec4e826a7069a958fa5ba.patch)
 sha256sums=('10f50adcb94c1964e03e5c540c4cb19e3161bb1021a55cdb245da409b2ef2a44'
             'a53d2a06c038dddc980664fd4b4ba33b1c25e55682893424f63c53c0e49b51e0'
+            '88888860b2d30f87a3b16d4b231d1ce8676a4ec3a0027775eef11efd5b8b448d'
             '5a92f719556a4f2566bd1130aa5cdefba2abb8cfddcfd094f04ee05480ff31cc'
             '99ba07b3a49fa0ca299cc53b2a82a9da14f7a90c15d7f1bfdef265f35fcc84da'
             '49e7d35921b71ee5b15daef312ad1813c181cbb52bb3087286d7dc923b4dc068'
@@ -41,6 +43,7 @@ prepare() {
   cd $srcdir/dkms/spl/$pkgver/source
   patch -Np1 -i $srcdir/linux47-spl-01.patch
   patch -Np1 -i $srcdir/linux47-spl-02.patch
+  patch -Np1 -i $srcdir/linux47-spl-03.patch
   ./autogen.sh
   rm -r $srcdir/dkms/zfs/$pkgver/source
   cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source
