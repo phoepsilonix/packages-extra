@@ -4,20 +4,19 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia-dkms
-pkgver=361.42
+pkgver=364.19
 pkgrel=1
-epoch=1
 pkgdesc="NVIDIA driver sources for linux"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-depends=('dkms' "nvidia-utils=${epoch}:$pkgver" 'linux-headers')
+depends=('dkms' "nvidia-utils" 'linux-headers')
 conflicts=('nvidia' 'nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 options=('!strip')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha512sums_i686=('f20af256d3ab4cbac0bdf59ada558c27827439ab0170e22824bf10f52a4a7944994904db8b062d0948f2e5470c3220ea4ff6e8dae74000ae29d2badc71022cba')
-sha512sums_x86_64=('fd6e16cb7488f522b200eb2f5a666c35d151b7afd72f0897fd44c4892be277ebe49e541d8a88156bfa06cc54d1f51888ade37f4c4f09207911d12c1433656a5a')
+sha256sums_i686=('9f891d4b22c43c9094b59af5c8474e29c70813110b346834a5cad81a224d4112')
+sha256sums_x86_64=('d7fcc78409d9ebc5663d1d925076199de2c64bbc16df84d9ed783f8f873e8c5d')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -37,7 +36,9 @@ DEST_MODULE_LOCATION[0]="/kernel/drivers/video"\
 BUILT_MODULE_NAME[1]="nvidia-uvm"\
 DEST_MODULE_LOCATION[1]="/kernel/drivers/video"\
 BUILT_MODULE_NAME[2]="nvidia-modeset"\
-DEST_MODULE_LOCATION[2]="/kernel/drivers/video"' dkms.conf
+DEST_MODULE_LOCATION[2]="/kernel/drivers/video"\
+BUILT_MODULE_NAME[3]="nvidia-drm"\
+DEST_MODULE_LOCATION[3]="/kernel/drivers/video"' dkms.conf
 }
 
 package() {
