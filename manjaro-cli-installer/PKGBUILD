@@ -2,8 +2,8 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=manjaro-cli-installer
-pkgver=20160504
-pkgrel=1
+pkgver=20160606
+pkgrel=4
 pkgdesc='Cli installer for Manjaro Linux'
 url='https://github.com/manjaro/manjaro-cli-installer'
 arch=('any')
@@ -12,7 +12,6 @@ depends=('dialog' 'dmidecode' 'gptfdisk' 'parted' 'pv'
 	'tcpdump' 'wget' 'manjaro-live-base')
 conflicts=('manjaro-livecd-cli-installer')
 replaces=('manjaro-livecd-cli-installer')
-backup=('etc/manjaro-tools/cli-installer.conf')
 source=("git+$url.git")
 sha256sums=('SKIP')
 
@@ -22,11 +21,11 @@ pkgver() {
 
 build() {
 	cd ${srcdir}/${pkgbase} #-${pkgver}
-	make SYSCONFDIR=/etc PREFIX=/usr
+	make PREFIX=/usr
 }
 
 package() {
 	cd ${srcdir}/${pkgname} #-${pkgver}
-	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install
+	make PREFIX=/usr DESTDIR=${pkgdir} install
 	ln -sf cli-installer ${pkgdir}/usr/bin/setup
 }
