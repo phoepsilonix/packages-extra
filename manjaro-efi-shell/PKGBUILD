@@ -4,7 +4,7 @@
 _url=https://raw.githubusercontent.com/tianocore/edk2/master
 
 pkgname=manjaro-efi-shell
-pkgver=20151210
+pkgver=20160514
 pkgrel=1
 pkgdesc="efi shell for manjaro-tools-iso"
 arch=('x86_64')
@@ -15,7 +15,7 @@ conflicts=('manjaro-tools-efi-shell')
 replaces=('manjaro-tools-efi-shell')
 source=("Shell-$pkgver.efi::${_url}/ShellBinPkg/UefiShell/X64/Shell.efi"
         "Shell_Full-$pkgver.efi::${_url}/EdkShellBinPkg/FullShell/X64/Shell_Full.efi")
-sha256sums=('dd42fea8328faa9debded11bf3cd06667fbd340d4e8e08d3c08f2de40925d5fc'
+sha256sums=('cd269e2961788dcf42e395410fd4124fe1223e74fa8281d9a20e2cfde7a39e36'
             'ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c')
 
 pkgver() {

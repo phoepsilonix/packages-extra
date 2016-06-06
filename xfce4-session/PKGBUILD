@@ -21,7 +21,6 @@ optdepends=('gnome-keyring: for keyring support when GNOME compatibility is enab
             'xlockmore: for locking screen with xflock4'
             'slock: for locking screen with xflock4')
 replaces=('xfce-utils')
-install=$pkgname.install
 source=(http://archive.xfce.org/src/xfce/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2
         xfce-polkit-gnome-authentication-agent-1.desktop
         add-lightdm-support.patch

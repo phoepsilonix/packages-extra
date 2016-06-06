@@ -15,7 +15,6 @@ depends=('libxfce4ui' 'upower' 'libnotify' 'hicolor-icon-theme')
 optdepends=('xfce4-panel: for the Xfce panel plugin'
             'lxpanel: for the LXDE panel plugin')
 makedepends=('intltool' 'xfce4-panel' 'lxpanel' 'autogen' 'xfce4-dev-tools')
-install=$pkgname.install
 source=(#http://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2
         $pkgname-$pkgver-$pkgrel.tar.bz2::http://git.xfce.org/xfce/xfce4-power-manager/snapshot/$pkgname-$_git.tar.bz2
         look-up-the-schema-for-light-lockers-settings-recursively.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=d058daf755f2ea28e6405975f3c7e7957d9d4df6
@@ -56,7 +55,7 @@ prepare() {
   patch -Np1 -i $srcdir/port-xfpm-errors-to-gdbus-errors.patch
   patch -Np1 -i $srcdir/port-to-dbus.patch
   patch -Np1 -i $srcdir/remove-remaining-org.xfce.unique.patch
-  sed -i /xfpm-unique/d libdbus/Makefile.am
+# sed -i /xfpm-unique/d libdbus/Makefile.am
   patch -Np1 -i $srcdir/drop-forgotten-dbus-client.h.patch
   patch -Np1 -i $srcdir/fix-suspend-hibernate-calls.patch
   patch -Np1 -i $srcdir/fix-some-warnings.patch

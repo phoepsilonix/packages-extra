@@ -5,8 +5,8 @@ _linuxprefix=linux46
 _extramodules=extramodules-4.6-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.6.5.6
-pkgrel=0.5
+pkgver=0.6.5.7
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -36,7 +36,7 @@ package_linux46-zfs(){
   _pkgname=zfs
   pkgdesc='Kernel modules for the Zettabyte File System.'
   provides=("$_pkgname=$pkgver")
-  depends+=("zfs-utils=${pkgver}")
+  depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
 
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
@@ -51,7 +51,7 @@ package_linux46-spl(){
   _pkgname=spl
   pkgdesc='Solaris Porting Layer kernel modules.'
   provides=("$_pkgname=$pkgver")
-  depends+=("spl-utils=${pkgver}")
+  depends+=('kmod' "spl-utils=${pkgver}")
 
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 

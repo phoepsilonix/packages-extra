@@ -3,7 +3,8 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.11.5
+pkgver=0.11.7
+_pkgver=0.11.6
 pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
@@ -11,19 +12,19 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        utf8.patch::https://github.com/manjaro/manjaro-tools/commit/1997440c299623164500255e0ea1f6faa95b14fe.patch)
-sha256sums=('465f26d97e53a745a0c191739587a9ed97f770ced790c8ec00bf31825abe2a5f'
-            '2b24633dcd66606d3a2238675dde9c2b213633b7976ac6e2470ee02ae6ace20b')
+source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz"
+        "mt-${pkgver}-roundup.patch::https://github.com/manjaro/manjaro-tools/compare/0.11.6...stable-0.11.x.patch")
+sha256sums=('2daa924908e58e38296603c5a49e7c6a00ccb3506e9440ddde7fdd69d5885f03'
+            '337647856715c1e755334c7289604c44c7dc55bcdb18b3ecd82d7388b71acba4')
 
 prepare() {
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	# patches here
-	patch -Np1 -i ${srcdir}/utf8.patch
+	patch -Np1 -i "${srcdir}/mt-${pkgver}-roundup.patch"
 }
 
 build() {
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr
 }
 
@@ -34,7 +35,7 @@ package_manjaro-tools-base() {
                     'manjaro-tools-iso: Manjaro Linux iso tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_base
 }
 
@@ -43,7 +44,7 @@ package_manjaro-tools-pkg() {
 	depends=('namcap' 'manjaro-tools-base')
 	conflicts=('devtools')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
@@ -59,6 +60,6 @@ package_manjaro-tools-iso() {
                     'sonar-iso-profiles: Sonar Linux ISO-Image profiles'
                     'qemu: quickly test isos')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
 }

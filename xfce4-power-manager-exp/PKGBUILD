@@ -1,0 +1,90 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
+
+_pkgname=xfce4-power-manager
+pkgname=$_pkgname-exp
+pkgver=1.4.4
+pkgrel=1.1
+_git=719234b98ec876b491b11a86959510802fc33a99
+pkgdesc="Power manager for Xfce desktop"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4')
+depends=('gio-sharp'
+	'glib2'
+	'hicolor-icon-theme'
+	'libdbus'
+	'libnotify'
+	'libxfce4ui'
+	'upower')
+optdepends=('xfce4-panel: for the Xfce panel plugin'
+            'lxpanel: for the LXDE panel plugin')
+makedepends=('intltool' 'xfce4-panel' 'lxpanel' 'autogen' 'xfce4-dev-tools')
+source=(http://git.xfce.org/xfce/xfce4-power-manager/snapshot/xfce4-power-manager-719234b98ec876b491b11a86959510802fc33a99.tar.bz2
+	Removed_all_dbus_includes_and_add_gio_dependency.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=42892ec44912c9eaef1e9e2ad4d96c07b59fabb5
+	Replaced_dbus_binding_tool_with_gdbus-codegen.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08b4182abda32902e67de91e1ac7d5bf78c3c600
+	Ported_xfpm-dbus_to_lowlevel_commands.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8e02aafbd0247e93baa267980c8860253907af2a
+	Ported_xfpm-dbus-monitor_to_lowlevel_commands.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=0b7bb8c0215ca2d5f51e2c052cd7cfa3f8a0eecc
+	Removed_dbus-binding-tool_annotation.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=08a1359cde81558847802669b897ae062d4b33fe
+	Ported_xfpm-errors_to_gdbus_errors.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=8499aa632ae2445d3cb7de64ced42063db0189e2
+	Ported_to_gdbus.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=721055567c1d0dfccfc519ba492b709a13f3b0fe
+	Port_to_GtkApplication.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=6eedcd26121fc99abe09d37f2c5d562450d485d0
+	Fix_CK_suspend-hibernate_calls.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=a055fa2e42204b484b6000afe1e519321948c455
+	Fix_some_runtime_warnings.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=fb190d279fab075e24f40dafc979a5d2565cbd3a
+	Removed_remaining_org.xfce.unique.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=52e74ba9d1267649f72381a3cbace9a0f86684f6
+	Look_up_the_schema_for_light-lockers_settings_recursively.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=c5acaa8649c8f5eaca14fd7e507b286d5ec68d82
+	Drop_forgotten_dbus-client.h_from_Makefile.patch::http://git.xfce.org/xfce/xfce4-power-manager/patch/?id=4655f711a6d9bf72f7f6276a1c65d2de696e4d1d)
+
+md5sums=('0a2821583210a2dcade01f3349940e2f'
+         'b8028c692c18981b3664f0fdce164b44'
+         '005be22b4d827e16db80ac619708d1a8'
+         '52371de9a77c309c80930f8c2d56a26f'
+         '66f81d1c092155474757ded1ddca2172'
+         '5b18758db8771d8ef1eac86e662932aa'
+         '375465f9a9d971d78a9dfe55b7c2d9a8'
+         'e6155f08c27e3b7065860e022db2ed2e'
+         '6fddf5772eea5d8f966edb7b6c385195'
+         '7c7a724fccc69cc3fd60d3da4909a4e3'
+         'b07854680dc2f158a0e600e5220397f4'
+         '7c0180bcf22199818e01e204409b52e8'
+         'f3cd31a7488bd382638f88c125d01616'
+         '22666bdb3e4cbd0e856daa8108bf2fdd')
+
+prepare() {
+  mv "$srcdir/$_pkgname-$_git" "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$_pkgname-$pkgver"
+  patch -Np1 -i $srcdir/Removed_all_dbus_includes_and_add_gio_dependency.patch
+  patch -Np1 -i $srcdir/Replaced_dbus_binding_tool_with_gdbus-codegen.patch
+  patch -Np1 -i $srcdir/Ported_xfpm-dbus_to_lowlevel_commands.patch
+  patch -Np1 -i $srcdir/Ported_xfpm-dbus-monitor_to_lowlevel_commands.patch
+  patch -Np1 -i $srcdir/Removed_dbus-binding-tool_annotation.patch
+  patch -Np1 -i $srcdir/Ported_xfpm-errors_to_gdbus_errors.patch
+  patch -Np1 -i $srcdir/Ported_to_gdbus.patch
+  patch -Np1 -i $srcdir/Port_to_GtkApplication.patch
+  patch -Np1 -i $srcdir/Fix_CK_suspend-hibernate_calls.patch
+  patch -Np1 -i $srcdir/Fix_some_runtime_warnings.patch
+  patch -Np1 -i $srcdir/Removed_remaining_org.xfce.unique.patch
+  patch -Np1 -i $srcdir/Look_up_the_schema_for_light-lockers_settings_recursively.patch
+  patch -Np1 -i $srcdir/Drop_forgotten_dbus-client.h_from_Makefile.patch
+}
+
+build() {
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-network-manager \
+    --enable-polkit \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+}

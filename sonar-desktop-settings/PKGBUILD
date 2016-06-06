@@ -24,8 +24,8 @@ pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
 	'sonar-mate-settings')
 ${_is_cal} && pkgname+=('sonar-calamares-branding')
-pkgver=20160329
-pkgrel=1
+pkgver=20160521
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -33,7 +33,6 @@ depends=('manjaro-base-skel')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
-install=$pkgbase.install
 
 _inst_dir(){
 	if [ -d $srcdir/$pkgbase/$1/skel ]; then

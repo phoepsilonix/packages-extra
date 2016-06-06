@@ -3,14 +3,13 @@
 
 pkgname=manjaro-welcome
 pkgver=15.12
-pkgrel=8
+pkgrel=9
 pkgdesc="The Manjaro Welcome utility provides a simple interface for accessing all the relevant information for a new user of Manjaro."
 arch=(any)
 url="https://github.com/manjaro/$pkgname"
 license=('GPL')
 depends=('python-gobject' 'pywebkitgtk')
 makedepends=('git')
-install=$pkgname.install
 options=(!emptydirs)
 _git=Yes
 _branch=master

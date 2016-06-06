@@ -5,7 +5,7 @@
 
 pkgname=mdm
 pkgver=2.0.7
-pkgrel=1
+pkgrel=2
 _git=694701be45385ed864952e9155d83430a23b799d
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
