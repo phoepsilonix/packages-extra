@@ -3,11 +3,11 @@
 # maintainer: Roland Singer <roland[at]manjaro[dog]org>
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-bbswitch
 _pkgname=bbswitch
 pkgver=0.8
-pkgrel=0.0
+pkgrel=0.1
 pkgdesc="kernel module allowing to switch dedicated graphics card on Optimus laptops"
 arch=('i686' 'x86_64')
 url="http://github.com/Bumblebee-Project/bbswitch"

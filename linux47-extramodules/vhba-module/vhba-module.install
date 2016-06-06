@@ -1,4 +1,4 @@
-EXTRAMODULES=extramodules-4.7-rc1-MANJARO
+EXTRAMODULES=extramodules-4.7-MANJARO
 
 _updatemod() {
   echo "  > Updating module dependencies..."

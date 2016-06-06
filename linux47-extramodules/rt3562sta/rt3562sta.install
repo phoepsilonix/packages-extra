@@ -1,5 +1,5 @@
 rebuild_module_dependencies() {
-	EXTRAMODULES=extramodules-4.7-rc1-MANJARO
+	EXTRAMODULES=extramodules-4.7-MANJARO
 	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 

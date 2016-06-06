@@ -6,11 +6,11 @@
 
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=364.19
-pkgrel=0.0
+pkgrel=0.1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -23,11 +23,12 @@ conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=(linux46.patch::http://pastebin.com/raw/SEzxqaJD linux47.patch)
+source=(linux46.patch::http://pastebin.com/raw/SEzxqaJD linux47.patch linux47-uvm.patch)
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 md5sums=('3064bd437b26adac246f301f54f2814c'
-         '0b68fdfd7b43a20e47a3ddb06004e820')
+         'ddc9aeebbd6b9c7315b88e7aa848b393'
+         '2def145caceaa2193079473ac6020937')
 md5sums_i686=('8a4015213c4a8f1c80e9520d04a32a7b')
 md5sums_x86_64=('ad7a0b1855b3913390fb75b4cc3a26dc')
 
@@ -40,6 +41,9 @@ prepare() {
     # patches here
     patch -Np1 -i $srcdir/linux46.patch
     patch -Np1 -i $srcdir/linux47.patch
+    if [[ "$CARCH" = "x86_64" ]]; then
+        patch -Np1 -i $srcdir/linux47-uvm.patch
+    fi
 }
 
 build() {

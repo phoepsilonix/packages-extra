@@ -5,11 +5,11 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-broadcom-wl
 _pkgname=broadcom-wl
 pkgver=6.30.223.248
-pkgrel=0.0
+pkgrel=0.1
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')

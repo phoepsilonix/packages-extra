@@ -2,11 +2,11 @@
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.6.5.7
-pkgrel=0.0
+pkgrel=0.1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -43,7 +43,7 @@ prepare() {
   cd $srcdir/dkms/spl/$pkgver/source
   patch -Np1 -i $srcdir/linux47-spl-01.patch
   patch -Np1 -i $srcdir/linux47-spl-02.patch
-  patch -Np1 -i $srcdir/linux47-spl-03.patch
+  #patch -Np1 -i $srcdir/linux47-spl-03.patch
   ./autogen.sh
   rm -r $srcdir/dkms/zfs/$pkgver/source
   cp -r /usr/src/zfs-$pkgver $srcdir/dkms/zfs/$pkgver/source

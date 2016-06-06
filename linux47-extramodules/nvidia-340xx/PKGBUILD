@@ -5,11 +5,11 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
 pkgver=340.96
-pkgrel=0.0
+pkgrel=0.1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."

@@ -8,11 +8,11 @@
 # Contributor: Ignas Anikevicius <anikevicius ð gmail đ com>
 
 _linuxprefix=linux47
-_extraver=extramodules-4.7-rc1-MANJARO
+_extraver=extramodules-4.7-MANJARO
 _pkgname=tp_smapi
 pkgname=$_linuxprefix-tp_smapi
 pkgver=0.41
-pkgrel=0.0
+pkgrel=0.1
 pkgdesc="Modules for ThinkPad's SMAPI functionality"
 arch=(i686 x86_64)
 url='https://github.com/evgeni/tp_smapi'

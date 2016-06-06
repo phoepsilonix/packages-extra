@@ -7,12 +7,12 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
 pkgver=5.0.20
 _pkgver="${pkgver}_OSE"
-pkgrel=0.0
+pkgrel=0.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')

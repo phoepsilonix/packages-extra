@@ -8,11 +8,11 @@
 # Maintainer: Rob McCathie <rob@manjaro.org>
 
 _linuxprefix=linux47
-_extramodules=extramodules-4.7-rc1-MANJARO
+_extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-r8168
 _pkgname=r8168
 pkgver=8.040.00
-pkgrel=0.0
+pkgrel=0.1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
