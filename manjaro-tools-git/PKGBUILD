@@ -2,11 +2,11 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 _pkgbase=manjaro-tools
-_ver=0.11.5
+_ver=0.12.0
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r1909.6a8a408
+pkgver=r2046.eca858e
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
@@ -14,14 +14,14 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('git' 'docbook2x')
-source=("git+$url.git#commit=6a8a408")
+source=("git+$url.git#branch=stable-0.12.x")
 sha256sums=('SKIP')
 
 prepare() {
 	cd ${srcdir}/${_pkgbase}
 	# patches here
-	#sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
-	sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
+	sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
+	#sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
 }
 
 pkgver() {

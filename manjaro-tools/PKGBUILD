@@ -3,23 +3,20 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.11.7
-pkgrel=3
+pkgver=0.11.901
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        "cli-installer-kernel-typo.patch::https://github.com/manjaro/manjaro-tools/commit/766427cfa38720e0ed13f1ea26cb4e317d6ffa03.patch")
-sha256sums=('335d8b9d9d68f4dbfa1b108fa66bfacb7da2e33de6287718f9c111059b375c78'
-            'e4d7947a7755570bbf451aa66125d61a5d513b06ff83e6616a38f96cb337ae49')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('c5e5fe508a8c371a749793a7937bacc0ecbf4039282d13136616f4776e50273f')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -Np1 -i "${srcdir}/cli-installer-kernel-typo.patch"
 }
 
 build() {
