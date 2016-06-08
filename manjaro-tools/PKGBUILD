@@ -11,12 +11,18 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('c5e5fe508a8c371a749793a7937bacc0ecbf4039282d13136616f4776e50273f')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "devtools-backport.patch::https://github.com/manjaro/manjaro-tools/commit/e44826a2e14bc2e55d3c462a8de05329d161a9d2.patch"
+        "fix-mounts.patch::https://github.com/manjaro/manjaro-tools/commit/b2a946b34d93947a2deb9d177290c0d63f1bcbec.patch")
+sha256sums=('c5e5fe508a8c371a749793a7937bacc0ecbf4039282d13136616f4776e50273f'
+            'be7fc53230b17e32b64f7cbc58dbf2c265691a2fcdc7435f808986ebb0a40ac1'
+            'f3c81b382e3a69a2529b77479fd99586e4ce97d691e181aa643b239cbffde5a1')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -p1 -i "srcdir/devtools-backport.patch"
+	patch -p1 -i "srcdir/fix-mounts.patch"
 }
 
 build() {
