@@ -48,7 +48,7 @@ depends=('python-gobject' 'pywebkitgtk' 'manjaro-features')
 }
 
 package_manjaro-features-dev() {
-pkgver=16.08-dev
+pkgver=16.08dev
 conflicts=(manjaro-features)
 provides=(manjaro-features)
 pkgrel=1
