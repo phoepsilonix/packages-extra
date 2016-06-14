@@ -4,20 +4,20 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.6.4
+pkgver=5.6.5
 pkgrel=1.1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
 license=('LGPL')
-depends=('kdelibs4support' 'kcmutils' 'pciutils' 'glu' 'libraw1394' 'kwayland')
+depends=('kdelibs4support' 'kcmutils' 'pciutils' 'glu' 'libraw1394' 'kwayland' 'kdesignerplugin')
 makedepends=('extra-cmake-modules' 'kdoctools' 'python' 'plasma-framework')
 conflicts=('kdebase-workspace')
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
         'manjaro-logo.svg'
         'kcm-about-distrorc')
-md5sums=('28bfbc16d155be0e4a1b4de3dd42415a'
+md5sums=('968f0dcd88e96e0e52c561e333b57f2b'
          '70743e3b0115c209d828f6323e7ba449'
          '97f52dc1d8dcfc96b5de7c9f823a021b')
 
@@ -30,7 +30,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
