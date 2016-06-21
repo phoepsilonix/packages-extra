@@ -3,26 +3,20 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.12.1
-pkgrel=3
+pkgver=0.12.2
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	"log_dir.patch::https://github.com/manjaro/manjaro-tools/commit/417e0ca1605699a242127aea5a2e2d064d14c73b.patch"
-	"error_handling.patch::https://github.com/manjaro/manjaro-tools/commit/52ce7f86befcdce48dfea0e42539ac954971d840.patch")
-sha1sums=('7359cf7b2a7e638fb91f43df41642bfe6dc3e3c4'
-          '9b6b75cd7e563ac5b625d5ae3c5057c15f65e14e'
-          '7c1c663787283d8e11ca0d3b2e71285c5ed50075')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha1sums=('b2b1d200664ebc3df9b8c39c5455531a0493455e')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -Np1 -i "${srcdir}/log_dir.patch"
-	patch -Rp1 -i "${srcdir}/error_handling.patch"
 }
 
 build() {
