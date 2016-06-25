@@ -1,62 +1,67 @@
 # Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
-pkgbase=linux318-spl_zfs
-pkgname=('linux318-spl' 'linux318-zfs')
+_linuxprefix=linux318
+_extramodules=extramodules-3.18-MANJARO
+_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+pkgbase=$_linuxprefix-spl_zfs
+pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.6.5.7
-pkgrel=2
+pkgrel=3
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
-depends=('linux318')
-makedepends=("spl-dkms>=$pkgver" "zfs-dkms>=$pkgver"
-             'dkms'
-             'linux318' 'linux318-headers')
-groups=('linux318-extramodules')
+depends=("$_linuxprefix" "kmod")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
 install=install
-
-prepare() {
-  # dkms need modification to be run as user
-  cp -r /var/lib/dkms .
-  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-}
+source=("http://archive.zfsonlinux.org/downloads/zfsonlinux/spl/spl-${pkgver}.tar.gz"
+        "http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz")
+sha256sums=('dc8690e407183eeb7a6af0e7692d6e0a1cd323d51dd1aa492522c421b1924ea0'
+            '4a9e271bb9a6af8d564e4d5800e4fff36224f1697b923a7253659bdda80dc590')
 
 build() {
-  _extraver=extramodules-3.18-MANJARO
-  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
-
-  # build host modules
-  msg2 'Build modules'
-  dkms --dkmsframework dkms.conf build "spl/$pkgver" -k "$_kernver"
-  dkms --dkmsframework dkms.conf build "zfs/$pkgver" -k "$_kernver"
-}
-
-package_linux318-zfs(){
-  _extraver=extramodules-3.18-MANJARO
-  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
-  _pkgname=zfs
-  pkgdesc='Kernel modules for the Zettabyte File System.'
-  provides=("$_pkgname=$pkgver")
-  depends=('linux318-spl' "zfs-utils=${pkgver}")
-
-  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/zfs/$pkgver/$_kernver/$CARCH/module"
-  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
-  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+  cd "${srcdir}/spl-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-config=kernel
+  make
+  cd "${srcdir}/zfs-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
+              --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
+              --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-spl-obj=${srcdir}/spl-${pkgver} \
+              --with-spl=${srcdir}/spl-${pkgver}
+  make
 }
 
 package_linux318-spl(){
-  _extraver=extramodules-3.18-MANJARO
-  _kernver="$(cat /usr/lib/modules/${_extraver}/version)"
   _pkgname=spl
   pkgdesc='Solaris Porting Layer kernel modules.'
   provides=("$_pkgname=$pkgver")
-  depends=('kmod' 'linux318' "spl-utils=${pkgver}")
+  depends+=("spl-utils=${pkgver}")
 
-  install -dm755 "$pkgdir/usr/lib/modules/$_extraver"
-  cd "dkms/spl/$pkgver/$_kernver/$CARCH/module"
-  install -m644 * "$pkgdir/usr/lib/modules/$_extraver"
+  cd "${srcdir}/spl-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extraver'/" "$startdir/install"
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}
+
+package_linux318-zfs(){
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
+
+  cd "${srcdir}/zfs-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
 }
