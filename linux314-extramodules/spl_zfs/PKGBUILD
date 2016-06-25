@@ -7,7 +7,7 @@ _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.6.5.7
-pkgrel=1
+pkgrel=2
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -35,7 +35,8 @@ build() {
               --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
               --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
               --with-linux=/usr/lib/modules/${_kernver}/build \
-              --with-spl-obj=${srcdir}/spl-${pkgver}
+              --with-spl-obj=${srcdir}/spl-${pkgver} \
+              --with-spl=${srcdir}/spl-${pkgver}
   make
 }
 
