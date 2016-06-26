@@ -4,19 +4,25 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.12.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha1sums=('b2b1d200664ebc3df9b8c39c5455531a0493455e')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "remove-broken-symlink.patch::https://github.com/manjaro/manjaro-tools/commit/ee12690469641d4552f3fbc9d1d7978e556bad28.patch"
+        "fix-logic-error.patch::https://github.com/manjaro/manjaro-tools/commit/e3b6be3333cc47099b4f90cd1d872796c8f47b0a.patch")
+sha1sums=('b2b1d200664ebc3df9b8c39c5455531a0493455e'
+          'dfa4b68a17b020efab36f0c01ee5ce60d64a9798'
+          'd504c2c1f042d8eb04255f73e6c4cb12418e71e3')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -Np1 -i "${srcdir}/remove-broken-symlink.patch"
+	patch -Np1 -i "${srcdir}/fix-logic-error.patch"
 }
 
 build() {
