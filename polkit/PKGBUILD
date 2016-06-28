@@ -3,7 +3,7 @@
 
 pkgname=polkit
 pkgver=0.113
-pkgrel=4.1
+pkgrel=4.2
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=(i686 x86_64)
 license=(LGPL)
@@ -13,7 +13,7 @@ makedepends=(intltool gtk-doc gobject-introspection git)
 install=polkit.install
 source=(http://www.freedesktop.org/software/polkit/releases/$pkgname-$pkgver.tar.gz x11vars.patch)
 md5sums=('4b77776c9e4f897dcfe03b2c34198edf'
-         '0909f3ecc496783e9496454e3a6e9d87')
+         '6483b6cbde24d0b3eb3ef137db06e617')
 
 prepare() {
   cd $pkgname-$pkgver
