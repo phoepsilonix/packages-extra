@@ -1,0 +1,18 @@
+diff -Npur polkit-0.113.orig/src/programs/pkexec.c polkit-0.113/src/programs/pkexec.c
+--- polkit-0.113.orig/src/programs/pkexec.c	2015-06-18 22:20:50.000000000 +0200
++++ polkit-0.113/src/programs/pkexec.c	2016-06-28 23:16:53.439339179 +0200
+@@ -483,6 +483,14 @@ main (int argc, char *argv[])
+      */
+     "DISPLAY",
+     "XAUTHORITY",
++    "KDE_FULL_SESSION",
++    "KDE_SESSION_VERSION",
++    "DESKTOP_SESSION",
++    "GNOME_DESKTOP_SESSION_ID",
++    "XDG_CURRENT_DESKTOP",
++    "QT_STYLE_OVERRIDE",
++    "QT_XCB_FORCE_SOFTWARE_OPENGL",
++    "QT_QPA_PLATFORMTHEME",
+     NULL
+   };
+   GPtrArray *saved_env;
