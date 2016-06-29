@@ -3,7 +3,7 @@
 
 pkgname=("zfs-dkms")
 pkgver=0.6.5.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Kernel modules for the Zettabyte File System."
 depends=("spl-dkms=${pkgver}" "zfs-utils=${pkgver}" "dkms")
 arch=("any")
@@ -29,6 +29,4 @@ build() {
 package() {
    install -d ${pkgdir}/usr/src/zfs-${pkgver}
    cp -a ${srcdir}/zfs-${pkgver}/ ${pkgdir}/usr/src/
-   # fix dkms.conf
-   sed -i 's|${kernelver}/${arch}|build|g' ${pkgdir}/usr/src/zfs-${pkgver}/dkms.conf
 }
