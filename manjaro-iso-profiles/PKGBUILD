@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_mt_ver=0.11.5
+_mt_ver=0.12.2
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles-base'
@@ -9,16 +9,16 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-community'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
-pkgver=16.04
-pkgrel=2
+pkgver=16.07
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
 # options=('!strip')
-_git=2f9f8c2dcf00bdac7e93a49a20dda7053f31ad6a
+_git=e7139d7fc274ff7b9d8c6d0ac522090c8c202e78
 source=(#"${pkgbase}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
         "${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('a47933cf28f721bf1b7723aac61ba70cacac2466f020e2b2459d9d7d9028d97d')
+sha256sums=('405edc984d1a01f6a03c660b41002a923bcc42459ea6df40edca90bcd8ec3f70')
 
 prepare(){
  	# remove this
