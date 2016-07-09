@@ -17,5 +17,4 @@ sha256sums=('9dd69627730107041421f453eebef585251a50f6ec2720de0bce2443736598e2')
 package() {
 		local _gemdir="$(ruby -e'puts Gem.default_dir')"
 		gem install --ignore-dependencies --no-user-install --no-ri --no-rdoc -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" "${_gemname_}-${pkgver}.gem"
-		install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

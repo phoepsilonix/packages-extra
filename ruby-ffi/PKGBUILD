@@ -20,4 +20,7 @@ package() {
 		rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 		install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 		install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+		# Removing files with references to $pkgdir
+		#find "$pkgdir" -depth -type f -name "*" -exec rm {} \;
 }
