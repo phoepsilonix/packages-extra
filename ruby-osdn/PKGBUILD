@@ -1,0 +1,21 @@
+# Maintainer: artoo <artoo@manjaro.org>
+
+_gemname_='osdn-cli'
+pkgname="ruby-${_gemname_}"
+pkgver='0.1.4'
+pkgrel=1
+pkgdesc='Non-intaractive manipulation tool for OSDN'
+arch=('any')
+url='https://osdn.jp/'
+# what's the license?
+license=('GPL2')
+depends=('ruby')
+options=('!emptydirs')
+source=("https://rubygems.org/downloads/${_gemname_}-${pkgver}.gem")
+noextract=("${_gemname_}-${pkgver}.gem")
+sha256sums=('d49ddca6e7660e36c1d6bcefb754841d0a586c28836f1282d9663f2df6f64bde')
+
+package() {
+		local _gemdir="$(ruby -e'puts Gem.default_dir')"
+		gem install --ignore-dependencies --no-user-install --no-ri --no-rdoc -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" "${_gemname_}-${pkgver}.gem"
+}
