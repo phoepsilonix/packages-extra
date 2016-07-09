@@ -1,0 +1,23 @@
+# Maintainer: artoo <artoo@manjaro.org>
+
+_gemname=ffi
+pkgname=ruby-$_gemname
+pkgver=1.9.10
+pkgrel=1
+pkgdesc='Ruby FFI'
+arch=('i686' 'x86_64')
+url='http://wiki.github.com/ffi/ffi'
+license=('BSD')
+depends=('ruby')
+options=('!emptydirs')
+noextract=("$_gemname-$pkgver.gem")
+source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
+sha256sums=('b2fbef9933e975b0fc850547fca54a086c70a6fea5c659c5ceac037e6fbeb5d4')
+
+package() {
+  local _gemdir="$(ruby -e'puts Gem.default_dir')"
+  gem install --ignore-dependencies --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir/usr/bin" $_gemname-$pkgver.gem
+  rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

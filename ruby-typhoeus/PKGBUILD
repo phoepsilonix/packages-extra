@@ -1,0 +1,21 @@
+# Maintainer: artoo <artoo@manjaro.org>
+
+_gemname_=typhoeus
+pkgname=ruby-${_gemname_}
+pkgver=1.0.2
+pkgrel=1
+pkgdesc='Typhoeus runs HTTP requests in parallel while cleanly encapsulating handling logic.'
+arch=('any')
+url='https://github.com/typhoeus/typhoeus'
+license=('MIT')
+depends=('ruby' 'ruby-ethon>=0.9.0')
+options=('!emptydirs')
+source=("https://rubygems.org/downloads/${_gemname_}-${pkgver}.gem")
+noextract=("${_gemname_}-${pkgver}.gem")
+sha256sums=('88903b95e42285aee59dcd8a32501afde90e5785aeb2bf883300e1bd9955be78')
+
+package() {
+		local _gemdir="$(ruby -e'puts Gem.default_dir')"
+		gem install --ignore-dependencies --no-user-install --no-ri --no-rdoc -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" "${_gemname_}-${pkgver}.gem"
+		install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
