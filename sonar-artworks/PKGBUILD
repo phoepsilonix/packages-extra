@@ -1,0 +1,33 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <artoo@manjaro.org>
+
+pkgbase=sonar-artworks
+pkgname=('sonar-backgrounds' 'sonar-calamares-branding')
+pkgver=20160709
+pkgrel=1
+arch=('any')
+url="https://github.com/manjaro/sonar-artworks"
+license=('GPL')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	date +%Y%m%d
+}
+
+package_sonar-backgrounds() {
+	pkgdesc='Sonar Linux mate settings'
+
+	install -d ${pkgdir}/usr/share/backgrounds
+	cp $srcdir/$pkgbase/backgrounds/* ${pkgdir}/usr/share/backgrounds
+
+}
+
+package_sonar-calamares-branding() {
+	pkgdesc='Sonar Linux calamares branding'
+	depends=('calamares')
+
+	install -d ${pkgdir}/usr/share/calamares/branding/sonar
+	cp $srcdir/$pkgbase/calamares-branding/* ${pkgdir}/usr/share/calamares/branding/sonar
+}

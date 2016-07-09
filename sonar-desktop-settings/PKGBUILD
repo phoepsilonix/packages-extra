@@ -1,31 +1,11 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_is_cal=false
-
-_profiles=('xfce-minimal'
-	'kde-minimal'
-	'xfce'
-	'kde'
-	'lxqt-minimal'
-	'bspwm'
-	'budgie'
-	'cinnamon'
-	'deepin'
-	'gnome'
-	'i3'
-	'lxde'
-	'lxqt'
-	'mate'
-	'netbook'
-	'pantheon')
-
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
-	'sonar-mate-settings')
-${_is_cal} && pkgname+=('sonar-calamares-branding')
-pkgver=20160521
-pkgrel=3
+		'sonar-mate-settings')
+pkgver=20160709
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -51,38 +31,22 @@ _inst_dir(){
 	fi
 }
 
-_get_conflicts(){
-	local c=()
-	for p in ${_profiles[@]};do
-		if [[ "$pkgname" != "manjaro-$p-settings" ]];then
-			c+=("manjaro-$p-settings")
-		fi
-	done
-	echo ${c[@]}
-}
-
 pkgver() {
 	date +%Y%m%d
 }
 
 package_sonar-mate-settings() {
 	pkgdesc='Sonar Linux mate settings'
-	conflicts=( $(_get_conflicts) 'sonar-gnome-settings' )
+	conflicts=('sonar-desktop-settings')
+	provides=('sonar-desktop-settings')
 
 	_inst_dir 'sonar/mate'
 }
 
 package_sonar-gnome-settings() {
 	pkgdesc='Sonar Linux gnome settings'
-	conflicts=( $(_get_conflicts) 'sonar-mate-settings' )
+	conflicts=('sonar-desktop-settings')
+	provides=('sonar-desktop-settings')
 
 	_inst_dir 'sonar/gnome'
-}
-
-package_sonar-calamares-branding() {
-	pkgdesc='Sonar Linux calamares branding'
-	depends=('calamares')
-
-	install -d ${pkgdir}/usr/share/calamares/branding/sonar
-	cp $srcdir/$pkgbase/sonar/calamares/branding/sonar/* ${pkgdir}/usr/share/calamares/branding/sonar
 }
