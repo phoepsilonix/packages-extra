@@ -7,8 +7,8 @@ pkgrel=1
 pkgdesc='JSON implementation as a Ruby extension in C'
 arch=('i686' 'x86_64')
 url='http://flori.github.io/json/'
-license=('GPL')
-depends=('ruby' 'sh')
+license=('RUBY')
+depends=('ruby')
 optdepends=('jruby' 'java-environment')
 options=('!emptydirs')
 noextract=("${_gemname}-${pkgver}.gem")
@@ -21,6 +21,8 @@ package() {
 		gem install --no-user-install --ignore-dependencies -i "${pkgdir}/${_gemdir}" \
 		-n "${pkgdir}/usr/bin" "${_gemname}-${pkgver}.gem"
 
-		rm "${pkgdir}/${_gemdir}/cache/${_gemname}-${pkgver}.gem"
+		rm -rf "${pkgdir}/${_gemdir}"/{cache,extensions}
+
+		rm -rf "$pkgdir/${_gemdir}/gems/${_gemname}-${pkgver}/ext"
 }
 
