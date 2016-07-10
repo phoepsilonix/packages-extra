@@ -3,7 +3,7 @@
 _gemname=json
 pkgname=ruby-${_gemname}
 pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='JSON implementation as a Ruby extension in C'
 arch=('i686' 'x86_64')
 url='http://flori.github.io/json/'
@@ -25,7 +25,7 @@ package() {
 
 		rm -rf "$pkgdir/${_gemdir}/gems/${_gemname}-${pkgver}/ext"
 
-		for f in gem.build_complete gem_make.out mkmf.log;do
+		for f in gem_make.out mkmf.log;do
 				find "$pkgdir" -depth -type f -name "$f" -exec rm {} \;
 		done
 }

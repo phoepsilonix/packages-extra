@@ -3,7 +3,7 @@
 _gemname=ffi
 pkgname=ruby-${_gemname}
 pkgver=1.9.13
-pkgrel=1
+pkgrel=2
 pkgdesc='Ruby FFI'
 arch=('i686' 'x86_64')
 url='http://github.com/ffi/ffi'
@@ -22,7 +22,7 @@ package() {
 
 		rm -rf "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/ext"
 
-		for f in gem.build_complete gem_make.out mkmf.log;do
+		for f in gem_make.out mkmf.log;do
 				find "$pkgdir" -depth -type f -name "$f" -exec rm {} \;
 		done
 
