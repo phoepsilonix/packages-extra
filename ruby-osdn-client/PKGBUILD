@@ -1,7 +1,7 @@
 # Maintainer: artoo <artoo@manjaro.org>
 
-_gemname_=osdn-client
-pkgname=ruby-${_gemname_}
+_gemname=osdn-client
+pkgname=ruby-${_gemname}
 pkgver=0.0.20160304
 pkgrel=1
 pkgdesc='OSDN API basic client library for ruby'
@@ -10,11 +10,13 @@ url='https://osdn.jp/'
 license=('MIT')
 depends=('ruby-typhoeus' 'ruby-json')
 options=('!emptydirs')
-noextract=("${_gemname_}-${pkgver}.gem")
-source=("https://rubygems.org/downloads/${_gemname_}-${pkgver}.gem")
+noextract=("${_gemname}-${pkgver}.gem")
+source=("https://rubygems.org/downloads/${_gemname}-${pkgver}.gem")
 sha256sums=('1044f42e8174b60399694be170eb558ea67000a274c87ba97ecf8ef696c6bb65')
 
 package() {
 		local _gemdir="$(ruby -e'puts Gem.default_dir')"
-		gem install --ignore-dependencies --no-user-install -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" "${_gemname_}-${pkgver}.gem"
+		gem install --ignore-dependencies --no-user-install -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" "${_gemname}-${pkgver}.gem"
+
+		rm "${pkgdir}/${_gemdir}/cache/${_gemname}-${pkgver}.gem"
 }
