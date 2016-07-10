@@ -21,7 +21,7 @@ package() {
 		gem install --no-user-install --ignore-dependencies -i "${pkgdir}/${_gemdir}" \
 		-n "${pkgdir}/usr/bin" "${_gemname}-${pkgver}.gem"
 
-		rm -rf "${pkgdir}/${_gemdir}"/{cache,extensions}
+		rm -rf "${pkgdir}/${_gemdir}/cache"
 
 		rm -rf "$pkgdir/${_gemdir}/gems/${_gemname}-${pkgver}/ext"
 }
