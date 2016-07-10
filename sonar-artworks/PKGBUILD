@@ -1,6 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
+_dist='Sonar'
+
 pkgbase=sonar-artworks
 pkgname=('sonar-backgrounds' 'sonar-calamares-branding')
 pkgver=16.07
@@ -27,8 +29,8 @@ package_sonar-calamares-branding() {
 	install -d ${pkgdir}/usr/share/calamares/branding/sonar
 	cp ${srcdir}/${pkgbase}/calamares-branding/* ${pkgdir}/usr/share/calamares/branding/sonar
 
-	sed -e "s|@version@|${pkgver}|g" -e "s|@dist@|Sonar|g" \
+	sed -e "s|@version@|${pkgver}|g" -e "s|@dist@|${_dist}|g" \
 		-i ${pkgdir}/usr/share/calamares/branding/sonar/branding.desc
 
-	sed -e "s|@dist@|Sonar|g" -i ${pkgdir}/usr/share/calamares/branding/sonar/show.qml
+	sed -e "s|@dist@|${_dist}|g" -i ${pkgdir}/usr/share/calamares/branding/sonar/show.qml
 }
