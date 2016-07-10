@@ -24,5 +24,9 @@ package() {
 		rm -rf "${pkgdir}/${_gemdir}/cache"
 
 		rm -rf "$pkgdir/${_gemdir}/gems/${_gemname}-${pkgver}/ext"
+
+		for f in gem.build_complete gem_make.out mkmf.log;do
+				find "$pkgdir" -depth -type f -name "$f" -exec rm {} \;
+		done
 }
 

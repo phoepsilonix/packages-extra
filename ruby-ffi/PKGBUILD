@@ -22,6 +22,10 @@ package() {
 
 		rm -rf "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/ext"
 
+		for f in gem.build_complete gem_make.out mkmf.log;do
+				find "$pkgdir" -depth -type f -name "$f" -exec rm {} \;
+		done
+
 		install -D -m644 "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/COPYING" "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 
 		install -D -m644 "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
