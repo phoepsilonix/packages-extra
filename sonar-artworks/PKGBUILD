@@ -3,7 +3,7 @@
 
 pkgbase=sonar-artworks
 pkgname=('sonar-backgrounds' 'sonar-calamares-branding')
-pkgver=20160709
+pkgver=16.07
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/sonar-artworks"
@@ -12,15 +12,11 @@ makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
 
-pkgver() {
-	date +%Y%m%d
-}
-
 package_sonar-backgrounds() {
 	pkgdesc='Sonar Linux mate settings'
 
 	install -d ${pkgdir}/usr/share/backgrounds
-	cp $srcdir/$pkgbase/backgrounds/* ${pkgdir}/usr/share/backgrounds
+	cp ${srcdir}/${pkgbase}/backgrounds/* ${pkgdir}/usr/share/backgrounds
 
 }
 
@@ -29,5 +25,10 @@ package_sonar-calamares-branding() {
 	depends=('calamares')
 
 	install -d ${pkgdir}/usr/share/calamares/branding/sonar
-	cp $srcdir/$pkgbase/calamares-branding/* ${pkgdir}/usr/share/calamares/branding/sonar
+	cp ${srcdir}/${pkgbase}/calamares-branding/* ${pkgdir}/usr/share/calamares/branding/sonar
+
+	sed -e "s|@version@|${pkgver}|g" -e "s|@dist@|Sonar|g" \
+		-i ${pkgdir}/usr/share/calamares/branding/sonar/branding.desc
+
+	sed -e "s|@dist@|Sonar|g" -i ${pkgdir}/usr/share/calamares/branding/sonar/show.qml
 }
