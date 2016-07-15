@@ -9,8 +9,8 @@ _linuxprefix=linux318
 _extramodules=extramodules-3.18-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=364.19
-pkgrel=4
+pkgver=367.35
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -25,8 +25,8 @@ install=nvidia.install
 options=(!strip)
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums_i686=('8a4015213c4a8f1c80e9520d04a32a7b')
-md5sums_x86_64=('ad7a0b1855b3913390fb75b4cc3a26dc')
+md5sums_i686=('42db6f6485c3c337c7c756380ec64b7a')
+md5sums_x86_64=('24f1fc19fe10bcc6ff264fb5034c4ccc')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
