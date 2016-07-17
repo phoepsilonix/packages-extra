@@ -4,7 +4,7 @@
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
 		'sonar-mate-settings')
-pkgver=20160709
+pkgver=20160717
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
