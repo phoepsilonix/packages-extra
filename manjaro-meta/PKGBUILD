@@ -9,7 +9,7 @@ pkgname=('manjaro-alsa'
 )
 
 pkgver=2015.06
-pkgrel=2
+pkgrel=3
 url="www.manjaro.org"
 license=('GPL')
 
@@ -49,7 +49,7 @@ package_manjaro-pulse() {
 
 package_manjaro-printer() {
 	pkgdesc="Manjaro Printer support (Meta-PKG)"
-	arch=any
+#	arch=('any')
 	depends=("cups"
 		"cups-pdf"
 		"cups-pk-helper"
@@ -57,7 +57,7 @@ package_manjaro-printer() {
 		"gsfonts"
 		"hplip"
 		"python-gobject"
-		"python-pyqt4"
+		"python-pyqt5"
 		"splix"
 		"system-config-printer")
 }
