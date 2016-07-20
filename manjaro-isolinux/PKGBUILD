@@ -2,7 +2,7 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=manjaro-isolinux
-pkgver=20151220
+pkgver=20160718
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux (isolinux)'
 arch=('i686' 'x86_64')
