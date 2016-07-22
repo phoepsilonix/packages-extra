@@ -4,7 +4,7 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.7.1
+pkgver=5.7.2
 pkgrel=1.1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"{,.sig} 
         'manjaro-logo.svg'
         'kcm-about-distrorc')
-sha256sums=('9a172b45808b980accd317a0b300e072f5973b5305a0090e61ef0957160dd57a'
+sha256sums=('e4f5ecc296415c7a381df0fd47d167da0b0f2906f3ab876428bbe3e40b88fef6'
             'SKIP'
             '65b2a36fd9b2ddde6305ce9341da46f633244cf3b794b272c9981e43459f80de'
             '028ce1e24cdcdbae117c46aed839e1a6e5fc03679fc4dd7742a44020e4f604fe')
