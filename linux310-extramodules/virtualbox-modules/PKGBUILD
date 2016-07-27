@@ -9,7 +9,7 @@
 
 pkgbase=linux310-virtualbox-modules
 pkgname=('linux310-virtualbox-host-modules' 'linux310-virtualbox-guest-modules')
-pkgver=5.0.24
+pkgver=5.1.2
 pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
