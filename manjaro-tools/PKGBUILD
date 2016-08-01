@@ -3,32 +3,20 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.12.2
-pkgrel=2
+pkgver=0.13.0
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        "remove-broken-symlink.patch::https://github.com/manjaro/manjaro-tools/commit/ee12690469641d4552f3fbc9d1d7978e556bad28.patch"
-        "fix-logic-error.patch::https://github.com/manjaro/manjaro-tools/commit/e3b6be3333cc47099b4f90cd1d872796c8f47b0a.patch"
-        "add-qstyleplugin-qt5ct-support.patch::https://github.com/manjaro/manjaro-tools/commit/6770fb9bd1ca2642b63553e5a3346169485e7224.patch"
-        "fix-qt5ct-setup.patch::https://github.com/manjaro/manjaro-tools/commit/af562e2da2bc82d18d7c13cb1b3ad34741bdf845.patch")
-sha1sums=('b2b1d200664ebc3df9b8c39c5455531a0493455e'
-          'dfa4b68a17b020efab36f0c01ee5ce60d64a9798'
-          'd504c2c1f042d8eb04255f73e6c4cb12418e71e3'
-          '60d42783519a21cd2d6b3229adc0c98cde8756dd'
-          '6e4e8c85bbc88fb51868be51e328a9ebfe1b4338')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha1sums=('730e4768f1fe5477ce918c21a76a2c820c27ff35')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
-	patch -Np1 -i "${srcdir}/remove-broken-symlink.patch"
-	patch -Np1 -i "${srcdir}/fix-logic-error.patch"
-	patch -Np1 -i "${srcdir}/add-qstyleplugin-qt5ct-support.patch"
-	patch -Np1 -i "${srcdir}/fix-qt5ct-setup.patch"
 }
 
 build() {

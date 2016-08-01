@@ -9,8 +9,8 @@ pkgname=('manjaro-live-base'
 	'manjaro-live-openrc'
 	'manjaro-live-systemd'
 	'manjaro-live-skel')
-pkgver=20160629
-pkgrel=2
+pkgver=20160801
+pkgrel=1
 pkgdesc='Manjaro Linux live session'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"
@@ -30,7 +30,7 @@ build() {
 
 package_manjaro-live-base() {
 	pkgdesc='Manjaro Linux live base scripts'
-	depends=('manjaro-tools-base')
+	depends=('manjaro-tools-base>=0.13')
 	conflicts=('manjaro-livecd-base')
 	replaces=('manjaro-livecd-base')
 
