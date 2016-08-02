@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-exp
-pkgver=2.0b2
+pkgver=2.3.91.r2385.2e27c3b
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (experimental version)'
 arch=('i686' 'x86_64')
@@ -10,7 +10,7 @@ url="https://github.com/calamares"
 license=('LGPL')
 conflicts=('calamares' 'calamares-dev')
 provides=('calamares')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore'
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=2.2.0' 'mkinitcpio-openswap'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
@@ -18,27 +18,32 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/calamares/calamares.git#branch=choicepreview-replacewidget
-         git+https://github.com/calamares/calamares-manjaro.git)
+source+=(git+https://github.com/calamares/calamares.git#branch=master
+         git+https://github.com/udeved/calamares-manjaro#branch=master
+         prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
 
 sha256sums=('SKIP'
-            'SKIP')
+            'SKIP'
+            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
 
 pkgver() {
 	cd ${srcdir}/calamares
-	_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+	_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
 	_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
-	echo -e "${_ver// /.}${_git}"
+	printf '%s%s' "${_ver}" "${_git}"
 	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
-	rm -r ${srcdir}/calamares/.git
-	rm -r ${srcdir}/calamares-manjaro/.git
+	rm -rf ${srcdir}/calamares/.git
 }
 
 prepare() {
 	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares
-	sed -i -e "s|'calamares'|'calamares-exp'|g" ${srcdir}/calamares/src/modules/postcfg/main.py
-	rm -r ${srcdir}/calamares-manjaro
+	rm -rf ${srcdir}/calamares-manjaro
+	sed -i -e "s|'calamares'|'calamares-dev'|g" ${srcdir}/calamares/src/modules/postcfg/main.py
+	cd ${srcdir}/calamares
+	patch -Np1 -i ${srcdir}/prefer_budgie_before_gnome.patch
+	git submodule init
+	git submodule update
 }
 
 build() {
@@ -61,9 +66,13 @@ package() {
 	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
 	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
+	install -Dm644 "../conf/users.conf" "$pkgdir/usr/share/calamares/modules/users.conf"
 	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
+	install -Dm755 "../data/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
+	install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
+	chmod 750      "$pkgdir"/etc/polkit-1/rules.d
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
 	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
