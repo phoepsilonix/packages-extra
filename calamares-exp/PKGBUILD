@@ -19,7 +19,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(git+https://github.com/calamares/calamares.git#branch=master
-         git+https://github.com/udeved/calamares-manjaro#branch=master
+         git+https://github.com/udeved/calamares-manjaro.git#branch=master
          prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
 
 sha256sums=('SKIP'
