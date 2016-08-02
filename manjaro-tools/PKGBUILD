@@ -4,19 +4,31 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha1sums=('730e4768f1fe5477ce918c21a76a2c820c27ff35')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "qt5-style-deepin.patch::https://github.com/manjaro/manjaro-tools/commit/4c5061e2893911732065f1b04654d92315da94a7.patch"
+        "primary-group-lib.patch::https://github.com/manjaro/manjaro-tools/commit/6c8dc34b7f6e163d8ddeee55bc10057c39722a93.patch"
+        "primary-group-bin.patch::https://github.com/manjaro/manjaro-tools/commit/ec372237bd032ae89675af762ef8f41dd84644f9.patch"
+        "reconsider-qt5-styling.patch::https://github.com/manjaro/manjaro-tools/commit/1ddbd33b6983e27b1e5d97df74a391c5be12e1ec.patch")
+sha1sums=('730e4768f1fe5477ce918c21a76a2c820c27ff35'
+          'f2e75ef11d123a3a494cebf4211912938e45fc77'
+          '86a3819ecf25a69b8581ae22fef02aaf8931db19'
+          '6286e7abe60fc707d2fe60e4059c93759894c510'
+          '3724ae9f38ab9f8460164de12c78b9ee869b06a3')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 	# patches here
+	patch -p1 -i ${srcdir}/qt5-style-deepin.patch
+	patch -p1 -i ${srcdir}/primary-group-bin.patch
+	patch -p1 -i ${srcdir}/primary-group-lib.patch
+	patch -p1 -i ${srcdir}/reconsider-qt5-styling.patch
 }
 
 build() {
