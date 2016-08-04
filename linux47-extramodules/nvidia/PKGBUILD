@@ -9,7 +9,7 @@ _linuxprefix=linux47
 _extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=367.35
+pkgver=367.36.02
 pkgrel=0.8
 epoch=1
 provides=("$_pkgname=$pkgver")
@@ -23,25 +23,25 @@ conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=(linux47.patch linux47-uvm.patch)
-source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
-source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('ddc9aeebbd6b9c7315b88e7aa848b393'
-         '2def145caceaa2193079473ac6020937')
-md5sums_i686=('42db6f6485c3c337c7c756380ec64b7a')
-md5sums_x86_64=('24f1fc19fe10bcc6ff264fb5034c4ccc')
+#durl="http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}"
+durl="http://developer.download.nvidia.com/assets/opengl/369.00"
+source=("linux47.patch")
+source_i686=("${durl}/NVIDIA-Linux-x86-${pkgver}.run")
+source_x86_64=("${durl}/NVIDIA-Linux-x86_64-${pkgver}.run")
+#source_x86_64=("${durl}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+md5sums=('ddc9aeebbd6b9c7315b88e7aa848b393')
+md5sums_i686=('59da689c578113ae51ce8190960ac505')
+md5sums_x86_64=('9d426cd9ffa41529e0ab8039a366910b')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
-[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"
+#[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
 prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -Np1 -i $srcdir/linux47.patch
-    if [[ "$CARCH" = "x86_64" ]]; then
-        patch -Np1 -i $srcdir/linux47-uvm.patch
-    fi
+    patch -p 1 -i "$srcdir/linux47.patch"
 }
 
 build() {
