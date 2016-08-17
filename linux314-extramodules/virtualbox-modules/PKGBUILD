@@ -9,8 +9,13 @@
 
 pkgbase=linux314-virtualbox-modules
 pkgname=('linux314-virtualbox-host-modules' 'linux314-virtualbox-guest-modules')
+<<<<<<< HEAD
 pkgver=5.1.4
 pkgrel=1
+=======
+pkgver=5.1.2
+pkgrel=3
+>>>>>>> 06e7d31c227ca0d25e5498e3a4dd49bfd2d1f9cc
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
