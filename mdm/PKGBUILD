@@ -4,9 +4,9 @@
 # Contributors: Pablo Lezaeta <prflr88 (arroba) gmail (dot) com>
 
 pkgname=mdm
-pkgver=2.0.7
-pkgrel=2
-_git=694701be45385ed864952e9155d83430a23b799d
+pkgver=2.0.10
+pkgrel=1
+_git=90dd4b6009dc0cdad4b324eded972f2c4e57eb81
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
 arch=('i686' 'x86_64')
 url="http://www.linuxmint.com"
@@ -31,7 +31,7 @@ source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pk
 	'defaults.conf'
 	'mdm-plymouth.service'
         'org.cinnamon.pkexec.mdmsetup.policy')
-sha256sums=('3360a866fd8700f06a02fbcd1276410bf60bb82412c56d689912eae5a1d74be9'
+sha256sums=('217af75ab555a17497e55c5b6ad6899f685de48592fb59bea2f14e77aeb574dd'
             'dda153bd02aed1e27b3ddc729130907e185e270e7b2b8d0ccda5bc904d47ea6b'
             '110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c'
             '3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7'
