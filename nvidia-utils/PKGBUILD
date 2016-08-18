@@ -4,7 +4,7 @@
 
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
-pkgver=367.36.02
+pkgver=370.23
 pkgrel=1
 epoch=1
 arch=('i686' 'x86_64')
@@ -12,18 +12,18 @@ url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
 source=('mhwd-nvidia')
-#durl="http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}"
-durl="http://developer.download.nvidia.com/assets/opengl/369.00"
-source_i686=("${durl}/NVIDIA-Linux-x86-${pkgver}.run")
-source_x86_64=("${durl}/NVIDIA-Linux-x86_64-${pkgver}.run")
-#source_x86_64=("${durl}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+durl="http://us.download.nvidia.com/XFree86/Linux-x86"
+#durl="http://developer.download.nvidia.com/assets/opengl/369.00"
+source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
+#source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}.run")
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 sha256sums=('11176f1c070bbdbfaa01a3743ec065fe71ff867b9f72f1dce0de0339b5873bb5')
-sha256sums_i686=('ca0d6c5b1699005768850ea8b46604232687e47026c96b19e60ddeadd617e458')
-sha256sums_x86_64=('9ad5219a7994be667f7448964040d3f64f73cf6169ada5ac8b58255244b19618')
+sha256sums_i686=('7a275413a3709ef11649ed65d07bae92368c0a1b754fec5c9f9769e516a19263')
+sha256sums_x86_64=('6c462f240ed434a1bb64b7b82a325c63b9056cc135dfe6d54473c9afedbf9693')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
-[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"
-#[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+#[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
 create_links() {
     # create soname links
@@ -69,7 +69,7 @@ package_mhwd-nvidia() {
     # Generate mhwd database
     sh -e ${srcdir}/mhwd-nvidia \
     ${srcdir}/${_pkg}/README.txt \
-    ${srcdir}/${_pkg}/kernel/nv-kernel.o \
+    ${srcdir}/${_pkg}/kernel/nvidia/nv-kernel.o_binary \
     > ${pkgdir}/var/lib/mhwd/ids/pci/nvidia.ids
 }
 
