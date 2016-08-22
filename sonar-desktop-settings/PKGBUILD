@@ -3,8 +3,9 @@
 
 pkgbase=desktop-settings
 pkgname=('sonar-gnome-settings'
-		'sonar-mate-settings')
-pkgver=20160717
+		'sonar-mate-settings'
+		'sonar-mate-panel-layout')
+pkgver=20160822
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -49,4 +50,11 @@ package_sonar-gnome-settings() {
 	provides=('sonar-desktop-settings')
 
 	_inst_dir 'sonar/gnome'
+}
+
+package_sonar-mate-panel-layout() {
+	pkgdesc='Sonar Linux mate panel layout'
+	depends=('mate-panel')
+
+	install -Dm 755 $srcdir/$pkgbase/sonar/mate/layouts/sonar.layout $pkgdir/usr/share/mate-panel/layouts/sonar.layout
 }
