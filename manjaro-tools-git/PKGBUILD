@@ -2,11 +2,11 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 _pkgbase=manjaro-tools
-_ver=0.12.2
+_ver=0.13.4
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r2101.da2389a
+pkgver=r2215.8dcb445
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
@@ -14,7 +14,7 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('git' 'docbook2x')
-source=("git+$url.git#branch=stable-0.12.x")
+source=("git+$url.git#branch=master")
 sha256sums=('SKIP')
 
 prepare() {
