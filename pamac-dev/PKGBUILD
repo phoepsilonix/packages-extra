@@ -2,9 +2,9 @@
 
 pkgname=pamac-dev
 _pkgname=pamac
-pkgver=4.1.1
-_pkgver=ec7dd3a3a902068af40cc2ed3c9d240f65eb5f68
-pkgrel=2
+pkgver=4.1.2
+_pkgver=6bdaf01e5ca99df5e0f088014761476a19f5dea6
+pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/guinux/pamac2"
@@ -22,12 +22,12 @@ options=(!emptydirs)
 install=$_pkgname.install
 
 source=("pamac-$pkgver-$pkgrel.tar.xz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
-sha256sums=('390fe93f34f1a44f5fdb8b11187f7e485f51f147c15bf022bc8f5f15219443e0')
+sha256sums=('feeb183931827bb5a3c72e6809e9c232cc41ce6eaa397c51d24043a07d5ec322')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"4.1.1\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
+  sed -i -e "s|\"4.1.2\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
   # patches here
 }
 
