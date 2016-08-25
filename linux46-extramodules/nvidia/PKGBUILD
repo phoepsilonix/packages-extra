@@ -18,28 +18,27 @@ pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 depends=("$_linuxprefix" "nvidia-utils=${epoch}:${pkgver}")
-[[ "$CARCH" = "i686" ]] && makedepends=("$_linuxprefix-headers" "gcc49")
-[[ "$CARCH" = "x86_64" ]] && makedepends=("$_linuxprefix-headers")
+makedepends=("$_linuxprefix-headers")
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-#durl="http://developer.download.nvidia.com/assets/opengl/369.00"
+source=("fix-abi.patch")
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
-#source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums_i686=('7a275413a3709ef11649ed65d07bae92368c0a1b754fec5c9f9769e516a19263')
-sha256sums_x86_64=('6c462f240ed434a1bb64b7b82a325c63b9056cc135dfe6d54473c9afedbf9693')
+md5sums=('4ce4db437695790a73f132651a601889')
+md5sums_i686=('7b7466e23ae6ffa97106c9749aee2628')
+md5sums_x86_64=('cbe2cee787e07f8775a3fd994c9263a9')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
-#[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
 prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    patch -Np0 -i ../fix-abi.patch
 }
 
 build() {
