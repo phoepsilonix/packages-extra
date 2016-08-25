@@ -1,8 +1,8 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=4.1.1
-_pkgver=4.1.1
+pkgver=4.1.2
+_pkgver=4.1.2
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -18,12 +18,12 @@ options=(!emptydirs)
 install=$pkgname.install
 
 source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
-sha256sums=('a515ffdbdbee4c8d89557eb706de201bdf5177277e72666a16a8510988970a7f')
+sha256sums=('a8b7dbe7ac77b54bfbf002b94d53783d8dfc30885a397e0cf29ffcc397cffe47')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"4.1.1\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
+  sed -i -e "s|\"4.1.2\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
   # patches here
 }
 
