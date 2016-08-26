@@ -8,7 +8,7 @@ pkgname=('sonar-gnome-settings'
 		'sonar-mate-settings'
 		'sonar-mate-panel-layout')
 pkgver=20160826
-pkgrel=1
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
@@ -27,7 +27,7 @@ _inst_dir(){
 		cp $srcdir/$_repo/$1/scripts/* $pkgdir/usr/bin
 	fi
 
-	if [[ -d $srcdir/$__repo/$1/schemas ]]; then
+	if [[ -d $srcdir/$_repo/$1/schemas ]]; then
 		install -d $pkgdir/usr/share/glib-2.0/schemas
 		cp $srcdir/$_repo/$1/schemas/* $pkgdir/usr/share/glib-2.0/schemas
 	fi
