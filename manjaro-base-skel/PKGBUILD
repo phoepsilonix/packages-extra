@@ -2,8 +2,8 @@
 # Contributor: artoo <artoo@manjaro.org>
 
 pkgname=manjaro-base-skel
-pkgver=20160826
-pkgrel=3
+pkgver=20160827
+pkgrel=1
 pkgdesc='Manjaro Linux base skeleton files'
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"

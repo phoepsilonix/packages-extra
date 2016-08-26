@@ -9,8 +9,8 @@ pkgname=('manjaro-live-base'
 	'manjaro-live-openrc'
 	'manjaro-live-systemd'
 	'manjaro-live-skel')
-pkgver=20160823
-pkgrel=2
+pkgver=20160827
+pkgrel=1
 pkgdesc='Manjaro Linux live session'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"
@@ -25,7 +25,7 @@ pkgver() {
 
 build() {
 	cd ${srcdir}/${_repo} #-${pkgver}
-	make PREFIX=/usr
+	make PREFIX=/usr SYSCONFDIR=/etc
 }
 
 package_manjaro-live-base() {
@@ -35,7 +35,7 @@ package_manjaro-live-base() {
 	replaces=('manjaro-livecd-base')
 
 	cd ${srcdir}/${_repo} #-${pkgver}
-	make PREFIX=/usr DESTDIR=${pkgdir} install_base
+	make PREFIX=/usr SYSCONFDIR=/etc DESTDIR=${pkgdir} install_base
 }
 
 package_manjaro-live-openrc() {
@@ -45,7 +45,7 @@ package_manjaro-live-openrc() {
 # 	replaces=('manjaro-livecd-openrc')
 
 	cd ${srcdir}/${_repo} #-${pkgver}
-	make PREFIX=/usr DESTDIR=${pkgdir} install_rc
+	make PREFIX=/usr SYSCONFDIR=/etc DESTDIR=${pkgdir} install_rc
 }
 
 package_manjaro-live-systemd() {
@@ -55,12 +55,12 @@ package_manjaro-live-systemd() {
 # 	replaces=('manjaro-livecd-systemd')
 
 	cd ${srcdir}/${_repo} #-${pkgver}
-	make PREFIX=/usr DESTDIR=${pkgdir} install_sd
+	make PREFIX=/usr SYSCONFDIR=/etc DESTDIR=${pkgdir} install_sd
 }
 
 package_manjaro-live-skel() {
 	pkgdesc='Manjaro Linux live session autostart items'
 
 	cd ${srcdir}/${_repo} #-${pkgver}
-	make PREFIX=/usr DESTDIR=${pkgdir} install_xdg
+	make PREFIX=/usr SYSCONFDIR=/etc DESTDIR=${pkgdir} install_xdg
 }
