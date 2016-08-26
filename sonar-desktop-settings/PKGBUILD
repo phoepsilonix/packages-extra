@@ -7,12 +7,11 @@ pkgbase=sonar-desktop-settings
 pkgname=('sonar-gnome-settings'
 		'sonar-mate-settings'
 		'sonar-mate-panel-layout')
-pkgver=20160824
+pkgver=20160826
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
-depends=('manjaro-base-skel')
 makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -42,6 +41,7 @@ package_sonar-mate-settings() {
 	pkgdesc='Sonar Linux mate settings'
 	conflicts=('sonar-desktop-settings')
 	provides=('sonar-desktop-settings')
+	depends=('manjaro-base-skel')
 
 	_inst_dir 'sonar/mate'
 }
@@ -50,6 +50,7 @@ package_sonar-gnome-settings() {
 	pkgdesc='Sonar Linux gnome settings'
 	conflicts=('sonar-desktop-settings')
 	provides=('sonar-desktop-settings')
+	depends=('manjaro-base-skel')
 
 	_inst_dir 'sonar/gnome'
 }
