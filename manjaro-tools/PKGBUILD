@@ -3,25 +3,22 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.13.4+23+ge6fac04
-_pkgver=0.13.4
-pkgrel=2
+pkgver=0.13.5
+_pkgver=0.13.5
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz"
-        "e6fac04.patch::https://github.com/manjaro/manjaro-tools/compare/stable-0.13.x...e6fac04.patch")
-sha1sums=('d1017a1f739099c99b47e2d6f9499a47563612c6'
-          'c05d73576fe39cf98e5878d1d4647578d32f4fce')
+source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
+sha1sums=('efa0793ab7b4fd125f446fcaa5ffb31869c3f7f2')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${_pkgver}
 	# patches here
-	patch -p1 -i "${srcdir}/e6fac04.patch"
-	sed -i -e "s|${_pkgver}|${pkgver}|g" Makefile
+	#sed -i -e "s|${_pkgver}|${pkgver}|g" Makefile
 }
 
 build() {

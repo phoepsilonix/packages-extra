@@ -1,29 +1,32 @@
 # Maintainer: Guillaume Benoit <guillaume@manjaro.org>
 
 pkgname=pamac
-pkgver=4.1.2
-_pkgver=a070046874086f8b6151e4f639a9c143c8c0e4f3
-pkgrel=2
+pkgver=4.1.3
+_pkgver=4.1.3
+pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
 depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.18'
          'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4')
-optdepends=('yaourt: needed for AUR support')
-makedepends=('gettext' 'itstool' 'vala>=0.28')
+optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome'
+            'lxsession: needed for authentification in Xfce, LXDE etc.'
+            'yaourt: needed for AUR support'
+            'libappindicator-gtk3: Tray icon for KDE, Unity or SysTray')
+makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
 backup=('etc/pamac.conf')
 replaces=('pamac-aur')
 options=(!emptydirs)
 install=$pkgname.install
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
-sha256sums=('7b27f5a5f2b7c25b35df23e7f35ab52270570800e2a73d04929ee884b7c3894d')
+source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
+sha256sums=('8324ee4e70279e543183ae754de0d50237fbb82cbf3caac6274a6eefc18f5aba')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"4.1.2\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
+  sed -i -e "s|\"4.1.3\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala 
   # patches here
 }
 

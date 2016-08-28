@@ -1,15 +1,16 @@
-# Maintainer: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
+# Maintainer: Manuel Barrette (manb[at]manjaro[dot]org)
+# Contributor: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
 
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
-pkgver=20160801
-_gitcommit=4474686491984025f9ebdebe51b816f443f2efba
+pkgver=20160828
+_gitcommit=5dab7b6e98bd3d95a98c1a462413428c53503b0d
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
 makedepends=(lyx texlive-core texlive-latexextra texlive-pictures ttf-comfortaa ghostscript)
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
-sha256sums=('9a77e837ccc3a00eea44131479c4eaebee3d8c14631c42cb383e63821ad474b9')
+sha256sums=('ab3ed19288f0a4ce6718936a0d782b82cf42e22fc68b4c5fb510b24124484200')
 
 prepare() {
   cd ${srcdir}/manjaro-user-guide*
