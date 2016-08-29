@@ -1,4 +1,5 @@
-# Maintainer: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
+# Maintainer: Manuel Barrette (manb[at]manjaro[dot]org)
+# Contributor: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
 
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')

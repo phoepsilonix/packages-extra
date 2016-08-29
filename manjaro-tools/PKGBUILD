@@ -3,7 +3,8 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.13.4
+pkgver=0.13.5
+_pkgver=0.13.5
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
@@ -11,16 +12,17 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha1sums=('d1017a1f739099c99b47e2d6f9499a47563612c6')
+source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
+sha1sums=('efa0793ab7b4fd125f446fcaa5ffb31869c3f7f2')
 
 prepare() {
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	# patches here
+	#sed -i -e "s|${_pkgver}|${pkgver}|g" Makefile
 }
 
 build() {
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr
 }
 
@@ -31,7 +33,7 @@ package_manjaro-tools-base() {
                     'manjaro-tools-iso: Manjaro Linux iso tools')
 	backup=('etc/manjaro-tools/manjaro-tools.conf')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_base
 }
 
@@ -40,15 +42,15 @@ package_manjaro-tools-pkg() {
 	depends=('namcap' 'manjaro-tools-base')
 	conflicts=('devtools')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
 package_manjaro-tools-iso() {
  	pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                      'manjaro-tools-base' 'mkinitcpio-nfs-utils'
-                      'mktorrent' 'manjaro-iso-profiles-base')
+                      'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'mktorrent'
+                      'manjaro-iso-profiles-base' 'python-yaml')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell')
 	optdepends=('manjaro-iso-profiles: Manjaro Linux ISO-Image profiles'
                     'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
@@ -56,6 +58,6 @@ package_manjaro-tools-iso() {
                     'sonar-iso-profiles: Sonar Linux ISO-Image profiles'
                     'qemu: quickly test isos')
 
-	cd ${srcdir}/${pkgbase}-${pkgver}
+	cd ${srcdir}/${pkgbase}-${_pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
 }

@@ -2,22 +2,20 @@
 # Maintainer: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=liblouis
-pkgver=2.6.5
-pkgrel=0.1
+pkgver=3.0.0
+pkgrel=2.1
 pkgdesc="Open-source braille translator and back-translator"
 arch=(i686 x86_64)
 url="http://liblouis.org/"
 license=('GPL3')
 depends=(glibc)
 makedepends=(help2man python2 python)
-install=liblouis.install
 source=(https://github.com/$pkgname/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha1sums=('b1faad22c9f2cee7d71992535cc6e24a30e35802')
-
+sha1sums=('b692e4ee37fb898a53e4fd5bdc86cd2f7b3be2e1')
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   ./configure --prefix=/usr --disable-static --enable-ucs4
-  make
+  make -j1
 }
 
 package() {

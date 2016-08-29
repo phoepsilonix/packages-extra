@@ -7,13 +7,14 @@ _branch=master
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git' 'manjaro-tools-pkg-git' 'manjaro-tools-iso-git')
-pkgver=r2215.8dcb445
+pkgver=r2219.e6fac04
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
+depends=('python-yaml') #for use check-yaml
 makedepends=('git' 'docbook2x')
 source=("git+$url.git#branch=$_branch")
 sha256sums=('SKIP')
