@@ -2,28 +2,35 @@
 
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
-pkgver=20160801
-_gitcommit=4474686491984025f9ebdebe51b816f443f2efba
-pkgrel=1
+pkgver=20160829
+_gitcommit=e0d089da201e2dcd6928ca1276d336b61c9bcf2c
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
-makedepends=(lyx texlive-core texlive-latexextra texlive-pictures ttf-comfortaa ghostscript)
-source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz")
-sha256sums=('9a77e837ccc3a00eea44131479c4eaebee3d8c14631c42cb383e63821ad474b9')
+makedepends=('ghostscript' 'lyx' 'python2' 'texlive-core' 'texlive-latexextra' 'texlive-pictures' 'ttf-comfortaa')
+source=("manjaro-documentation-$_gitcommit.tar.gz::$url/archive/$_gitcommit.tar.gz"
+	'manjaro-documentation'
+	'manjaro-documentation.desktop')
+sha256sums=('2155dafc6dc5bbaf3f8c9bd194d1f4427936fb6d14228c2d525017e124b6a635'
+            'b122d1f817d60b5a18b2bb404d54c2267307b6bb0c215fc897c58cc81226a80e'
+            '51b209d9da5bb7d7a6b88abe097702b603c9bcfea340753187221a12955a92dd')
 
 prepare() {
-  cd ${srcdir}/manjaro-user-guide*
+  cd ${srcdir}/manjaro-user-guide-$_gitcommit
   lyx --export pdflatex manjaro-user-guide.lyx
   pdflatex manjaro-user-guide
   texindy --language english manjaro-user-guide.idx
   pdflatex manjaro-user-guide
   pdflatex manjaro-user-guide
-  gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -sOutputFile=manjaro-user-guide-printer.pdf manjaro-user-guide.pdf
+  gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer \
+  	-sOutputFile=manjaro-user-guide-printer.pdf manjaro-user-guide.pdf
 }
 
 package() {
   pkgdesc="Manjaro Beginner User Guide"
   license=('CC-BY-SA 4.0')
-  cd ${srcdir}/manjaro-user-guide*
-  install -Dm644 manjaro-user-guide-printer.pdf "${pkgdir}/usr/share/doc/livecd/Beginner_User_Guide.pdf"
+  install -Dm644 "$srcdir/manjaro-user-guide-$_gitcommit/manjaro-user-guide-printer.pdf" \
+  	"$pkgdir/usr/share/doc/livecd/Beginner_User_Guide.pdf"
+  install -Dm755 manjaro-documentation "$pkgdir/usr/bin/manjaro-documentation"
+  install -Dm644 manjaro-documentation.desktop "$pkgdir/usr/share/applications/manjaro-documentation.desktop"
 }
