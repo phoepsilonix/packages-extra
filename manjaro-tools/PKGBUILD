@@ -5,20 +5,23 @@ pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
 pkgver=0.13.5
 _pkgver=0.13.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
-sha1sums=('efa0793ab7b4fd125f446fcaa5ffb31869c3f7f2')
+source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz"
+        "chown.patch::https://github.com/manjaro/manjaro-tools/commit/123ad11541bb8f60bd208a4552ec34ffcb624f46.patch")
+sha1sums=('efa0793ab7b4fd125f446fcaa5ffb31869c3f7f2'
+          '2f583a597d52aecbbc9641be00f5f424374789f1')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${_pkgver}
 	# patches here
 	#sed -i -e "s|${_pkgver}|${pkgver}|g" Makefile
+	patch -p1 -i "$srcdir/chown.patch"
 }
 
 build() {
