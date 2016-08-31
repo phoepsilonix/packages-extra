@@ -39,7 +39,7 @@ package_pamac-dev() {
   backup=('etc/pamac.conf')
   conflicts=('pamac')
   replaces=('pamac-aur')
-  install=$pkgname.install
+  install=pamac.install
   cd "$srcdir/pamac-$_pkgver"
   make prefix="$pkgdir"/usr sysconfdir="$pkgdir"/etc install
 }
