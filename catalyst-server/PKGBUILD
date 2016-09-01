@@ -1,0 +1,98 @@
+#
+# Maintainer: Philip Müller <philm@manjaro.org>
+#
+
+pkgname=('catalyst-server')
+pkgver=1.17.4
+_pkgver=1.17.4-3.1
+pkgrel=1
+arch=('i686' 'x86_64')
+depends=(catalyst-input
+         fontsproto
+         libxdmcp
+         libxfont
+         libpciaccess
+         libdrm
+         libxi
+         libxaw
+         libxrender
+         libdmx
+         libxfixes
+         libgl
+         libxv
+         libxext
+         libgcrypt
+         libxau
+         pixman
+         xkeyboard-config
+         xorg-xkbcomp
+         xorg-setxkbmap
+         xorg-fonts-misc
+         xproto
+         randrproto
+         renderproto
+         xextproto
+         inputproto
+         kbproto
+         videoproto
+         dri2proto
+         xineramaproto
+         udev
+         xorg-util-macros)
+provides=('x-server' 'glamor-egl' 'xf86-video-modesetting'
+          xorg-server-common=${_pkgver}
+          xorg-server-devel=${_pkgver} 
+          xorg-server-xdmx=${_pkgver}
+          xorg-server-xephyr=${_pkgver}
+          xorg-server-xnest=${_pkgver}
+          xorg-server-xvfb=${_pkgver}
+          xorg-server-xwayland=${_pkgver}
+          xorg-server=${_pkgver})
+conflicts=('nvidia-utils<=331.20' 'glamor-egl' 'xf86-video-modesetting'
+           xorg-server-common
+           xorg-server-devel
+           xorg-server-xdmx
+           xorg-server-xephyr
+           xorg-server-xnest
+           xorg-server-xvfb
+           xorg-server)
+groups=(xorg117)
+backup=(etc/X11/xorg.conf.d/10-evdev.conf etc/X11/xorg.conf.d/10-quirks.conf)
+pkgdesc="Xorg-Server for Catalyst"
+url="http://manjaro.org"
+_url="http://downloads.sourceforge.net/project/manjarodev/users/philm/xorg117/"
+license=('custom')
+source=(${_url}/xorg-server-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-common-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-devel-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-xdmx-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-xephyr-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-xnest-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-xvfb-${_pkgver}-$CARCH.pkg.tar.xz
+        ${_url}/xorg-server-xwayland-${_pkgver}-$CARCH.pkg.tar.xz)
+if [ "$CARCH" = "i686" ]; then
+sha256sums=('f645ffc00508af5d80b0fb00bc1cd135cb93ed700f42429f891530046050f963'
+            '9c7301a3a4be52f2e5ac9a9a15d490e64f1e1fc74b4b06525892758bb8dd6274'
+            '2244968f1eee55cb940a0892df4bb93fe908080b5b64be7b0d7baf85ecf38d41'
+            'c120b3236bfd02a3504f6e2c124f2637678dfa95becbe24ab5a36c2b9ada562d'
+            '800600f6f87855f85182f52f0bef602f9736bcd6fae27f5ad594d2134f7be8d1'
+            '1a763ee124f07de5a84abbc339ac14a437617762feb885b826bd994ca8782667'
+            '4d4dc9b76d3256d4c3d6c3ceb9fc1d2069105944c6b56e79ac856a7eb2549f5d'
+            '5a4cd06969923d154cf60236df2a8cba55dd5d6e3f2f1f8d6c246daa994b6a63')
+else
+sha256sums=('0f740555c8ceecfc32281a309e35397705df9b720b788cefb45c1c4dc11a6166'
+            '5650c8624f67314644b96c3645c889b6fe0b38ffaed39316d3819a37bd4c4270'
+            'ae4d3d076e02748c57da42c6227d8ba4a107e7a69c39c91d42126580d7c3129f'
+            '078838c01d4f3e7cd007a777a5a27f265e0002454b68859d323907d7a6ea923e'
+            '7aa3f23e2bc027f18c72261f36ee1596a19993214cbaff89294414aa42b5562d'
+            'c717bdfc629a86135aa53ef9f69406bfa92e91193619e3eb3237317b455f8d32'
+            '33349606aebe9f548b02dd7798e3ee026a5db47430a8ff4f9a89da28f0ece279'
+            'dde6c01b8f03a7bc7045e34c98b6421ffde6e6406a6c9655a6753ca236292a24')
+fi
+
+package() {
+  cp -rPf usr ${pkgdir}
+  cp -rPf etc ${pkgdir}
+  cp -rPf var ${pkgdir}
+}
+

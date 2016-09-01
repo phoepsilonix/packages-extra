@@ -1,0 +1,57 @@
+#
+# Maintainer: Philip Müller <philm@manjaro.org>
+
+pkgname=('catalyst-video')
+pkgver=2016.09
+_fbdev=0.4.4-4
+_intel=1_2.99.917+697+g12c14de-0.1
+_vesa=2.3.4-1
+pkgrel=1
+arch=('i686' 'x86_64')
+depends=(glibc
+         libxvmc
+         mesa-dri
+         pixman
+         'xcb-util>=0.3.9'
+         libxcursor
+         libxinerama
+         libxrandr
+         libxss
+         libxtst
+         'catalyst-server<1.18.0'
+)
+provides=(xf86-video-fbdev=$_fbdev
+          xf86-video-intel=$_intel
+          xf86-video-vesa=$_vesa
+          xf86-video-intel-uxa
+          xf86-video-intel-sna)
+conflicts=(xf86-video-fbdev
+           xf86-video-intel
+           xf86-video-vesa
+           xf86-video-intel-sna
+           xf86-video-intel-uxa
+           xf86-video-i810
+           xf86-video-intel-legacy)
+replaces=(xf86-video-intel-uxa xf86-video-intel-sna)
+groups=(xorg117-drivers xorg117)
+pkgdesc="xf86-video drivers for Catalyst"
+url="http://manjaro.org"
+_url="http://downloads.sourceforge.net/project/manjarodev/users/philm/xorg117"
+license=('custom')
+source=($_url/xf86-video-fbdev-$_fbdev-$CARCH.pkg.tar.xz
+        $_url/xf86-video-intel-$_intel-$CARCH.pkg.tar.xz
+        $_url/xf86-video-vesa-$_vesa-$CARCH.pkg.tar.xz)
+if [ "$CARCH" = "i686" ]; then
+sha256sums=('5d14ad7df6ed6c8a79665ee1b20256250f379e7560076007cbfa390eb4ea1074'
+            '0bcf7545e49b3149d72a41120a42b1e8e7c034283843a9bf6c51316f843531e6'
+            '398abeabcd704ef57373c8907faa8d85d5be30b0ee536cf40172266df5993a2f')
+else
+sha256sums=('237b03c8320a0f66e3aa3ee9699d1597b20c9a9d422ee2a89104daa06c395888'
+            'a1b1d18580252ca269b4f2c0a57424e269108c015aa72573cc75abe9598da90a'
+            '8a55da23d90e790ac7bc0b3753fd146e4c7c5ccbad13f5cac5feed4030fa4127')
+fi
+
+package() {
+  cp -rPf usr ${pkgdir}
+}
+

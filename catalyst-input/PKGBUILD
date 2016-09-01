@@ -1,0 +1,75 @@
+#
+# Maintainer: Philip Müller <philm@manjaro.org>
+#
+
+pkgname=('catalyst-input')
+pkgver=2016.09
+_acecad=1.5.0-8
+_aiptek=1.4.1-8
+_elographics=1.4.1-5
+_evdev=2.10.3-0.1
+_libinput=0.19.0-0.2
+_joystick=1.6.2-5
+_keyboard=1.8.1-1
+_mouse=1.9.1-1
+_synaptics=1.8.99.1-0.1
+_void=1.4.1-1
+_wacom=0.33.0-0.1
+pkgrel=1
+arch=('i686' 'x86_64')
+depends=(sysfsutils glibc libevdev mtdev libxtst libinput libxi libxinerama libxrandr)
+provides=(xf86-input-acecad=$_acecad xf86-input-aiptek=$_aiptek xf86-input-elographics=$_elographics
+          xf86-input-evdev=$_evdev xf86-input-libinput=$_libinput xf86-input-joystick=$_joystick
+          xf86-input-keyboard=$_keyboard xf86-input-mouse=$_mouse xf86-input-synaptics=$_synaptics
+          xf86-input-void=$_void xf86-input-wacom=$_wacom)
+conflicts=(synaptics xf86-input-acecad xf86-input-aiptek xf86-input-elographics
+          xf86-input-evdev xf86-input-libinput xf86-input-joystick xf86-input-keyboard
+          xf86-input-mouse xf86-input-synaptics xf86-input-void
+          xf86-input-wacom)
+groups=(xorg12-drivers xorg12)
+backup=(etc/X11/xorg.conf.d/10-synaptics.conf etc/X11/xorg.conf.d/50-joystick.conf etc/X11/xorg.conf.d/50-wacom.conf)
+pkgdesc="xf86-input drivers for Catalyst"
+url="http://manjaro.org"
+_url="http://downloads.sourceforge.net/project/manjarodev/users/philm/xorg117"
+license=('custom')
+source=($_url/xf86-input-acecad-$_acecad-$CARCH.pkg.tar.xz
+        $_url/xf86-input-aiptek-$_aiptek-$CARCH.pkg.tar.xz
+        $_url/xf86-input-elographics-$_elographics-$CARCH.pkg.tar.xz
+        $_url/xf86-input-evdev-$_evdev-$CARCH.pkg.tar.xz
+        $_url/xf86-input-libinput-$_libinput-$CARCH.pkg.tar.xz
+        $_url/xf86-input-joystick-$_joystick-$CARCH.pkg.tar.xz
+        $_url/xf86-input-keyboard-$_keyboard-$CARCH.pkg.tar.xz
+        $_url/xf86-input-mouse-$_mouse-$CARCH.pkg.tar.xz
+        $_url/xf86-input-synaptics-$_synaptics-$CARCH.pkg.tar.xz
+        $_url/xf86-input-void-$_void-$CARCH.pkg.tar.xz
+        $_url/xf86-input-wacom-$_wacom-$CARCH.pkg.tar.xz)
+if [ "$CARCH" = "i686" ]; then
+sha256sums=('2f7a540a41ec328b6e86323f726e04b0e5056ee48e70b0f48bc332d768658c7e'
+            '80d6aed7829e2603f71595e425f422ba2b5f12fa0c58052c03678647fc767b61'
+            'bc38a393b00abb5bd52cdb796881db79c07a143736f3ef1c5b34c4373a959e8a'
+            '643c7af78e899a3822bc6dafabd7284a61b23bf61ba101397724887dfb422c3d'
+            'c23b8a47a2a5b671e6bf1c22ff15850c48cc4574c7f743e461595015024c9a87'
+            'f2c2cd93ba3d5f7d269e4863808e3ecf95a555001bc0c735a7dd9bd1725b70be'
+            '61c85aea616b8bd2ebbc19ca9059c28b6816f2bb1b11088bac045bc356c74c09'
+            'ecb853965f2c249f809439d533b196d72b920a7c8022ee18b9b40643ddf9f6b8'
+            '5357bc9681f8ab40b5962d7304c52c4daed3e813ad39aad0a717894e4ac124b8'
+            'f5cb70845259079f7df55d9fd13dae69fcf17cf5bdbfafbb9b2b4c9b1a8a14f3'
+            '7abebf7689303182512977ccf388312fd3c981b74b42491591c34c5eea78a223')
+else
+sha256sums=('c994f4befbc8fbf815d29cbb46ce77c7b6a6b73e27120bc8e0bff1777ebcc4a1'
+            '081e1ccbabe5a1d1c6a4ef91bb808e0ce3132d146ba6335e2ae969128f4a1887'
+            'fae537547594426434e2e233921e769cec384f31b7fd33edfffc62504c4896dc'
+            'df2acd0af53e951523360b88147dd9b2ab46a9e2e637e4f563ff980941399c88'
+            '6c64c34c0958667523b24c640e4c0984a44c4a7893395bf7c3403793e3080de9'
+            '89f7000cd95387f096d9ac6b55fd3ec75de33595097f4202cfe233b719666b85'
+            '578271b5e11d35f49cd38cd89ab41767d21cd68e94f64aaf18093f3a9eabec2c'
+            'e3d9ac53131d8a2ab9afaac13eb45991b3d4412574102f279199d8aff50fecef'
+            'f1bd3a3e916f579037726595b5af6e153dbcf93eb6923dcba8311ef10264d1c5'
+            '2c16eddd47b4c600efda978228da6f29ea6ffe5feb35b47c0f6ad4d03a76ff25'
+            '67d414763035a3ff580847b8ca49132bbfaaf32c78040ec0cf923a4207dc5a8c')
+fi
+
+package() {
+  cp -rPf usr ${pkgdir}
+}
+

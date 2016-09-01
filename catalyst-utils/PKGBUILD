@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=1
+pkgrel=2
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -51,7 +51,7 @@ prepare() {
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('xorg-server>=1.7.0' 'xorg-server<1.18.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd' 'xdg-su')
+	depends=('catalyst-video' 'catalyst-server>=1.7.0' 'catalyst-server<1.18.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd' 'xdg-su')
         optdepends=('qt4: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
 		    'acpid: acpi event support  / atieventsd'
