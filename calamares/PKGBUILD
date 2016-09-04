@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=2.4.0
-_pkgver=2.4
-pkgrel=3
+pkgver=2.4.1
+_pkgver=2.4.1
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,13 +18,9 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$_pkgver/calamares-$_pkgver.tar.gz"
-         https://github.com/calamares/calamares-debian/raw/master/debian/patches/timezone.patch
-         https://github.com/calamares/calamares-debian/raw/master/debian/patches/timedatectl.patch
          git+https://github.com/calamares/calamares-manjaro.git#branch=2.4.x-stable)
 
-sha256sums=('5519077c79fe1964dd9bf1ae6aedff202bb3c2e3289398affd7e7946672f7f3e'
-            '2e910cea5d2991590010c22f01a9c781164d315342b9e6d732abb024aebe86ef'
-            'd495162637a7cb8cf4aa1e6c6e61c57e7e59c1b5223fc1e9ca3616228d5ee4f3'
+sha256sums=('ab1ea9c57bfeccea1282813fa67d3ee97ee03f8673af002c13fdda8dc75ef028'
             'SKIP')
 
 prepare() {
@@ -32,8 +28,6 @@ prepare() {
 	rm -r ${srcdir}/calamares-manjaro
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
-	patch -p1 -i "$srcdir/timezone.patch"
-	patch -p1 -i "$srcdir/timedatectl.patch"
 }
 
 build() {
