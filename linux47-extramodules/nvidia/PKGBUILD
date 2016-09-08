@@ -9,8 +9,8 @@ _linuxprefix=linux47
 _extramodules=extramodules-4.7-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=370.23
-pkgrel=3
+pkgver=370.28
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -24,12 +24,10 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=("fix-abi.patch")
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('4ce4db437695790a73f132651a601889')
-md5sums_i686=('7b7466e23ae6ffa97106c9749aee2628')
-md5sums_x86_64=('cbe2cee787e07f8775a3fd994c9263a9')
+sha256sums_i686=('6323254ccf2a75d7ced1374a76ca56778689d0d8a9819e4ee5378ea3347b9835')
+sha256sums_x86_64=('f498bcf4ddf05725792bd4a1ca9720a88ade81de27bd27f2f3c313723f11444c')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -38,7 +36,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -Np0 -i ../fix-abi.patch
 }
 
 build() {
