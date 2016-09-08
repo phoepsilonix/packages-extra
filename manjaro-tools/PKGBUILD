@@ -3,7 +3,7 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.13.5+7+e1f325f1
+pkgver=0.13.5+8+g2494e9f
 _pkgver=0.13.5
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
@@ -13,15 +13,15 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz"
-        "e1f325f1.patch::https://github.com/manjaro/manjaro-tools/compare/stable-0.13.x...e1f325f1.patch")
+        "2494e9f.patch::https://github.com/manjaro/manjaro-tools/compare/stable-0.13.x...2494e9f.patch")
 sha1sums=('efa0793ab7b4fd125f446fcaa5ffb31869c3f7f2'
-          '5219cbd389dd5d17ea2f33c0ac2bc5dba68cc25c')
+          '10089fcc7fbd71c0d9c61c9bf8351ae0abe6d364')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${_pkgver}
 	# patches here
 	#sed -i -e "s|${_pkgver}|${pkgver}|g" Makefile
-	patch -p1 -i "$srcdir/e1f325f1.patch"
+	patch -p1 -i "$srcdir/2494e9f.patch"
 }
 
 build() {
