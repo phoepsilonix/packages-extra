@@ -4,7 +4,7 @@
 pkgname=("spl-dkms")
 pkgver=0.6.5.8
 _pkgver=spl-0.6.5.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Solaris Porting Layer kernel modules."
 depends=("spl-utils=${pkgver}" "dkms")
 arch=("any")
@@ -22,6 +22,8 @@ build() {
 }
 
 package() {
-   install -d ${pkgdir}/usr/src/spl-${pkgver}
+   #install -d ${pkgdir}/usr/src/spl-${pkgver}
+   install -d ${pkgdir}/usr/src/
    cp -a ${srcdir}/spl-${_pkgver}/ ${pkgdir}/usr/src/
+   mv ${pkgdir}/usr/src/spl-${_pkgver} ${pkgdir}/usr/src/spl-${pkgver}
 }
