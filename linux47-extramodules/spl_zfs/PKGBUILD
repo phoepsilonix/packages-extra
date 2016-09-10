@@ -19,13 +19,7 @@ install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
         "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
 sha256sums=('1b0a625141206711b52023eab40f7187ce2afe5e39e23981805aab19f170853d'
-            'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84'
-            '10f50adcb94c1964e03e5c540c4cb19e3161bb1021a55cdb245da409b2ef2a44'
-            'a53d2a06c038dddc980664fd4b4ba33b1c25e55682893424f63c53c0e49b51e0'
-            '5a92f719556a4f2566bd1130aa5cdefba2abb8cfddcfd094f04ee05480ff31cc'
-            '99ba07b3a49fa0ca299cc53b2a82a9da14f7a90c15d7f1bfdef265f35fcc84da'
-            '49e7d35921b71ee5b15daef312ad1813c181cbb52bb3087286d7dc923b4dc068'
-            'c42f68f3e695ddbf14f34cbcdf1bd9243a0a1b75860c2f5a04b9ba02afb81aee')
+            'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
