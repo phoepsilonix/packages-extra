@@ -41,8 +41,7 @@ prepare() {
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
     cd "${_pkg}"/kernel
-    [[ "$CARCH" = "i686" ]] && make CC=gcc-4.9 SYSSRC=/usr/lib/modules/"${_kernver}/build" module
-    [[ "$CARCH" = "x86_64" ]] && make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
 
 package() {

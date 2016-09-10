@@ -6,8 +6,9 @@ _extramodules=extramodules-4.7-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.6.5.7
-pkgrel=3
+pkgver=0.6.5.8
+_pkgver=spl-0.6.5.8
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -15,16 +16,10 @@ depends=("$_linuxprefix" "kmod")
 makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install=install
-source=("http://archive.zfsonlinux.org/downloads/zfsonlinux/spl/spl-${pkgver}.tar.gz"
-        "http://archive.zfsonlinux.org/downloads/zfsonlinux/zfs/zfs-${pkgver}.tar.gz"
-         linux47-spl-01.patch
-         linux47-spl-02.patch
-         linux47-zfs-01.patch::https://github.com/zfsonlinux/zfs/commit/fd4c7b7a73fda391f94f58530c86ffa5b2ef8e6f.patch
-         linux47-zfs-02.patch::https://github.com/zfsonlinux/zfs/commit/68e8f59afb0fa1b388c7dbb8720ac6756d390146.patch
-         linux47-zfs-03.patch::https://github.com/zfsonlinux/zfs/commit/9baaa7deae45c8556dfd79b2011234da5cb37b3a.patch
-         linux47-zfs-04.patch::https://github.com/zfsonlinux/zfs/commit/8fbbc6b4cf13f73d517ec4e826a7069a958fa5ba.patch)
-sha256sums=('dc8690e407183eeb7a6af0e7692d6e0a1cd323d51dd1aa492522c421b1924ea0'
-            '4a9e271bb9a6af8d564e4d5800e4fff36224f1697b923a7253659bdda80dc590'
+source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=('1b0a625141206711b52023eab40f7187ce2afe5e39e23981805aab19f170853d'
+            'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84'
             '10f50adcb94c1964e03e5c540c4cb19e3161bb1021a55cdb245da409b2ef2a44'
             'a53d2a06c038dddc980664fd4b4ba33b1c25e55682893424f63c53c0e49b51e0'
             '5a92f719556a4f2566bd1130aa5cdefba2abb8cfddcfd094f04ee05480ff31cc'
@@ -33,18 +28,12 @@ sha256sums=('dc8690e407183eeb7a6af0e7692d6e0a1cd323d51dd1aa492522c421b1924ea0'
             'c42f68f3e695ddbf14f34cbcdf1bd9243a0a1b75860c2f5a04b9ba02afb81aee')
 
 prepare() {
-  cd "${srcdir}/spl-${pkgver}"
-  patch -Np1 -i $srcdir/linux47-spl-01.patch
-  patch -Np1 -i $srcdir/linux47-spl-02.patch
-  cd "${srcdir}/zfs-${pkgver}"
-  patch -Np1 -i $srcdir/linux47-zfs-01.patch
-  patch -Np1 -i $srcdir/linux47-zfs-02.patch
-  patch -Np1 -i $srcdir/linux47-zfs-03.patch
-  patch -Np1 -i $srcdir/linux47-zfs-04.patch
+  cd "${srcdir}/spl-${_pkgver}"
+  # patches here
 }
 
 build() {
-  cd "${srcdir}/spl-${pkgver}"
+  cd "${srcdir}/spl-${_pkgver}"
   ./autogen.sh
   sed -i "s|\$(uname -r)|${_kernver}|g" configure
   ./configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin \
@@ -68,7 +57,7 @@ package_linux47-spl(){
   provides=("$_pkgname=$pkgver")
   depends+=("spl-utils=${pkgver}")
 
-  cd "${srcdir}/spl-${pkgver}"
+  cd "${srcdir}/spl-${_pkgver}"
   install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
   install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
