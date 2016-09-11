@@ -4,7 +4,7 @@ pkgbase=pamac
 pkgname=('pamac-dev' 'pamac-dev-tray-appindicator')
 pkgver=4.1.5
 _pkgver=e4b6528b8685a41914fb0c568c57bcc319459257
-pkgrel=1
+pkgrel=2
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
@@ -28,7 +28,7 @@ build() {
   cd "$srcdir/pamac-$_pkgver"
 
   # build
-  make all use_appindicator=true
+  make all
 }
 
 package_pamac-dev() {
@@ -50,7 +50,6 @@ package_pamac-dev-tray-appindicator() {
   conflicts=('pamac-tray-appindicator')
   cd "$srcdir/pamac-$_pkgver"
   make use_appindicator=true
-  install -Dm755 src/pamac-tray-appindicator "$pkgdir"/usr/bin/pamac-tray-appindicator
-  install -Dm644 data/applications/pamac-tray-appindicator.desktop "$pkgdir"/etc/xdg/autostart/pamac-tray-appindicator.desktop
+  make prefix="$pkgdir"/usr sysconfdir="$pkgdir"/etc install_pamac-tray-appindicator
 }
 # vim:set ts=2 sw=2 et:
