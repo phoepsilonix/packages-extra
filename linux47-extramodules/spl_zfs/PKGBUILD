@@ -3,7 +3,6 @@
 
 _linuxprefix=linux47
 _extramodules=extramodules-4.7-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.6.5.8
@@ -27,6 +26,7 @@ prepare() {
 }
 
 build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "${srcdir}/spl-${_pkgver}"
   ./autogen.sh
   sed -i "s|\$(uname -r)|${_kernver}|g" configure

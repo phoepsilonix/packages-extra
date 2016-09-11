@@ -3,7 +3,6 @@
 
 _linuxprefix=linux312
 _extramodules=extramodules-3.12-MANJARO
-_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.6.5.8
@@ -22,6 +21,7 @@ sha256sums=('1b0a625141206711b52023eab40f7187ce2afe5e39e23981805aab19f170853d'
             'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84')
 
 build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
   cd "${srcdir}/spl-${_pkgver}"
   ./autogen.sh
   sed -i "s|\$(uname -r)|${_kernver}|g" configure
