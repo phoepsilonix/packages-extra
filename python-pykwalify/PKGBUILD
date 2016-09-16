@@ -1,5 +1,7 @@
 # Maintainer: artoo <artoo@manjaro.org>
 
+_pkgname=pykwalify
+
 pkgname=python-pykwalify
 pkgver=1.5.1
 pkgrel=1
@@ -8,12 +10,14 @@ arch=('any')
 url="http://github.com/grokzen/pykwalify"
 license=('MIT')
 depends=('python-docopt' 'python-yaml' 'python-dateutil')
-makedepends=('python' 'python-pip')
+source=("https://pypi.python.org/packages/source/p/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+sha256sums=('4a384b1034166107a22bd371233a20ab3dd729b5bd34f6b0d053af18cd234103')
 
 build() {
-    pip install --no-deps --target="pykwalify" pykwalify
+    cd "$srcdir/$_pkgname-$pkgver"
+    python setup.py build
 }
 package() {
-    mkdir -p $pkgdir/usr/lib/python3.5/site-packages/
-    cp -r $srcdir/pykwalify/* $pkgdir/usr/lib/python3.5/site-packages/
+    cd "$srcdir/$_pkgname-$pkgver"
+    python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
 }
