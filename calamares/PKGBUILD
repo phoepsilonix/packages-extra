@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=2.4.1
-_pkgver=2.4.1
+pkgver=2.4.1.1
+_pkgver=2.4.1.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -17,15 +17,10 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$_pkgver/calamares-$_pkgver.tar.gz"
-         git+https://github.com/calamares/calamares-manjaro.git#branch=2.4.x-stable)
-
-sha256sums=('ab1ea9c57bfeccea1282813fa67d3ee97ee03f8673af002c13fdda8dc75ef028'
-            'SKIP')
+source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
+sha256sums=('a15d1ac19f00d05ab5e5bcc0ea351b4f137b1ff460525d5b3a031e94096f2cff')
 
 prepare() {
-	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares-${_pkgver}
-	rm -r ${srcdir}/calamares-manjaro
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
 }
@@ -39,26 +34,16 @@ build() {
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
-              -DSKIP_MODULES="webview interactiveterminal"
+              -DSKIP_MODULES="webview interactiveterminal initramfs dracut dummyprocess dummypython"
         make
 }
 
 package() {
 	cd ${srcdir}/calamares-${_pkgver}/build
 	make DESTDIR="$pkgdir" install
-	install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
-	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
-	install -Dm644 "../conf/locale.conf" "$pkgdir/usr/share/calamares/modules/locale.conf"
-	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
-	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
-	install -Dm644 "../conf/users.conf" "$pkgdir/usr/share/calamares/modules/users.conf"
-	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	install -Dm755 "../data/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
 	install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
 	chmod 750      "$pkgdir"/etc/polkit-1/rules.d
-	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
-	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
-	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
 }

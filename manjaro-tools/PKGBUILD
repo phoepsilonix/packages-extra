@@ -3,7 +3,8 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso')
-pkgver=0.13.6
+_commit=e34a840
+pkgver=0.13.6+11+g$_commit
 _pkgver=0.13.6
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
@@ -12,13 +13,16 @@ license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
-sha1sums=('cc74379e0ceb6840edf21bbcc59331d1052dc99f')
+source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz"
+        "$_commit.patch::https://github.com/manjaro/manjaro-tools/compare/stable-0.13.x...$_commit.patch")
+sha1sums=('cc74379e0ceb6840edf21bbcc59331d1052dc99f'
+          '81d7680a3919e5036aadebfc6932c64e273aa9d8')
 
 prepare() {
 	cd ${srcdir}/${pkgbase}-${_pkgver}
 	# patches here
 	#sed -i -e "s|${_pkgver}|${pkgver}|g" Makefile
+	patch -Np1 -i $srcdir/$_commit.patch
 }
 
 build() {
