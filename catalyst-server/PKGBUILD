@@ -5,7 +5,7 @@
 pkgname=('catalyst-server')
 pkgver=1.17.4
 _pkgver=1.17.4-3.1
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 depends=(catalyst-input
          fontsproto
@@ -54,6 +54,7 @@ conflicts=('nvidia-utils<=331.20' 'glamor-egl' 'xf86-video-modesetting'
            xorg-server-xdmx
            xorg-server-xephyr
            xorg-server-xnest
+           xorg-server-xwayland
            xorg-server-xvfb
            xorg-server)
 groups=(xorg117)
