@@ -2,8 +2,8 @@
 # Maintainer: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=cogl
-pkgver=1.22.0
-pkgrel=1.5
+pkgver=1.22.2
+pkgrel=1.1
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
 arch=('i686' 'x86_64')
 url="http://www.clutter-project.org/"
@@ -12,27 +12,22 @@ depends=('mesa' 'libdrm' 'libxext' 'libxdamage' 'libxcomposite' 'gdk-pixbuf2' 'p
 makedepends=('gobject-introspection')
 options=(!emptydirs)
 replaces=('cogl-catalyst')
-source=(http://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver:0:4}/$pkgname-$pkgver.tar.xz
-        kms-winsys_dont_wait_for_a_flip_when_page_flipping_fails.patch
+source=(https://download.gnome.org/sources/$pkgname/${pkgver:0:4}/$pkgname-$pkgver.tar.xz
         gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
         Use_better_vendor_strings_from_AMD.patch)
-sha256sums=('689dfb5d14fc1106e9d2ded0f7930dcf7265d0bc84fa846b4f03941633eeaa91'
-            '5a35239a5bdc573949bcd2e2845d2acd9adb1f4e5a904f40ab52f19090ba7220'
+sha256sums=('39a718cdb64ea45225a7e94f88dddec1869ab37a21b339ad058a9d898782c00d'
             'bed12e762657b2a864fd3abe8722e8acf436576d8fd1e7325d69590294ac72b0'
             '47a2ed89b5c6c1e3a6e5b64c97ae4dc000290b6bc9ef18b276934de4d29e8933')
 
 prepare() {
   cd $pkgname-$pkgver
+  # https://bugzilla.gnome.org/show_bug.cgi?id=756306
+  patch -Np1 -i ../gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
+  patch -Np1 -i ../Use_better_vendor_strings_from_AMD.patch
 }
 
 build() {
   cd $pkgname-$pkgver
-  # https://bugzilla.gnome.org/show_bug.cgi?id=756926
-  patch -Np1 -i ../kms-winsys_dont_wait_for_a_flip_when_page_flipping_fails.patch
-  # https://bugzilla.gnome.org/show_bug.cgi?id=756306
-  patch -Np1 -i ../gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
-  patch -Np1 -i ../Use_better_vendor_strings_from_AMD.patch
-
   ./configure --prefix=/usr \
     --enable-gles{1,2} \
     --enable-{kms,wayland}-egl-platform \
