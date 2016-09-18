@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_mt_ver=0.12.2
+_mt_ver=0.13.7
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles-base'
@@ -9,16 +9,14 @@ pkgname=('manjaro-iso-profiles-base'
 	'manjaro-iso-profiles-community'
 	'manjaro-iso-profiles-minimal'
 	'sonar-iso-profiles')
-pkgver=16.07
+pkgver=16.09
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-iso-profiles"
 license=('GPL')
-# options=('!strip')
-_git=e7139d7fc274ff7b9d8c6d0ac522090c8c202e78
-source=(#"${pkgbase}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
-        "${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('405edc984d1a01f6a03c660b41002a923bcc42459ea6df40edca90bcd8ec3f70')
+_git=1a1a117ac89a1409c1790ad519bfe24e7e60a7c2
+source=("${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
+sha256sums=('5c8580b1b9540c36b4b5d288c9b464646a0932db656b16303196e41086571d7c')
 
 prepare(){
  	# remove this
@@ -43,7 +41,7 @@ package_manjaro-iso-profiles-base() {
 package_manjaro-iso-profiles-official() {
 	pkgdesc='Manjaro Linux official iso profiles'
 	groups=('manjaro-tools')
-	depends=("manjaro-tools-iso>=${_mt_ver}")
+	#depends=("manjaro-tools-yaml>=${_mt_ver}")
 
 	_inst_dir 'official'
 }
@@ -51,7 +49,7 @@ package_manjaro-iso-profiles-official() {
 package_manjaro-iso-profiles-community() {
 	pkgdesc='Manjaro Linux community iso profiles'
 	groups=('manjaro-tools')
-	depends=("manjaro-tools-iso>=${_mt_ver}")
+	depends=("manjaro-tools-yaml>=${_mt_ver}")
 
 	_inst_dir 'community'
 }
@@ -59,7 +57,7 @@ package_manjaro-iso-profiles-community() {
 package_manjaro-iso-profiles-minimal() {
 	pkgdesc='Manjaro Linux minimal iso profiles'
 	groups=('manjaro-tools')
-	depends=("manjaro-tools-iso>=${_mt_ver}")
+	depends=("manjaro-tools-yaml>=${_mt_ver}")
 	conflicts=('manjaro-iso-profiles-community-minimal')
 	replaces=('manjaro-iso-profiles-community-minimal')
 
@@ -69,7 +67,7 @@ package_manjaro-iso-profiles-minimal() {
 package_sonar-iso-profiles() {
 	pkgdesc='Sonar Linux iso profiles'
 	groups=('manjaro-tools')
-	depends=("manjaro-tools-iso>=${_mt_ver}")
+	depends=("manjaro-tools-yaml>=${_mt_ver}")
 
 	_inst_dir 'sonar'
 }
