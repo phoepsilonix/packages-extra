@@ -10,7 +10,7 @@ pkgname=('manjaro-tools-base-git'
         'manjaro-tools-pkg-git'
         'manjaro-tools-iso-git'
         'manjaro-tools-yaml-git')
-pkgver=r2292.3faed98
+pkgver=r2301.b4ac747
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
@@ -66,11 +66,9 @@ package_manjaro-tools-yaml-git() {
     pkgdesc='Development tools for Manjaro Linux (yaml validation tools)'
     provides=("manjaro-tools-yaml=$_ver")
     conflicts=('manjaro-tools-yaml')
-    depends=('manjaro-tools-base-git' 'python-pykwalify' 'manjaro-iso-profiles-base')
-    optdepends=('manjaro-iso-profiles-official: Manjaro Linux ISO-Image official profiles'
-                'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
-                'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
-                'qemu: quickly test isos')
+    depends=('manjaro-tools-base-git' 'python-pykwalify' 'manjaro-iso-profiles-official')
+    optdepends=('manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
+                'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles')
 
     cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_yaml
@@ -83,6 +81,7 @@ package_manjaro-tools-iso-git() {
                 'manjaro-tools-yaml-git' 'mkinitcpio-nfs-utils' 'mktorrent')
 	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell')
 	conflicts=('manjaro-tools-iso')
+    optdepends=('qemu: quickly test isos')
 
 	cd ${srcdir}/${_pkgbase}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
