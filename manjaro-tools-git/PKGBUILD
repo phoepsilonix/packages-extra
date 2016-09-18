@@ -62,30 +62,29 @@ package_manjaro-tools-pkg-git() {
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
-package_manjaro-tools-iso-git() {
-    pkgdesc='Development tools for Manjaro Linux (ISO tools)'
-	provides=("manjaro-tools-iso=$_ver")
-    depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                'manjaro-tools-base-git' 'mkinitcpio-nfs-utils'
-                'manjaro-iso-profiles-base' 'mktorrent')
-    depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell' )
+package_manjaro-tools-yaml-git() {
+    pkgdesc='Development tools for Manjaro Linux (yaml validation tools)'
+    provides=("manjaro-tools-yaml=$_ver")
+    conflicts=('manjaro-tools-yaml')
+    depends=('manjaro-tools-base-git' 'python-pykwalify' 'manjaro-iso-profiles-base')
     optdepends=('manjaro-iso-profiles-official: Manjaro Linux ISO-Image official profiles'
                 'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
                 'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles'
-                'manjaro-tools-yaml: Majaro Linux yaml validation tools'
                 'qemu: quickly test isos')
-	conflicts=('manjaro-tools-iso')
-
-    cd ${srcdir}/${_pkgbase}
-    make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
-}
-
-package_manjaro-tools-yaml-git() {
-    pkgdesc='Development tools for Manjaro Linux (yaml tools)'
-    provides=("manjaro-tools-yaml=$_ver")
-    depends=('manjaro-tools-iso-git' 'python-pykwalify')
-    conflicts=('manjaro-tools-yaml')
 
     cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_yaml
 }
+
+package_manjaro-tools-iso-git() {
+    pkgdesc='Development tools for Manjaro Linux (ISO tools)'
+	provides=("manjaro-tools-iso=$_ver")
+    depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
+                'manjaro-tools-yaml-git' 'mkinitcpio-nfs-utils' 'mktorrent')
+	depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell')
+	conflicts=('manjaro-tools-iso')
+
+	cd ${srcdir}/${_pkgbase}
+	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
+}
+
