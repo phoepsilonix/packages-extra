@@ -33,6 +33,9 @@ package_manjaro-iso-profiles-base() {
 	provides=('iso-profiles-base')
 	conflicts=('manjaro-tools-iso-profiles' 'manjaro-iso-profiles' 'manjaro-iso-profiles-openrc')
 	replaces=('manjaro-tools-iso-profiles' 'manjaro-iso-profiles' 'manjaro-iso-profiles-openrc')
+    optdepends=('manjaro-iso-profiles-official: Manjaro Linux ISO-Image official profiles'
+                'manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
+                'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles')
 
 	_inst_dir 'shared'
 	echo "version_min=$_mt_ver" > $pkgdir/usr/share/manjaro-tools/iso-profiles/.buildiso
@@ -41,7 +44,7 @@ package_manjaro-iso-profiles-base() {
 package_manjaro-iso-profiles-official() {
 	pkgdesc='Manjaro Linux official iso profiles'
 	groups=('manjaro-tools')
-	#depends=("manjaro-tools-yaml>=${_mt_ver}")
+	depends=("manjaro-tools-yaml>=${_mt_ver}")
 
 	_inst_dir 'official'
 }

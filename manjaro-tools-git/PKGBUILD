@@ -10,14 +10,13 @@ pkgname=('manjaro-tools-base-git'
         'manjaro-tools-pkg-git'
         'manjaro-tools-iso-git'
         'manjaro-tools-yaml-git')
-pkgver=r2301.b4ac747
+pkgver=r2303.e3ce3e2
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
-depends=('python-yaml') #for use check-yaml
 makedepends=('git' 'docbook2x')
 source=("git+$url.git#branch=$_branch")
 sha256sums=('SKIP')
@@ -66,9 +65,7 @@ package_manjaro-tools-yaml-git() {
     pkgdesc='Development tools for Manjaro Linux (yaml validation tools)'
     provides=("manjaro-tools-yaml=$_ver")
     conflicts=('manjaro-tools-yaml')
-    depends=('manjaro-tools-base-git' 'python-pykwalify' 'manjaro-iso-profiles-official')
-    optdepends=('manjaro-iso-profiles-community: Manjaro Linux ISO-Image community profiles'
-                'manjaro-iso-profiles-minimal: Manjaro Linux ISO-Image minimal profiles')
+    depends=('manjaro-tools-base-git' 'python-pykwalify' 'manjaro-iso-profiles-base')
 
     cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_yaml
