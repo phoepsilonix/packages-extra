@@ -43,7 +43,8 @@ package_manjaro-tools-base-git() {
     provides=("manjaro-tools-base=$_ver")
     depends=('openssh' 'rsync' 'haveged' 'os-prober' 'gnupg' 'pacman-mirrorlist>=20160301')
     optdepends=('manjaro-tools-pkg: Manjaro Linux package tools'
-                    'manjaro-tools-iso: Manjaro Linux iso tools')
+                'manjaro-tools-iso: Manjaro Linux iso tools'
+                'manjaro-tools-yaml: Manjaro Linux yaml tools')
     conflicts=('manjaro-tools-base')
     backup=('etc/manjaro-tools/manjaro-tools.conf')
 
@@ -62,7 +63,7 @@ package_manjaro-tools-pkg-git() {
 }
 
 package_manjaro-tools-yaml-git() {
-    pkgdesc='Development tools for Manjaro Linux (yaml validation tools)'
+    pkgdesc='Development tools for Manjaro Linux (yaml tools)'
     provides=("manjaro-tools-yaml=$_ver")
     conflicts=('manjaro-tools-yaml')
     depends=('manjaro-tools-base-git' 'python-pykwalify' 'manjaro-iso-profiles-base')
