@@ -2,9 +2,9 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgbase=manjaro-tools
-pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-iso'  'manjaro-tools-yaml')
+pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-yaml' 'manjaro-tools-iso')
 pkgver=0.13.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -56,7 +56,7 @@ package_manjaro-tools-yaml() {
 package_manjaro-tools-iso() {
     pkgdesc='Development tools for Manjaro Linux (ISO tools)'
     depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                'manjaro-tools-base' 'mkinitcpio-nfs-utils' 'mktorrent')
+                'manjaro-tools-yaml' 'mkinitcpio-nfs-utils' 'mktorrent')
     depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-shell')
     optdepends=('qemu: quickly test isos')
 
