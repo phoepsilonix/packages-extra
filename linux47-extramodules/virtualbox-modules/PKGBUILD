@@ -20,7 +20,6 @@ depends=("$_linuxprefix")
 groups=("$_linuxprefix-extramodules")
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
-             'virtualbox-dkms-manjaro'
              'dkms'
              "$_linuxprefix" "$_linuxprefix-headers")
 
