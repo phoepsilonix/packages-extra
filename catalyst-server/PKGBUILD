@@ -5,7 +5,7 @@
 pkgname=('catalyst-server')
 pkgver=1.17.4
 _pkgver=1.17.4-3.1
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 depends=(catalyst-input
          fontsproto
@@ -47,7 +47,10 @@ provides=('x-server' 'glamor-egl' 'xf86-video-modesetting'
           xorg-server-xnest=${_pkgver}
           xorg-server-xvfb=${_pkgver}
           xorg-server-xwayland=${_pkgver}
-          xorg-server=${_pkgver})
+          xorg-server=${_pkgver}
+          X-ABI-VIDEODRV_VERSION=19
+          X-ABI-XINPUT_VERSION=21.1
+          X-ABI-EXTENSION_VERSION=9.0)
 conflicts=('nvidia-utils<=331.20' 'glamor-egl' 'xf86-video-modesetting'
            xorg-server-common
            xorg-server-devel
