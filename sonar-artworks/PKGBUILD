@@ -5,8 +5,8 @@ _dist='Sonar'
 
 pkgbase=sonar-artworks
 pkgname=('sonar-common' 'sonar-backgrounds' 'sonar-calamares-branding' 'sonar-sound-theme')
-pkgver=16.08
-pkgrel=2
+pkgver=16.09
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/sonar-artworks"
 license=('GPL')
