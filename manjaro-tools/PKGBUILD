@@ -3,8 +3,8 @@
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-yaml' 'manjaro-tools-iso')
-pkgver=0.13.7
-pkgrel=2
+pkgver=0.13.8
+pkgrel=1
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -12,7 +12,7 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha1sums=('9564dbfe0f56a2fb4ec02ff9068d254a1e380ad8')
+sha1sums=('e4b833a4e5c655df9cf86041aac835208b7f2026')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
@@ -47,7 +47,7 @@ package_manjaro-tools-pkg() {
 
 package_manjaro-tools-yaml() {
     pkgdesc='Development tools for Manjaro Linux (yaml tools)'
-    depends=('manjaro-tools-base' 'python-pykwalify' 'manjaro-iso-profiles-base')
+    depends=('manjaro-tools-base' 'calamares-tools' 'python-pykwalify' 'manjaro-iso-profiles-base')
 
     cd ${srcdir}/${pkgbase}-${pkgver}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_yaml
