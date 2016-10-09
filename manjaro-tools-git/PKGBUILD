@@ -10,7 +10,7 @@ pkgname=('manjaro-tools-base-git'
         'manjaro-tools-pkg-git'
         'manjaro-tools-iso-git'
         'manjaro-tools-yaml-git')
-pkgver=r2357.a023981
+pkgver=r2362.a2e170c
 pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
@@ -75,7 +75,7 @@ package_manjaro-tools-yaml-git() {
 package_manjaro-tools-iso-git() {
     pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	provides=("manjaro-tools-iso=$_ver")
-    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml-git' 'mkinitcpio' 'mktorrent')
+    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml-git' 'mktorrent' 'syslinux-theme')
 	conflicts=('manjaro-tools-iso')
     optdepends=('qemu: quickly test isos')
 
