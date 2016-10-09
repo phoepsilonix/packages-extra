@@ -1,0 +1,32 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <artoo@manjaro.org>
+
+pkgbase=syslinux-themes
+pkgname=('manjaro-syslinux-theme' 'sonar-syslinux-theme')
+pkgver=20161009
+pkgrel=1
+arch=('any')
+url="https://github.com/manjaro/desktop-settings"
+license=('GPL')
+depends=('syslinux')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	date +%Y%m%d
+}
+
+package_manjaro-syslinux-theme() {
+    pkgdesc='Manjaro Linux syslinux theme'
+
+	install -d $pkgdir/usr/share/syslinux
+	cp -r $srcdir/desktop-settings/shared/syslinux/manjaro $pkgdir/usr/share/syslinux
+}
+
+package_sonar-syslinux-theme() {
+    pkgdesc='Sonar Linux syslinux theme'
+
+	install -d $pkgdir/usr/share/syslinux
+	cp -r $srcdir/desktop-settings/shared/syslinux/sonar $pkgdir/usr/share/syslinux
+}
