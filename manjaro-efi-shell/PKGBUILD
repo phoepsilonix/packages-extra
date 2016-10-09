@@ -4,7 +4,7 @@
 _url=https://raw.githubusercontent.com/tianocore/edk2/master
 
 pkgname=manjaro-efi-shell
-pkgver=20161006
+pkgver=20161009
 pkgrel=1
 pkgdesc="efi shell for manjaro-tools-iso"
 arch=('x86_64')
@@ -16,21 +16,27 @@ replaces=('manjaro-tools-efi-shell')
 source=("shellx64_v1.efi::${_url}/EdkShellBinPkg/FullShell/X64/Shell_Full.efi"
         "shellx64_v2.efi::${_url}/ShellBinPkg/UefiShell/X64/Shell.efi"
         'uefi-shell-v1-x86_64.conf'
-        'uefi-shell-v2-x86_64.conf')
+        'uefi-shell-v2-x86_64.conf'
+        'loader.conf'
+        'entry-x86_64-usb.conf'
+        'entry-x86_64-dvd.conf'
+        'gummibootx64.efi')
 sha256sums=('ea5e763a8a5f9733dbf7c33ffa16a19e078c6af635b51d8457bc377a22106a8c'
             '889a1f28051955fc33a9512901b2d0f5a5d500750e09fb7caf21defb1fd3b657'
             '026ffb24a313b18b5a633cf90a935d016d11c044c73dc9fab9728f851ccfd999'
-            '21abce4a798f4c94e093352cec9a53341693be872ecb2c51b93f45e3cf802995')
+            '21abce4a798f4c94e093352cec9a53341693be872ecb2c51b93f45e3cf802995'
+            '6c8f0a537d89604dde7eabae78d037aa40c570e71dd09dfbb70d0f91389f0f9d'
+            '3957c9afb2c025749b8e038fcfbe0eef0c222641134b92b2e2a8ca1089b8a24d'
+            '29c1ef08b6f5a1adb5f83b95c533a1eeab375b80d228c80872c18b88fe2cbf91'
+            'e0c6a40c74dc3a597dda977cb44bdf21759b8869e152d898d35664b8d3675fd3')
 
 pkgver() {
 	date +%Y%m%d
 }
 
 package() {
-    local _target=${pkgdir}/usr/share/manjaro-tools/efi_shell
-    install -Dm644 ${srcdir}/shellx64_v1.efi ${_target}/shellx64_v1.efi
-    install -m644 ${srcdir}/uefi-shell-v1-x86_64.conf ${_target}/uefi-shell-v1-x86_64.conf
-
-    install -m644 ${srcdir}/shellx64_v2.efi ${_target}/shellx64_v2.efi
-    install -m644 ${srcdir}/uefi-shell-v2-x86_64.conf ${_target}/uefi-shell-v2-x86_64.conf
+    local _target=${pkgdir}/usr/share/manjaro-tools/efiboot
+    install -d ${_target}
+    install -m644 ${srcdir}/{shellx64_v1,shellx64_v2,gummibootx64}.efi ${_target}
+    install -m644 ${srcdir}/{loader,entry-x86_64-usb,entry-x86_64-dvd,uefi-shell-v1-x86_64,uefi-shell-v2-x86_64}.conf ${_target}
 }
