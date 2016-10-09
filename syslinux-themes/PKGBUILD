@@ -4,15 +4,15 @@
 pkgbase=syslinux-themes
 pkgname=('manjaro-syslinux-theme' 'sonar-syslinux-theme')
 pkgver=20161009
-pkgrel=3
+pkgrel=5
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
 depends=('syslinux')
 makedepends=('git')
 provides=('syslinux-theme')
-conflicts=('syslinux-theme')
-replaces=('syslinux-theme')
+conflicts=('syslinux-theme' 'isolinux')
+replaces=('syslinux-theme' 'isolinux')
 source=("git+$url.git")
 sha256sums=('SKIP')
 
@@ -25,6 +25,9 @@ package_manjaro-syslinux-theme() {
 
 	install -d $pkgdir/usr/share/manjaro-tools/syslinux-theme
 	cp -v $srcdir/desktop-settings/shared/syslinux/manjaro/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
+	cp -v $srcdir/desktop-settings/shared/syslinux/{lng,hlp,cfg}/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
+# 	cp -v $srcdir/desktop-settings/shared/syslinux/hlp/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
+# 	cp -v $srcdir/desktop-settings/shared/syslinux/cfg/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
 }
 
 package_sonar-syslinux-theme() {
@@ -32,4 +35,7 @@ package_sonar-syslinux-theme() {
 
 	install -d $pkgdir/usr/share/manjaro-tools/syslinux-theme
 	cp -v $srcdir/desktop-settings/shared/syslinux/sonar/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
+	cp -v $srcdir/desktop-settings/shared/syslinux/{lng,hlp,cfg}/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
+# 	cp -v $srcdir/desktop-settings/shared/syslinux/hlp/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
+# 	cp -v $srcdir/desktop-settings/shared/syslinux/cfg/* $pkgdir/usr/share/manjaro-tools/syslinux-theme
 }
