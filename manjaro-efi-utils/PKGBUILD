@@ -5,13 +5,14 @@ _url=https://raw.githubusercontent.com/tianocore/edk2/master
 
 pkgname=manjaro-efi-utils
 pkgver=20161014
-pkgrel=2
+pkgrel=3
 pkgdesc="efi utils for manjaro-tools-iso"
 arch=('x86_64')
 license=('GPL')
 url='https://github.com/manjaro/manjaro-tools'
-conflicts=('manjaro-efi-shell')
-replaces=('manjaro-efi-shell')
+#conflicts=('manjaro-efi-shell')
+#replaces=('manjaro-efi-shell')
+#provides=('manjaro-efi-shell')
 source=("shellx64_v1.efi::${_url}/EdkShellBinPkg/FullShell/X64/Shell_Full.efi"
         "shellx64_v2.efi::${_url}/ShellBinPkg/UefiShell/X64/Shell.efi"
         'uefi-shell-v1-x86_64.conf'
