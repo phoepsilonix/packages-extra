@@ -3,8 +3,8 @@
 
 pkgbase=syslinux-themes
 pkgname=('manjaro-syslinux-theme' 'sonar-syslinux-theme')
-pkgver=20161014
-pkgrel=2
+pkgver=20161018
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
 license=('GPL')
