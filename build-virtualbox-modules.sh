@@ -32,3 +32,5 @@ cd ../../linux47*/*virtualbox-modules
 makepkg -df
 cd ../../linux48*/*virtualbox-modules
 makepkg -df
+cd ../../linux49*/*virtualbox-modules
+makepkg -df
