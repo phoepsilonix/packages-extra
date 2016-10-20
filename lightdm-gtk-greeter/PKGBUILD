@@ -2,23 +2,23 @@
 # Contributor: Padfoot <padfoot@exemail.com.au>
 
 pkgname=lightdm-gtk-greeter
-pkgver=2.0.1
-pkgrel=3
+pkgver=2.0.2
+pkgrel=1
 epoch=1
 pkgdesc='GTK+ greeter for LightDM'
 arch=('i686' 'x86_64')
 url='https://launchpad.net/lightdm-gtk-greeter'
 license=('GPL3' 'LGPL3')
 depends=('gtk3' 'lightdm')
-makedepends=('gobject-introspection' 'intltool')
+makedepends=('exo' 'gobject-introspection' 'intltool')
 replaces=('lightdm-gtk2-greeter' 'lightdm-gtk3-greeter')
 backup=('etc/lightdm/lightdm-gtk-greeter.conf')
 source=("https://launchpad.net/lightdm-gtk-greeter/${pkgver%.?}/${pkgver}/+download/lightdm-gtk-greeter-${pkgver}.tar.gz"
         "a11y.patch"
 	'cursor_theme.patch')
-sha256sums=('3264008c8f51323413c2a6ac16523930b75f4ecdde6da8b6fe47ec9bffd9310c'
+sha256sums=('8ee6d93d1d6837b3590f64ac4d5bac5db888a8861dff1cb2ef10f7816ad36690'
             '1c07a8175784f80fbf8e0217f46405ec0726db4e860e8970c647136c5680fb05'
-            'd2b48b0a3e8b0a1b5528f52051f929c50da5f5752e8fe1374b348b85a997f651')
+            '58f44a4c71269fd844ef946f47b972096e8a10511c1907fad3171ad8784a8359')
 
 prepare() {
   cd lightdm-gtk-greeter-${pkgver}
