@@ -4,12 +4,13 @@
 
 pkgname=manjaro-isolinux-dev
 pkgver=r64.9358327
-pkgrel=1
+pkgrel=2
 pkgdesc='Development tools for Manjaro Linux (isolinux)'
 arch=('i686' 'x86_64')
 license=('GPL')
 url='https://github.com/Ste74/artwork-gfxboot'
 provides=("isolinux")
+conflicts=('manjaro-isolinux')
 makedepends=('gfxboot' 'cpio' 'fribidi' 'git')
 source=("git+$url.git")
 sha256sums=('SKIP')
