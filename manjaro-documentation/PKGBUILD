@@ -3,8 +3,8 @@
 
 pkgbase=manjaro-documentation
 pkgname=('manjaro-documentation')
-pkgver=20161016
-_gitcommit=e3ca8cfcd5725d7bb40281288b9a0a6760cc2386
+pkgver=20161021
+_gitcommit=d56a2f2f220362d53cff57dc0713acd8fb55ca01
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
@@ -12,7 +12,7 @@ makedepends=('ghostscript' 'lyx' 'python2' 'texlive-core' 'texlive-latexextra' '
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz"
 	'manjaro-documentation'
 	'manjaro-documentation.desktop')
-sha256sums=('e38773ac24076777925aa338a97c224c036f7820e5a42d2f244a8f4c1f3d592d'
+sha256sums=('8d71c7df68c1f8ef7e3373ac186820d2b3157a199c8667d3bd2d164c0667c9b9'
             'b122d1f817d60b5a18b2bb404d54c2267307b6bb0c215fc897c58cc81226a80e'
             '51b209d9da5bb7d7a6b88abe097702b603c9bcfea340753187221a12955a92dd')
 

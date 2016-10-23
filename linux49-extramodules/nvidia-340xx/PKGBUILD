@@ -9,7 +9,7 @@ _extramodules=extramodules-4.9-MANJARO
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
 pkgver=340.98
-pkgrel=0
+pkgrel=0.1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -21,10 +21,11 @@ conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia" "$_linuxprefix-nv
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=('nvidia-3.18.patch')
+source=('nvidia-3.18.patch' 'linux-4.9-rc2.patch')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('79671a27131da619a33eb02ed0c2c031')
+md5sums=('79671a27131da619a33eb02ed0c2c031'
+         '170d789116630fde58396f8a36d13891')
 md5sums_i686=('3ccb023eec137cbee0d2035c288b6bbe')
 md5sums_x86_64=('e8d1292d8d002a15e10ea349151fa8f2')
 
@@ -37,6 +38,7 @@ prepare() {
     # patches here
     # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
     patch -Np0 -i ${srcdir}/nvidia-3.18.patch
+    patch -Np1 -i ${srcdir}/linux-4.9-rc2.patch
 
     # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
     # get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
