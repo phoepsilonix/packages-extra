@@ -1,9 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=2.4.2.1
-_pkgver=2.4.2.1
-pkgrel=2
+pkgver=2.4.3
+_pkgver=2.4.3
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,7 +18,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
-sha256sums=('c4f71ec4eda5490664fc5152e496c46175f69dc2f7973ca467abc8f1b455646e')
+sha256sums=('2212eb72b87dd251747f3585a5e1bb8cc06c3a6eb050cb5f141831c4d44eb618')
 
 prepare() {
 	cd ${srcdir}/calamares-${_pkgver}
@@ -34,7 +34,7 @@ build() {
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
-              -DSKIP_MODULES="webview interactiveterminal initramfs initramfscfg dracut dracutlukscfg dummyprocess dummypython"
+              -DSKIP_MODULES="webview interactiveterminal initramfs initramfscfg dracut dracutlukscfg dummyprocess dummypython dummycpp"
         make
 }
 
