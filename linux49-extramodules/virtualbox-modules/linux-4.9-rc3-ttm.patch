@@ -1,0 +1,15 @@
+diff -Npur vboxguest.orig/5.1.8_OSE/build/vboxvideo/vbox_ttm.c vboxguest/5.1.8_OSE/build/vboxvideo/vbox_ttm.c
+--- vboxguest.orig/5.1.8_OSE/build/vboxvideo/vbox_ttm.c	2016-10-30 13:28:19.127128000 +0100
++++ vboxguest/5.1.8_OSE/build/vboxvideo/vbox_ttm.c	2016-10-30 14:41:12.842103092 +0100
+@@ -223,8 +223,10 @@ static int vbox_bo_move(struct ttm_buffe
+     int r;
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 8, 0)
+     r = ttm_bo_move_memcpy(bo, evict, no_wait_gpu, new_mem);
+-#else
++#elif LINUX_VERSION_CODE < KERNEL_VERSION(4, 9, 0)
+     r = ttm_bo_move_memcpy(bo, evict, interruptible, no_wait_gpu, new_mem);
++#else
++    r = ttm_bo_move_memcpy(bo, interruptible, no_wait_gpu, new_mem);
+ #endif
+     return r;
+ }

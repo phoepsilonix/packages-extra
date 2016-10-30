@@ -1,0 +1,35 @@
+diff -Npur vboxhost.orig/5.1.8_OSE/build/vboxdrv/r0drv/linux/memobj-r0drv-linux.c vboxhost/5.1.8_OSE/build/vboxdrv/r0drv/linux/memobj-r0drv-linux.c
+--- vboxhost.orig/5.1.8_OSE/build/vboxdrv/r0drv/linux/memobj-r0drv-linux.c	2016-10-30 13:28:21.381588000 +0100
++++ vboxhost/5.1.8_OSE/build/vboxdrv/r0drv/linux/memobj-r0drv-linux.c	2016-10-30 13:49:00.963252343 +0100
+@@ -1017,7 +1017,11 @@ DECLHIDDEN(int) rtR0MemObjNativeLockUser
+     struct vm_area_struct **papVMAs;
+     PRTR0MEMOBJLNX pMemLnx;
+     int             rc      = VERR_NO_MEMORY;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++    int  const      fWrite  = fAccess & RTMEM_PROT_WRITE ? FOLL_WRITE : 0;
++#else
+     int  const      fWrite  = fAccess & RTMEM_PROT_WRITE ? 1 : 0;
++#endif
+ 
+     /*
+      * Check for valid task and size overflows.
+@@ -1050,7 +1054,9 @@ DECLHIDDEN(int) rtR0MemObjNativeLockUser
+             rc = get_user_pages(R3Ptr,                  /* Where from. */
+                                 cPages,                 /* How many pages. */
+                                 fWrite,                 /* Write to memory. */
++# if LINUX_VERSION_CODE < KERNEL_VERSION(4, 9, 0)
+                                 fWrite,                 /* force write access. */
++# endif
+                                 &pMemLnx->apPages[0],   /* Page array. */
+                                 papVMAs);               /* vmas */
+         /*
+@@ -1064,7 +1070,9 @@ DECLHIDDEN(int) rtR0MemObjNativeLockUser
+                                 R3Ptr,                  /* Where from. */
+                                 cPages,                 /* How many pages. */
+                                 fWrite,                 /* Write to memory. */
++# if LINUX_VERSION_CODE < KERNEL_VERSION(4, 9, 0)
+                                 fWrite,                 /* force write access. */
++# endif
+                                 &pMemLnx->apPages[0],   /* Page array. */
+                                 papVMAs);               /* vmas */
+ #else /* LINUX_VERSION_CODE < KERNEL_VERSION(4, 6, 0) */
