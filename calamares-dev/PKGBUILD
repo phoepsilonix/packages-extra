@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-dev
-pkgver=2.4.3.r2502.095e531
+pkgver=2.4.3.r2505.5bbb71e
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
@@ -11,7 +11,7 @@ license=('LGPL')
 conflicts=('calamares')
 provides=('calamares')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=2.2.0' 'mkinitcpio-openswap'
-         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache')
+         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
 # backup=('usr/share/calamares/modules/bootloader.conf'
 #         'usr/share/calamares/modules/displaymanager.conf'
@@ -47,20 +47,16 @@ build() {
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
-              -DSKIP_MODULES="webview interactiveterminal initramfs initramfscfg dracut dracutlukscfg dummyprocess dummypython dummycpp"
+              -DSKIP_MODULES="webview interactiveterminal initramfs \
+                              initramfscfg dracut dracutlukscfg \
+                              dummyprocess dummypython dummycpp \
+                              dummypythonqt"
         make
 }
 
 package() {
 	cd ${srcdir}/calamares/build
 	make DESTDIR="$pkgdir" install
-	#install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
-	#install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
-	#install -Dm644 "../conf/locale.conf" "$pkgdir/usr/share/calamares/modules/locale.conf"
-	#install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
-	#install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
-	#install -Dm644 "../conf/users.conf" "$pkgdir/usr/share/calamares/modules/users.conf"
-	#install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	install -Dm755 "../data/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
