@@ -3,8 +3,8 @@
 pkgname=calamares
 pkgver=2.4.4
 _pkgver=2.4.4
-pkgrel=3
-_commit=2e9fe3f
+pkgrel=4
+_commit=b955030
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -21,7 +21,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
          "${_commit}.patch::https://github.com/manjaro/calamares/compare/v${_pkgver}...${_commit}.patch")
 sha256sums=('550838e338db09604cd86652880c5e8f263ac8f0cb01de19c69def05024a69f1'
-            'e9e819ce4a90233aa94a14cac3d018cf62d60e731b80ea7c593c699c357cddd7')
+            '40c2d8193ce1aa8ab7c79cc4bfe894b2bb4b02c1b4ea99dece7b656805c86377')
 
 prepare() {
 	cd ${srcdir}/calamares-${_pkgver}

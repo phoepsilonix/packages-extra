@@ -2,7 +2,7 @@
 # Contributor: A Rojas < nqn1976 @ gmail.com >
 
 pkgname=partitionmanager-dev
-pkgver=2.1
+pkgver=2.9.90.r1178.f9c1665
 pkgrel=1
 pkgdesc="A KDE utility that allows you to manage disks, partitions, and file systems."
 arch=('i686' 'x86_64')

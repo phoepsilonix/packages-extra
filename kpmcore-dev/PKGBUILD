@@ -2,7 +2,7 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=kpmcore-dev
-pkgver=2.1
+pkgver=2.9.90.r463.ee49c05
 pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('i686' 'x86_64')
