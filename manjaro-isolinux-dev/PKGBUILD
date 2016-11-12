@@ -3,7 +3,7 @@
 # Contributor: Stefano Capitani <stefanoatmanjarodotorg>
 
 pkgname=manjaro-isolinux-dev
-pkgver=r68.c46d51c
+pkgver=r69.a0bf3a0
 pkgrel=1
 pkgdesc='Development tools for Manjaro Linux (isolinux)'
 arch=('i686' 'x86_64')
