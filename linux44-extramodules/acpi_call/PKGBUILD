@@ -7,7 +7,7 @@
 
 pkgname=linux44-acpi_call
 pkgver=1.1.0
-pkgrel=29
+pkgrel=30
 _extramodules=extramodules-4.4-MANJARO
 pkgdesc='A linux kernel module that enables calls to ACPI methods through /proc/acpi/call'
 arch=('i686' 'x86_64')
