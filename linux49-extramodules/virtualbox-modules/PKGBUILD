@@ -18,9 +18,9 @@ url='http://virtualbox.org'
 license=('GPL')
 depends=("$_linuxprefix")
 groups=("$_linuxprefix-extramodules")
-source=("linux-4.9-rc3.patch" "linux-4.9-rc3-ttm.patch")
-sha256sums=('7258e4ceb28b62c939dc01759a52399f90b2bb855c54f7881ddd1ea603251c4d'
-            '7f44fc6566b254821e5c2514942f844edce4c4c747ec18d66e0d04003ebefbbc')
+source=("linux-4.9.patch" "linux-4.9-sup.patch")
+sha256sums=('eba52f0c60f570b6d6942397dbfe26f82e61295dfef7e6ca3e174b55a7751a95'
+            '07508e09455934e7a3bde006226dcb8dce8fb345a1db4f7cd5197ed0c25e2852')
 
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
@@ -42,11 +42,10 @@ prepare() {
   mv "$srcdir/dkms/vboxguest/${pkgver}_OSE/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
 
   cd "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
-  patch -p3 -i "$srcdir/linux-4.9-rc3.patch"
+  patch -p3 -i "$srcdir/linux-4.9.patch"
+  patch -p3 -i "$srcdir/linux-4.9-sup.patch"
   cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/vboxguest"
-  patch -p4 -i "$srcdir/linux-4.9-rc3.patch"
-  cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
-  patch -p3 -i "$srcdir/linux-4.9-rc3-ttm.patch"
+  patch -p4 -i "$srcdir/linux-4.9.patch"
 
   if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
      rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko

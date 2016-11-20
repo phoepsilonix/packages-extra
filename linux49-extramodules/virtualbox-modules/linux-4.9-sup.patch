@@ -1,0 +1,12 @@
+diff -Npur vboxhost.orig/5.1.8_OSE/build/vboxdrv/SUPDrvInternal.h vboxhost/5.1.8_OSE/build/vboxdrv/SUPDrvInternal.h
+--- vboxhost.orig/5.1.8_OSE/build/vboxdrv/SUPDrvInternal.h
++++ vboxhost/5.1.8_OSE/build/vboxdrv/SUPDrvInternal.h
+@@ -65,7 +65,7 @@
+ #           include <linux/modversions.h>
+ #       endif
+ #   endif
+-#   if LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 0)
++#   if LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 0) && LINUX_VERSION_CODE < KERNEL_VERSION(4, 9, 0)
+ #       undef ALIGN
+ #   endif
+ #   ifndef KBUILD_STR
