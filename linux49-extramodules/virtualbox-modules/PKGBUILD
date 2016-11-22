@@ -9,18 +9,15 @@
 _linuxprefix=linux49
 _extramodules=extramodules-4.9-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
-pkgname=("$_linuxprefix-virtualbox-host-modules" ) #"$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.1.8
+pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
+pkgver=5.1.10
 _pkgver="${pkgver}_OSE"
-pkgrel=0.7
+pkgrel=0.8
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
 depends=("$_linuxprefix")
 groups=("$_linuxprefix-extramodules")
-source=("linux-4.9.patch" "linux-4.9-sup.patch")
-sha256sums=('eba52f0c60f570b6d6942397dbfe26f82e61295dfef7e6ca3e174b55a7751a95'
-            '07508e09455934e7a3bde006226dcb8dce8fb345a1db4f7cd5197ed0c25e2852')
 
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
@@ -32,20 +29,6 @@ prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-
-  rm "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
-  cp -r "/usr/src/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/"
-  mv "$srcdir/dkms/vboxhost/${pkgver}_OSE/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
-
-  rm "$srcdir/dkms/vboxguest/${pkgver}_OSE/source"
-  cp -r "/usr/src/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/"
-  mv "$srcdir/dkms/vboxguest/${pkgver}_OSE/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
-
-  cd "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
-  patch -p3 -i "$srcdir/linux-4.9.patch"
-  patch -p3 -i "$srcdir/linux-4.9-sup.patch"
-  cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/vboxguest"
-  patch -p4 -i "$srcdir/linux-4.9.patch"
 
   if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
      rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko
@@ -59,8 +42,8 @@ build() {
   msg2 'Host modules'
   dkms --dkmsframework dkms.conf build "vboxhost/$_pkgver" -k "$_kernver"
   # build guest modules  
-#  msg2 'Guest modules'
-#  dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
+  msg2 'Guest modules'
+  dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
 }
 
 package_linux49-virtualbox-host-modules(){
