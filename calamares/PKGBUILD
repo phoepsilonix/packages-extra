@@ -1,10 +1,10 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=2.4.4
-_pkgver=2.4.4
-pkgrel=5
-_commit=c0b7b0b
+pkgver=2.4.5
+_pkgver=2.4.5
+pkgrel=1
+#_commit=c0b7b0b
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,15 +18,14 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         "${_commit}.patch::https://github.com/manjaro/calamares/compare/v${_pkgver}...${_commit}.patch")
-sha256sums=('550838e338db09604cd86652880c5e8f263ac8f0cb01de19c69def05024a69f1'
-            '0e12680dcb8a341a5aa8fda3be411eaaed334b47efc3b7ec0b272ac044e4375a')
+source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
+#         "${_commit}.patch::https://github.com/manjaro/calamares/compare/v${_pkgver}...${_commit}.patch")
+sha256sums=('2b19f489acec4e203d2e672255b4645140adc4ca71c6e268268ab1bbffd3823a')
 
 prepare() {
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
-	patch -p1 -i ${srcdir}/${_commit}.patch
+	#patch -p1 -i ${srcdir}/${_commit}.patch
 }
 
 build() {
