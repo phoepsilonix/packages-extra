@@ -3,7 +3,7 @@
 
 pkgname=(manjaro-welcome manjaro-features)
 pkgbase=(manjaro-welcome)
-pkgver=20161130
+pkgver=20161204
 pkgrel=1
 pkgdesc="The Manjaro Welcome utility provides a simple interface for accessing all the relevant information for a new user of Manjaro."
 arch=(any)
@@ -20,12 +20,12 @@ _branch=master
 #md5sums=('')
 #else
    ## Git release
-   source=(git+https://github.com/manjaro/$pkgbase.git#branch=$_branch)
+   source=(git+$url.git#branch=$_branch)
 md5sums=('SKIP')
 #fi
 
 package_manjaro-welcome() {
-depends=('python-gobject' 'pywebkitgtk' 'manjaro-features')
+depends=('python-gobject' 'pywebkitgtk' 'manjaro-features' 'manjaro-icons')
     if [ -e "$srcdir/$pkgbase-$pkgver" ]; then
         cd "$srcdir/$pkgbase-$pkgver/src"
     else
@@ -34,16 +34,17 @@ depends=('python-gobject' 'pywebkitgtk' 'manjaro-features')
     
     mkdir -p "${pkgdir}/usr/share/${pkgbase}"
     mkdir -p "${pkgdir}/usr/share/icons/hicolor"
-    cp  -a data/* "${pkgdir}/usr/share/${pkgbase}"
+    cp -a data/* "${pkgdir}/usr/share/${pkgbase}"
     rm "${pkgdir}/usr/share/${pkgbase}/features.html"
     touch "${pkgdir}/usr/share/${pkgbase}/index.html"
     chmod 666 "${pkgdir}/usr/share/${pkgbase}/index.html"
+    ln -s /usr/share/icons/manjaro/green/64x64.png $pkgdir/usr/share/$pkgbase/img/logo.png
+    ln -s /usr/share/icons/manjaro/green/48x48.png $pkgdir/usr/share/$pkgbase/img/favicon.png
     install -D -m644 ${pkgbase}.desktop ${pkgdir}/etc/skel/.config/autostart/${pkgbase}.desktop
     install -D -m644 ${pkgbase}.desktop ${pkgdir}/usr/share/applications/${pkgbase}.desktop
     install -D -m755 "${pkgbase}" "${pkgdir}/usr/bin/${pkgbase}"
     install -D -m755 "${pkgbase}-terminal" "${pkgdir}/usr/bin/${pkgbase}-terminal"
     install -D -m755 "${pkgbase}-terminal" "${pkgdir}/usr/bin/${pkgbase}-irc"
-    install -D -m644 ${pkgbase}.png "${pkgdir}/usr/share/icons/hicolor/48x48/apps/${pkgbase}.png"
 }
 
 package_manjaro-features() {
