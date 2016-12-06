@@ -5,7 +5,7 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=375.20
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -44,8 +44,9 @@ prepare() {
 
 package_opencl-nvidia() {
     pkgdesc="OpenCL implemention for NVIDIA"
-    depends=('libcl' 'zlib')
+    depends=('zlib')
     optdepends=('opencl-headers: headers necessary for OpenCL development')
+    provides=('opencl-nvidia' 'opencl-driver')
     cd "${_pkg}"
 
     # OpenCL

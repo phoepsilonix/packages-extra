@@ -5,7 +5,7 @@
 pkgbase=nvidia-304xx-utils
 pkgname=('nvidia-304xx-utils' 'opencl-nvidia-304xx' 'mhwd-nvidia-304xx')
 pkgver=304.131
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -38,10 +38,9 @@ build() {
 
 package_opencl-nvidia-304xx() {
     pkgdesc="OpenCL implemention for NVIDIA, 304xx legacy branch"
-    depends=('libcl' 'zlib')
+    depends=('zlib')
     optdepends=('opencl-headers: headers necessary for OpenCL development')
-    provides=('opencl-nvidia' 'opencl-nvidia-legacy')
-    conflicts=('opencl-nvidia' 'opencl-nvidia-legacy')
+    provides=('opencl-nvidia' 'opencl-nvidia-legacy' 'opencl-driver')
     replaces=('opencl-nvidia-legacy')
  
     cd "${srcdir}/${_pkg}"

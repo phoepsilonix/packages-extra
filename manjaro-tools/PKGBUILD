@@ -4,7 +4,7 @@
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-yaml' 'manjaro-tools-iso')
 pkgver=0.13.8
-pkgrel=3
+pkgrel=4
 pkgdesc='Development tools for Manjaro Linux'
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -13,16 +13,19 @@ url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         'higher-requiredStorage.patch::https://github.com/manjaro/manjaro-tools/commit/bdf55196c36e07fe2d707d21f4a0587d78ab258b.patch'
-        'lower-requiredStorage.patch::https://github.com/manjaro/manjaro-tools/commit/53b3ce5dc12536e071ba4c8c98b5db4d16e80e93.patch')
+        'lower-requiredStorage.patch::https://github.com/manjaro/manjaro-tools/commit/53b3ce5dc12536e071ba4c8c98b5db4d16e80e93.patch'
+        'sonar-thus.patch::https://github.com/manjaro/manjaro-tools/commit/83de201055e881dd5bea48bfd8438987b4d2614f.patch')
 sha1sums=('e4b833a4e5c655df9cf86041aac835208b7f2026'
           'dfb2db935e7335b5af14c586d07de0e09b4511e7'
-          'ef016a229cbdec1519d998031352e71deef90839')
+          'ef016a229cbdec1519d998031352e71deef90839'
+          '41a789ff69a487aafe3d938001186bac2532814d')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
     patch -p1 -i ${srcdir}/higher-requiredStorage.patch
     patch -p1 -i ${srcdir}/lower-requiredStorage.patch
+    patch -p1 -i ${srcdir}/sonar-thus.patch
 }
 
 build() {
