@@ -41,7 +41,18 @@ package_sonar-mate-settings() {
 	pkgdesc='Sonar Linux mate settings'
 	conflicts=('sonar-desktop-settings')
 	provides=('sonar-desktop-settings')
-	depends=('manjaro-base-skel')
+	depends=(
+		'xcursor-breeze'
+                'arc-themes-maia'
+                'vertex-maia-icon-theme'
+                'maia-wallpaper'
+		'gnome-icon-theme'
+		'gnome-icon-theme-extras'
+		'gnome-icon-theme-symbolic'
+                'qt5-styleplugins'
+                'qt5ct')
+    optdepends=('firefox-arc-maia-settings')
+'manjaro-base-skel')
 
 	_inst_dir 'sonar/mate'
 }
