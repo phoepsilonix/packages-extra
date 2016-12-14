@@ -9,8 +9,8 @@ pkgname=('manjaro-live-base'
 	'manjaro-live-openrc'
 	'manjaro-live-systemd'
 	'manjaro-live-skel')
-pkgver=20161120
-pkgrel=2
+pkgver=20161211
+pkgrel=1
 pkgdesc='Manjaro Linux live session'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"

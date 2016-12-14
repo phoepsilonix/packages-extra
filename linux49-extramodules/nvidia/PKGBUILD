@@ -9,8 +9,8 @@ _linuxprefix=linux49
 _extramodules=extramodules-4.9-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=370.28
-pkgrel=0.11
+pkgver=375.26
+pkgrel=0.12
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -24,13 +24,10 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=("linux-4.9-rc2.patch" "linux-4.9-rc2-x86_64.patch")
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('7f86306fc8ee5e5bd735e77c048b64e1'
-         '23bd0df0218349bdb2259558cef24494')
-md5sums_i686=('7d3e1c691cd53852f422a93169268178')
-md5sums_x86_64=('3bcd9a132e50a17b846869f1c57b9c75')
+sha256sums_i686=('7c79cfaae5512f34ff14cf0fe76632c7c720600d4bbae71d90ff73f1674e617b')
+sha256sums_x86_64=('9cc4abadd47165a17a4f9475e90e91d1b63de63fcc28c4e2e30e10dee845b4b2')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -39,10 +36,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -p1 -i "${srcdir}/linux-4.9-rc2.patch"
-    if [[ "$CARCH" = "x86_64" ]]; then
-       patch -p1 -i "${srcdir}/linux-4.9-rc2-x86_64.patch"
-    fi
 }
 
 build() {

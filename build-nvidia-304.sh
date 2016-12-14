@@ -22,10 +22,10 @@ makepkg -df
 #makepkg -df
 cd ../../linux44*/*nvidia*304*
 makepkg -df
-cd ../../linux46*/*nvidia*304*
-makepkg -df
-cd ../../linux47*/*nvidia*304*
-makepkg -df
+#cd ../../linux46*/*nvidia*304*
+#makepkg -df
+#cd ../../linux47*/*nvidia*304*
+#makepkg -df
 cd ../../linux48*/*nvidia*304*
 makepkg -df
 cd ../../linux49*/*nvidia*304*
