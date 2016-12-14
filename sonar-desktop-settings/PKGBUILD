@@ -50,9 +50,9 @@ package_sonar-mate-settings() {
 		'gnome-icon-theme-extras'
 		'gnome-icon-theme-symbolic'
                 'qt5-styleplugins'
-                'qt5ct')
+                'qt5ct'
+		'manjaro-base-skel')
     optdepends=('firefox-arc-maia-settings')
-'manjaro-base-skel')
 
 	_inst_dir 'sonar/mate'
 }
