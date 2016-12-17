@@ -25,6 +25,9 @@ source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}-x86.x86_64.zi
     temp-links-catalyst.service  temp_links_catalyst
     LICENSE.TXT)
 
+url_ref="http://support.amd.com/en-us/download/desktop?os=Linux+x86"
+DLAGENTS="http::/usr/bin/curl --referer ${url_ref} -o %o %u"
+
 sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '9b347c3f518ddf12bb08a3cf09afcc3096e5dd4488e7ca3445df97b392985e8b'
