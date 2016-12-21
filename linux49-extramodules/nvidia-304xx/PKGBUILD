@@ -9,7 +9,7 @@ _extramodules=extramodules-4.9-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.134
-pkgrel=0.12
+pkgrel=0.13
 epoch=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
@@ -23,11 +23,12 @@ conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia")
 license=('custom')
 install=nvidia.install
 options=(!strip)
-source=('nvidia-3.18.patch' 'disable-mtrr.patch')
+source=('nvidia-3.18.patch' 'disable-mtrr.patch' 'linux49.patch')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 md5sums=('79671a27131da619a33eb02ed0c2c031'
-         'c4becf1145a139cc0121be9ad340bcd8')
+         'c4becf1145a139cc0121be9ad340bcd8'
+         'f1003d21dcadde47d532a27bdfc79b55')
 md5sums_i686=('9abd7e9272382bd0e6939c3a367cc1a6')
 md5sums_x86_64=('2ecfa6bd145f673264f7977e0366e259')
 
@@ -43,6 +44,8 @@ prepare() {
   patch -p0 --no-backup-if-mismatch -i ${srcdir}/nvidia-3.18.patch
   # FS#47092
   (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/disable-mtrr.patch)
+  # Fix "already registered" problem with 4.9
+  (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux49.patch)
 }
 
 build() {
