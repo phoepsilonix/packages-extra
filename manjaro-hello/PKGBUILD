@@ -1,0 +1,30 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
+# Author: Hugo Posnic <hugo.posnic@gmail.com>
+
+pkgname=manjaro-hello
+pkgver=0.2
+pkgrel=1
+pkgdesc="A tool providing access to documentation and support for new Manjaro users."
+url="https://github.com/Huluti/$pkgname"
+arch=('any')
+license=('GPL')
+depends=('gtk3' 'python')
+optdepends=('calamares: universal installer framework')
+source=("$url/archive/$pkgver.tar.gz")
+md5sums=('cfaa92e4be8c26e74307d12db4bcce5a')
+
+package() {
+    cd $pkgname-$pkgver
+    install -dm755 $pkgdir/usr/share/$pkgname
+    cp -r data $pkgdir/usr/share/$pkgname
+    cp -r ui $pkgdir/usr/share/$pkgname
+    install -Dm644 $pkgname.desktop $pkgdir/etc/skel/.config/autostart/$pkgname.desktop
+    install -Dm644 $pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+    install -Dm755 src/manjaro_hello.py $pkgdir/usr/bin/$pkgname
+    
+    cd po
+    for lang in $(ls *.po); do
+      install -dm755 $pkgdir/usr/share/locale/${lang::-3}/LC_MESSAGES
+      msgfmt -c -o $pkgdir/usr/share/locale/${lang::-3}/LC_MESSAGES/$pkgname.mo $lang
+    done
+}
