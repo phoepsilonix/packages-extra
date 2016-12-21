@@ -1,15 +1,15 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=manjaro-icons
-pkgver=20161203
+pkgver=20161221
 pkgrel=1
-_commit=0e2a89c061373a6ab501f1b6876cd58b958f0dff
+_commit=286cb0024263e268be564a7ec4576c6b24e3622b
 pkgdesc='Official Manjaro icons'
 arch=('any')
 url="https://github.com/oberon2007/$pkgname"
 licence=GPL
 source=("$url/archive/$_commit.tar.gz")
-md5sums=('1f13682883eb2957ae46a953df4cb095')
+md5sums=('7b1951c827efb4fc4a8c23f930fb0bd7')
 
 pkgver() {
   date +%Y%m%d
