@@ -2,19 +2,22 @@
 # Author: Hugo Posnic <hugo.posnic@gmail.com>
 
 pkgname=manjaro-hello
-pkgver=0.2.1
+pkgver=0.2.1+d219bbc
+_commit=d219bbc3a1b553dcc16ab9910611eff91397a6bb
 pkgrel=1
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
 url="https://github.com/Huluti/$pkgname"
 arch=('any')
 license=('GPL')
 depends=('gtk3' 'python')
+makedepends=('git')
 optdepends=('calamares: universal installer framework')
-source=("$url/archive/$pkgver.tar.gz")
-md5sums=('f4903d2ca0e456628a1cacfc602eefe6')
+source=("$url/archive/$_commit.tar.gz")
+md5sums=('c2e28aca6b8e6f7c5945c3980be74d2f')
 
 package() {
-    cd $pkgname-$pkgver
+#    cd $pkgname-$pkgver
+    cd $pkgname-$_commit
     install -dm755 $pkgdir/usr/share/$pkgname
     cp -r data $pkgdir/usr/share/$pkgname
     cp -r ui $pkgdir/usr/share/$pkgname
