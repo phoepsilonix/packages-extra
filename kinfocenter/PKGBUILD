@@ -5,22 +5,20 @@
 
 pkgname=kinfocenter
 pkgver=5.8.4
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
 license=('LGPL')
-depends=('kdelibs4support' 'kcmutils' 'pciutils' 'glu' 'libraw1394' 'kwayland')
+depends=('kdelibs4support' 'kcmutils' 'pciutils' 'glu' 'libraw1394' 'kwayland' 'manjaro-icons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'python' 'plasma-framework' 'kdesignerplugin')
 conflicts=('kdebase-workspace')
 groups=('plasma')
-source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"{,.sig} 
-        'manjaro-logo.svg'
+source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"{,.sig}
         'kcm-about-distrorc')
 sha256sums=('6dafaf7fc5d74f959aa358b6247045fce4093a73863c25b1c3b76e3817b9dbd6'
             'SKIP'
-            '65b2a36fd9b2ddde6305ce9341da46f633244cf3b794b272c9981e43459f80de'
-            '028ce1e24cdcdbae117c46aed839e1a6e5fc03679fc4dd7742a44020e4f604fe')
+            '02f8e3848842bae17fb6f62f9c031d3b2fce081a65b3365f7d35d90187a31bf9')
 validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell
               'D07BD8662C56CB291B316EB2F5675605C74E02CF') # David Edmundson
 
@@ -42,8 +40,7 @@ package() {
   cd build
   make DESTDIR="${pkgdir}" install
 
-# Install Manjaro logo
-  install -Dm644 "$srcdir"/manjaro-logo.svg "$pkgdir"/usr/share/about-distro/manjaro-logo.svg
+# configure Manjaro logo
   install -Dm644 "$srcdir"/kcm-about-distrorc "$pkgdir"/etc/xdg/kcm-about-distrorc
 }
  
