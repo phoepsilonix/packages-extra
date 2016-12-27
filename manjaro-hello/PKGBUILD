@@ -2,24 +2,25 @@
 # Author: Hugo Posnic <hugo.posnic@gmail.com>
 
 pkgname=manjaro-hello
-pkgver=0.2.1+d219bbc
-_commit=d219bbc3a1b553dcc16ab9910611eff91397a6bb
+pkgver=0.3.1.r27.g512210a
 pkgrel=1
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
 url="https://github.com/Huluti/$pkgname"
+_commit=512210ada2296ebc603fc1bbdf49946bfdaf2e41
 arch=('any')
 license=('GPL')
-depends=('gtk3' 'python')
-makedepends=('git')
+depends=('gtk3' 'manjaro-icons' 'python')
 optdepends=('calamares: universal installer framework')
+#source=("$url/archive/$pkgver.tar.gz")
 source=("$url/archive/$_commit.tar.gz")
-md5sums=('c2e28aca6b8e6f7c5945c3980be74d2f')
+md5sums=('9caac0f73ae67aad28e4a4f27a5ee575')
 
 package() {
 #    cd $pkgname-$pkgver
     cd $pkgname-$_commit
     install -dm755 $pkgdir/usr/share/$pkgname
     cp -r data $pkgdir/usr/share/$pkgname
+    rm $pkgdir/usr/share/$pkgname/data/img/manjaro.png
     cp -r ui $pkgdir/usr/share/$pkgname
     install -Dm644 $pkgname.desktop $pkgdir/etc/skel/.config/autostart/$pkgname.desktop
     install -Dm644 $pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
