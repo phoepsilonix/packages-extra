@@ -10,9 +10,9 @@ _linuxprefix=linux48
 _extramodules=extramodules-4.8-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.1.10
+pkgver=5.1.12
 _pkgver="${pkgver}_OSE"
-pkgrel=4
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -89,3 +89,5 @@ package_linux48-virtualbox-guest-modules(){
 }
 
 # vim:set ts=2 sw=2 et:
+
+
