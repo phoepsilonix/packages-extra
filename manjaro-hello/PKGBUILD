@@ -2,7 +2,7 @@
 # Author: Hugo Posnic <hugo.posnic@gmail.com>
 
 pkgname=manjaro-hello
-pkgver=0.4.2.r3.ga028611
+pkgver=0.4.4
 pkgrel=1
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
 url="https://github.com/manjaro/$pkgname"
@@ -10,18 +10,18 @@ arch=('any')
 license=('GPL')
 depends=('gtk3' 'manjaro-icons' 'python')
 optdepends=('calamares: universal installer framework')
-#source=("$url/archive/$pkgver.tar.gz")
-source=("git+$url.git")
-md5sums=('SKIP')
+source=("$url/archive/$pkgver.tar.gz")
+#source=("git+$url.git")
+md5sums=('fdef5586b2f79072931efa684a8efe60')
 
-pkgver() {
-    cd $pkgname
-    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
+#pkgver() {
+#    cd $pkgname
+#    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+#}
 
 package() {
-#    cd $pkgname-$pkgver
-    cd $pkgname
+    cd $pkgname-$pkgver
+#    cd $pkgname
     install -dm755 $pkgdir/usr/share/$pkgname
     cp -r data $pkgdir/usr/share/$pkgname
     rm $pkgdir/usr/share/$pkgname/data/img/manjaro.png
