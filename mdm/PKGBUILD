@@ -4,7 +4,7 @@
 # Contributors: Pablo Lezaeta <prflr88 (arroba) gmail (dot) com>
 
 pkgname=mdm
-pkgver=2.0.10
+pkgver=2.0.17
 pkgrel=1
 _git=90dd4b6009dc0cdad4b324eded972f2c4e57eb81
 pkgdesc="Linux Mint display manager, a fork of GDM 2.20.x"
@@ -22,24 +22,21 @@ replaces=('mintdm')
 backup=('etc/mdm/custom.conf' 'etc/pam.d/mdm' 'etc/pam.d/mdm-autologin')
 options=('!libtool')
 install='mdm.install'
-changelog=
 source=("$pkgname-$pkgver.zip::https://github.com/linuxmint/$pkgname/archive/$pkgver.zip"
         #"$pkgname-$pkgver-$pkgrel.zip::https://github.com/linuxmint/$pkgname/archive/$_git.zip"
-	'mdm.pam'
-	'mdm.service'
-	'mdm-autologin.pam'
-	'defaults.conf'
-	'mdm-plymouth.service'
+        'mdm.pam'
+        'mdm.service'
+        'mdm-autologin.pam'
+        'defaults.conf'
+        'mdm-plymouth.service'
         'org.cinnamon.pkexec.mdmsetup.policy')
-sha256sums=('217af75ab555a17497e55c5b6ad6899f685de48592fb59bea2f14e77aeb574dd'
+sha256sums=('8dc38ceae41697c9bba1291a1d5c8666dce468e9017d0696c3f54bf32db52543'
             'dda153bd02aed1e27b3ddc729130907e185e270e7b2b8d0ccda5bc904d47ea6b'
             '110b793011efd8b8bad4869f4726367146c381147fdeb578d2768a4bf749051c'
             '3db920fb26b10a22dd8c4ebaf1de1d1e83de613be61d8bd5206b8eb9ffedc2d7'
             '01cac1714eb82bfda9260e83e5e9728eda3966c7653ce2ead9d38a9ccda26855'
             '4f71596d0c91760d5e425014bc8fdff0fbdc41d0ea43e020220cb6a2bc366bd7'
             'bd22d536a7a1b455a8f8a45d7d8cc46156cb4ef5f3bc706dd73c89d503acad6b')
-
-noextract=()
 
 prepare() {
 	cd ${srcdir}/${pkgname}-${pkgver}
@@ -110,5 +107,4 @@ msg2 'Adding applications'
 	mv -f $pkgdir/usr/share/mdm/applications/*.* $pkgdir/usr/share/applications
 	chmod 755 $pkgdir/usr/share/applications/*.*
 	rmdir $pkgdir/usr/share/mdm/applications
-
 }
