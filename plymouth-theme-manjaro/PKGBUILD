@@ -4,8 +4,8 @@
 # Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=plymouth-theme-manjaro
-pkgver=1.0
-pkgrel=2
+pkgver=2.0
+pkgrel=1
 pkgdesc="Manjaro theme for plymouth"
 arch=('any')
 url="http://freedesktop.org/wiki/Software/Plymouth"
