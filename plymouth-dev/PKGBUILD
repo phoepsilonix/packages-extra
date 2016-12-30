@@ -40,20 +40,20 @@ source=('git+http://anongit.freedesktop.org/git/plymouth'
         'plymouth-quit.service.in.patch'
         'plymouth-update-initrd.patch')
 
-sha256sums=('SKIP'
-            '014e8a09f88a73b1e5985dcb16a44004e341f5bba90043fa3d7fd7e3a56120cf'
-            'cbfb5bcb6897703e088eefdee9d578f75d987116becafecbb2018b283ba3865e'
-            '544399d4f3454644f24ad11e504eaa7d622c73942728f52fb55bea054c756fa1'
-            '53818ac8299edbb104e2fa09d376079c10a287da9f8a9b26bfb5fc8789b6bc3c'
-            'f9528f0df99f0182c062cd505a49a1e475128e78a7fe535db2a64ee5103abfc8'
-            '6ffe016e8b03354b0a02e2e5d550a0f5f278fceccecfd8747619bdcf6ba9f800'
-            '86d0230d9393c9d83eb7bb430e6b0fb5e3f32e78fcd30f3ecd4e6f3c30b18f71'
-            '0cacaa68e164893ca97d06c7f06d56738a0902991585e456ce687bc2bc1705a0'
-            'd349b30832ff84ea7e4b86265efd5d08f8ff00e9153f05f41c8e8b49addf321c'
-            '166a04349c6ce1807f943fa750f27a311c90f17bb9a06b5c03fb3d110b139936'
-            '71f96630196c9c3eeaf78aa0e6f1f76ba7ed6f984fad55d4a99722a01e9a55ac'
-            'fc900a0c330b9bcbf84afaa6575d9df392c4e8c2ea699b72dc9a137f4972de49'
-            'bb597e2ced7c3beca8c9e9f212bc001750746d9b41e00071697a0352ec2a2e27')
+md5sums=('SKIP'
+         'aa243a645a1afb6d438da5bb8e17e0bb'
+         'fbdd5d04e3089a214b9056357434df86'
+         '65eb269910f1b81e3f0970af456394ca'
+         '043410ebf89488602d4e5457f147e48b'
+         'dcacff05835053242f52b9e375248ec3'
+         '22130f7e6b20d2a43dbed924de75180b'
+         '870ea3e63c6989e2badf79d1fbafa914'
+         'fb2eb948e2198cfb54cc2b710a05ee61'
+         '676b951438542a09929f4c595e1ca3f5'
+         '6ebbfee5c8fd1fc8fbf6327b98302b0d'
+         '08c426bf7aaaf5da6add6705d022c471'
+         'd6fad8d8ef291ea3d85e8e95487c22fa'
+         'e017d3d93cba4414198c9c37250993b1')
 
 pkgver() {
   cd plymouth
