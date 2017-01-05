@@ -21,6 +21,7 @@ license=('custom')
 depends=('dkms')
 optdepends=('linux-headers: If running standard kernel, otherwise find matching headers for your kernel')
 install=broadcom-wl-dkms.install
+backup=('etc/modprobe.d/broadcom-wl-dkms.conf')
 conflicts=('broadcom-wl')
 source=('broadcom-wl-dkms.conf'
 	'dkms.conf'
