@@ -5,7 +5,7 @@
 
 pkgname=brltty
 pkgver=5.4
-pkgrel=3
+pkgrel=4.1
 pkgdesc="Braille display driver for Linux/Unix"
 arch=(i686 x86_64)
 url="http://mielke.cc/brltty"
@@ -39,6 +39,6 @@ package() {
   install -Dm644 Documents/brltty.conf "$pkgdir/etc/brltty.conf"
   install -Dm644 Authorization/Polkit/org.brltty.policy "$pkgdir/usr/share/polkit-1/actions/org.brltty.policy"
   install -Dm644 ../brltty.service "$pkgdir/usr/lib/systemd/system/brltty.service"
-sed -i '/api-parameters Auth=polkit/s/^#//' $pkgdir/etc/brltty.conf
+  sed -i '/api-parameters Auth=polkit/s/^#//' $pkgdir/etc/brltty.conf
 }
 
