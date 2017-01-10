@@ -2,8 +2,8 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-pkgver=4.1.7
-_pkgver=4.1.7
+pkgver=4.1.8
+_pkgver=4.1.8
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
 options=(!emptydirs)
 
 source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
-sha256sums=('c13d4a80d50c41a4b517bd2b78fa09af2ae109d44b8dd1b3a09e6d614154038a')
+sha256sums=('3f0a5668031a1be1ce8801778dc4450ddef64a4a01c0856fbebceeecfd80db7b')
   
 prepare() {
   # adjust version string
