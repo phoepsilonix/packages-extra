@@ -10,7 +10,7 @@ pkgname=('manjaro-tools-base-git'
         'manjaro-tools-pkg-git'
         'manjaro-tools-iso-git'
         'manjaro-tools-yaml-git')
-pkgver=r2437.bc1df1f
+pkgver=r2439.e6749a9
 pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'

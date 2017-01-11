@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-dev
-pkgver=2.4.5.r2556.fbe90c22
-pkgrel=2
+pkgver=2.4.5.r2557.3e6001f0
+pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -10,7 +10,7 @@ url="https://github.com/calamares"
 license=('LGPL')
 conflicts=('calamares')
 provides=('calamares')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.0.0' 'mkinitcpio-openswap'
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.0.2' 'mkinitcpio-openswap'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
 # backup=('usr/share/calamares/modules/bootloader.conf'
