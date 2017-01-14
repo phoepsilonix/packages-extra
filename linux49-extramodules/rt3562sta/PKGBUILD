@@ -9,16 +9,16 @@ _linuxprefix=linux49
 _extramodules=extramodules-4.9-MANJARO
 pkgbase=rt3562sta
 pkgname=("$_linuxprefix-rt3562sta" 'rt3562sta-common')
-pkgver=2.4.1.1_r3
+pkgver=2.4.1.1_r4
 _patchrel=${pkgver/*_r/}
-pkgrel=2
-_subpkgrel=2
+pkgrel=1
+_subpkgrel=1
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
 makedepends=("$_linuxprefix" "$_linuxprefix-headers")
 source=($pkgname-$pkgver.tar.gz::https://github.com/mtorromeo/rt3562sta-linux/archive/r${_patchrel}.tar.gz)
-sha256sums=('3428c37e91f04dfb0d5e4aae9bbcbf72a3816e8804d0735110a53d1140c37eaa')
+sha256sums=('6af6dd13ae1e1075974c8d0a54a0c9f73624cecf153f1f75c8c4f106f4719a1d')
 
 build() {
 	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"

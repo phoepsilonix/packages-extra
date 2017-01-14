@@ -13,8 +13,8 @@ pkgbase=ndiswrapper
 pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
 _pkgname=ndiswrapper
 groups=("$_linuxprefix-extramodules")
-pkgver=1.59
-pkgrel=2
+pkgver=1.61
+pkgrel=1
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -22,23 +22,17 @@ url="http://ndiswrapper.sourceforge.net"
 depends=("$_linuxprefix" 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=("$_linuxprefix-headers")
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
-        "kernel-3.14.patch"
         "kernel-4.0.patch"
-        "kernel-4.2.patch"
-        "kernel-4.7.patch")
+        "kernel-4.2.patch")
 options=('!strip')
-sha256sums=('66a5d3ffb3fc8a63d87e381bbc627511597dfd25c4c37dda3b953ccf98f5d4bc'
-            '7c5df135911c54edee7cd606ca2b248064557368c3348c3d2a46e4987054d80f'
+sha256sums=('2ac1847c24cbfa4f48a800b04c9721219614f1663a4ac94af3c7939b45c47584'
             '80f89025a3de4b1decb82550bd89a3b4e43732b8f5104bac6e2e4b66d20d2d57'
-            '4019d3f06f69dc1f67b3bf2faa7632ed2d58eb2c22878d52daece0d496bb3810'
-            'e8f9504f7f8a97e1505d2401fdd34a3f66e3f1af926fa3acbcee931465114ceb')
+            '4019d3f06f69dc1f67b3bf2faa7632ed2d58eb2c22878d52daece0d496bb3810')
 
 prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
-  patch -Np1 -i $srcdir/kernel-3.14.patch
   patch -Np1 -i $srcdir/kernel-4.0.patch
   patch -Np1 -i $srcdir/kernel-4.2.patch
-  patch -Np1 -i $srcdir/kernel-4.7.patch
 }
 
 build() {
@@ -78,7 +72,7 @@ package_linux49-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=2.0
+  pkgrel=3.0
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils
