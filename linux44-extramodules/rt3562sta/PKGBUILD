@@ -7,15 +7,16 @@
 
 pkgbase=rt3562sta
 pkgname=('linux44-rt3562sta' 'rt3562sta-common')
-pkgver=2.4.1.1_r3
+pkgver=2.4.1.1_r4
 _patchrel=${pkgver/*_r/}
-pkgrel=27
-_subpkgrel=27
+pkgrel=1
+_subpkgrel=1
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
 makedepends=('linux44' 'linux44-headers')
 source=($pkgname-$pkgver.tar.gz::https://github.com/mtorromeo/rt3562sta-linux/archive/r${_patchrel}.tar.gz)
+sha256sums=('6af6dd13ae1e1075974c8d0a54a0c9f73624cecf153f1f75c8c4f106f4719a1d')
 
 build() {
 	_extramodules=extramodules-4.4-MANJARO
@@ -30,8 +31,9 @@ build() {
 
 package_rt3562sta-common() {
 	pkgdesc="Ralink RT3562 PCI WLAN adaptors common files"
-        arch=(any)
-        pkgrel="$_subpkgrel"
+    arch=(any)
+    pkgrel="$_subpkgrel"
+
 	cd "$srcdir/rt3562sta-linux-r$_patchrel"
 
 	install -Dm 0640 RT3562STA.dat "$pkgdir/etc/Wireless/RT3562STA/RT3562STA.dat"
@@ -47,7 +49,7 @@ package_linux44-rt3562sta() {
 	pkgdesc="Ralink RT3562 PCI WLAN adaptors kernel module"
 	depends=('linux44' 'rt3562sta-common')
 	groups=('linux44-extramodules')
-        install=$pkgbase.install
+    install=$pkgbase.install
 	cd "$srcdir/rt3562sta-linux-r$_patchrel"
 
 	install -Dm 0644 os/linux/$pkgbase.ko "$pkgdir/usr/lib/modules/$_extramodules/$pkgbase.ko"
@@ -57,5 +59,3 @@ package_linux44-rt3562sta() {
 
 	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 }
-
-sha256sums=('3428c37e91f04dfb0d5e4aae9bbcbf72a3816e8804d0735110a53d1140c37eaa')
