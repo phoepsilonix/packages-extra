@@ -10,8 +10,8 @@ _linuxprefix=linux48
 _extramodules=extramodules-4.8-MANJARO
 pkgname=$_linuxprefix-vhba-module
 _pkgname=vhba-module
-pkgver=20140629
-pkgrel=12
+pkgver=20161009
+pkgrel=1
 pkgdesc="Kernel module that emulates SCSI devices"
 arch=('i686' 'x86_64')
 url="http://cdemu.sourceforge.net/"
@@ -23,24 +23,18 @@ groups=("$_linuxprefix-extramodules")
 install=$_pkgname.install
 source=("http://downloads.sourceforge.net/cdemu/$_pkgname-$pkgver.tar.bz2"
         '60-vhba.rules')
-sha256sums=('8e607cab56038ef4f5923c57279bbee4c2c0b57ce77e7003693d0938d09d6957'
-         '3052cb1cadbdf4bfb0b588bb8ed80691940d8dd63dc5502943d597eaf9f40c3b')
-
-prepare() {
-  cd "$srcdir/$_pkgname-$pkgver"
-}
+sha256sums=('cd062d8bd61ccb8137622f837a0dadb771cc935981d8bccb2ad4de0bd11f33d9'
+            '3052cb1cadbdf4bfb0b588bb8ed80691940d8dd63dc5502943d597eaf9f40c3b')
 
 build() {
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
   
   cd "$srcdir/$_pkgname-$pkgver"
-
   make -j1 KDIR=/usr/lib/modules/${_kernver}/build
 }
 
 package() {
   cd "$srcdir/$_pkgname-$pkgver"
-
   install -D vhba.ko "$pkgdir/usr/lib/modules/$_extramodules/vhba.ko"
 
   sed -i "s/EXTRAMODULES=.*/EXTRAMODULES=$_extramodules/" \
@@ -49,7 +43,5 @@ package() {
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 
   install -Dm644 "$srcdir/60-vhba.rules" \
-          "$pkgdir/usr/lib/udev/rules.d/60-$_linuxprefix-vhba.rules"
+    "$pkgdir/usr/lib/udev/rules.d/60-$_linuxprefix-vhba.rules"
 }
-
-# vim:set ts=2 sw=2 et:
