@@ -10,8 +10,8 @@ _pkgname=ndiswrapper
 pkgbase=ndiswrapper
 pkgname=('linux312-ndiswrapper' 'ndiswrapper-utils')
 groups=('linux312-extramodules')
-pkgver=1.59
-pkgrel=35
+pkgver=1.61
+pkgrel=1
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -20,7 +20,7 @@ depends=('linux312' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux312-headers')
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz")
 options=('!strip')
-sha256sums=('66a5d3ffb3fc8a63d87e381bbc627511597dfd25c4c37dda3b953ccf98f5d4bc')
+sha256sums=('2ac1847c24cbfa4f48a800b04c9721219614f1663a4ac94af3c7939b45c47584')
 
 build() {
   _extramodules=extramodules-3.12-MANJARO
