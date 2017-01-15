@@ -19,30 +19,30 @@ depends=('glibc' 'linux310')
 makedepends=('linux310-headers')
 provides=("$_pkgname=$pkgver")
 groups=('linux310-extramodules')
-source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgver.tar.gz")
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
 sha256sums=('ea22aa1dfda20615f5e114f982f7e61385f871f682eea0c154245760a439abc4')
 install=$_pkgname.install
 
 build() {
-	_extramodules=extramodules-3.10-MANJARO
-	_kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
-	cd "$_pkgname-$pkgver"
+    _extramodules=extramodules-3.10-MANJARO
+    _kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
+    cd "$_pkgname-$pkgver"
 
-	# avoid using the Makefile directly -- it doesn't understand
-	# any kernel but the current.
-	make -C /usr/lib/modules/$_kernver/build \
-	SUBDIRS="$srcdir/$_pkgname-$pkgver/src" \
-	EXTRA_CFLAGS="-DCONFIG_R8168_NAPI -DCONFIG_R8168_VLAN" \
-	modules
+    # avoid using the Makefile directly -- it doesn't understand
+    # any kernel but the current.
+    make -C /usr/lib/modules/$_kernver/build \
+      SUBDIRS="$srcdir/$_pkgname-$pkgver/src" \
+      EXTRA_CFLAGS="-DCONFIG_R8168_NAPI -DCONFIG_R8168_VLAN" \
+      modules
 }
 
 package() {
-	_extramodules=extramodules-3.10-MANJARO
-	cd "$srcdir/$_pkgname-$pkgver/src"
-	install -D -m644 $_pkgname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
+    _extramodules=extramodules-3.10-MANJARO
+    cd "$srcdir/$_pkgname-$pkgver/src"
+    install -D -m644 $_pkgname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
 
-	# set the kernel we've built for inside the install script
-	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
+    # set the kernel we've built for inside the install script
+    sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
 
-	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 }
