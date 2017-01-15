@@ -67,7 +67,7 @@ package_linux41-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=20
+  pkgrel=1
   depends=()
   groups=()
   cd $srcdir/tmp-ndis-utils

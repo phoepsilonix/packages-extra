@@ -60,9 +60,7 @@ package_linux312-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=35
-  depends=()
-  groups=()
+  pkgrel=1
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"
 }
