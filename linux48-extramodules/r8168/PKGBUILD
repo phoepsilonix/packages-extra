@@ -11,8 +11,8 @@ _linuxprefix=linux48
 _extramodules=extramodules-4.8-MANJARO
 pkgname=$_linuxprefix-r8168
 _pkgname=r8168
-pkgver=8.040.00
-pkgrel=12
+pkgver=8.043.02
+pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -21,9 +21,9 @@ depends=('glibc' "$_linuxprefix")
 makedepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
-source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgname-$pkgver.tar.gz" kernel-47.patch)
-sha256sums=('1f7aad3a066c152837e03e558ba720742e792d281c96c5412cff32d68875415b'
-            'e07268ca066f3ebefa1455465eabb601a4670deef56313580de80eb45ef2e1ce')
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgver.tar.gz" kernel-47.patch)
+sha256sums=('ea22aa1dfda20615f5e114f982f7e61385f871f682eea0c154245760a439abc4'
+            'ab9bda30f23cb1fa932c637b67e987de3a981a82cbcc71eccbd212b26d293dd3')
 install=$_pkgname.install
 
 prepare() {
