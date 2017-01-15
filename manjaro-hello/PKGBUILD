@@ -2,7 +2,7 @@
 # Author: Hugo Posnic <hugo.posnic@gmail.com>
 
 pkgname=manjaro-hello
-pkgver=0.4.6
+pkgver=0.4.7
 pkgrel=1
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
 url="https://github.com/manjaro/$pkgname"
@@ -12,7 +12,7 @@ depends=('gtk3' 'manjaro-icons' 'python-gobject')
 optdepends=('calamares: universal installer framework')
 source=("$url/archive/$pkgver.tar.gz")
 #source=("git+$url.git")
-md5sums=('5167467fb2a7232fdda93c1a1c51a73c')
+md5sums=('da39f9ca949eac559faf8929fa9409ef')
 
 #pkgver() {
 #    cd $pkgname
@@ -31,7 +31,8 @@ package() {
     
     cd po
     for lang in $(ls *.po); do
-      install -dm755 $pkgdir/usr/share/locale/${lang::-3}/LC_MESSAGES
-      msgfmt -c -o $pkgdir/usr/share/locale/${lang::-3}/LC_MESSAGES/$pkgname.mo $lang
+      lang=${lang::-3}
+      install -dm755 $pkgdir/usr/share/locale/${lang//_/-}/LC_MESSAGES
+      msgfmt -c -o $pkgdir/usr/share/locale/${lang//_/-}/LC_MESSAGES/$pkgname.mo $lang.po
     done
 }
