@@ -18,8 +18,46 @@ makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
 #         'usr/share/calamares/modules/initcpio.conf'
 #         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/manjaro/calamares.git#branch=development)
-sha256sums=('SKIP')
+source+=(git+https://github.com/manjaro/calamares.git#branch=development
+         # upstream Calamares
+         "Style.patch::$url/calamares/commit/3ec7c6f881012aadb641defd7cb447913ef46221.patch"
+         "Better_to_keep_font_style_manipulation_to_a_minimum.patch::$url/calamares/commit/028f56d94a61ea4c9f60c7f8a506c2b3a845b465.patch"
+         "Translate_user-visible_strings.patch::$url/calamares/commit/e9f113a6a8a2cb4cf5f8f2cee56d87ce1df7eaa7.patch"
+         "keep_font_style_2.patch::$url/calamares/commit/2aeadf9682b551d3abeafa46edf100e3ec18139b.patch"
+         "style_and_translation.patch::$url/calamares/commit/c158893b22aea74f897423198f8b8d0a08f2eea8.patch"
+         "Bump_KPMcore_dependency_to_3.0.2.patch::$url/calamares/commit/3285ebae67f0c489bd95567790805c78fb4cfdf3.patch"
+         "bootloaderInstallPath_only_applies_if_!isEfi.patch::$url/calamares/commit/a59a79a8160b9bff48b62ad74a161f99ed7dbccc.patch"
+         "Force_the_correct_flags_for_EFI_system_partition.patch::$url/calamares/commit/4f1317d1b7b5a93abd73ab3a78a293b66900738a.patch"
+         #"PythonQt_documentation.patch::$url/calamares/commit/c5e61808729e556fd2d8cf739a2101aadff74789.patch"
+         "Print_full_error_when_failing_the_copy_of_resolv.conf.patch::$url/calamares/commit/aa0d1a62a3bed4c9d95dd76fa882a6ee7b4acf94.patch"
+         "Dont_assume_User_exists_in_autologin_section.patch::$url/calamares/commit/8d5e4cdb1629fb7e16336ccdfe7950bd6767cde9.patch"
+         "Useless_check_is_useless.patch::$url/calamares/commit/7d2bd264b6025e84f983de5c83f79db372c93fac.patch"
+         "Do_not_write_bootloader_install_path_if_the_system_is_EFI.patch::$url/calamares/commit/45adde11e1f8a25864e72cefb262c966560917ca.patch"
+         #PR enhanced user dialog
+         "Remove_modal_dialog_and_show_warning_message_instead.patch::$url/calamares/commit/c79e001db708e44d1649285d9ea9fe344e7c3d7a.patch"
+         "Change_permissions_of_avatar_file_after_copying.patch::https://github.com/shainer/calamares/commit/117759bb04bb2d3e1735ebaf9c234fcf93a8c777.patch"
+         "Use_Calamares_utils_rather_than_QProcess.patch::https://github.com/shainer/calamares/commit/9cd7dda29a959184dc240f4e88c495ccaa11c0c8.patch"
+         # pending manjaro PRs
+         disable_root_password_if_setRootPassword_is_false.patch::https://patch-diff.githubusercontent.com/raw/manjaro/calamares/pull/22.patch
+         update_launcher.patch::https://patch-diff.githubusercontent.com/raw/manjaro/calamares/pull/21.patch)
+sha256sums=('SKIP'
+            '4d72aef6dcd5853a8461d9744a96685ce2a2e49cbd1f108de9a65421bd6f36f3'
+            'bafd2bfe136260673b0f17cadaec2ea72bd6dbe1d431e3c46c03619507205b4f'
+            '8de8095c0d54b88560a24c2e72ff486f7dc481f78979a358583459839fff25cf'
+            '8dcc441d0ce5342fc79e36ff6594c811c8429bfc4502e6e9792e72fadeda1916'
+            'd0c6e6b778ad12b6312e96f0816214943b68672a8ea11e056592df598ae5c23d'
+            '97d46987b0abe1f7f54f6ec542b03564a42bcbf9a6c2f29d759517c75081ecbf'
+            '0b0a2a2c3f541e79002be87cc7598f6bc42eef1662574fbcf120cb1c689da1c1'
+            '5fb6baed285166fb8cc6ff99d9a9a8c84c0ca4999537df5feb0d6d23dc9e9188'
+            '90061ae478fdd518523d416996bc9b1716fa3a8732bca619c30e0d6b0e565006'
+            'ebe42ce23140ebee60dced733e9ef30c64ad977e29bac72aa52d01df566ad7d1'
+            '51485edb7db45a6b12c840bd39978f951e117eae9655c7d2d3558720f985cf42'
+            '17ebd8d8d32442d836f21fcc2ff91b321a8f881edcdf17d97f68809eb67b9496'
+            '1a6f976e2f95c7ca65248d8736207932483cc6fd5becdaea4c14f6c03f0ddcb9'
+            '56ed35ee5b38cce21b753c586d5b34574736e281ddb6db120eafacb74cd3114f'
+            'db3585392370b61730b586261dd590a156177eecd78e8db916641e99dd7d5b4d'
+            '7fc176417a220f57e0bf4fb9f6ae3f8c0013a3934e8bbd15c874901f1d5b04af'
+            'a647893c9d5a007a44b08bfeb13f3959a03abdffa34264d8abd9e87079612e83')
 
 pkgver() {
 	cd ${srcdir}/calamares
@@ -36,6 +74,24 @@ prepare() {
 	cd ${srcdir}/calamares
 	git submodule init
 	git submodule update
+	patch -p1 -i ../Style.patch
+	patch -p1 -i ../Better_to_keep_font_style_manipulation_to_a_minimum.patch
+	patch -p1 -i ../Translate_user-visible_strings.patch
+	patch -p1 -i ../keep_font_style_2.patch
+	patch -p1 -i ../style_and_translation.patch
+	patch -p1 -i ../Bump_KPMcore_dependency_to_3.0.2.patch
+	patch -p1 -i ../bootloaderInstallPath_only_applies_if_!isEfi.patch
+	patch -p1 -i ../Force_the_correct_flags_for_EFI_system_partition.patch
+	#patch -p1 -i ../PythonQt_documentation.patch
+	patch -p1 -i ../Print_full_error_when_failing_the_copy_of_resolv.conf.patch
+	patch -p1 -i ../Dont_assume_User_exists_in_autologin_section.patch
+	patch -p1 -i ../Useless_check_is_useless.patch
+	patch -p1 -i ../Do_not_write_bootloader_install_path_if_the_system_is_EFI.patch
+	patch -p1 -i ../Remove_modal_dialog_and_show_warning_message_instead.patch
+	patch -p1 -i ../Change_permissions_of_avatar_file_after_copying.patch
+	patch -p1 -i ../Use_Calamares_utils_rather_than_QProcess.patch
+	patch -p1 -i ../disable_root_password_if_setRootPassword_is_false.patch
+	patch -p1 -i ../update_launcher.patch
 }
 
 build() {
