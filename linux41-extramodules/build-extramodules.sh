@@ -26,8 +26,8 @@ cd ${pwd}/*rt3562sta && makepkg -sf --noconfirm
 cd ${pwd}/*tp_smapi && makepkg -sf --noconfirm
 cd ${pwd}/*vhba-module && makepkg -sf --noconfirm
 cd ${pwd}/*virtualbox-modules && makepkg -sf --noconfirm
-#echo 'create repo'
-#mkdir -p ${pwd}/repo-`uname -m`
-#mv ${pwd}/*/*`uname -m`.pkg* ${pwd}/repo-`uname -m`
-#ls ${pwd}/repo-`uname -m`
-#echo 'building extramodules done'
+echo 'create repo'
+mkdir -p ${pwd}/repo-`uname -m`
+mv ${pwd}/*/*`uname -m`.pkg* ${pwd}/repo-`uname -m`
+ls ${pwd}/repo-`uname -m`
+echo 'building extramodules done'
