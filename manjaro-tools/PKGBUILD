@@ -1,38 +1,35 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
 
+_pkgbase=manjaro-tools
+_ver=0.14.0
+_branch=stable-0.14.x
+
 pkgbase=manjaro-tools
-pkgname=('manjaro-tools-base' 'manjaro-tools-pkg' 'manjaro-tools-yaml' 'manjaro-tools-iso')
-pkgver=0.13.8
-pkgrel=5
+pkgname=('manjaro-tools-base'
+        'manjaro-tools-pkg'
+        'manjaro-tools-iso'
+        'manjaro-tools-yaml')
+pkgver=0.14.0rc1
+pkgrel=1
+arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
-arch=('i686' 'x86_64')
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
-makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        'higher-requiredStorage.patch::https://github.com/manjaro/manjaro-tools/commit/bdf55196c36e07fe2d707d21f4a0587d78ab258b.patch'
-        'lower-requiredStorage.patch::https://github.com/manjaro/manjaro-tools/commit/53b3ce5dc12536e071ba4c8c98b5db4d16e80e93.patch'
-        'sonar-thus.patch::https://github.com/manjaro/manjaro-tools/commit/83de201055e881dd5bea48bfd8438987b4d2614f.patch'
-        'sonar-thus-backport-fix.patch::https://github.com/manjaro/manjaro-tools/commit/a0986ae4726f4a0cfe42dc71d0f578d703a84c5d.patch')
-sha1sums=('e4b833a4e5c655df9cf86041aac835208b7f2026'
-          'dfb2db935e7335b5af14c586d07de0e09b4511e7'
-          'ef016a229cbdec1519d998031352e71deef90839'
-          '41a789ff69a487aafe3d938001186bac2532814d'
-          '41f20c3f6d341a0e4f06db736380ad3b64e1b7ef')
+makedepends=('git' 'docbook2x')
+source=("git+$url.git#branch=$_branch")
+sha256sums=('SKIP')
 
 prepare() {
-    cd ${srcdir}/${pkgbase}-${pkgver}
+    cd ${srcdir}/${_pkgbase}
     # patches here
-    patch -p1 -i ${srcdir}/higher-requiredStorage.patch
-    patch -p1 -i ${srcdir}/lower-requiredStorage.patch
-    patch -p1 -i ${srcdir}/sonar-thus.patch
-    patch -p1 -i ${srcdir}/sonar-thus-backport-fix.patch
+    sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
+    #sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
 }
 
 build() {
-    cd ${srcdir}/${pkgbase}-${pkgver}
+    cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr
 }
 
@@ -44,7 +41,7 @@ package_manjaro-tools-base() {
                 'manjaro-tools-yaml: Manjaro Linux yaml tools')
     backup=('etc/manjaro-tools/manjaro-tools.conf')
 
-    cd ${srcdir}/${pkgbase}-${pkgver}
+    cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_base
 }
 
@@ -53,25 +50,24 @@ package_manjaro-tools-pkg() {
     depends=('namcap' 'manjaro-tools-base')
     conflicts=('devtools')
 
-    cd ${srcdir}/${pkgbase}-${pkgver}
+    cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
 package_manjaro-tools-yaml() {
     pkgdesc='Development tools for Manjaro Linux (yaml tools)'
-    depends=('manjaro-tools-base' 'calamares-tools' 'python-pykwalify' 'manjaro-iso-profiles-base')
+    depends=('manjaro-tools-base' 'calamares-tools' 'ruby-kwalify' 'manjaro-iso-profiles-base')
 
-    cd ${srcdir}/${pkgbase}-${pkgver}
+    cd ${srcdir}/${_pkgbase}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_yaml
 }
 
 package_manjaro-tools-iso() {
     pkgdesc='Development tools for Manjaro Linux (ISO tools)'
-    depends_i686=('nbd' 'libisoburn' 'squashfs-tools' 'syslinux' 'isolinux'
-                'manjaro-tools-yaml' 'mkinitcpio-nfs-utils' 'mktorrent')
-    depends_x86_64=( ${depends_i686[@]} 'manjaro-efi-utils')
+    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml' 'mkinitcpio' 'mktorrent')
     optdepends=('qemu: quickly test isos')
 
-    cd ${srcdir}/${pkgbase}-${pkgver}
-    make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
+	cd ${srcdir}/${_pkgbase}
+	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
 }
+

@@ -1,31 +1,31 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_mt_ver=0.13.8
+_mt_ver=0.14.0
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles-base'
         'manjaro-iso-profiles-official'
         'manjaro-iso-profiles-community'
-        'manjaro-iso-profiles-minimal'
+        #'manjaro-iso-profiles-minimal'
         'sonar-iso-profiles')
-pkgver=16.10
+pkgver=17.0beta1
 pkgrel=1
 arch=('any')
-url="https://github.com/manjaro/manjaro-tools-iso-profiles"
+url="https://github.com/manjaro/iso-profiles"
 license=('GPL')
-_git=0ed5d08bff56e611602103b1217aacca04691cd8
+_git=63b8736cfe096b090595447f68d387fdfcd79a53
 source=("${pkgbase}-${pkgver}.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('7c6bfcadc6e53ebb4f83f0d5b12548e88d6914d0e8ea5610965106f43ef73c96')
+sha256sums=('4ca8c361bb74191b5bea863cfb97e1662e7befd79a9a6deb5872eb960387e82a')
 
 prepare(){
     # remove this
-    mv $srcdir/manjaro-tools-iso-profiles-$_git $srcdir/manjaro-tools-iso-profiles-$pkgver
+    mv $srcdir/iso-profiles-$_git $srcdir/iso-profiles-$pkgver
 }
 
 _inst_dir(){
     install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
-    cp -a $srcdir/manjaro-tools-iso-profiles-$pkgver/$1 $pkgdir/usr/share/manjaro-tools/iso-profiles/
+    cp -a $srcdir/iso-profiles-$pkgver/$1 $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
 
 package_manjaro-iso-profiles-base() {
@@ -45,8 +45,9 @@ package_manjaro-iso-profiles-official() {
     pkgdesc='Manjaro Linux official iso profiles'
     groups=('manjaro-tools')
     depends=("manjaro-tools-yaml>=${_mt_ver}")
+    replaces=('manjaro-iso-profiles-minimal')
 
-    _inst_dir 'official'
+    _inst_dir 'manjaro'
 }
 
 package_manjaro-iso-profiles-community() {
