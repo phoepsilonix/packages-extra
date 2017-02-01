@@ -63,11 +63,11 @@ _mk_initcpio(){
     done
 }
 
-# $1: optional "-plymouth" service name extension
-# $2: enable/disable
+# $1: enable/disable
+# $2: optional "-plymouth" service name extension
 _configure_dm_svc(){
     if [[ -d /run/systemd ]];then
-        local ply="$1" action="$2"
+        local action="$1" ply="$2"
         if [[ -d /run/gdm ]];then
             systemctl $action gdm$ply
         elif [[ -d /run/lightdm ]];then
