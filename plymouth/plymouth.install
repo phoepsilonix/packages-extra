@@ -25,7 +25,7 @@ cat <<EOT
 
 4. For Smooth Transition to Display Manager you have to:
      4.1. See the Wiki Page (link in 5) to prepare your Display Manager
-     4.2. Disable your Display Manager Unit 
+     4.2. Disable your Display Manager Unit
           E.g. : systemctl disable kdm.service
      4.3. Enable the respective DM-plymouth Unit (GDM,KDM,Lightdm,LXDM units provided)
           E.g. : systemctl enable kdm-plymouth.service
