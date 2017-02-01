@@ -34,13 +34,13 @@ _unset_ply_hook(){
 
 _set_ply_encrypt(){
     if $(_has_hook "encrypt");then
-        sed -e 's/encrypt filesystems /plymouth-encrypt filesystems /' -i /etc/mkinitcpio.conf
+        sed -e 's/encrypt filesystems /plymouth-encrypt filesystems /g' -i /etc/mkinitcpio.conf
     fi
 }
 
 _unset_ply_encrypt(){
     if $(_has_hook "plymouth-encrypt");then
-        sed -e 's/plymouth-encrypt filesystems /encrypt filesystems /' -i /etc/mkinitcpio.conf
+        sed -e 's/plymouth-encrypt filesystems /encrypt filesystems /g' -i /etc/mkinitcpio.conf
     fi
 }
 
@@ -62,3 +62,19 @@ _mk_initcpio(){
         mkinitcpio -p ${kernel%.preset}
     done
 }
+
+# $1: optional "-plymouth" service name extension
+# $2: enable/disable
+_configure_dm_svc(){
+    if [[ -d /run/systemd ]];then
+        local ply="$1" action="$2"
+        if [[ -d /run/gdm ]];then
+            systemctl $action gdm$ply
+        elif [[ -d /run/lightdm ]];then
+            systemctl $action lightdm$ply
+        elif [[ -d /run/lxdm ]];then
+            systemctl $action lxdm$ply
+        fi
+    fi
+}
+
