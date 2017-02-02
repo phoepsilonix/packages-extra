@@ -4,24 +4,18 @@ _has_hook(){
     local name="$1"
     source /etc/mkinitcpio.conf
     for h in ${HOOKS[@]};do
-        if [[ "$h" == "$name" ]];then
-            return 0
-        else
-            return 1
-        fi
+        [[ "$h" == "$name" ]] && return 0
     done
+    return 1
 }
 
 _has_arg(){
     local name="$1"
     source /etc/default/grub
     for arg in ${GRUB_CMDLINE_LINUX_DEFAULT[@]};do
-        if [[ "$arg" == "$name";then
-            return 0
-        else
-            return 1
-        fi
+        [[ "$arg" == "$name" ]] && return 0
     done
+    return 1
 }
 
 _set_ply_hook(){
