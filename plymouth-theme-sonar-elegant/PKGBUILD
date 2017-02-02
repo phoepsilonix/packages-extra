@@ -5,13 +5,13 @@
 
 pkgname=plymouth-theme-sonar-elegant
 pkgver=0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Elegant Sonar theme for plymouth"
 arch=('any')
 url="http://freedesktop.org/wiki/Software/Plymouth"
 license=('GPL')
 depends=('plymouth')
-#install=theme.install
+install=plymouth.install
 source=('sonar-elegant.png'
         'password_field.png'
         'progress_dot_on.png'

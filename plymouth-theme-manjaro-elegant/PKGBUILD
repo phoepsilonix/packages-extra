@@ -5,13 +5,13 @@
 
 pkgname=plymouth-theme-manjaro-elegant
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Elegant Manjaro theme for plymouth"
 arch=('any')
 url="http://freedesktop.org/wiki/Software/Plymouth"
 license=('GPL')
 depends=('plymouth')
-#install=theme.install
+install=plymouth.install
 source=('manjaro-elegant.png'
         'password_field.png'
         'progress_dot_on.png'
