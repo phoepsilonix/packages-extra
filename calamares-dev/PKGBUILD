@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-dev
-pkgver=3.0.1.r3017.56b21bbb
+pkgver=3.0.1.r3036.e7dd377e
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')

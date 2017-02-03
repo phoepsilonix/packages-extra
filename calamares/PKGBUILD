@@ -3,7 +3,7 @@
 pkgname=calamares
 pkgver=3.0.1
 _pkgver=3.0.1
-pkgrel=2
+pkgrel=3
 _commit=v3.0.1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -20,15 +20,18 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
          "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
-         "has-internet.patch::https://github.com/manjaro/calamares/commit/56b21bbb2088718774247853f6e6646449cdf8d8.patch")
+         "has-internet.patch::https://github.com/manjaro/calamares/commit/8215a633e27e8fd9061a91dc89d7bfdeea784228.patch"
+         "dev-path.patch::https://github.com/manjaro/calamares/commit/06b1d4abd2412b79242a105ca289198a0d36b3bf.patch")
 sha256sums=('2ce8aaea30e352c75567ad93e99144dad444540e4a3ca91e731c0f297488181a'
-            '120c82be6c177ae673c7b5c49df2934a352178f58bd1b45ec9ed15b474f23f8a')
+            'd1d4622087c4bc2f822701aa61dd10b2b6b2eb8b28c2ef166e283f10576a8dc1'
+            '0b16b30464fae627146a13abbeaf3a62a3e4f2c5037f24157d189c2125220ef9')
 
 prepare() {
 	#mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
 	patch -p1 -i $srcdir/has-internet.patch
+	patch -p1 -i $srcdir/dev-path.patch
 }
 
 build() {
