@@ -1,5 +1,6 @@
---- scripts/plymouth-set-default-theme.ina	2012-07-15 12:16:53.083156390 +0300
-+++ scripts/plymouth-set-default-theme.in	2012-07-15 12:17:32.715893173 +0300
+diff -aur plymouth-0.8.8.src/scripts/plymouth-set-default-theme.in plymouth-0.8.8.patch/scripts/plymouth-set-default-theme.in
+--- plymouth-0.8.8.src/scripts/plymouth-set-default-theme.in	2012-10-27 02:01:45.000000000 +1100
++++ plymouth-0.8.8.patch/scripts/plymouth-set-default-theme.in	2014-01-26 09:55:34.337189615 +1100
 @@ -173,7 +173,10 @@
          exit $?
  fi
