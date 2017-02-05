@@ -3,7 +3,7 @@
 _gemname=kwalify
 pkgname=ruby-$_gemname
 pkgver=0.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc='a parser, schema validator, and data-binding tool for YAML and JSON.'
 arch=('any')
 url='http://www.kuwata-lab.com/kwalify/'
