@@ -4,7 +4,7 @@ pkgbase=manjaro-settings-manager
 pkgname=('manjaro-settings-manager' 'manjaro-settings-manager-kcm' 
          'manjaro-settings-manager-notifier' 'manjaro-settings-manager-knotifier')
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/manjaro-settings-manager"
@@ -16,9 +16,9 @@ optdepends=('manjaro-settings-manager-notifier: qt-based'
 makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools'
              'knotifications' 'kconfigwidgets' 'kcmutils')
 conflicts=('kcm-msm')
-_gitcommit=f04722c565edda7e32ccb8787913c77eb2514ecf
+_gitcommit=f248868ab0abd14571a156a683c7d81d0de4ffb7
 source=("${pkgbase}-$_gitcommit.tar.gz::$url/archive/$_gitcommit.tar.gz")
-md5sums=('9c68da8eb2e7d5df2d86de29e4b9ecd7')
+md5sums=('757764887e26d9e0dd0df7934d2220f8')
 
 build() {
   cd "$srcdir/${pkgbase}-${_gitcommit}"
