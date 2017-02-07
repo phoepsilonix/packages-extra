@@ -10,7 +10,6 @@ pkgname=plymouth-legacy
 _pkgname=plymouth
 pkgver=0.8.8
 pkgrel=1
-epoch=1
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -21,7 +20,7 @@ optdepends=('ttf-dejavu')
 options=('!libtool' '!emptydirs')
 install=${pkgname}.install
 provides=('plymouth')
-conflicts=('plymouth')
+conflicts=('plymouth' 'plymouth-dev')
 backup=('etc/plymouth/plymouthd.conf')
 source=("http://www.freedesktop.org/software/$_pkgname/releases/$_pkgname-$pkgver.tar.bz2"
         'manjaro-logo.png'

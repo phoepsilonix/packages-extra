@@ -1,7 +1,7 @@
 build() {
 	add_dir /dev/pts
 	add_dir /usr/share/plymouth/themes
-	add_dir /var/run/plymouth # <- needed?
+	add_dir /var/run/plymouth
 
 	DATADIR="/usr/share"
 	PLYMOUTH_LOGO_FILE="${DATADIR}/plymouth/manjaro-logo.png"
@@ -38,7 +38,7 @@ build() {
 		add_file $x
 	    done
 	fi
-
+	
 	add_file /usr/lib/udev/rules.d/70-uaccess.rules
 	add_file /usr/lib/udev/rules.d/71-seat.rules
 

@@ -1,77 +1,82 @@
-# Based on the file created for Arch Linux (AUR) by:
-# Patrick Burroughs (Celti) <celti@celti.name>
-# Abbradar, Zephyr, Christian Autermann, Biginoz, Martin Lee, Ricardo Funke,
-# PirateJonno, lh, Cilyan Olowen, Shaffer, Brcha, Lyle Putnam, Det, Boohbah,
-# Lara Maia, Padfoot, Jorge Barroso, carstene1ns
+# Based on the file created for Arch Linux by:
+# Det <nimetonmaili at gmail dot com>
+# PirateJonno <j@skurvy.no-ip.org>
+# Biginoz <biginoz _at_ free _point_ fr>
+# M0Rf30 <morfeo89@hotmail.it>
 
-# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Maintainer: Guinux <nuxgui@gmail.com>
 
 pkgname=plymouth-dev
-pkgver=0.9.2.r44.g375a65f
+pkgver=0.9.2.r66.g63148b2
 pkgrel=1
-pkgdesc="A graphical boot splash screen with kernel mode-setting support (development version)"
+pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 url="http://www.freedesktop.org/wiki/Software/Plymouth/"
 
 arch=('i686' 'x86_64')
 license=('GPL')
 
 depends=('libdrm' 'pango' 'systemd')
-makedepends=('git' 'docbook-xsl')
+makedepends=('docbook-xsl' 'git' 'autogen')
 optdepends=('ttf-dejavu')
 
 options=('!libtool' '!emptydirs')
-
+#install=${pkgname}.install
 provides=('plymouth')
-conflicts=('plymouth')
+conflicts=('plymouth-git')
 backup=('etc/plymouth/plymouthd.conf')
-
-source=('git+http://anongit.freedesktop.org/git/plymouth'
-        'manjaro-logo.png'
-        'plymouth.encrypt_hook'
-        'plymouth.encrypt_install'
-        'gdm-plymouth.service'
-        'kdm-plymouth.service'
-        'lxdm-plymouth.service'
-        'lightdm-plymouth.service'
-        'slim-plymouth.service'
-        'plymouth.initcpio_hook'
-        'plymouth.initcpio_install'
-        'sd-plymouth.initcpio_install'
-        'plymouth-quit.service.in.patch'
-        'plymouth-update-initrd.patch')
-
-md5sums=('SKIP'
-         'aa243a645a1afb6d438da5bb8e17e0bb'
-         'fbdd5d04e3089a214b9056357434df86'
-         '65eb269910f1b81e3f0970af456394ca'
-         '043410ebf89488602d4e5457f147e48b'
-         'dcacff05835053242f52b9e375248ec3'
-         '22130f7e6b20d2a43dbed924de75180b'
-         '870ea3e63c6989e2badf79d1fbafa914'
-         'fb2eb948e2198cfb54cc2b710a05ee61'
-         '676b951438542a09929f4c595e1ca3f5'
-         '6ebbfee5c8fd1fc8fbf6327b98302b0d'
-         '08c426bf7aaaf5da6add6705d022c471'
-         'd6fad8d8ef291ea3d85e8e95487c22fa'
-         'e017d3d93cba4414198c9c37250993b1')
 
 pkgver() {
   cd plymouth
   git describe --long | sed 's/-/.r/;s/-/./'
 }
 
-prepare() {
-	cd plymouth
+source=('git+http://anongit.freedesktop.org/git/plymouth'
+        'manjaro-logo.png'
+	'plymouth.encrypt_hook'
+	'plymouth.encrypt_install'
+	'gdm-plymouth.service'
+	'lxdm-plymouth.service'
+	'lightdm-plymouth.service'
+	'slim-plymouth.service'
+	'sddm-plymouth.service'
+	'plymouth-deactivate.service'
+	'plymouth-start.service'
+	'plymouth-start.path'
+	'plymouth.initcpio_hook'
+	'plymouth.initcpio_install'
+	'plymouth-quit.service.in.patch'
+	'plymouth-set-default-theme.in.patch'
+	'plymouth-update-initrd.patch')
 
-	patch -p1 -i "$srcdir"/plymouth-update-initrd.patch
-	patch -p1 -i "$srcdir"/plymouth-quit.service.in.patch
+md5sums=('SKIP'
+         'aa243a645a1afb6d438da5bb8e17e0bb'
+         'fbdd5d04e3089a214b9056357434df86'
+         '65eb269910f1b81e3f0970af456394ca'
+         'ae6e97bb1104bb12cbca6738e3fb872d'
+         '1430ae2ec501d600f8f6771454dc9bbe'
+         '870ea3e63c6989e2badf79d1fbafa914'
+         'a3cfc30df846b2d7057a29e7fbe8733a'
+         'f803c315739f46128b99232d64c268ca'
+         '006847d16b852c7a50ee2f241fd9647e'
+         '78340207f7391c682601b1b36baed14d'
+         '672ad913e2383483bcb4599a0a6bee48'
+         '32f04fdbd1eb94ade30d1e63fdcdd9b5'
+         '7246b45cc04b0916b84e2db0c0f7fe7a'
+         '165a39dbedcc6e123c8ca05d5b4b2e25'
+         'f79edbbb30c71b0dbcd102c7dd31660b'
+         '0357775c16b5f90f1af485e6a4c80a9e')
+
+prepare() {
+	cd "$srcdir"/plymouth
+	patch -p1 -i $srcdir/plymouth-set-default-theme.in.patch
+	patch -p1 -i $srcdir/plymouth-update-initrd.patch
+	patch -p1 -i $srcdir/plymouth-quit.service.in.patch
 }
 
 build() {
-	cd ${pkgname%-*}
+	cd "$srcdir"/plymouth
 
-	LDFLAGS="$LDFLAGS -ludev" ./autogen.sh \
-		--prefix=/usr \
+	LDFLAGS="$LDFLAGS -ludev" ./autogen.sh --prefix=/usr \
 		--exec-prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
@@ -95,22 +100,23 @@ build() {
 }
 
 package() {
-	cd plymouth
+  cd "$srcdir"/plymouth
 
-	make DESTDIR="$pkgdir" install
+  make DESTDIR="$pkgdir" install
 
-	install -Dm644 "$srcdir"/manjaro-logo.png "$pkgdir"/usr/share/plymouth/manjaro-logo.png
+  install -Dm644 "$srcdir/manjaro-logo.png" "$pkgdir/usr/share/plymouth/manjaro-logo.png"
 
-	install -Dm644 "$srcdir"/plymouth.encrypt_hook "$pkgdir"/usr/lib/initcpio/hooks/plymouth-encrypt
-	install -Dm644 "$srcdir"/plymouth.initcpio_hook "$pkgdir"/usr/lib/initcpio/hooks/plymouth
-	install -Dm644 "$srcdir"/plymouth.encrypt_install "$pkgdir"/usr/lib/initcpio/install/plymouth-encrypt
-	install -Dm644 "$srcdir"/plymouth.initcpio_install "$pkgdir"/usr/lib/initcpio/install/plymouth
-	install -Dm644 "$srcdir"/sd-plymouth.initcpio_install "$pkgdir"/usr/lib/initcpio/install/sd-plymouth
+  install -Dm644 "$srcdir/plymouth.encrypt_hook" "$pkgdir/usr/lib/initcpio/hooks/plymouth-encrypt"
+  install -Dm644 "$srcdir/plymouth.encrypt_install" "$pkgdir/usr/lib/initcpio/install/plymouth-encrypt"
+  install -Dm644 "$srcdir/plymouth.initcpio_hook" "$pkgdir/usr/lib/initcpio/hooks/plymouth"
+  install -Dm644 "$srcdir/plymouth.initcpio_install" "$pkgdir/usr/lib/initcpio/install/plymouth"
 
-	install -dm755 "$pkgdir"/usr/lib/systemd/system
-	install -m644 "$srcdir"/{gdm,kdm,lxdm,slim,lightdm}-plymouth.service "$pkgdir"/usr/lib/systemd/system
+  for i in {gdm,sddm,lxdm,slim,lightdm}-plymouth.service; do
+    install -Dm644 "$srcdir/$i" "$pkgdir/usr/lib/systemd/system/$i"
+  done
 
-	ln -s '../systemd-ask-password-plymouth.path' "$pkgdir"/usr/lib/systemd/system/sysinit.target.wants/systemd-ask-password-plymouth.path
-
-	install -Dm644 "$pkgdir"/usr/share/plymouth/plymouthd.defaults "$pkgdir"/etc/plymouth/plymouthd.conf
+  install -Dm644 "$srcdir/plymouth-deactivate.service" 	"$pkgdir/usr/lib/systemd/system/plymouth-deactivate.service"
+  install -Dm644 "$srcdir/plymouth-start.service" "$pkgdir/usr/lib/systemd/system/plymouth-start.service"
+  install -Dm644 "$srcdir/plymouth-start.path" 	"$pkgdir/usr/lib/systemd/system/plymouth-start.path"
+  install -Dm644 "$pkgdir/usr/share/plymouth/plymouthd.defaults" "$pkgdir/etc/plymouth/plymouthd.conf"
 }
