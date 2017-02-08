@@ -9,7 +9,7 @@
 pkgname=plymouth-legacy
 _pkgname=plymouth
 pkgver=0.8.8
-pkgrel=1
+pkgrel=3
 pkgdesc="A graphical boot splash screen with kernel mode-setting support"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
@@ -58,7 +58,7 @@ md5sums=('38f5e613e5ab17806b950cee2d0d0d4e'
          '9b18cf852fe883e7074104627f991d89'
          'f0110fba1e77cd22c32d1727399d0b8a'
          '4f3be343eea9956bbc94d615d5f41def'
-         '2c7a387ad3375a627a89d37ea513308e'
+         'e4bd87da9993aefb1e56e8072195e892'
          'e4d804825708c4ae555acd6489925b35'
          'e624903dcd6b795184340b3bbda437d8'
          '9d51efe40a5a75426c8faeb905e46600'
@@ -139,7 +139,7 @@ package() {
     install -Dm644 "$srcdir/plymouthd.conf" "$pkgdir/etc/plymouth/plymouthd.conf"
 
     # Plymouth<->systemd integration, including units for DMs
-    for i in {{gdm,kdm{,-unpatched},lightdm,lxdm,slim}-plymouth,plymouth-quit-wait,plymouth-quit}.service; do
+    for i in {{gdm,kdm{,-unpatched},lightdm,lxdm,sddm,slim}-plymouth,plymouth-quit-wait,plymouth-quit}.service; do
         install -Dm644 "$srcdir/$i" "$pkgdir/usr/lib/systemd/system/$i"
     done
 }

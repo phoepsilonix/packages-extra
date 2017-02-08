@@ -3,8 +3,8 @@
 pkgname=calamares
 pkgver=3.0.1
 _pkgver=3.0.1
-pkgrel=5
-_commit=v3.0.1
+pkgrel=6
+_commit=20ce3e4c47767ef875a85f28c6b3a78e99c8825a
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -19,28 +19,13 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
-         "has-internet.patch::https://github.com/manjaro/calamares/commit/8215a633e27e8fd9061a91dc89d7bfdeea784228.patch"
-         "dev-path.patch::https://github.com/manjaro/calamares/commit/06b1d4abd2412b79242a105ca289198a0d36b3bf.patch"
-         "pkg-robust.patch::https://github.com/manjaro/calamares/commit/8804b15b59138850bede90ce84d3212dbb391be2.patch"
-         "chrootcfg-patch::https://github.com/manjaro/calamares/commit/e6c4efbb110372322e0033886d5aed77f01b6c71.patch"
-         "double-click.patch::https://github.com/manjaro/calamares/commit/d1f3c2d73bb7fbd18b24dc44f1928bcea9cb1fc7.patch")
-sha256sums=('2ce8aaea30e352c75567ad93e99144dad444540e4a3ca91e731c0f297488181a'
-            'd1d4622087c4bc2f822701aa61dd10b2b6b2eb8b28c2ef166e283f10576a8dc1'
-            '0b16b30464fae627146a13abbeaf3a62a3e4f2c5037f24157d189c2125220ef9'
-            '68244ebe7173012a80b9c76f287fc9a42ab3dc4311c5addafd4450c4f5f41c60'
-            '55c46aebac27fdb12d85f11405761cc6ece69cc3af9079c81d6b4c14844c4967'
-            '40e328a0d7bb904fdbbd8891a476c855f8490f781edaa42a753c29059f25a601')
+         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
+sha256sums=('5e5ba5cbc59b1282a3c8c4cf619bac793b937cc3cd301d9a3ba977a2f26666ea')
 
 prepare() {
-	#mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
+	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
-	patch -p1 -i $srcdir/has-internet.patch
-	patch -p1 -i $srcdir/dev-path.patch
-	patch -p1 -i $srcdir/pkg-robust.patch
-	patch -p1 -i $srcdir/chrootcfg-patch
-	patch -p1 -i $srcdir/double-click.patch
 }
 
 build() {
