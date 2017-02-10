@@ -5,7 +5,7 @@
 
 pkgname=kinfocenter
 pkgver=5.9.1
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
@@ -18,7 +18,7 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz
         'kcm-about-distrorc')
 sha256sums=('a10598a09a7f81acf4f613a6b16be2e1cbd1946885ea9444ac1011180488649c'
             'SKIP'
-            '02f8e3848842bae17fb6f62f9c031d3b2fce081a65b3365f7d35d90187a31bf9')
+            '5e0c86c13b97a7bdd9a0662656cfe750489852bd9ecf19f7354d194624a98522')
 validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell
               'D07BD8662C56CB291B316EB2F5675605C74E02CF') # David Edmundson
 
