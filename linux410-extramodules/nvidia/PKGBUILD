@@ -9,7 +9,7 @@ _linuxprefix=linux410
 _extramodules=extramodules-4.10-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=375.26
+pkgver=375.39
 pkgrel=0.6
 epoch=1
 provides=("$_pkgname=$pkgver")
@@ -28,8 +28,8 @@ source=("linux-4.10-rc1.patch")
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run" "linux-4.10-rc1-x86_64.patch")
 md5sums=('2b2c828e33256d2684759389379046fa')
-md5sums_i686=('b0706e88ad173f6b9c7bd2e5a838c163')
-md5sums_x86_64=('5595fb385e41638c5118784114b03d9a'
+md5sums_i686=('9247d5eb9df58bb7755c9060ef5d103d')
+md5sums_x86_64=('3541e67b444f020b89bcad8334be6d65'
                 '4d82d72ee989ea90ee1fcf33323b7386')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
