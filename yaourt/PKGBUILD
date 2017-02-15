@@ -1,35 +1,37 @@
 # Author: Julien MISCHKOWITZ <wain@archlinux.fr>
 # Author: tuxce <tuxce.net@gmail.com>
+# Contributor: Skunnyk <skunnyk@archlinux.fr>
 
 pkgname=yaourt
 pkgver=1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
 url="https://github.com/archlinuxfr/$pkgname"
 license=(GPL)
 depends=('diffutils' 'pacman>=5.0' 'package-query>=1.8' 'gettext')
 optdepends=('aurvote: vote for favorite packages from AUR'
-      'customizepkg: automatically modify PKGBUILD during install/upgrade'
-      'rsync: retrieve PKGBUILD from official repositories')
+            'customizepkg: automatically modify PKGBUILD during install/upgrade'
+            'rsync: retrieve PKGBUILD from official repositories')
 backup=('etc/yaourtrc')
-source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=('SKIP')
+source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.xz" '0001-alpm-manjaro-brand.patch')
+sha256sums=('f5da1144f2d4e9754bc5728116a79a9c78469f6587321c4c766812f06393ca92'
+            'c229900144c61fed7d02f539eacd83cc8789c727aef8ce03de9db75fc26ee6fe')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
-  # Don't prompt the user to edit files
-  #sed -i "s/\#EDITFILES\=1/EDITFILES\=0/g" yaourtrc.in
-  # Save package tarball to pacman cache
-  sed -i "s/\#EXPORT\=0/EXPORT\=2/g" yaourtrc.in
+    cd "$pkgname-$pkgver"
+    patch -Np1 -i "$srcdir"/0001-alpm-manjaro-brand.patch
+    
+    # Don't prompt the user to edit files
+    #sed -i "s/\#EDITFILES\=1/EDITFILES\=0/g" yaourtrc.in
+    # Save package tarball to pacman cache
+    sed -i "s/\#EXPORT\=0/EXPORT\=2/g" yaourtrc.in
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-  make PREFIX=/usr sysconfdir=/etc localstatedir=/var
+    make -C "$pkgname-$pkgver" PREFIX=/usr sysconfdir=/etc localstatedir=/var
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  make PREFIX=/usr sysconfdir=/etc localstatedir=/var DESTDIR="$pkgdir" install
+    make -C "$pkgname-$pkgver" PREFIX=/usr sysconfdir=/etc localstatedir=/var DESTDIR="$pkgdir" install
 }
