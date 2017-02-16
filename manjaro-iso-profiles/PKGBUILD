@@ -6,8 +6,7 @@ _mt_pkgver=0.14.3
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles-base'
         'manjaro-iso-profiles-official'
-        'manjaro-iso-profiles-community'
-        'sonar-iso-profiles')
+        'manjaro-iso-profiles-community')
 pkgver=17.0rc1
 pkgrel=1
 arch=('any')
@@ -57,12 +56,4 @@ package_manjaro-iso-profiles-community() {
     depends=("manjaro-tools-yaml>=${_mt_pkgver}")
 
     _inst_dir 'community'
-}
-
-package_sonar-iso-profiles() {
-    pkgdesc='Sonar Linux iso profiles'
-    groups=('manjaro-tools')
-    depends=("manjaro-tools-yaml>=${_mt_pkgver}")
-
-    _inst_dir 'sonar'
 }

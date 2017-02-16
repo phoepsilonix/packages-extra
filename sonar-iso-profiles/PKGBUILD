@@ -1,0 +1,31 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <artoo@manjaro.org>
+
+_mt_pkgver=0.14.3
+
+pkgname=sonar-iso-profiles
+pkgver=17.0rc1
+pkgrel=2
+pkgdesc='Sonar Linux iso profiles'
+arch=('any')
+url="https://github.com/manjaro/iso-profiles"
+license=('GPL')
+groups=('manjaro-tools')
+depends=("manjaro-tools-yaml>=${_mt_pkgver}")
+_git=cd21417ca49aafd27dc10c20914b764934772779
+source=("$url/archive/${_git}.tar.gz")
+sha256sums=('d6a767ccff3cbb85918020d64c8f6a1c3190426d2361e9f62facc263c2ec259c')
+
+prepare(){
+    # remove this
+    mv $srcdir/iso-profiles-$_git $srcdir/iso-profiles-$pkgver
+}
+
+_inst_dir(){
+    install -d $pkgdir/usr/share/manjaro-tools/iso-profiles
+    cp -a $srcdir/iso-profiles-$pkgver/$1 $pkgdir/usr/share/manjaro-tools/iso-profiles/
+}
+
+package() {
+    _inst_dir 'sonar'
+}
