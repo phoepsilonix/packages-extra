@@ -2,7 +2,7 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=calamares-tools
-pkgver=r6.dec637a
+pkgver=r10.1d7b2b0
 pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Calamares'
