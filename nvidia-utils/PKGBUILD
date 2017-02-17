@@ -5,19 +5,20 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=375.39
-pkgrel=1
+pkgrel=3
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
-source=('mhwd-nvidia')
+source=('mhwd-nvidia' 'nvidia-drm-outputclass.conf')
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 #durl="http://developer.download.nvidia.com/assets/opengl/369.00"
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 #source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('11176f1c070bbdbfaa01a3743ec065fe71ff867b9f72f1dce0de0339b5873bb5')
+sha256sums=('11176f1c070bbdbfaa01a3743ec065fe71ff867b9f72f1dce0de0339b5873bb5'
+            '3a5f66620501d8dd85085a35c2f9e85a2e0d56a1b565b2df1e9fabc40e643363')
 sha256sums_i686=('7f33f6572c5c5c57df71531749c7339309a2097918375685ea8018826cf19456')
 sha256sums_x86_64=('95a3221292f357fbd77697b9bb78d1694def5761202f695ef2065c61efb2ddd8')
 
@@ -92,8 +93,9 @@ package_nvidia-utils() {
     install -D -m755 nvidia_drv.so "${pkgdir}/usr/lib/xorg/modules/drivers/nvidia_drv.so"
 
     # GLX extension module for X
-    install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so.${pkgver}"
-    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so"	# X doesn't find glx otherwise
+    install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.${pkgver}"
+    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.1"	# X doesn't find glx otherwise
+    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so"	# X doesn't find glx otherwise
     install -D -m755 "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_nvidia.so.${pkgver}"
     ln -s "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
 
@@ -192,8 +194,8 @@ package_nvidia-utils() {
     ln -s nvidia "${pkgdir}/usr/share/doc/nvidia-utils"
 
     # distro specific files must be installed in /usr/share/X11/xorg.conf.d
-    # Still part of xorg-server 1.17.4-2
-    # install -D -m644 nvidia-drm-outputclass.conf "${pkgdir}/usr/share/X11/xorg.conf.d/nvidia-drm-outputclass.conf"
+    install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
+    install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
 
     create_links
 }

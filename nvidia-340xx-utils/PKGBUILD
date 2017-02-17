@@ -5,15 +5,16 @@
 pkgbase=nvidia-340xx-utils
 pkgname=('nvidia-340xx-utils' 'opencl-nvidia-340xx' 'mhwd-nvidia-340xx')
 pkgver=340.101
-pkgrel=1
+pkgrel=3
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
-source=('mhwd-nvidia')
+source=('mhwd-nvidia' 'nvidia-drm-outputclass.conf')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('2f767e7d0c63e6f943edcb82ef09a389')
+md5sums=('2f767e7d0c63e6f943edcb82ef09a389'
+         '4f5562ee8f3171769e4638b35396c55d')
 md5sums_i686=('b2b33b50cf375ccba7d3b959b9f509ec')
 md5sums_x86_64=('dd1a25ab34b7855d533474f3e8f3e868')
 
@@ -86,8 +87,9 @@ package_nvidia-340xx-utils() {
     install -D -m755 nvidia_drv.so "${pkgdir}/usr/lib/xorg/modules/drivers/nvidia_drv.so"
 
     # GLX extension module for X
-    install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so.${pkgver}"
-    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/modules/extensions/libglx.so"	# X doesn't find glx otherwise
+    install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.${pkgver}"
+    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.1"	# X doesn't find glx otherwise
+    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so"	# X doesn't find glx otherwise
 
     # OpenGL library
     install -D -m755 "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so.${pkgver}"
@@ -159,6 +161,10 @@ package_nvidia-340xx-utils() {
     install -D -m644 README.txt "${pkgdir}/usr/share/doc/nvidia/README"
     install -D -m644 NVIDIA_Changelog "${pkgdir}/usr/share/doc/nvidia/NVIDIA_Changelog"
     ln -s nvidia "${pkgdir}/usr/share/doc/nvidia-utils"
+
+    # distro specific files must be installed in /usr/share/X11/xorg.conf.d
+    install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
+    install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
 
     create_links
 }

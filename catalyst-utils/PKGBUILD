@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=2
+pkgrel=4
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -23,6 +23,7 @@ source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}-x86.x86_64.zi
     arch-fglrx-authatieventsd_new.patch
     mhwd-catalyst
     temp-links-catalyst.service  temp_links_catalyst
+    fglrx-outputclass.conf
     LICENSE.TXT)
 
 url_ref="http://support.amd.com/en-us/download/desktop?os=Linux+x86"
@@ -36,6 +37,7 @@ sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             '4f36dd7b3bf2beec22af68f1aedf96cbdb9fa7b0586af71bac5c8b1f4a952358'
             'c97a2735f80416151b2a71504e42385c4d8d95cf42aa8f90a6c7bd5a966c54e1'
             'efd26980888943293a7cf1d8d781b96b3bc7a5cdf23f926aa68ac4bc348b7691'
+            'b324f7c780118392d3e3e1b3a16632a748556b76c6e852e336cd053e3913f837'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
@@ -102,7 +104,8 @@ package_catalyst-utils() {
       install -m755 linux/*.so ${pkgdir}/usr/lib/xorg/modules/linux
 
 	# GLX extension module for X
-	install -D -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/fglrx/xorg/modules/extensions/libglx.so"
+	install -D -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/fglrx/xorg/libglx.so.1"
+	ln -s "libglx.so.1"  "${pkgdir}/usr/lib/fglrx/xorg/libglx.so"
 
     # Controlcenter / libraries
       if [ "${CARCH}" = "i686" ]; then
@@ -117,11 +120,6 @@ package_catalyst-utils() {
 	install -D -m755 X11R6/${_lib}/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx/libGL.so.1.2"
 	ln -s "libGL.so.1.2" "${pkgdir}/usr/lib/fglrx/libGL.so.1"
 	ln -s "libGL.so.1.2" "${pkgdir}/usr/lib/fglrx/libGL.so"
-
-	# Fallback links
-	ln -s "/usr/lib/fglrx/libGL.so.1.2" "${pkgdir}/usr/lib/libGL.so.catalyst"
-	mkdir -p "${pkgdir}/usr/lib/xorg/modules/extensions/"
-	ln -s "/usr/lib/fglrx/xorg/modules/extensions/libglx.so" "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so.catalyst"
 
       install -m755 X11R6/bin/* ${pkgdir}/usr/bin
       install -m755 sbin/* ${pkgdir}/usr/bin
@@ -191,6 +189,10 @@ package_catalyst-utils() {
     # Admin CC launcher fix
       cd ${pkgdir}/usr/share/applications
       sed -i "s|${_execlineorig}|${_execlinenew}|g" amdccclesu.desktop
+
+    # distro specific files must be installed in /usr/share/X11/xorg.conf.d
+    install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
+    install -m644 "${srcdir}/fglrx-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
 }
 
 package_opencl-catalyst() {
