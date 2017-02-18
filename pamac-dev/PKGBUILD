@@ -2,9 +2,9 @@
 
 pkgbase=pamac
 pkgname=('pamac-dev' 'pamac-dev-tray-appindicator')
-pkgver=4.1.5
-_pkgver=e4b6528b8685a41914fb0c568c57bcc319459257
-pkgrel=2
+pkgver=4.2.9
+_pkgver=4.2.9
+pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
@@ -14,13 +14,13 @@ depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' '
 makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
-sha256sums=('3d6f298de06b86e68d951dbef6e2416a246196e57a222dc027a0eee8e9fb9f23')
+source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
+sha256sums=('6753e3120f8ccf385594ee783ec09c73c3ff83ab6a628b22c1bb237ac9e3b666')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"4.1.5\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala
+  sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala
   # patches here
 }
 
@@ -34,10 +34,10 @@ build() {
 package_pamac-dev() {
   optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome'
               'lxsession: needed for authentification in Xfce, LXDE etc.'
-              'yaourt: needed for AUR support'
               'pamac-dev-tray-appindicator: tray icon for KDE')
-  backup=('etc/pamac.conf')
   conflicts=('pamac')
+  providess=('pamac')
+  backup=('etc/pamac.conf')
   replaces=('pamac-aur')
   install=pamac.install
   cd "$srcdir/pamac-$_pkgver"
@@ -48,6 +48,7 @@ package_pamac-dev-tray-appindicator() {
   pkgdesc="Tray icon using appindicator which feets better in KDE"
   depends=('pamac' 'libappindicator-gtk3')
   conflicts=('pamac-tray-appindicator')
+  providess=('pamac-tray-appindicator')
   cd "$srcdir/pamac-$_pkgver"
   make use_appindicator=true
   make prefix="$pkgdir"/usr sysconfdir="$pkgdir"/etc install_pamac-tray-appindicator
