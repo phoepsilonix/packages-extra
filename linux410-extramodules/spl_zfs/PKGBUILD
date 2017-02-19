@@ -5,8 +5,8 @@ _linuxprefix=linux410
 _extramodules=extramodules-4.10-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.6.5.8
-_pkgver=spl-0.6.5.8
+pkgver=0.6.5.9
+_pkgver=spl-0.6.5.9
 pkgrel=0.6
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
@@ -16,47 +16,15 @@ makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
-        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
-        "linux-4.9-compat-spl-01.patch::https://github.com/zfsonlinux/spl/commit/9ba3c01923d45a19003641ceab311150752ed491.patch"
-        "linux-4.9-compat-spl-02.patch::https://github.com/zfsonlinux/spl/commit/87063d7dc392cb710c70dba49021d6e4ec8961a9.patch"
-        "linux-4.9-compat-spl-03.patch" #::https://github.com/zfsonlinux/spl/commit/ae7eda1dde8aebc298a013254dcd90f7fa42171a.patch"
-        "linux-4.9-compat-zfs-00.patch::https://github.com/zfsonlinux/zfs/commit/8ba3f2bf6a66378b36acd70e5616a78396030984.patch"
-        "linux-4.9-compat-zfs-01.patch" #::https://github.com/zfsonlinux/zfs/commit/b8d9e26440ade0edebfa98af8cb9371810c1aeaf.patch"
-        "linux-4.9-compat-zfs-02.patch::https://github.com/zfsonlinux/zfs/commit/0fedeedd309eca62d15fffd8bd811e2b12660e21.patch"
-        "linux-4.9-compat-zfs-03.patch::https://github.com/zfsonlinux/zfs/commit/3b0ba3ba99b8a3af0fb532bf264629436b1abd84.patch"
-        "linux-4.9-compat-zfs-04.patch" #::https://github.com/zfsonlinux/zfs/commit/7ca25051b6470e8471b4ed454d8c66ff21338de3.patch"
-        "linux-4.10-compat-zfs-01.patch" #::https://github.com/zfsonlinux/zfs/commit/a5e046eaacad20487188c9eef231554e1401d8c9.patch"
-        "linux-4.10-compat-zfs-02.patch") #::https://github.com/zfsonlinux/zfs/commit/e6603b7c1fc7ac01f8891b11df34d943812153e9.patch")
-sha256sums=('1b0a625141206711b52023eab40f7187ce2afe5e39e23981805aab19f170853d'
-            'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84'
-            '481bf94cf058be94453accc8cb63072720757edeb72425153d502366a175d6ef'
-            'ea1c0fbc60e747259be69d8f1b2a9aab99ca3f3c23694088288f8da9a141f7d5'
-            'acc2e30c9f1523fd71e6041c9248f5b3f823ea3673d2ef5cdd20be7b05470297'
-            '990d669665bc3f5bea39d035d4a6b52251a60523c320fecd24cb6afd8386432f'
-            'fde4682f2f0ccf7d988cab1f8c51bf784125925831e141d216395d674bdb6ffc'
-            '690844a4a9f26bff725310414e1cb7f96c9da14ab525c0ef15fff9b6ff7608db'
-            '67d202d653a12aa94dab535295c6fcf5b3aa2371ecffed22774fbea5186143f2'
-            '193c1c1b63a50c513d48e14cb9869de480acaffead559f36a8c60f102ebf2224'
-            '235de6a3bc2e365494218e7b54af5a0985aa17defd90e5106a241a06aba51d87'
-            '4b019ca4173ea9ce950acc2a49150144beebc7ad18f96f2667bea4748422fe70')
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
+            'b724b57dbddae59246fdc15f88f1224061c712945bb36412a2087e0c7760d77f')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
   # patches here
-  patch -p1 -i ${srcdir}/linux-4.9-compat-spl-01.patch
-  patch -p1 -i ${srcdir}/linux-4.9-compat-spl-02.patch
-  patch -p1 -i ${srcdir}/linux-4.9-compat-spl-03.patch
   cd "${srcdir}/zfs-${pkgver}"
   # patches here
-  patch -p1 -i ${srcdir}/linux-4.9-compat-zfs-00.patch
-  patch -p1 -i ${srcdir}/linux-4.9-compat-zfs-01.patch
-  patch -p1 -i ${srcdir}/linux-4.9-compat-zfs-02.patch
-  patch -p1 -i ${srcdir}/linux-4.9-compat-zfs-03.patch
-  patch -p1 -i ${srcdir}/linux-4.9-compat-zfs-04.patch
-echo "1"
-  patch -p1 -i ${srcdir}/linux-4.10-compat-zfs-01.patch
-echo "2"
-  patch -p1 -i ${srcdir}/linux-4.10-compat-zfs-02.patch
 }
 
 build() {

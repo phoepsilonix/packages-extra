@@ -5,9 +5,9 @@ _linuxprefix=linux41
 _extramodules=extramodules-4.1-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.6.5.8
-_pkgver=spl-0.6.5.8
-pkgrel=5
+pkgver=0.6.5.9
+_pkgver=spl-0.6.5.9
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -16,18 +16,15 @@ makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
-        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
-        "linux-4.1-compat-zfs-01.patch::https://github.com/zfsonlinux/zfs/commit/3b0ba3ba99b8a3af0fb532bf264629436b1abd84.patch")
-sha256sums=('1b0a625141206711b52023eab40f7187ce2afe5e39e23981805aab19f170853d'
-            'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84'
-            '67d202d653a12aa94dab535295c6fcf5b3aa2371ecffed22774fbea5186143f2')
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
+            'b724b57dbddae59246fdc15f88f1224061c712945bb36412a2087e0c7760d77f')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
   # patches here
   cd "${srcdir}/zfs-${pkgver}"
   # patches here
-  patch -p1 -i ${srcdir}/linux-4.1-compat-zfs-01.patch
 }
 
 build() {

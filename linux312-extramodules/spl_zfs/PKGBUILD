@@ -5,9 +5,9 @@ _linuxprefix=linux312
 _extramodules=extramodules-3.12-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.6.5.8
-_pkgver=spl-0.6.5.8
-pkgrel=6
+pkgver=0.6.5.9
+_pkgver=spl-0.6.5.9
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -17,8 +17,8 @@ groups=("$_linuxprefix-extramodules")
 install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
         "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=('1b0a625141206711b52023eab40f7187ce2afe5e39e23981805aab19f170853d'
-            'd77f43f7dc38381773e2c34531954c52f3de80361b7bb10c933a7482f89cfe84')
+sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
+            'b724b57dbddae59246fdc15f88f1224061c712945bb36412a2087e0c7760d77f')
 
 build() {
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
