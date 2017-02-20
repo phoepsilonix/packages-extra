@@ -5,7 +5,7 @@
 pkgbase=xorg-server
 pkgname=('xorg-server' 'xorg-server-xephyr' 'xorg-server-xdmx' 'xorg-server-xvfb' 'xorg-server-xnest' 'xorg-server-xwayland' 'xorg-server-common' 'xorg-server-devel')
 pkgver=1.17.4
-pkgrel=3.1
+pkgrel=4
 arch=('i686' 'x86_64')
 license=('custom')
 url="http://xorg.freedesktop.org"
@@ -24,7 +24,8 @@ source=(${url}/releases/individual/xserver/${pkgbase}-${pkgver}.tar.bz2{,.sig}
         0002-dix-hook-up-the-unaccelerated-valuator-masks.patch
         0001-systemd-logind-do-not-rely-on-directed-signals.patch
         0001-dix-Work-around-non-premultiplied-ARGB-cursor-data.patch
-        0001-call-eglBindAPI-after-eglInitialize.patch)
+        0001-call-eglBindAPI-after-eglInitialize.patch
+        nvidia-add-modulepath-support.patch)
 validpgpkeys=('7B27A3F1A6E18CD9588B4AE8310180050905E40C'
               'C383B778255613DFDB409D91DB221A6900000011'
               'DD38563A8A8224537D1F90E45B8A2D50A0ECD0D3')
@@ -37,7 +38,8 @@ sha256sums=('0c4b45c116a812a996eb432d8508cf26c2ec8c3916ff2a50781796882f8d6457'
             '416a1422eed71efcebb1d893de74e7f27e408323a56c4df003db37f5673b3f96'
             '3d7edab3a54d647e7d924b29d29f91b50212f308fcb1853a5aacd3181f58276c'
             'ecb0b1f73342e8c3de1563efcc812ac0235e2994d0343b392c1f51920510aa18'
-            '45fdc2a1241d458756c41a93c01846e04cc75f3c75f81f48b61533d08280918d')
+            '45fdc2a1241d458756c41a93c01846e04cc75f3c75f81f48b61533d08280918d'
+            '54f70d98a53305fc6255fb3cc162b03f37d6952cbba92efec96e0992da896710')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
@@ -52,6 +54,9 @@ prepare() {
   patch -Np1 -i ../0001-dix-Work-around-non-premultiplied-ARGB-cursor-data.patch
 
   patch -Np1 -i ../0001-call-eglBindAPI-after-eglInitialize.patch
+
+  # merged upstream in trunk
+  patch -Np1 -i ../nvidia-add-modulepath-support.patch
 
   autoreconf -fvi
 }

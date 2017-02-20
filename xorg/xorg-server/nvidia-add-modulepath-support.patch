@@ -1,0 +1,1767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>svntogit/packages.git - Git clone of the 'packages' repository
+</title>
+<meta name='generator' content='cgit v0.12'/>
+<meta name='robots' content='index, nofollow'/>
+<link rel='stylesheet' type='text/css' href='/cgit.css'/>
+<link rel='shortcut icon' href='/favicon.ico'/>
+<link rel='alternate' title='Atom feed' href='https://git.archlinux.org/svntogit/packages.git/atom/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server' type='application/atom+xml'/>
+<link rel='vcs-git' href='https://git.archlinux.org/svntogit/packages.git' title='svntogit/packages.git Git repository'/>
+<link rel='vcs-git' href='git://git.archlinux.org/svntogit/packages.git' title='svntogit/packages.git Git repository'/>
+<link rel='vcs-git' href='ssh://git.archlinux.org/srv/git/svntogit/packages.git' title='svntogit/packages.git Git repository'/>
+</head>
+<body>
+	<div id="archnavbar"><!-- Arch Linux global navigation bar -->
+		<div id="archnavbarlogo">
+			<p><a href="http://www.archlinux.org/" title="Arch news, packages, projects and more"></a></p>
+		</div>
+		<div id="archnavbarmenu">
+			<ul id="archnavbarlist">
+				<li id="anb-home"><a href="http://www.archlinux.org/" title="Arch news, packages, projects and more">Home</a></li>
+				<li id="anb-packages"><a href="http://www.archlinux.org/packages/" title="Arch Package Database">Packages</a></li>
+				<li id="anb-forums"><a href="https://bbs.archlinux.org/" title="Community forums">Forums</a></li>
+				<li id="anb-wiki"><a href="https://wiki.archlinux.org/" title="Community documentation">Wiki</a></li>
+				<li id="anb-bugs"><a href="https://bugs.archlinux.org/" title="Report and follow bugs">Bugs</a></li>
+				<li id="anb-aur"><a href="https://aur.archlinux.org/" title="Arch Linux User Repository">AUR</a></li>
+				<li id="anb-download"><a href="http://www.archlinux.org/download/" title="Get Arch Linux">Download</a></li>
+			</ul>
+		</div>
+	</div><!-- #archnavbar -->
+<div id='cgit'><table id='header'>
+<tr>
+<td class='main'><a href='/'>index</a> : <a title='svntogit/packages.git' href='/svntogit/packages.git/'>svntogit/packages.git</a></td></tr>
+<tr><td class='sub'>Git clone of the 'packages' repository
+</td><td class='sub right'></td></tr></table>
+<table class='tabs'><tr><td>
+<a href='/svntogit/packages.git/?h=packages/xorg-server'>summary</a><a href='/svntogit/packages.git/refs/?h=packages/xorg-server'>refs</a><a href='/svntogit/packages.git/log/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>log</a><a class='active' href='/svntogit/packages.git/tree/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>tree</a><a href='/svntogit/packages.git/commit/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>commit</a><a href='/svntogit/packages.git/diff/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>diff</a><a href='/svntogit/packages.git/stats/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>stats</a></td><td class='form'><form class='right' method='get' action='/svntogit/packages.git/log/trunk/nvidia-add-modulepath-support.patch'>
+<input type='hidden' name='h' value='packages/xorg-server'/><select name='qt'>
+<option value='grep'>log msg</option>
+<option value='author'>author</option>
+<option value='committer'>committer</option>
+<option value='range'>range</option>
+</select>
+<input class='txt' type='text' size='10' name='q' value=''/>
+<input type='submit' value='search'/>
+</form>
+</td></tr></table>
+<div class='path'>path: <a href='/svntogit/packages.git/tree/?h=packages/xorg-server'>root</a>/<a href='/svntogit/packages.git/tree/trunk?h=packages/xorg-server'>trunk</a>/<a href='/svntogit/packages.git/tree/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>nvidia-add-modulepath-support.patch</a></div><div class='content'>blob: 584b91c0f11e77e1aa51f25f367e2bdf18b793f7 (<a href='/svntogit/packages.git/plain/trunk/nvidia-add-modulepath-support.patch?h=packages/xorg-server'>plain</a>)
+<table summary='blob content' class='blob'>
+<tr><td class='linenumbers'><pre><a id='n1' href='#n1'>1</a>
+<a id='n2' href='#n2'>2</a>
+<a id='n3' href='#n3'>3</a>
+<a id='n4' href='#n4'>4</a>
+<a id='n5' href='#n5'>5</a>
+<a id='n6' href='#n6'>6</a>
+<a id='n7' href='#n7'>7</a>
+<a id='n8' href='#n8'>8</a>
+<a id='n9' href='#n9'>9</a>
+<a id='n10' href='#n10'>10</a>
+<a id='n11' href='#n11'>11</a>
+<a id='n12' href='#n12'>12</a>
+<a id='n13' href='#n13'>13</a>
+<a id='n14' href='#n14'>14</a>
+<a id='n15' href='#n15'>15</a>
+<a id='n16' href='#n16'>16</a>
+<a id='n17' href='#n17'>17</a>
+<a id='n18' href='#n18'>18</a>
+<a id='n19' href='#n19'>19</a>
+<a id='n20' href='#n20'>20</a>
+<a id='n21' href='#n21'>21</a>
+<a id='n22' href='#n22'>22</a>
+<a id='n23' href='#n23'>23</a>
+<a id='n24' href='#n24'>24</a>
+<a id='n25' href='#n25'>25</a>
+<a id='n26' href='#n26'>26</a>
+<a id='n27' href='#n27'>27</a>
+<a id='n28' href='#n28'>28</a>
+<a id='n29' href='#n29'>29</a>
+<a id='n30' href='#n30'>30</a>
+<a id='n31' href='#n31'>31</a>
+<a id='n32' href='#n32'>32</a>
+<a id='n33' href='#n33'>33</a>
+<a id='n34' href='#n34'>34</a>
+<a id='n35' href='#n35'>35</a>
+<a id='n36' href='#n36'>36</a>
+<a id='n37' href='#n37'>37</a>
+<a id='n38' href='#n38'>38</a>
+<a id='n39' href='#n39'>39</a>
+<a id='n40' href='#n40'>40</a>
+<a id='n41' href='#n41'>41</a>
+<a id='n42' href='#n42'>42</a>
+<a id='n43' href='#n43'>43</a>
+<a id='n44' href='#n44'>44</a>
+<a id='n45' href='#n45'>45</a>
+<a id='n46' href='#n46'>46</a>
+<a id='n47' href='#n47'>47</a>
+<a id='n48' href='#n48'>48</a>
+<a id='n49' href='#n49'>49</a>
+<a id='n50' href='#n50'>50</a>
+<a id='n51' href='#n51'>51</a>
+<a id='n52' href='#n52'>52</a>
+<a id='n53' href='#n53'>53</a>
+<a id='n54' href='#n54'>54</a>
+<a id='n55' href='#n55'>55</a>
+<a id='n56' href='#n56'>56</a>
+<a id='n57' href='#n57'>57</a>
+<a id='n58' href='#n58'>58</a>
+<a id='n59' href='#n59'>59</a>
+<a id='n60' href='#n60'>60</a>
+<a id='n61' href='#n61'>61</a>
+<a id='n62' href='#n62'>62</a>
+<a id='n63' href='#n63'>63</a>
+<a id='n64' href='#n64'>64</a>
+<a id='n65' href='#n65'>65</a>
+<a id='n66' href='#n66'>66</a>
+<a id='n67' href='#n67'>67</a>
+<a id='n68' href='#n68'>68</a>
+<a id='n69' href='#n69'>69</a>
+<a id='n70' href='#n70'>70</a>
+<a id='n71' href='#n71'>71</a>
+<a id='n72' href='#n72'>72</a>
+<a id='n73' href='#n73'>73</a>
+<a id='n74' href='#n74'>74</a>
+<a id='n75' href='#n75'>75</a>
+<a id='n76' href='#n76'>76</a>
+<a id='n77' href='#n77'>77</a>
+<a id='n78' href='#n78'>78</a>
+<a id='n79' href='#n79'>79</a>
+<a id='n80' href='#n80'>80</a>
+<a id='n81' href='#n81'>81</a>
+<a id='n82' href='#n82'>82</a>
+<a id='n83' href='#n83'>83</a>
+<a id='n84' href='#n84'>84</a>
+<a id='n85' href='#n85'>85</a>
+<a id='n86' href='#n86'>86</a>
+<a id='n87' href='#n87'>87</a>
+<a id='n88' href='#n88'>88</a>
+<a id='n89' href='#n89'>89</a>
+<a id='n90' href='#n90'>90</a>
+<a id='n91' href='#n91'>91</a>
+<a id='n92' href='#n92'>92</a>
+<a id='n93' href='#n93'>93</a>
+<a id='n94' href='#n94'>94</a>
+<a id='n95' href='#n95'>95</a>
+<a id='n96' href='#n96'>96</a>
+<a id='n97' href='#n97'>97</a>
+<a id='n98' href='#n98'>98</a>
+<a id='n99' href='#n99'>99</a>
+<a id='n100' href='#n100'>100</a>
+<a id='n101' href='#n101'>101</a>
+<a id='n102' href='#n102'>102</a>
+<a id='n103' href='#n103'>103</a>
+<a id='n104' href='#n104'>104</a>
+<a id='n105' href='#n105'>105</a>
+<a id='n106' href='#n106'>106</a>
+<a id='n107' href='#n107'>107</a>
+<a id='n108' href='#n108'>108</a>
+<a id='n109' href='#n109'>109</a>
+<a id='n110' href='#n110'>110</a>
+<a id='n111' href='#n111'>111</a>
+<a id='n112' href='#n112'>112</a>
+<a id='n113' href='#n113'>113</a>
+<a id='n114' href='#n114'>114</a>
+<a id='n115' href='#n115'>115</a>
+<a id='n116' href='#n116'>116</a>
+<a id='n117' href='#n117'>117</a>
+<a id='n118' href='#n118'>118</a>
+<a id='n119' href='#n119'>119</a>
+<a id='n120' href='#n120'>120</a>
+<a id='n121' href='#n121'>121</a>
+<a id='n122' href='#n122'>122</a>
+<a id='n123' href='#n123'>123</a>
+<a id='n124' href='#n124'>124</a>
+<a id='n125' href='#n125'>125</a>
+<a id='n126' href='#n126'>126</a>
+<a id='n127' href='#n127'>127</a>
+<a id='n128' href='#n128'>128</a>
+<a id='n129' href='#n129'>129</a>
+<a id='n130' href='#n130'>130</a>
+<a id='n131' href='#n131'>131</a>
+<a id='n132' href='#n132'>132</a>
+<a id='n133' href='#n133'>133</a>
+<a id='n134' href='#n134'>134</a>
+<a id='n135' href='#n135'>135</a>
+<a id='n136' href='#n136'>136</a>
+<a id='n137' href='#n137'>137</a>
+<a id='n138' href='#n138'>138</a>
+<a id='n139' href='#n139'>139</a>
+<a id='n140' href='#n140'>140</a>
+<a id='n141' href='#n141'>141</a>
+<a id='n142' href='#n142'>142</a>
+<a id='n143' href='#n143'>143</a>
+<a id='n144' href='#n144'>144</a>
+<a id='n145' href='#n145'>145</a>
+<a id='n146' href='#n146'>146</a>
+<a id='n147' href='#n147'>147</a>
+<a id='n148' href='#n148'>148</a>
+<a id='n149' href='#n149'>149</a>
+<a id='n150' href='#n150'>150</a>
+<a id='n151' href='#n151'>151</a>
+<a id='n152' href='#n152'>152</a>
+<a id='n153' href='#n153'>153</a>
+<a id='n154' href='#n154'>154</a>
+<a id='n155' href='#n155'>155</a>
+<a id='n156' href='#n156'>156</a>
+<a id='n157' href='#n157'>157</a>
+<a id='n158' href='#n158'>158</a>
+<a id='n159' href='#n159'>159</a>
+<a id='n160' href='#n160'>160</a>
+<a id='n161' href='#n161'>161</a>
+<a id='n162' href='#n162'>162</a>
+<a id='n163' href='#n163'>163</a>
+<a id='n164' href='#n164'>164</a>
+<a id='n165' href='#n165'>165</a>
+<a id='n166' href='#n166'>166</a>
+<a id='n167' href='#n167'>167</a>
+<a id='n168' href='#n168'>168</a>
+<a id='n169' href='#n169'>169</a>
+<a id='n170' href='#n170'>170</a>
+<a id='n171' href='#n171'>171</a>
+<a id='n172' href='#n172'>172</a>
+<a id='n173' href='#n173'>173</a>
+<a id='n174' href='#n174'>174</a>
+<a id='n175' href='#n175'>175</a>
+<a id='n176' href='#n176'>176</a>
+<a id='n177' href='#n177'>177</a>
+<a id='n178' href='#n178'>178</a>
+<a id='n179' href='#n179'>179</a>
+<a id='n180' href='#n180'>180</a>
+<a id='n181' href='#n181'>181</a>
+<a id='n182' href='#n182'>182</a>
+<a id='n183' href='#n183'>183</a>
+<a id='n184' href='#n184'>184</a>
+<a id='n185' href='#n185'>185</a>
+<a id='n186' href='#n186'>186</a>
+<a id='n187' href='#n187'>187</a>
+<a id='n188' href='#n188'>188</a>
+<a id='n189' href='#n189'>189</a>
+<a id='n190' href='#n190'>190</a>
+<a id='n191' href='#n191'>191</a>
+<a id='n192' href='#n192'>192</a>
+<a id='n193' href='#n193'>193</a>
+<a id='n194' href='#n194'>194</a>
+<a id='n195' href='#n195'>195</a>
+<a id='n196' href='#n196'>196</a>
+<a id='n197' href='#n197'>197</a>
+<a id='n198' href='#n198'>198</a>
+<a id='n199' href='#n199'>199</a>
+<a id='n200' href='#n200'>200</a>
+<a id='n201' href='#n201'>201</a>
+<a id='n202' href='#n202'>202</a>
+<a id='n203' href='#n203'>203</a>
+<a id='n204' href='#n204'>204</a>
+<a id='n205' href='#n205'>205</a>
+<a id='n206' href='#n206'>206</a>
+<a id='n207' href='#n207'>207</a>
+<a id='n208' href='#n208'>208</a>
+<a id='n209' href='#n209'>209</a>
+<a id='n210' href='#n210'>210</a>
+<a id='n211' href='#n211'>211</a>
+<a id='n212' href='#n212'>212</a>
+<a id='n213' href='#n213'>213</a>
+<a id='n214' href='#n214'>214</a>
+<a id='n215' href='#n215'>215</a>
+<a id='n216' href='#n216'>216</a>
+<a id='n217' href='#n217'>217</a>
+<a id='n218' href='#n218'>218</a>
+<a id='n219' href='#n219'>219</a>
+<a id='n220' href='#n220'>220</a>
+<a id='n221' href='#n221'>221</a>
+<a id='n222' href='#n222'>222</a>
+<a id='n223' href='#n223'>223</a>
+<a id='n224' href='#n224'>224</a>
+<a id='n225' href='#n225'>225</a>
+<a id='n226' href='#n226'>226</a>
+<a id='n227' href='#n227'>227</a>
+<a id='n228' href='#n228'>228</a>
+<a id='n229' href='#n229'>229</a>
+<a id='n230' href='#n230'>230</a>
+<a id='n231' href='#n231'>231</a>
+<a id='n232' href='#n232'>232</a>
+<a id='n233' href='#n233'>233</a>
+<a id='n234' href='#n234'>234</a>
+<a id='n235' href='#n235'>235</a>
+<a id='n236' href='#n236'>236</a>
+<a id='n237' href='#n237'>237</a>
+<a id='n238' href='#n238'>238</a>
+<a id='n239' href='#n239'>239</a>
+<a id='n240' href='#n240'>240</a>
+<a id='n241' href='#n241'>241</a>
+<a id='n242' href='#n242'>242</a>
+<a id='n243' href='#n243'>243</a>
+<a id='n244' href='#n244'>244</a>
+<a id='n245' href='#n245'>245</a>
+<a id='n246' href='#n246'>246</a>
+<a id='n247' href='#n247'>247</a>
+<a id='n248' href='#n248'>248</a>
+<a id='n249' href='#n249'>249</a>
+<a id='n250' href='#n250'>250</a>
+<a id='n251' href='#n251'>251</a>
+<a id='n252' href='#n252'>252</a>
+<a id='n253' href='#n253'>253</a>
+<a id='n254' href='#n254'>254</a>
+<a id='n255' href='#n255'>255</a>
+<a id='n256' href='#n256'>256</a>
+<a id='n257' href='#n257'>257</a>
+<a id='n258' href='#n258'>258</a>
+<a id='n259' href='#n259'>259</a>
+<a id='n260' href='#n260'>260</a>
+<a id='n261' href='#n261'>261</a>
+<a id='n262' href='#n262'>262</a>
+<a id='n263' href='#n263'>263</a>
+<a id='n264' href='#n264'>264</a>
+<a id='n265' href='#n265'>265</a>
+<a id='n266' href='#n266'>266</a>
+<a id='n267' href='#n267'>267</a>
+<a id='n268' href='#n268'>268</a>
+<a id='n269' href='#n269'>269</a>
+<a id='n270' href='#n270'>270</a>
+<a id='n271' href='#n271'>271</a>
+<a id='n272' href='#n272'>272</a>
+<a id='n273' href='#n273'>273</a>
+<a id='n274' href='#n274'>274</a>
+<a id='n275' href='#n275'>275</a>
+<a id='n276' href='#n276'>276</a>
+<a id='n277' href='#n277'>277</a>
+<a id='n278' href='#n278'>278</a>
+<a id='n279' href='#n279'>279</a>
+<a id='n280' href='#n280'>280</a>
+<a id='n281' href='#n281'>281</a>
+<a id='n282' href='#n282'>282</a>
+<a id='n283' href='#n283'>283</a>
+<a id='n284' href='#n284'>284</a>
+<a id='n285' href='#n285'>285</a>
+<a id='n286' href='#n286'>286</a>
+<a id='n287' href='#n287'>287</a>
+<a id='n288' href='#n288'>288</a>
+<a id='n289' href='#n289'>289</a>
+<a id='n290' href='#n290'>290</a>
+<a id='n291' href='#n291'>291</a>
+<a id='n292' href='#n292'>292</a>
+<a id='n293' href='#n293'>293</a>
+<a id='n294' href='#n294'>294</a>
+<a id='n295' href='#n295'>295</a>
+<a id='n296' href='#n296'>296</a>
+<a id='n297' href='#n297'>297</a>
+<a id='n298' href='#n298'>298</a>
+<a id='n299' href='#n299'>299</a>
+<a id='n300' href='#n300'>300</a>
+<a id='n301' href='#n301'>301</a>
+<a id='n302' href='#n302'>302</a>
+<a id='n303' href='#n303'>303</a>
+<a id='n304' href='#n304'>304</a>
+<a id='n305' href='#n305'>305</a>
+<a id='n306' href='#n306'>306</a>
+<a id='n307' href='#n307'>307</a>
+<a id='n308' href='#n308'>308</a>
+<a id='n309' href='#n309'>309</a>
+<a id='n310' href='#n310'>310</a>
+<a id='n311' href='#n311'>311</a>
+<a id='n312' href='#n312'>312</a>
+<a id='n313' href='#n313'>313</a>
+<a id='n314' href='#n314'>314</a>
+<a id='n315' href='#n315'>315</a>
+<a id='n316' href='#n316'>316</a>
+<a id='n317' href='#n317'>317</a>
+<a id='n318' href='#n318'>318</a>
+<a id='n319' href='#n319'>319</a>
+<a id='n320' href='#n320'>320</a>
+<a id='n321' href='#n321'>321</a>
+<a id='n322' href='#n322'>322</a>
+<a id='n323' href='#n323'>323</a>
+<a id='n324' href='#n324'>324</a>
+<a id='n325' href='#n325'>325</a>
+<a id='n326' href='#n326'>326</a>
+<a id='n327' href='#n327'>327</a>
+<a id='n328' href='#n328'>328</a>
+<a id='n329' href='#n329'>329</a>
+<a id='n330' href='#n330'>330</a>
+<a id='n331' href='#n331'>331</a>
+<a id='n332' href='#n332'>332</a>
+<a id='n333' href='#n333'>333</a>
+<a id='n334' href='#n334'>334</a>
+<a id='n335' href='#n335'>335</a>
+<a id='n336' href='#n336'>336</a>
+<a id='n337' href='#n337'>337</a>
+<a id='n338' href='#n338'>338</a>
+<a id='n339' href='#n339'>339</a>
+<a id='n340' href='#n340'>340</a>
+<a id='n341' href='#n341'>341</a>
+<a id='n342' href='#n342'>342</a>
+<a id='n343' href='#n343'>343</a>
+<a id='n344' href='#n344'>344</a>
+<a id='n345' href='#n345'>345</a>
+<a id='n346' href='#n346'>346</a>
+<a id='n347' href='#n347'>347</a>
+<a id='n348' href='#n348'>348</a>
+<a id='n349' href='#n349'>349</a>
+<a id='n350' href='#n350'>350</a>
+<a id='n351' href='#n351'>351</a>
+<a id='n352' href='#n352'>352</a>
+<a id='n353' href='#n353'>353</a>
+<a id='n354' href='#n354'>354</a>
+<a id='n355' href='#n355'>355</a>
+<a id='n356' href='#n356'>356</a>
+<a id='n357' href='#n357'>357</a>
+<a id='n358' href='#n358'>358</a>
+<a id='n359' href='#n359'>359</a>
+<a id='n360' href='#n360'>360</a>
+<a id='n361' href='#n361'>361</a>
+<a id='n362' href='#n362'>362</a>
+<a id='n363' href='#n363'>363</a>
+<a id='n364' href='#n364'>364</a>
+<a id='n365' href='#n365'>365</a>
+<a id='n366' href='#n366'>366</a>
+<a id='n367' href='#n367'>367</a>
+<a id='n368' href='#n368'>368</a>
+<a id='n369' href='#n369'>369</a>
+<a id='n370' href='#n370'>370</a>
+<a id='n371' href='#n371'>371</a>
+<a id='n372' href='#n372'>372</a>
+<a id='n373' href='#n373'>373</a>
+<a id='n374' href='#n374'>374</a>
+<a id='n375' href='#n375'>375</a>
+<a id='n376' href='#n376'>376</a>
+<a id='n377' href='#n377'>377</a>
+<a id='n378' href='#n378'>378</a>
+<a id='n379' href='#n379'>379</a>
+<a id='n380' href='#n380'>380</a>
+<a id='n381' href='#n381'>381</a>
+<a id='n382' href='#n382'>382</a>
+<a id='n383' href='#n383'>383</a>
+<a id='n384' href='#n384'>384</a>
+<a id='n385' href='#n385'>385</a>
+<a id='n386' href='#n386'>386</a>
+<a id='n387' href='#n387'>387</a>
+<a id='n388' href='#n388'>388</a>
+<a id='n389' href='#n389'>389</a>
+<a id='n390' href='#n390'>390</a>
+<a id='n391' href='#n391'>391</a>
+<a id='n392' href='#n392'>392</a>
+<a id='n393' href='#n393'>393</a>
+<a id='n394' href='#n394'>394</a>
+<a id='n395' href='#n395'>395</a>
+<a id='n396' href='#n396'>396</a>
+<a id='n397' href='#n397'>397</a>
+<a id='n398' href='#n398'>398</a>
+<a id='n399' href='#n399'>399</a>
+<a id='n400' href='#n400'>400</a>
+<a id='n401' href='#n401'>401</a>
+<a id='n402' href='#n402'>402</a>
+<a id='n403' href='#n403'>403</a>
+<a id='n404' href='#n404'>404</a>
+<a id='n405' href='#n405'>405</a>
+<a id='n406' href='#n406'>406</a>
+<a id='n407' href='#n407'>407</a>
+<a id='n408' href='#n408'>408</a>
+<a id='n409' href='#n409'>409</a>
+<a id='n410' href='#n410'>410</a>
+<a id='n411' href='#n411'>411</a>
+<a id='n412' href='#n412'>412</a>
+<a id='n413' href='#n413'>413</a>
+<a id='n414' href='#n414'>414</a>
+<a id='n415' href='#n415'>415</a>
+<a id='n416' href='#n416'>416</a>
+<a id='n417' href='#n417'>417</a>
+<a id='n418' href='#n418'>418</a>
+<a id='n419' href='#n419'>419</a>
+<a id='n420' href='#n420'>420</a>
+<a id='n421' href='#n421'>421</a>
+<a id='n422' href='#n422'>422</a>
+<a id='n423' href='#n423'>423</a>
+<a id='n424' href='#n424'>424</a>
+<a id='n425' href='#n425'>425</a>
+<a id='n426' href='#n426'>426</a>
+<a id='n427' href='#n427'>427</a>
+<a id='n428' href='#n428'>428</a>
+<a id='n429' href='#n429'>429</a>
+<a id='n430' href='#n430'>430</a>
+<a id='n431' href='#n431'>431</a>
+<a id='n432' href='#n432'>432</a>
+<a id='n433' href='#n433'>433</a>
+<a id='n434' href='#n434'>434</a>
+<a id='n435' href='#n435'>435</a>
+<a id='n436' href='#n436'>436</a>
+<a id='n437' href='#n437'>437</a>
+<a id='n438' href='#n438'>438</a>
+<a id='n439' href='#n439'>439</a>
+<a id='n440' href='#n440'>440</a>
+<a id='n441' href='#n441'>441</a>
+<a id='n442' href='#n442'>442</a>
+<a id='n443' href='#n443'>443</a>
+<a id='n444' href='#n444'>444</a>
+<a id='n445' href='#n445'>445</a>
+<a id='n446' href='#n446'>446</a>
+<a id='n447' href='#n447'>447</a>
+<a id='n448' href='#n448'>448</a>
+<a id='n449' href='#n449'>449</a>
+<a id='n450' href='#n450'>450</a>
+<a id='n451' href='#n451'>451</a>
+<a id='n452' href='#n452'>452</a>
+<a id='n453' href='#n453'>453</a>
+<a id='n454' href='#n454'>454</a>
+<a id='n455' href='#n455'>455</a>
+<a id='n456' href='#n456'>456</a>
+<a id='n457' href='#n457'>457</a>
+<a id='n458' href='#n458'>458</a>
+<a id='n459' href='#n459'>459</a>
+<a id='n460' href='#n460'>460</a>
+<a id='n461' href='#n461'>461</a>
+<a id='n462' href='#n462'>462</a>
+<a id='n463' href='#n463'>463</a>
+<a id='n464' href='#n464'>464</a>
+<a id='n465' href='#n465'>465</a>
+<a id='n466' href='#n466'>466</a>
+<a id='n467' href='#n467'>467</a>
+<a id='n468' href='#n468'>468</a>
+<a id='n469' href='#n469'>469</a>
+<a id='n470' href='#n470'>470</a>
+<a id='n471' href='#n471'>471</a>
+<a id='n472' href='#n472'>472</a>
+<a id='n473' href='#n473'>473</a>
+<a id='n474' href='#n474'>474</a>
+<a id='n475' href='#n475'>475</a>
+<a id='n476' href='#n476'>476</a>
+<a id='n477' href='#n477'>477</a>
+<a id='n478' href='#n478'>478</a>
+<a id='n479' href='#n479'>479</a>
+<a id='n480' href='#n480'>480</a>
+<a id='n481' href='#n481'>481</a>
+<a id='n482' href='#n482'>482</a>
+<a id='n483' href='#n483'>483</a>
+<a id='n484' href='#n484'>484</a>
+<a id='n485' href='#n485'>485</a>
+<a id='n486' href='#n486'>486</a>
+<a id='n487' href='#n487'>487</a>
+<a id='n488' href='#n488'>488</a>
+<a id='n489' href='#n489'>489</a>
+<a id='n490' href='#n490'>490</a>
+<a id='n491' href='#n491'>491</a>
+<a id='n492' href='#n492'>492</a>
+<a id='n493' href='#n493'>493</a>
+<a id='n494' href='#n494'>494</a>
+<a id='n495' href='#n495'>495</a>
+<a id='n496' href='#n496'>496</a>
+<a id='n497' href='#n497'>497</a>
+<a id='n498' href='#n498'>498</a>
+<a id='n499' href='#n499'>499</a>
+<a id='n500' href='#n500'>500</a>
+<a id='n501' href='#n501'>501</a>
+<a id='n502' href='#n502'>502</a>
+<a id='n503' href='#n503'>503</a>
+<a id='n504' href='#n504'>504</a>
+<a id='n505' href='#n505'>505</a>
+<a id='n506' href='#n506'>506</a>
+<a id='n507' href='#n507'>507</a>
+<a id='n508' href='#n508'>508</a>
+<a id='n509' href='#n509'>509</a>
+<a id='n510' href='#n510'>510</a>
+<a id='n511' href='#n511'>511</a>
+<a id='n512' href='#n512'>512</a>
+<a id='n513' href='#n513'>513</a>
+<a id='n514' href='#n514'>514</a>
+<a id='n515' href='#n515'>515</a>
+<a id='n516' href='#n516'>516</a>
+<a id='n517' href='#n517'>517</a>
+<a id='n518' href='#n518'>518</a>
+<a id='n519' href='#n519'>519</a>
+<a id='n520' href='#n520'>520</a>
+<a id='n521' href='#n521'>521</a>
+<a id='n522' href='#n522'>522</a>
+<a id='n523' href='#n523'>523</a>
+<a id='n524' href='#n524'>524</a>
+<a id='n525' href='#n525'>525</a>
+<a id='n526' href='#n526'>526</a>
+<a id='n527' href='#n527'>527</a>
+<a id='n528' href='#n528'>528</a>
+<a id='n529' href='#n529'>529</a>
+<a id='n530' href='#n530'>530</a>
+<a id='n531' href='#n531'>531</a>
+<a id='n532' href='#n532'>532</a>
+<a id='n533' href='#n533'>533</a>
+<a id='n534' href='#n534'>534</a>
+<a id='n535' href='#n535'>535</a>
+<a id='n536' href='#n536'>536</a>
+<a id='n537' href='#n537'>537</a>
+<a id='n538' href='#n538'>538</a>
+<a id='n539' href='#n539'>539</a>
+<a id='n540' href='#n540'>540</a>
+<a id='n541' href='#n541'>541</a>
+<a id='n542' href='#n542'>542</a>
+<a id='n543' href='#n543'>543</a>
+<a id='n544' href='#n544'>544</a>
+<a id='n545' href='#n545'>545</a>
+<a id='n546' href='#n546'>546</a>
+<a id='n547' href='#n547'>547</a>
+<a id='n548' href='#n548'>548</a>
+<a id='n549' href='#n549'>549</a>
+<a id='n550' href='#n550'>550</a>
+<a id='n551' href='#n551'>551</a>
+<a id='n552' href='#n552'>552</a>
+<a id='n553' href='#n553'>553</a>
+<a id='n554' href='#n554'>554</a>
+<a id='n555' href='#n555'>555</a>
+<a id='n556' href='#n556'>556</a>
+<a id='n557' href='#n557'>557</a>
+<a id='n558' href='#n558'>558</a>
+<a id='n559' href='#n559'>559</a>
+<a id='n560' href='#n560'>560</a>
+<a id='n561' href='#n561'>561</a>
+<a id='n562' href='#n562'>562</a>
+<a id='n563' href='#n563'>563</a>
+<a id='n564' href='#n564'>564</a>
+<a id='n565' href='#n565'>565</a>
+<a id='n566' href='#n566'>566</a>
+<a id='n567' href='#n567'>567</a>
+<a id='n568' href='#n568'>568</a>
+<a id='n569' href='#n569'>569</a>
+<a id='n570' href='#n570'>570</a>
+<a id='n571' href='#n571'>571</a>
+<a id='n572' href='#n572'>572</a>
+<a id='n573' href='#n573'>573</a>
+<a id='n574' href='#n574'>574</a>
+<a id='n575' href='#n575'>575</a>
+<a id='n576' href='#n576'>576</a>
+<a id='n577' href='#n577'>577</a>
+<a id='n578' href='#n578'>578</a>
+<a id='n579' href='#n579'>579</a>
+<a id='n580' href='#n580'>580</a>
+<a id='n581' href='#n581'>581</a>
+<a id='n582' href='#n582'>582</a>
+<a id='n583' href='#n583'>583</a>
+<a id='n584' href='#n584'>584</a>
+<a id='n585' href='#n585'>585</a>
+<a id='n586' href='#n586'>586</a>
+<a id='n587' href='#n587'>587</a>
+<a id='n588' href='#n588'>588</a>
+<a id='n589' href='#n589'>589</a>
+<a id='n590' href='#n590'>590</a>
+<a id='n591' href='#n591'>591</a>
+<a id='n592' href='#n592'>592</a>
+<a id='n593' href='#n593'>593</a>
+<a id='n594' href='#n594'>594</a>
+<a id='n595' href='#n595'>595</a>
+<a id='n596' href='#n596'>596</a>
+<a id='n597' href='#n597'>597</a>
+<a id='n598' href='#n598'>598</a>
+<a id='n599' href='#n599'>599</a>
+<a id='n600' href='#n600'>600</a>
+<a id='n601' href='#n601'>601</a>
+<a id='n602' href='#n602'>602</a>
+<a id='n603' href='#n603'>603</a>
+<a id='n604' href='#n604'>604</a>
+<a id='n605' href='#n605'>605</a>
+<a id='n606' href='#n606'>606</a>
+<a id='n607' href='#n607'>607</a>
+<a id='n608' href='#n608'>608</a>
+<a id='n609' href='#n609'>609</a>
+<a id='n610' href='#n610'>610</a>
+<a id='n611' href='#n611'>611</a>
+<a id='n612' href='#n612'>612</a>
+<a id='n613' href='#n613'>613</a>
+<a id='n614' href='#n614'>614</a>
+<a id='n615' href='#n615'>615</a>
+<a id='n616' href='#n616'>616</a>
+<a id='n617' href='#n617'>617</a>
+<a id='n618' href='#n618'>618</a>
+<a id='n619' href='#n619'>619</a>
+<a id='n620' href='#n620'>620</a>
+<a id='n621' href='#n621'>621</a>
+<a id='n622' href='#n622'>622</a>
+<a id='n623' href='#n623'>623</a>
+<a id='n624' href='#n624'>624</a>
+<a id='n625' href='#n625'>625</a>
+<a id='n626' href='#n626'>626</a>
+<a id='n627' href='#n627'>627</a>
+<a id='n628' href='#n628'>628</a>
+<a id='n629' href='#n629'>629</a>
+<a id='n630' href='#n630'>630</a>
+<a id='n631' href='#n631'>631</a>
+<a id='n632' href='#n632'>632</a>
+<a id='n633' href='#n633'>633</a>
+<a id='n634' href='#n634'>634</a>
+<a id='n635' href='#n635'>635</a>
+<a id='n636' href='#n636'>636</a>
+<a id='n637' href='#n637'>637</a>
+<a id='n638' href='#n638'>638</a>
+<a id='n639' href='#n639'>639</a>
+<a id='n640' href='#n640'>640</a>
+<a id='n641' href='#n641'>641</a>
+<a id='n642' href='#n642'>642</a>
+<a id='n643' href='#n643'>643</a>
+<a id='n644' href='#n644'>644</a>
+<a id='n645' href='#n645'>645</a>
+<a id='n646' href='#n646'>646</a>
+<a id='n647' href='#n647'>647</a>
+<a id='n648' href='#n648'>648</a>
+<a id='n649' href='#n649'>649</a>
+<a id='n650' href='#n650'>650</a>
+<a id='n651' href='#n651'>651</a>
+<a id='n652' href='#n652'>652</a>
+<a id='n653' href='#n653'>653</a>
+<a id='n654' href='#n654'>654</a>
+<a id='n655' href='#n655'>655</a>
+<a id='n656' href='#n656'>656</a>
+<a id='n657' href='#n657'>657</a>
+<a id='n658' href='#n658'>658</a>
+<a id='n659' href='#n659'>659</a>
+<a id='n660' href='#n660'>660</a>
+<a id='n661' href='#n661'>661</a>
+<a id='n662' href='#n662'>662</a>
+<a id='n663' href='#n663'>663</a>
+<a id='n664' href='#n664'>664</a>
+<a id='n665' href='#n665'>665</a>
+<a id='n666' href='#n666'>666</a>
+<a id='n667' href='#n667'>667</a>
+<a id='n668' href='#n668'>668</a>
+<a id='n669' href='#n669'>669</a>
+<a id='n670' href='#n670'>670</a>
+<a id='n671' href='#n671'>671</a>
+<a id='n672' href='#n672'>672</a>
+<a id='n673' href='#n673'>673</a>
+<a id='n674' href='#n674'>674</a>
+<a id='n675' href='#n675'>675</a>
+<a id='n676' href='#n676'>676</a>
+<a id='n677' href='#n677'>677</a>
+<a id='n678' href='#n678'>678</a>
+<a id='n679' href='#n679'>679</a>
+<a id='n680' href='#n680'>680</a>
+<a id='n681' href='#n681'>681</a>
+<a id='n682' href='#n682'>682</a>
+<a id='n683' href='#n683'>683</a>
+<a id='n684' href='#n684'>684</a>
+<a id='n685' href='#n685'>685</a>
+<a id='n686' href='#n686'>686</a>
+<a id='n687' href='#n687'>687</a>
+<a id='n688' href='#n688'>688</a>
+<a id='n689' href='#n689'>689</a>
+<a id='n690' href='#n690'>690</a>
+<a id='n691' href='#n691'>691</a>
+<a id='n692' href='#n692'>692</a>
+<a id='n693' href='#n693'>693</a>
+<a id='n694' href='#n694'>694</a>
+<a id='n695' href='#n695'>695</a>
+<a id='n696' href='#n696'>696</a>
+<a id='n697' href='#n697'>697</a>
+<a id='n698' href='#n698'>698</a>
+<a id='n699' href='#n699'>699</a>
+<a id='n700' href='#n700'>700</a>
+<a id='n701' href='#n701'>701</a>
+<a id='n702' href='#n702'>702</a>
+<a id='n703' href='#n703'>703</a>
+<a id='n704' href='#n704'>704</a>
+<a id='n705' href='#n705'>705</a>
+<a id='n706' href='#n706'>706</a>
+<a id='n707' href='#n707'>707</a>
+<a id='n708' href='#n708'>708</a>
+<a id='n709' href='#n709'>709</a>
+<a id='n710' href='#n710'>710</a>
+<a id='n711' href='#n711'>711</a>
+<a id='n712' href='#n712'>712</a>
+<a id='n713' href='#n713'>713</a>
+<a id='n714' href='#n714'>714</a>
+<a id='n715' href='#n715'>715</a>
+<a id='n716' href='#n716'>716</a>
+<a id='n717' href='#n717'>717</a>
+<a id='n718' href='#n718'>718</a>
+<a id='n719' href='#n719'>719</a>
+<a id='n720' href='#n720'>720</a>
+<a id='n721' href='#n721'>721</a>
+<a id='n722' href='#n722'>722</a>
+<a id='n723' href='#n723'>723</a>
+<a id='n724' href='#n724'>724</a>
+<a id='n725' href='#n725'>725</a>
+<a id='n726' href='#n726'>726</a>
+<a id='n727' href='#n727'>727</a>
+<a id='n728' href='#n728'>728</a>
+<a id='n729' href='#n729'>729</a>
+<a id='n730' href='#n730'>730</a>
+<a id='n731' href='#n731'>731</a>
+<a id='n732' href='#n732'>732</a>
+<a id='n733' href='#n733'>733</a>
+<a id='n734' href='#n734'>734</a>
+<a id='n735' href='#n735'>735</a>
+<a id='n736' href='#n736'>736</a>
+<a id='n737' href='#n737'>737</a>
+<a id='n738' href='#n738'>738</a>
+<a id='n739' href='#n739'>739</a>
+<a id='n740' href='#n740'>740</a>
+<a id='n741' href='#n741'>741</a>
+<a id='n742' href='#n742'>742</a>
+<a id='n743' href='#n743'>743</a>
+<a id='n744' href='#n744'>744</a>
+<a id='n745' href='#n745'>745</a>
+<a id='n746' href='#n746'>746</a>
+<a id='n747' href='#n747'>747</a>
+<a id='n748' href='#n748'>748</a>
+<a id='n749' href='#n749'>749</a>
+<a id='n750' href='#n750'>750</a>
+<a id='n751' href='#n751'>751</a>
+<a id='n752' href='#n752'>752</a>
+<a id='n753' href='#n753'>753</a>
+<a id='n754' href='#n754'>754</a>
+<a id='n755' href='#n755'>755</a>
+<a id='n756' href='#n756'>756</a>
+<a id='n757' href='#n757'>757</a>
+<a id='n758' href='#n758'>758</a>
+<a id='n759' href='#n759'>759</a>
+<a id='n760' href='#n760'>760</a>
+<a id='n761' href='#n761'>761</a>
+<a id='n762' href='#n762'>762</a>
+<a id='n763' href='#n763'>763</a>
+<a id='n764' href='#n764'>764</a>
+<a id='n765' href='#n765'>765</a>
+<a id='n766' href='#n766'>766</a>
+<a id='n767' href='#n767'>767</a>
+<a id='n768' href='#n768'>768</a>
+<a id='n769' href='#n769'>769</a>
+<a id='n770' href='#n770'>770</a>
+<a id='n771' href='#n771'>771</a>
+<a id='n772' href='#n772'>772</a>
+<a id='n773' href='#n773'>773</a>
+<a id='n774' href='#n774'>774</a>
+<a id='n775' href='#n775'>775</a>
+<a id='n776' href='#n776'>776</a>
+<a id='n777' href='#n777'>777</a>
+<a id='n778' href='#n778'>778</a>
+<a id='n779' href='#n779'>779</a>
+<a id='n780' href='#n780'>780</a>
+<a id='n781' href='#n781'>781</a>
+<a id='n782' href='#n782'>782</a>
+<a id='n783' href='#n783'>783</a>
+<a id='n784' href='#n784'>784</a>
+<a id='n785' href='#n785'>785</a>
+<a id='n786' href='#n786'>786</a>
+<a id='n787' href='#n787'>787</a>
+<a id='n788' href='#n788'>788</a>
+<a id='n789' href='#n789'>789</a>
+<a id='n790' href='#n790'>790</a>
+<a id='n791' href='#n791'>791</a>
+<a id='n792' href='#n792'>792</a>
+<a id='n793' href='#n793'>793</a>
+<a id='n794' href='#n794'>794</a>
+<a id='n795' href='#n795'>795</a>
+<a id='n796' href='#n796'>796</a>
+<a id='n797' href='#n797'>797</a>
+<a id='n798' href='#n798'>798</a>
+<a id='n799' href='#n799'>799</a>
+<a id='n800' href='#n800'>800</a>
+<a id='n801' href='#n801'>801</a>
+<a id='n802' href='#n802'>802</a>
+<a id='n803' href='#n803'>803</a>
+<a id='n804' href='#n804'>804</a>
+<a id='n805' href='#n805'>805</a>
+<a id='n806' href='#n806'>806</a>
+<a id='n807' href='#n807'>807</a>
+<a id='n808' href='#n808'>808</a>
+<a id='n809' href='#n809'>809</a>
+<a id='n810' href='#n810'>810</a>
+<a id='n811' href='#n811'>811</a>
+<a id='n812' href='#n812'>812</a>
+<a id='n813' href='#n813'>813</a>
+<a id='n814' href='#n814'>814</a>
+<a id='n815' href='#n815'>815</a>
+<a id='n816' href='#n816'>816</a>
+<a id='n817' href='#n817'>817</a>
+<a id='n818' href='#n818'>818</a>
+<a id='n819' href='#n819'>819</a>
+<a id='n820' href='#n820'>820</a>
+<a id='n821' href='#n821'>821</a>
+<a id='n822' href='#n822'>822</a>
+<a id='n823' href='#n823'>823</a>
+<a id='n824' href='#n824'>824</a>
+<a id='n825' href='#n825'>825</a>
+<a id='n826' href='#n826'>826</a>
+<a id='n827' href='#n827'>827</a>
+<a id='n828' href='#n828'>828</a>
+<a id='n829' href='#n829'>829</a>
+<a id='n830' href='#n830'>830</a>
+<a id='n831' href='#n831'>831</a>
+<a id='n832' href='#n832'>832</a>
+<a id='n833' href='#n833'>833</a>
+<a id='n834' href='#n834'>834</a>
+<a id='n835' href='#n835'>835</a>
+<a id='n836' href='#n836'>836</a>
+<a id='n837' href='#n837'>837</a>
+<a id='n838' href='#n838'>838</a>
+<a id='n839' href='#n839'>839</a>
+<a id='n840' href='#n840'>840</a>
+<a id='n841' href='#n841'>841</a>
+<a id='n842' href='#n842'>842</a>
+<a id='n843' href='#n843'>843</a>
+<a id='n844' href='#n844'>844</a>
+<a id='n845' href='#n845'>845</a>
+<a id='n846' href='#n846'>846</a>
+<a id='n847' href='#n847'>847</a>
+<a id='n848' href='#n848'>848</a>
+<a id='n849' href='#n849'>849</a>
+<a id='n850' href='#n850'>850</a>
+<a id='n851' href='#n851'>851</a>
+</pre></td>
+<td class='lines'><pre><code>From c17e544b271ced65483692103d39ed1188d4ca25 Mon Sep 17 00:00:00 2001
+From: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Tue, 27 Sep 2016 14:30:10 +0200
+Subject: [PATCH xserver v2 5/7] xfree86: Remove redundant ServerIsNotSeat0
+ check from xf86CallDriverProbe
+
+If foundScreen is TRUE, then all the code below the removed if
+will not execute until we reach the return foundScreen; at the
+end, so this entire if block is redundant.
+
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86Bus.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/hw/xfree86/common/xf86Bus.c b/hw/xfree86/common/xf86Bus.c
+index 5b93940..27c6b1b 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86Bus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86Bus.c</span>
+&#64;&#64; -82,8 +82,6 &#64;&#64; xf86CallDriverProbe(DriverPtr drv, Bool detect_only)
+     if (!xf86DoConfigure &amp;&amp; drv-&gt;platformProbe != NULL) {
+         foundScreen = xf86platformProbeDev(drv);
+     }
+<span class="hl kwb">-    if (ServerIsNotSeat0() &amp;&amp; foundScreen)</span>
+<span class="hl kwb">-        return foundScreen;</span>
+ #endif
+ 
+ #ifdef XSERVER_LIBPCIACCESS
+<span class="hl kwb">-- </span>
+2.9.3
+
+From 74bc0fff3a6ca233e56b3fb2971bca97b5a4f8b5 Mon Sep 17 00:00:00 2001
+From: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Fri, 30 Sep 2016 11:59:04 +0200
+Subject: [PATCH xserver v2 6/7] xfree86: Make adding unclaimed devices as GPU
+ devices a separate step
+
+This is primarily a preparation patch for fixing the xserver exiting with
+a &quot;no screens found&quot; error even though there are supported video cards,
+due to the server not recognizing any card as the primary card.
+
+This also fixes the (mostly theoretical) case of a platformBus capable
+driver adding a device as GPUscreen before a driver which only supports
+the old PCI probe method gets a chance to claim it as a normal screen.
+
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86Bus.c         |  4 ++++
+ hw/xfree86/common/xf86platformBus.c | 15 +++++++++++++++
+ hw/xfree86/common/xf86platformBus.h |  6 ++++++
+ 3 files changed, 25 insertions(+)
+
+diff --git a/hw/xfree86/common/xf86Bus.c b/hw/xfree86/common/xf86Bus.c
+index 27c6b1b..a3a9898 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86Bus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86Bus.c</span>
+&#64;&#64; -125,6 +125,10 &#64;&#64; xf86BusConfig(void)
+         xf86CallDriverProbe(xf86DriverList[i], FALSE);
+     }
+ 
+<span class="hl kwa">+    for (i = 0; i &lt; xf86NumDrivers; i++) {</span>
+<span class="hl kwa">+        xf86platformAddGPUDevices(xf86DriverList[i]);</span>
+<span class="hl kwa">+    }</span>
+<span class="hl kwa">+</span>
+     /* If nothing was detected, return now */
+     if (xf86NumScreens == 0) {
+         xf86Msg(X_ERROR, &quot;No devices detected.\n&quot;);
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index 39fb1dd..8dd0d5d 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -475,6 +475,21 &#64;&#64; xf86platformProbeDev(DriverPtr drvp)
+                                         isGPUDevice(devList[i]) ? PLATFORM_PROBE_GPU_SCREEN : 0);
+     }
+ 
+<span class="hl kwa">+    return foundScreen;</span>
+<span class="hl kwa">+}</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+int</span>
+<span class="hl kwa">+xf86platformAddGPUDevices(DriverPtr drvp)</span>
+<span class="hl kwa">+{</span>
+<span class="hl kwa">+    Bool foundScreen = FALSE;</span>
+<span class="hl kwa">+    GDevPtr *devList;</span>
+<span class="hl kwa">+    int j;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    if (!drvp-&gt;platformProbe)</span>
+<span class="hl kwa">+        return FALSE;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    xf86MatchDevice(drvp-&gt;driverName, &amp;devList);</span>
+<span class="hl kwa">+</span>
+     /* if autoaddgpu devices is enabled then go find any unclaimed platform
+      * devices and add them as GPU screens */
+     if (xf86Info.autoAddGPU) {
+diff --git a/hw/xfree86/common/xf86platformBus.h b/hw/xfree86/common/xf86platformBus.h
+index a7335b9..0f5c0ef 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.h</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.h</span>
+&#64;&#64; -41,6 +41,7 &#64;&#64; struct xf86_platform_device {
+ #ifdef XSERVER_PLATFORM_BUS
+ int xf86platformProbe(void);
+ int xf86platformProbeDev(DriverPtr drvp);
+<span class="hl kwa">+int xf86platformAddGPUDevices(DriverPtr drvp);</span>
+ 
+ extern int xf86_num_platform_devices;
+ extern struct xf86_platform_device *xf86_platform_devices;
+&#64;&#64; -156,6 +157,11 &#64;&#64; xf86PlatformMatchDriver(char *matches[], int nmatches);
+ 
+ extern void xf86platformVTProbe(void);
+ extern void xf86platformPrimary(void);
+<span class="hl kwa">+</span>
+<span class="hl kwa">+#else</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+static inline int xf86platformAddGPUDevices(DriverPtr drvp) { return FALSE; }</span>
+<span class="hl kwa">+</span>
+ #endif
+ 
+ #endif
+<span class="hl kwb">-- </span>
+2.9.3
+
+From 02bcb6f189c4ad8b2e73ce99cfa3c10f0c244a88 Mon Sep 17 00:00:00 2001
+From: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Fri, 30 Sep 2016 12:29:09 +0200
+Subject: [PATCH xserver v2 7/7] xfree86: Try harder to find atleast 1 non GPU
+ Screen
+
+If we did not find any non GPU Screens, try again ignoring the notion
+of any video devices being the primary device. This fixes Xorg exiting
+with a &quot;no screens found&quot; error when using virtio-vga in a
+virtual-machine and when using a device driven by simpledrm.
+
+This is a somewhat ugly solution, but it is the best I can come up with
+without major surgery to the bus and probe code.
+
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86.h            |  1 +
+ hw/xfree86/common/xf86Bus.c         | 26 +++++++++++++++++++++++---
+ hw/xfree86/common/xf86Globals.c     |  1 +
+ hw/xfree86/common/xf86pciBus.c      |  4 ++++
+ hw/xfree86/common/xf86platformBus.c |  4 ++++
+ 5 files changed, 33 insertions(+), 3 deletions(-)
+
+diff --git a/hw/xfree86/common/xf86.h b/hw/xfree86/common/xf86.h
+index e54c811..f724688 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86.h</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86.h</span>
+<span class="hl kwd">&#64;&#64; -55,6 +55,7 &#64;&#64;</span>
+ extern _X_EXPORT int xf86DoConfigure;
+ extern _X_EXPORT int xf86DoShowOptions;
+ extern _X_EXPORT Bool xf86DoConfigurePass1;
+<span class="hl kwa">+extern _X_EXPORT Bool xf86ProbeIgnorePrimary;</span>
+ extern _X_EXPORT Bool xorgHWAccess;
+ 
+ extern _X_EXPORT DevPrivateKeyRec xf86ScreenKeyRec;
+diff --git a/hw/xfree86/common/xf86Bus.c b/hw/xfree86/common/xf86Bus.c
+index a3a9898..9836803 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86Bus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86Bus.c</span>
+&#64;&#64; -117,14 +117,34 &#64;&#64; xf86BusConfig(void)
+     int i, j;
+ 
+     /*
+<span class="hl kwb">-     * Now call each of the Probe functions.  Each successful probe will</span>
+<span class="hl kwb">-     * result in an extra entry added to the xf86Screens[] list for each</span>
+<span class="hl kwb">-     * instance of the hardware found.</span>
+<span class="hl kwa">+     * 3 step probe to (hopefully) ensure that we always find at least 1</span>
+<span class="hl kwa">+     * (non GPU) screen:</span>
+<span class="hl kwa">+     *</span>
+<span class="hl kwa">+     * 1. Call each drivers probe function normally,</span>
+<span class="hl kwa">+     *    Each successful probe will result in an extra entry added to the</span>
+<span class="hl kwa">+     *    xf86Screens[] list for each instance of the hardware found.</span>
+      */
+     for (i = 0; i &lt; xf86NumDrivers; i++) {
+         xf86CallDriverProbe(xf86DriverList[i], FALSE);
+     }
+ 
+<span class="hl kwa">+    /*</span>
+<span class="hl kwa">+     * 2. If no Screens were found, call each drivers probe function with</span>
+<span class="hl kwa">+     *    ignorePrimary = TRUE, to ensure that we do actually get a</span>
+<span class="hl kwa">+     *    Screen if there is atleast one supported video card.</span>
+<span class="hl kwa">+     */</span>
+<span class="hl kwa">+    if (xf86NumScreens == 0) {</span>
+<span class="hl kwa">+        xf86ProbeIgnorePrimary = TRUE;</span>
+<span class="hl kwa">+        for (i = 0; i &lt; xf86NumDrivers &amp;&amp; xf86NumScreens == 0; i++) {</span>
+<span class="hl kwa">+            xf86CallDriverProbe(xf86DriverList[i], FALSE);</span>
+<span class="hl kwa">+        }</span>
+<span class="hl kwa">+        xf86ProbeIgnorePrimary = FALSE;</span>
+<span class="hl kwa">+    }</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    /*</span>
+<span class="hl kwa">+     * 3. Call xf86platformAddGPUDevices() to add any additional video cards as</span>
+<span class="hl kwa">+     *    GPUScreens (GPUScreens are only supported by platformBus drivers).</span>
+<span class="hl kwa">+     */</span>
+     for (i = 0; i &lt; xf86NumDrivers; i++) {
+         xf86platformAddGPUDevices(xf86DriverList[i]);
+     }
+diff --git a/hw/xfree86/common/xf86Globals.c b/hw/xfree86/common/xf86Globals.c
+index 07cfabf..e962b75 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86Globals.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86Globals.c</span>
+&#64;&#64; -152,6 +152,7 &#64;&#64; XF86ConfigPtr xf86configptr = NULL;
+ Bool xf86Resetting = FALSE;
+ Bool xf86Initialising = FALSE;
+ Bool xf86DoConfigure = FALSE;
+<span class="hl kwa">+Bool xf86ProbeIgnorePrimary = FALSE;</span>
+ Bool xf86DoShowOptions = FALSE;
+ DriverPtr *xf86DriverList = NULL;
+ int xf86NumDrivers = 0;
+diff --git a/hw/xfree86/common/xf86pciBus.c b/hw/xfree86/common/xf86pciBus.c
+index 8158c2b..9adfee5 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86pciBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86pciBus.c</span>
+&#64;&#64; -352,6 +352,10 &#64;&#64; xf86ComparePciBusString(const char *busID, int bus, int device, int func)
+ Bool
+ xf86IsPrimaryPci(struct pci_device *pPci)
+ {
+<span class="hl kwa">+    /* Add max. 1 screen for the IgnorePrimary fallback path */</span>
+<span class="hl kwa">+    if (xf86ProbeIgnorePrimary &amp;&amp; xf86NumScreens == 0)</span>
+<span class="hl kwa">+        return TRUE;</span>
+<span class="hl kwa">+</span>
+     if (primaryBus.type == BUS_PCI)
+         return pPci == primaryBus.id.pci;
+ #ifdef XSERVER_PLATFORM_BUS
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index 8dd0d5d..063e81c 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -114,6 +114,10 &#64;&#64; xf86_find_platform_device_by_devnum(int major, int minor)
+ static Bool
+ xf86IsPrimaryPlatform(struct xf86_platform_device *plat)
+ {
+<span class="hl kwa">+    /* Add max. 1 screen for the IgnorePrimary fallback path */</span>
+<span class="hl kwa">+    if (xf86ProbeIgnorePrimary &amp;&amp; xf86NumScreens == 0)</span>
+<span class="hl kwa">+        return TRUE;</span>
+<span class="hl kwa">+</span>
+     if (primaryBus.type == BUS_PLATFORM)
+         return plat == primaryBus.id.plat;
+ #ifdef XSERVER_LIBPCIACCESS
+<span class="hl kwb">-- </span>
+2.9.3
+
+From c57c1e53ea3d76ebba5b2a23b7260817d3e6b921 Mon Sep 17 00:00:00 2001
+From: Hans De Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Mon, 12 Dec 2016 17:03:12 +0100
+Subject: [PATCH xserver 1/6] xfree86: Free devlist returned by xf86MatchDevice
+
+xf86MatchDevice returns a dynamically allocated list of GDevPtr-s,
+free this when we&apos;re done with it.
+
+Reviewed-by: Adam Jackson &lt;ajax&#64;redhat.com&gt;
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86platformBus.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index 063e81c..16d934f 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -479,6 +479,8 &#64;&#64; xf86platformProbeDev(DriverPtr drvp)
+                                         isGPUDevice(devList[i]) ? PLATFORM_PROBE_GPU_SCREEN : 0);
+     }
+ 
+<span class="hl kwa">+    free(devList);</span>
+<span class="hl kwa">+</span>
+     return foundScreen;
+ }
+ 
+&#64;&#64; -505,6 +507,8 &#64;&#64; xf86platformAddGPUDevices(DriverPtr drvp)
+         }
+     }
+ 
+<span class="hl kwa">+    free(devList);</span>
+<span class="hl kwa">+</span>
+     return foundScreen;
+ }
+ 
+<span class="hl kwb">-- </span>
+2.9.3
+
+From 08b84d72878e43401e99059c3c926dfa42a360c3 Mon Sep 17 00:00:00 2001
+From: Hans De Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Mon, 12 Dec 2016 17:03:13 +0100
+Subject: [PATCH xserver 2/6] xfree86: Make OutputClassMatches take a
+ xf86_platform_device
+
+Make OutputClassMatches directly take a xf86_platform_device as argument,
+rather then an index into xf86_platform_devices. This makes things
+easier for callers which already have a xf86_platform_device pointer.
+
+Reviewed-by: Adam Jackson &lt;ajax&#64;redhat.com&gt;
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86platformBus.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index 16d934f..25a9040 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -214,9 +214,10 &#64;&#64; MatchToken(const char *value, struct xorg_list *patterns,
+ }
+ 
+ static Bool
+<span class="hl kwb">-OutputClassMatches(const XF86ConfOutputClassPtr oclass, int index)</span>
+<span class="hl kwa">+OutputClassMatches(const XF86ConfOutputClassPtr oclass,</span>
+<span class="hl kwa">+                   struct xf86_platform_device *dev)</span>
+ {
+<span class="hl kwb">-    char *driver = xf86_platform_odev_attributes(index)-&gt;driver;</span>
+<span class="hl kwa">+    char *driver = dev-&gt;attribs-&gt;driver;</span>
+ 
+     if (!MatchToken(driver, &amp;oclass-&gt;match_driver, strcmp))
+         return FALSE;
+&#64;&#64; -234,7 +235,7 &#64;&#64; xf86OutputClassDriverList(int index, char *matches[], int nmatches)
+         return 0;
+ 
+     for (cl = xf86configptr-&gt;conf_outputclass_lst; cl; cl = cl-&gt;list.next) {
+<span class="hl kwb">-        if (OutputClassMatches(cl, index)) {</span>
+<span class="hl kwa">+        if (OutputClassMatches(cl, &amp;xf86_platform_devices[index])) {</span>
+             char *path = xf86_platform_odev_attributes(index)-&gt;path;
+ 
+             xf86Msg(X_INFO, &quot;Applying OutputClass \&quot;%s\&quot; to %s\n&quot;,
+<span class="hl kwb">-- </span>
+2.9.3
+
+From 9cd3cc75269d9196898487b5712ee47b8291e077 Mon Sep 17 00:00:00 2001
+From: Hans De Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Mon, 12 Dec 2016 17:03:14 +0100
+Subject: [PATCH xserver 3/6] xfree86: Add options support for OutputClass
+ Options
+
+Add support for setting options in OutputClass Sections and having these
+applied to any matching output devices.
+
+Reviewed-by: Adam Jackson &lt;ajax&#64;redhat.com&gt;
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86Option.c      |  5 ++++-
+ hw/xfree86/common/xf86platformBus.c | 42 +++++++++++++++++++++++++++++++++++++
+ hw/xfree86/common/xf86platformBus.h |  2 ++
+ hw/xfree86/man/xorg.conf.man        | 10 +++++++++
+ hw/xfree86/parser/OutputClass.c     |  6 ++++++
+ hw/xfree86/parser/xf86Parser.h      |  1 +
+ 6 files changed, 65 insertions(+), 1 deletion(-)
+
+diff --git a/hw/xfree86/common/xf86Option.c b/hw/xfree86/common/xf86Option.c
+index 0e8bc1f..929724d 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86Option.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86Option.c</span>
+<span class="hl kwd">&#64;&#64; -44,6 +44,7 &#64;&#64;</span>
+ #include &quot;xf86Xinput.h&quot;
+ #include &quot;xf86Optrec.h&quot;
+ #include &quot;xf86Parser.h&quot;
+<span class="hl kwa">+#include &quot;xf86platformBus.h&quot; /* For OutputClass functions */</span>
+ #include &quot;optionstr.h&quot;
+ 
+ static Bool ParseOptionValue(int scrnIndex, XF86OptionPtr options,
+&#64;&#64; -64,7 +65,7 &#64;&#64; static Bool ParseOptionValue(int scrnIndex, XF86OptionPtr options,
+  *
+  * The order of precedence for options is:
+  *
+<span class="hl kwb">- *   extraOpts, display, confScreen, monitor, device</span>
+<span class="hl kwa">+ *   extraOpts, display, confScreen, monitor, device, outputClassOptions</span>
+  */
+ 
+ void
+&#64;&#64; -79,6 +80,8 &#64;&#64; xf86CollectOptions(ScrnInfoPtr pScrn, XF86OptionPtr extraOpts)
+     pScrn-&gt;options = NULL;
+ 
+     for (i = pScrn-&gt;numEntities - 1; i &gt;= 0; i--) {
+<span class="hl kwa">+        xf86MergeOutputClassOptions(pScrn-&gt;entityList[i], &amp;pScrn-&gt;options);</span>
+<span class="hl kwa">+</span>
+         device = xf86GetDevFromEntity(pScrn-&gt;entityList[i],
+                                       pScrn-&gt;entityInstanceList[i]);
+         if (device &amp;&amp; device-&gt;options) {
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index 25a9040..a698c6c 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -310,6 +310,48 &#64;&#64; xf86platformProbe(void)
+     return 0;
+ }
+ 
+<span class="hl kwa">+void</span>
+<span class="hl kwa">+xf86MergeOutputClassOptions(int entityIndex, void **options)</span>
+<span class="hl kwa">+{</span>
+<span class="hl kwa">+    const EntityPtr entity = xf86Entities[entityIndex];</span>
+<span class="hl kwa">+    struct xf86_platform_device *dev = NULL;</span>
+<span class="hl kwa">+    XF86ConfOutputClassPtr cl;</span>
+<span class="hl kwa">+    XF86OptionPtr classopts;</span>
+<span class="hl kwa">+    int i = 0;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    switch (entity-&gt;bus.type) {</span>
+<span class="hl kwa">+    case BUS_PLATFORM:</span>
+<span class="hl kwa">+        dev = entity-&gt;bus.id.plat;</span>
+<span class="hl kwa">+        break;</span>
+<span class="hl kwa">+    case BUS_PCI:</span>
+<span class="hl kwa">+        for (i = 0; i &lt; xf86_num_platform_devices; i++) {</span>
+<span class="hl kwa">+            if (MATCH_PCI_DEVICES(xf86_platform_devices[i].pdev,</span>
+<span class="hl kwa">+                                  entity-&gt;bus.id.pci)) {</span>
+<span class="hl kwa">+                dev = &amp;xf86_platform_devices[i];</span>
+<span class="hl kwa">+                break;</span>
+<span class="hl kwa">+            }</span>
+<span class="hl kwa">+        }</span>
+<span class="hl kwa">+        break;</span>
+<span class="hl kwa">+    default:</span>
+<span class="hl kwa">+        xf86Msg(X_DEBUG, &quot;xf86MergeOutputClassOptions unsupported bus type %d\n&quot;,</span>
+<span class="hl kwa">+                entity-&gt;bus.type);</span>
+<span class="hl kwa">+    }</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    if (!dev)</span>
+<span class="hl kwa">+        return;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    for (cl = xf86configptr-&gt;conf_outputclass_lst; cl; cl = cl-&gt;list.next) {</span>
+<span class="hl kwa">+        if (!OutputClassMatches(cl, dev) || !cl-&gt;option_lst)</span>
+<span class="hl kwa">+            continue;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+        xf86Msg(X_INFO, &quot;Applying OutputClass \&quot;%s\&quot; options to %s\n&quot;,</span>
+<span class="hl kwa">+                cl-&gt;identifier, dev-&gt;attribs-&gt;path);</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+        classopts = xf86optionListDup(cl-&gt;option_lst);</span>
+<span class="hl kwa">+        *options = xf86optionListMerge(*options, classopts);</span>
+<span class="hl kwa">+    }</span>
+<span class="hl kwa">+}</span>
+<span class="hl kwa">+</span>
+ static int
+ xf86ClaimPlatformSlot(struct xf86_platform_device * d, DriverPtr drvp,
+                   int chipset, GDevPtr dev, Bool active)
+diff --git a/hw/xfree86/common/xf86platformBus.h b/hw/xfree86/common/xf86platformBus.h
+index 0f5c0ef..70d9ec8 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.h</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.h</span>
+&#64;&#64; -42,6 +42,7 &#64;&#64; struct xf86_platform_device {
+ int xf86platformProbe(void);
+ int xf86platformProbeDev(DriverPtr drvp);
+ int xf86platformAddGPUDevices(DriverPtr drvp);
+<span class="hl kwa">+void xf86MergeOutputClassOptions(int entityIndex, void **options);</span>
+ 
+ extern int xf86_num_platform_devices;
+ extern struct xf86_platform_device *xf86_platform_devices;
+&#64;&#64; -161,6 +162,7 &#64;&#64; extern void xf86platformPrimary(void);
+ #else
+ 
+ static inline int xf86platformAddGPUDevices(DriverPtr drvp) { return FALSE; }
+<span class="hl kwa">+static inline void xf86MergeOutputClassOptions(int index, void **options) {}</span>
+ 
+ #endif
+ 
+diff --git a/hw/xfree86/man/xorg.conf.man b/hw/xfree86/man/xorg.conf.man
+index 7d0c524..8928a53 100644
+<span class="hl kwb">--- a/hw/xfree86/man/xorg.conf.man</span>
+<span class="hl kwa">+++ b/hw/xfree86/man/xorg.conf.man</span>
+&#64;&#64; -1280,6 +1280,16 &#64;&#64; For example:
+ Check the case-sensitive string
+ .RI \*q matchdriver \*q
+ against the kernel driver of the device.
+<span class="hl kwa">+.PP</span>
+<span class="hl kwa">+When an output device has been matched to the</span>
+<span class="hl kwa">+.B OutputClass</span>
+<span class="hl kwa">+section, any</span>
+<span class="hl kwa">+.B Option</span>
+<span class="hl kwa">+entries are applied to the device. See the</span>
+<span class="hl kwa">+.B Device</span>
+<span class="hl kwa">+section below for a description of the remaining</span>
+<span class="hl kwa">+.B Option</span>
+<span class="hl kwa">+entries.</span>
+ .SH &quot;DEVICE SECTION&quot;
+ The config file may have multiple
+ .B Device
+diff --git a/hw/xfree86/parser/OutputClass.c b/hw/xfree86/parser/OutputClass.c
+index 8064e0c..f813ee6 100644
+<span class="hl kwb">--- a/hw/xfree86/parser/OutputClass.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/parser/OutputClass.c</span>
+&#64;&#64; -36,6 +36,7 &#64;&#64; static const xf86ConfigSymTabRec OutputClassTab[] = {
+     {ENDSECTION, &quot;endsection&quot;},
+     {IDENTIFIER, &quot;identifier&quot;},
+     {DRIVER, &quot;driver&quot;},
+<span class="hl kwa">+    {OPTION, &quot;option&quot;},</span>
+     {MATCH_DRIVER, &quot;matchdriver&quot;},
+     {-1, &quot;&quot;},
+ };
+&#64;&#64; -60,6 +61,8 &#64;&#64; xf86freeOutputClassList(XF86ConfOutputClassPtr ptr)
+             free(group);
+         }
+ 
+<span class="hl kwa">+        xf86optionListFree(ptr-&gt;option_lst);</span>
+<span class="hl kwa">+</span>
+         prev = ptr;
+         ptr = ptr-&gt;list.next;
+         free(prev);
+&#64;&#64; -112,6 +115,9 &#64;&#64; xf86parseOutputClassSection(void)
+             else
+                 ptr-&gt;driver = xf86_lex_val.str;
+             break;
+<span class="hl kwa">+        case OPTION:</span>
+<span class="hl kwa">+            ptr-&gt;option_lst = xf86parseOption(ptr-&gt;option_lst);</span>
+<span class="hl kwa">+            break;</span>
+         case MATCH_DRIVER:
+             if (xf86getSubToken(&amp;(ptr-&gt;comment)) != STRING)
+                 Error(QUOTE_MSG, &quot;MatchDriver&quot;);
+diff --git a/hw/xfree86/parser/xf86Parser.h b/hw/xfree86/parser/xf86Parser.h
+index 9c4b403..897edab 100644
+<span class="hl kwb">--- a/hw/xfree86/parser/xf86Parser.h</span>
+<span class="hl kwa">+++ b/hw/xfree86/parser/xf86Parser.h</span>
+&#64;&#64; -338,6 +338,7 &#64;&#64; typedef struct {
+     char *identifier;
+     char *driver;
+     struct xorg_list match_driver;
+<span class="hl kwa">+    XF86OptionPtr option_lst;</span>
+     char *comment;
+ } XF86ConfOutputClassRec, *XF86ConfOutputClassPtr;
+ 
+<span class="hl kwb">-- </span>
+2.9.3
+
+From ab1a65b7755d081b41188104b21f4d21eaa3187b Mon Sep 17 00:00:00 2001
+From: Hans De Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Mon, 12 Dec 2016 17:03:15 +0100
+Subject: [PATCH xserver 4/6] xfree86: xf86platformProbe: split finding
+ pci-info and setting primary GPU
+
+This is a preparation patch for allowing an OutputClass section to
+override the default primary GPU device selection.
+
+Reviewed-by: Adam Jackson &lt;ajax&#64;redhat.com&gt;
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86platformBus.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
+
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index a698c6c..39b3248 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -145,16 +145,9 &#64;&#64; platform_find_pci_info(struct xf86_platform_device *pd, char *busid)
+ 
+     iter = pci_slot_match_iterator_create(&amp;devmatch);
+     info = pci_device_next(iter);
+<span class="hl kwb">-    if (info) {</span>
+<span class="hl kwa">+    if (info)</span>
+         pd-&gt;pdev = info;
+<span class="hl kwb">-        pci_device_probe(info);</span>
+<span class="hl kwb">-        if (pci_device_is_boot_vga(info)) {</span>
+<span class="hl kwb">-            primaryBus.type = BUS_PLATFORM;</span>
+<span class="hl kwb">-            primaryBus.id.plat = pd;</span>
+<span class="hl kwb">-        }</span>
+<span class="hl kwb">-    }</span>
+     pci_iterator_destroy(iter);
+<span class="hl kwb">-</span>
+ }
+ 
+ static Bool
+&#64;&#64; -307,6 +300,20 &#64;&#64; xf86platformProbe(void)
+             platform_find_pci_info(&amp;xf86_platform_devices[i], busid);
+         }
+     }
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    for (i = 0; i &lt; xf86_num_platform_devices; i++) {</span>
+<span class="hl kwa">+        struct xf86_platform_device *dev = &amp;xf86_platform_devices[i];</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+        if (!dev-&gt;pdev)</span>
+<span class="hl kwa">+            continue;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+        pci_device_probe(dev-&gt;pdev);</span>
+<span class="hl kwa">+        if (pci_device_is_boot_vga(dev-&gt;pdev)) {</span>
+<span class="hl kwa">+            primaryBus.type = BUS_PLATFORM;</span>
+<span class="hl kwa">+            primaryBus.id.plat = dev;</span>
+<span class="hl kwa">+        }</span>
+<span class="hl kwa">+    }</span>
+<span class="hl kwa">+</span>
+     return 0;
+ }
+ 
+<span class="hl kwb">-- </span>
+2.9.3
+
+From d75ffcdbf8c1e3c8e0d46debcd533a9f2560f0a8 Mon Sep 17 00:00:00 2001
+From: Hans De Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Mon, 12 Dec 2016 17:03:16 +0100
+Subject: [PATCH xserver 5/6] xfree86: Allow overriding primary GPU detection
+ from an OutputClass section
+
+Allow using:
+
+Option &quot;PrimaryGPU&quot; &quot;yes&quot;
+
+In an OutputClass section to override the default primary GPU device
+selection which selects the GPU used as output by the firmware.
+
+If multiple output devices match an OutputClass section with
+the PrimaryGPU option set, the first one enumerated becomes the
+primary GPU.
+
+Reviewed-by: Adam Jackson &lt;ajax&#64;redhat.com&gt;
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86platformBus.c | 19 +++++++++++++++++++
+ hw/xfree86/man/xorg.conf.man        | 12 +++++++++++-
+ 2 files changed, 30 insertions(+), 1 deletion(-)
+
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index 39b3248..fc17d15 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+&#64;&#64; -286,6 +286,7 &#64;&#64; xf86platformProbe(void)
+ {
+     int i;
+     Bool pci = TRUE;
+<span class="hl kwa">+    XF86ConfOutputClassPtr cl;</span>
+ 
+     config_odev_probe(xf86PlatformDeviceProbe);
+ 
+&#64;&#64; -301,6 +302,24 &#64;&#64; xf86platformProbe(void)
+         }
+     }
+ 
+<span class="hl kwa">+    /* First see if there is an OutputClass match marking a device as primary */</span>
+<span class="hl kwa">+    for (i = 0; i &lt; xf86_num_platform_devices; i++) {</span>
+<span class="hl kwa">+        struct xf86_platform_device *dev = &amp;xf86_platform_devices[i];</span>
+<span class="hl kwa">+        for (cl = xf86configptr-&gt;conf_outputclass_lst; cl; cl = cl-&gt;list.next) {</span>
+<span class="hl kwa">+            if (!OutputClassMatches(cl, dev))</span>
+<span class="hl kwa">+                continue;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+            if (xf86CheckBoolOption(cl-&gt;option_lst, &quot;PrimaryGPU&quot;, FALSE)) {</span>
+<span class="hl kwa">+                xf86Msg(X_CONFIG, &quot;OutputClass \&quot;%s\&quot; setting %s as PrimaryGPU\n&quot;,</span>
+<span class="hl kwa">+                        cl-&gt;identifier, dev-&gt;attribs-&gt;path);</span>
+<span class="hl kwa">+                primaryBus.type = BUS_PLATFORM;</span>
+<span class="hl kwa">+                primaryBus.id.plat = dev;</span>
+<span class="hl kwa">+                return 0;</span>
+<span class="hl kwa">+            }</span>
+<span class="hl kwa">+        }</span>
+<span class="hl kwa">+    }</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+    /* Then check for pci_device_is_boot_vga() */</span>
+     for (i = 0; i &lt; xf86_num_platform_devices; i++) {
+         struct xf86_platform_device *dev = &amp;xf86_platform_devices[i];
+ 
+diff --git a/hw/xfree86/man/xorg.conf.man b/hw/xfree86/man/xorg.conf.man
+index 8928a53..79b71a8 100644
+<span class="hl kwb">--- a/hw/xfree86/man/xorg.conf.man</span>
+<span class="hl kwa">+++ b/hw/xfree86/man/xorg.conf.man</span>
+&#64;&#64; -1285,11 +1285,21 &#64;&#64; When an output device has been matched to the
+ .B OutputClass
+ section, any
+ .B Option
+<span class="hl kwb">-entries are applied to the device. See the</span>
+<span class="hl kwa">+entries are applied to the device. One</span>
+<span class="hl kwa">+.B OutputClass</span>
+<span class="hl kwa">+specific</span>
+<span class="hl kwa">+.B Option</span>
+<span class="hl kwa">+is recognized. See the</span>
+ .B Device
+ section below for a description of the remaining
+ .B Option
+ entries.
+<span class="hl kwa">+.TP 7</span>
+<span class="hl kwa">+.BI &quot;Option \*qPrimaryGPU\*q \*q&quot; boolean \*q</span>
+<span class="hl kwa">+This option specifies that the matched device should be treated as the</span>
+<span class="hl kwa">+primary GPU, replacing the selection of the GPU used as output by the</span>
+<span class="hl kwa">+firmware. If multiple output devices match an OutputClass section with</span>
+<span class="hl kwa">+the PrimaryGPU option set, the first one enumerated becomes the primary GPU.</span>
+ .SH &quot;DEVICE SECTION&quot;
+ The config file may have multiple
+ .B Device
+<span class="hl kwb">-- </span>
+2.9.3
+
+From b5dffbbac193aa640ffcfa0a431c21b862854e53 Mon Sep 17 00:00:00 2001
+From: Hans De Goede &lt;hdegoede&#64;redhat.com&gt;
+Date: Mon, 12 Dec 2016 17:03:17 +0100
+Subject: [PATCH xserver 6/6] xfree86: Add ModulePath support for OutputClass
+ config Sections
+
+Allow OutputClass config snippets to modify the module-path.
+
+Note that any specified ModulePaths will be pre-pended to the normal
+ModulePath. The idea behind this is that any output hardware specific
+modules should have preference over the normal modules.
+
+One use-case for this is the nvidia binary driver, this allows a
+config snippet like this:
+
+Section &quot;OutputClass&quot;
+    MatchDriver &quot;nvidia&quot;
+    Modulepath &quot;/usr/lib64/nvidia/modules&quot;
+EndSection
+
+To get the nvidia glx specific glx module loaded, but only when the
+nvidia kernel driver is loaded.
+
+Together with the glvnd work done recently, this allows the nouveau
+<span class="hl kwa">+ mesa and nvidia-binary userspace stacks to co-exist on the same</span>
+system without any ldconfig / xorg.conf tweaking and the xserver will
+automatically do the right thing depending on which kernel driver
+(nouveau or nvidia) is loaded.
+
+Reviewed-by: Adam Jackson &lt;ajax&#64;redhat.com&gt;
+Signed-off-by: Hans de Goede &lt;hdegoede&#64;redhat.com&gt;
+<span class="hl kwb">---</span>
+ hw/xfree86/common/xf86platformBus.c | 23 +++++++++++++++++++++++
+ hw/xfree86/loader/loadmod.c         |  1 +
+ hw/xfree86/man/xorg.conf.man        | 16 ++++++++++++++++
+ hw/xfree86/parser/OutputClass.c     | 15 +++++++++++++++
+ hw/xfree86/parser/xf86Parser.h      |  1 +
+ 5 files changed, 56 insertions(+)
+
+diff --git a/hw/xfree86/common/xf86platformBus.c b/hw/xfree86/common/xf86platformBus.c
+index fc17d15..0b5795f 100644
+<span class="hl kwb">--- a/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/common/xf86platformBus.c</span>
+<span class="hl kwd">&#64;&#64; -40,6 +40,7 &#64;&#64;</span>
+ #include &quot;hotplug.h&quot;
+ #include &quot;systemd-logind.h&quot;
+ 
+<span class="hl kwa">+#include &quot;loaderProcs.h&quot;</span>
+ #include &quot;xf86.h&quot;
+ #include &quot;xf86_OSproc.h&quot;
+ #include &quot;xf86Priv.h&quot;
+&#64;&#64; -287,6 +288,7 &#64;&#64; xf86platformProbe(void)
+     int i;
+     Bool pci = TRUE;
+     XF86ConfOutputClassPtr cl;
+<span class="hl kwa">+    char *old_path, *path = NULL;</span>
+ 
+     config_odev_probe(xf86PlatformDeviceProbe);
+ 
+&#64;&#64; -300,8 +302,29 &#64;&#64; xf86platformProbe(void)
+         if (pci &amp;&amp; (strncmp(busid, &quot;pci:&quot;, 4) == 0)) {
+             platform_find_pci_info(&amp;xf86_platform_devices[i], busid);
+         }
+<span class="hl kwa">+</span>
+<span class="hl kwa">+        /*</span>
+<span class="hl kwa">+         * Deal with OutputClass ModulePath directives, these must be</span>
+<span class="hl kwa">+         * processed before we do any module loading.</span>
+<span class="hl kwa">+         */</span>
+<span class="hl kwa">+        for (cl = xf86configptr-&gt;conf_outputclass_lst; cl; cl = cl-&gt;list.next) {</span>
+<span class="hl kwa">+            if (!OutputClassMatches(cl, &amp;xf86_platform_devices[i]))</span>
+<span class="hl kwa">+                continue;</span>
+<span class="hl kwa">+</span>
+<span class="hl kwa">+            if (cl-&gt;modulepath &amp;&amp; xf86ModPathFrom != X_CMDLINE) {</span>
+<span class="hl kwa">+                old_path = path;</span>
+<span class="hl kwa">+                XNFasprintf(&amp;path, &quot;%s,%s&quot;, cl-&gt;modulepath,</span>
+<span class="hl kwa">+                            path ? path : xf86ModulePath);</span>
+<span class="hl kwa">+                free(old_path);</span>
+<span class="hl kwa">+                xf86Msg(X_CONFIG, &quot;OutputClass \&quot;%s\&quot; ModulePath extended to \&quot;%s\&quot;\n&quot;,</span>
+<span class="hl kwa">+                        cl-&gt;identifier, path);</span>
+<span class="hl kwa">+                LoaderSetPath(path);</span>
+<span class="hl kwa">+            }</span>
+<span class="hl kwa">+        }</span>
+     }
+ 
+<span class="hl kwa">+    free(path);</span>
+<span class="hl kwa">+</span>
+     /* First see if there is an OutputClass match marking a device as primary */
+     for (i = 0; i &lt; xf86_num_platform_devices; i++) {
+         struct xf86_platform_device *dev = &amp;xf86_platform_devices[i];
+diff --git a/hw/xfree86/loader/loadmod.c b/hw/xfree86/loader/loadmod.c
+index 8bf6836..940f5fc 100644
+<span class="hl kwb">--- a/hw/xfree86/loader/loadmod.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/loader/loadmod.c</span>
+&#64;&#64; -184,6 +184,7 &#64;&#64; LoaderSetPath(const char *path)
+     if (!path)
+         return;
+ 
+<span class="hl kwa">+    FreeStringList(defaultPathList);</span>
+     defaultPathList = InitPathList(path);
+ }
+ 
+diff --git a/hw/xfree86/man/xorg.conf.man b/hw/xfree86/man/xorg.conf.man
+index 79b71a8..00ebf56 100644
+<span class="hl kwb">--- a/hw/xfree86/man/xorg.conf.man</span>
+<span class="hl kwa">+++ b/hw/xfree86/man/xorg.conf.man</span>
+&#64;&#64; -1300,6 +1300,22 &#64;&#64; This option specifies that the matched device should be treated as the
+ primary GPU, replacing the selection of the GPU used as output by the
+ firmware. If multiple output devices match an OutputClass section with
+ the PrimaryGPU option set, the first one enumerated becomes the primary GPU.
+<span class="hl kwa">+.PP</span>
+<span class="hl kwa">+A</span>
+<span class="hl kwa">+.B OutputClass</span>
+<span class="hl kwa">+Section may contain</span>
+<span class="hl kwa">+.B ModulePath</span>
+<span class="hl kwa">+entries. When an output device matches an</span>
+<span class="hl kwa">+.B OutputClass</span>
+<span class="hl kwa">+section, any</span>
+<span class="hl kwa">+.B ModulePath</span>
+<span class="hl kwa">+entries in that</span>
+<span class="hl kwa">+.B OutputClass</span>
+<span class="hl kwa">+are pre-pended to the search path for loadable Xorg server modules. See</span>
+<span class="hl kwa">+.B ModulePath</span>
+<span class="hl kwa">+in the</span>
+<span class="hl kwa">+.B Files</span>
+<span class="hl kwa">+section for more info.</span>
+ .SH &quot;DEVICE SECTION&quot;
+ The config file may have multiple
+ .B Device
+diff --git a/hw/xfree86/parser/OutputClass.c b/hw/xfree86/parser/OutputClass.c
+index f813ee6..01b348f 100644
+<span class="hl kwb">--- a/hw/xfree86/parser/OutputClass.c</span>
+<span class="hl kwa">+++ b/hw/xfree86/parser/OutputClass.c</span>
+&#64;&#64; -36,6 +36,7 &#64;&#64; static const xf86ConfigSymTabRec OutputClassTab[] = {
+     {ENDSECTION, &quot;endsection&quot;},
+     {IDENTIFIER, &quot;identifier&quot;},
+     {DRIVER, &quot;driver&quot;},
+<span class="hl kwa">+    {MODULEPATH, &quot;modulepath&quot;},</span>
+     {OPTION, &quot;option&quot;},
+     {MATCH_DRIVER, &quot;matchdriver&quot;},
+     {-1, &quot;&quot;},
+&#64;&#64; -53,6 +54,7 &#64;&#64; xf86freeOutputClassList(XF86ConfOutputClassPtr ptr)
+         TestFree(ptr-&gt;identifier);
+         TestFree(ptr-&gt;comment);
+         TestFree(ptr-&gt;driver);
+<span class="hl kwa">+        TestFree(ptr-&gt;modulepath);</span>
+ 
+         xorg_list_for_each_entry_safe(group, next, &amp;ptr-&gt;match_driver, entry) {
+             xorg_list_del(&amp;group-&gt;entry);
+&#64;&#64; -115,6 +117,19 &#64;&#64; xf86parseOutputClassSection(void)
+             else
+                 ptr-&gt;driver = xf86_lex_val.str;
+             break;
+<span class="hl kwa">+        case MODULEPATH:</span>
+<span class="hl kwa">+            if (xf86getSubToken(&amp;(ptr-&gt;comment)) != STRING)</span>
+<span class="hl kwa">+                Error(QUOTE_MSG, &quot;ModulePath&quot;);</span>
+<span class="hl kwa">+            if (ptr-&gt;modulepath) {</span>
+<span class="hl kwa">+                char *path;</span>
+<span class="hl kwa">+                XNFasprintf(&amp;path, &quot;%s,%s&quot;, ptr-&gt;modulepath, xf86_lex_val.str);</span>
+<span class="hl kwa">+                free(xf86_lex_val.str);</span>
+<span class="hl kwa">+                free(ptr-&gt;modulepath);</span>
+<span class="hl kwa">+                ptr-&gt;modulepath = path;</span>
+<span class="hl kwa">+            } else {</span>
+<span class="hl kwa">+                ptr-&gt;modulepath = xf86_lex_val.str;</span>
+<span class="hl kwa">+            }</span>
+<span class="hl kwa">+            break;</span>
+         case OPTION:
+             ptr-&gt;option_lst = xf86parseOption(ptr-&gt;option_lst);
+             break;
+diff --git a/hw/xfree86/parser/xf86Parser.h b/hw/xfree86/parser/xf86Parser.h
+index 897edab..e014048 100644
+<span class="hl kwb">--- a/hw/xfree86/parser/xf86Parser.h</span>
+<span class="hl kwa">+++ b/hw/xfree86/parser/xf86Parser.h</span>
+&#64;&#64; -337,6 +337,7 &#64;&#64; typedef struct {
+     GenericListRec list;
+     char *identifier;
+     char *driver;
+<span class="hl kwa">+    char *modulepath;</span>
+     struct xorg_list match_driver;
+     XF86OptionPtr option_lst;
+     char *comment;
+<span class="hl kwb">-- </span>
+2.9.3
+
+</code></pre></td></tr></table>
+</div> <!-- class=content -->
+<div class="foot" style="padding-left:1em;padding-right:1em;">
+<p>Copyright &copy; 2002-2016 <a href="mailto:jvinet@zeroflux.org"
+title="contact Judd Vinet">Judd Vinet</a> and <a href="mailto:aaron@archlinux.org"
+title="contact Aaron Griffin">Aaron Griffin</a>. The Arch Linux name and logo
+are recognized trademarks. Some rights reserved. The registered trademark
+Linux&reg; is used pursuant to a sublicense from LMI, the exclusive licensee
+of Linus Torvalds, owner of the mark on a world-wide basis.</p>
+</div>
+</div> <!-- id=cgit -->
+</body>
+</html>
