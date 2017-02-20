@@ -9,10 +9,10 @@ arch=('any')
 license=('GPL3')
 url="https://github.com/oberon2007/$pkgname"
 source=("$url/archive/$pkgver.tar.gz")
-md5sums=('')
+md5sums=('caa823dda73f0d63fc25c5804f431247')
 
 package() {
-	cd $pkgname
+	cd $pkgname-$pkgver
 	install -dm755 $pkgdir/usr/share/backgrounds
 	cp * $pkgdir/usr/share/backgrounds
 }
