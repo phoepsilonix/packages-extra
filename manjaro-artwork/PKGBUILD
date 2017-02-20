@@ -4,10 +4,9 @@
 pkgbase=manjaro-artwork
 pkgname=('manjaro-artwork') # 'manjaro-artwork-extra' 'manjaro-artwork-openbox' 'manjaro-artwork-icons')
 pkgver=1.0.8
-pkgrel=3
+pkgrel=4
 arch=('any')
 url="http://manjaro.org"
-depends=('manjaro-icons')
 makedeps=('git' 'imagemagick')
 source=('Wallpaper-ST2-Red.jpg'
 	'Wallpaper-ST2-Purple.jpg'
@@ -40,7 +39,6 @@ package_manjaro-artwork() {
   do
       ln -s "../${i}" "${pkgdir}/usr/share/backgrounds/xfce/${i}"
   done
-  ln -s /usr/share/icons/manjaro/maia/maia.svg $pkgdir/usr/share/icons/whiskermenu-manjaro.svg
 }
 
 package_manjaro-artwork-extra() {
@@ -71,7 +69,6 @@ package_manjaro-artwork-extra() {
   do
       ln -s "../${i}" "${pkgdir}/usr/share/backgrounds/xfce/${i}"
   done
-  ln -s /usr/share/icons/manjaro/maia/maia.svg $pkgdir/usr/share/icons/whiskermenu-manjaro.svg
 }
 
 package_manjaro-artwork-openbox() {
@@ -114,7 +111,6 @@ package_manjaro-artwork-openbox() {
   do
       ln -s "../${i}" "${pkgdir}/usr/share/backgrounds/xfce/${i}"
   done
-  ln -s /usr/share/icons/manjaro/maia/maia.svg $pkgdir/usr/share/icons/whiskermenu-manjaro.svg
 }
 
 package_manjaro-artwork-icons() {

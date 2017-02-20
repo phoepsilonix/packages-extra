@@ -8,7 +8,6 @@ pkgdesc='Official Manjaro icons'
 arch=('any')
 url="https://github.com/oberon2007/$pkgname"
 licence=GPL
-conflicts=('manjaro-artwork')
 source=("$url/archive/$_commit.tar.gz")
 md5sums=('85f383a28a7f4827ecc2ccb274c8294b')
 
