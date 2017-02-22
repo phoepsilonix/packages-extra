@@ -3,8 +3,8 @@
 pkgbase=pamac
 pkgname=('pamac-dev' 'pamac-dev-tray-appindicator')
 pkgver=4.2.9
-_pkgver=4.2.9
-pkgrel=1
+_pkgver=eb00f11f38fbf0788e09892b8966b241b8032d44
+pkgrel=3
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
@@ -14,13 +14,13 @@ depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' '
 makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
-sha256sums=('6753e3120f8ccf385594ee783ec09c73c3ff83ab6a628b22c1bb237ac9e3b666')
+source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
+sha256sums=('a1ca2e35ae6ce35e976eb3610ebf523b3c27842a8f673c6efcb10b7a3a1b5cb4')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala
+  sed -i -e "s|\"$pkgver\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala
   # patches here
 }
 
@@ -46,7 +46,7 @@ package_pamac-dev() {
 
 package_pamac-dev-tray-appindicator() {
   pkgdesc="Tray icon using appindicator which feets better in KDE"
-  depends=('pamac' 'libappindicator-gtk3')
+  depends=('pamac-dev' 'libappindicator-gtk3')
   conflicts=('pamac-tray-appindicator')
   providess=('pamac-tray-appindicator')
   cd "$srcdir/pamac-$_pkgver"

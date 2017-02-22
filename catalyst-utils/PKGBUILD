@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=4
+pkgrel=5
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -37,7 +37,7 @@ sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             '4f36dd7b3bf2beec22af68f1aedf96cbdb9fa7b0586af71bac5c8b1f4a952358'
             'c97a2735f80416151b2a71504e42385c4d8d95cf42aa8f90a6c7bd5a966c54e1'
             'efd26980888943293a7cf1d8d781b96b3bc7a5cdf23f926aa68ac4bc348b7691'
-            'b324f7c780118392d3e3e1b3a16632a748556b76c6e852e336cd053e3913f837'
+            '00066682bb985bdd957a16f67404a1d4653fa2c85f4e7b8b6a924e06ef135c38'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
