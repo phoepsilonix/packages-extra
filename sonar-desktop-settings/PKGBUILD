@@ -7,7 +7,7 @@ pkgbase=sonar-desktop-settings
 pkgname=('sonar-gnome-settings'
 		'sonar-mate-settings'
 		'sonar-mate-panel-layout')
-pkgver=20170216
+pkgver=20170222
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -62,8 +62,12 @@ package_sonar-gnome-settings() {
 	conflicts=('sonar-desktop-settings')
 	provides=('sonar-desktop-settings')
 	depends=('manjaro-base-skel'
+		 'arc-themes-maia'
+		 'xcursor-breeze'
+                 'arc-maia-icon-theme'
 		 'qt5-styleplugins'
                  'qt5ct')
+	optdepends=('firefox-arc-maia-settings')
 
 	_inst_dir 'sonar/gnome'
 }
