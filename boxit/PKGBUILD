@@ -5,12 +5,12 @@ pkgbase=boxit
 pkgname=(boxit boxit-server)
 #pkgver=2.0.$(date +%m%d)
 pkgver=2.1.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Manjaro Linux repository management system - client"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
 license=('GPL')
-depends=('qt4' 'readline' 'icu')
+depends=('qt5-base' 'readline' 'icu')
 makedepends=('git')
 _git=Yes
 
@@ -30,7 +30,7 @@ build() {
      cd "$srcdir/$pkgbase/$pkgbase/src"
   fi
 
-  qmake-qt4
+  qmake-qt5
 
   # Build fix
   make sub-DBus
@@ -45,7 +45,7 @@ build() {
      cd "$srcdir/$pkgbase/$pkgbase-server/src"
   fi
 
-  qmake-qt4
+  qmake-qt5
 
   make all
 }

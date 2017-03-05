@@ -2,8 +2,8 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-pkgver=4.2.0
-_pkgver=4.2.0
+pkgver=4.3.0
+_pkgver=4.3.0
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
 options=(!emptydirs)
 
 source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz")
-sha256sums=('cf400120ceff11912d1968bec7562bddb2672af3092d152e9952bcb805255b76')
+sha256sums=('e4f5bc91cdfe9e07026339baa31c9ed3f792be7203ca494057c08b1f68c4598a')
   
 prepare() {
   # adjust version string
@@ -34,7 +34,6 @@ build() {
 package_pamac() {
   optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome'
               'lxsession: needed for authentification in Xfce, LXDE etc.'
-              'yaourt: needed for AUR support'
               'pamac-tray-appindicator: tray icon for KDE')
   backup=('etc/pamac.conf')
   replaces=('pamac-aur')

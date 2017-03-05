@@ -5,7 +5,7 @@
 pkgbase=nvidia-304xx-utils
 pkgname=('nvidia-304xx-utils' 'opencl-nvidia-304xx' 'mhwd-nvidia-304xx')
 pkgver=304.134
-pkgrel=3
+pkgrel=4
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -15,7 +15,7 @@ source=('mhwd-nvidia' 'nvidia-drm-outputclass.conf')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 md5sums=('364555382ca8fe8b815af43d6f7e65bc'
-         '4f5562ee8f3171769e4638b35396c55d')
+         'a433deeb5f9cc661e537f42bde2f1df7')
 md5sums_i686=('9abd7e9272382bd0e6939c3a367cc1a6')
 md5sums_x86_64=('2ecfa6bd145f673264f7977e0366e259')
 
@@ -143,7 +143,7 @@ package_nvidia-304xx-utils() {
 
     # distro specific files must be installed in /usr/share/X11/xorg.conf.d
     install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
-    install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
+    install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf"
 
     create_links
 }
