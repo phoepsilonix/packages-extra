@@ -1,14 +1,14 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_mt_pkgver=0.14.3
+_mt_pkgver=0.15.0
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles-base'
         'manjaro-iso-profiles-official'
         'manjaro-iso-profiles-community')
-pkgver=17.0rc1
-pkgrel=1
+pkgver=17.0
+pkgrel=2
 arch=('any')
 url="https://github.com/manjaro/iso-profiles"
 license=('GPL')
@@ -37,8 +37,6 @@ package_manjaro-iso-profiles-base() {
     _inst_dir 'shared'
 
     cp $srcdir/iso-profiles-$pkgver/repo_info $pkgdir/usr/share/manjaro-tools/iso-profiles/
-    # keep compat symlink
-    cp -pr $srcdir/iso-profiles-$pkgver/.buildiso $pkgdir/usr/share/manjaro-tools/iso-profiles/
 }
 
 package_manjaro-iso-profiles-official() {
