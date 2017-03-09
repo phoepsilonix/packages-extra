@@ -1,7 +1,7 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=manjaro-icons
-pkgver=20161222
+pkgver=20170220
 pkgrel=1
 _commit=8613c6f8d3d5ae3a0a3fbd2696cc885a3cd47f7f
 pkgdesc='Official Manjaro icons'
