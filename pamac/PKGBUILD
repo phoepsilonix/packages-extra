@@ -14,7 +14,7 @@ depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' '
 makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
+source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/$_pkgver.tar.gz")
 sha256sums=('1fbdaaea304ef8e774e7daa893846b76179a93cdcd35edd9d895d637fb6f8b25')
   
 prepare() {
