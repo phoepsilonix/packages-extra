@@ -17,5 +17,7 @@ cd ../../linux48*/*virtualbox-modules
 makepkg -sf
 cd ../../linux49*/*virtualbox-modules
 makepkg -sf
-#cd ../../linux410*/*virtualbox-modules
-#makepkg -sf
+cd ../../linux410*/*virtualbox-modules
+makepkg -sf
+cd ../../linux411*/*virtualbox-modules
+makepkg -sf
