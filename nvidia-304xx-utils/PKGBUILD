@@ -89,15 +89,14 @@ package_nvidia-304xx-utils() {
     # GLX extension module for X
     install -D -m755 "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.${pkgver}"
     ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.1"	# X doesn't find glx otherwise
-    ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so"	# X doesn't find glx otherwise
 
     # OpenGL library
     install -D -m755 "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so.${pkgver}"
 
     # We have to provide symlinks to mesa, as nvidia 304xx doesn't ship them
-    ln -s /usr/lib/mesa/libEGL.so.1.0.0 ${pkgdir}/usr/lib/nvidia/libEGL.so
-    ln -s /usr/lib/mesa/libGLESv1_CM.so.1.1.0 ${pkgdir}/usr/lib/nvidia/libGLESv1_CM.so
-    ln -s /usr/lib/mesa/libGLESv2.so.2.0.0 ${pkgdir}/usr/lib/nvidia/libGLESv2.so
+    ln -s /usr/lib/libEGL.so.1.0.0 "${pkgdir}/usr/lib/nvidia/libEGL.so.1.0.0"
+    ln -s /usr/lib/libGLESv1_CM.so.1.0.0 "${pkgdir}/usr/lib/nvidia/libGLESv1_CM.so.1.0.0"
+    ln -s /usr/lib/libGLESv2.so.2.0.0 "${pkgdir}/usr/lib/nvidia/libGLESv2.so.2.0.0"
 
     # OpenGL core library
     install -D -m755 "libnvidia-glcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glcore.so.${pkgver}"

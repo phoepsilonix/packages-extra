@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=5
+pkgrel=6
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -106,6 +106,20 @@ package_catalyst-utils() {
 	# GLX extension module for X
 	install -D -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/fglrx/xorg/libglx.so.1"
 	ln -s "libglx.so.1"  "${pkgdir}/usr/lib/fglrx/xorg/libglx.so"
+
+
+    # We have to provide symlinks to mesa, as catalyst doesn't ship them
+    ln -s /usr/lib/libEGL.so.1.0.0 "${pkgdir}/usr/lib/fglrx/libEGL.so.1.0.0"
+    ln -s libEGL.so.1.0.0      "${pkgdir}/usr/lib/fglrx/libEGL.so.1"
+    ln -s libEGL.so.1.0.0      "${pkgdir}/usr/lib/fglrx/libEGL.so"
+
+    ln -s /usr/lib/libGLESv1_CM.so.1.0.0 "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so.1.0.0"
+    ln -s libGLESv1_CM.so.1.1.0      "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so.1"
+    ln -s libGLESv1_CM.so.1.1.0      "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so"
+
+    ln -s /usr/lib/libGLESv2.so.2.0.0 "${pkgdir}/usr/lib/fglrx/libGLESv2.so.2.0.0"
+    ln -s libGLESv2.so.2.0.0      "${pkgdir}/usr/lib/fglrx/libGLESv2.so.2"
+    ln -s libGLESv2.so.2.0.0      "${pkgdir}/usr/lib/fglrx/libGLESv2.so"
 
     # Controlcenter / libraries
       if [ "${CARCH}" = "i686" ]; then
