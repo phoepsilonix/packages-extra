@@ -5,7 +5,7 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=375.39
-pkgrel=6
+pkgrel=7
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -200,5 +200,8 @@ package_nvidia-utils() {
     install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
 
     create_links
+
+    # clean-up
+    rm "${pkgdir}"/usr/lib/libGLX_mesa.so*
 }
 

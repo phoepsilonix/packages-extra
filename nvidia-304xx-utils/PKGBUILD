@@ -5,7 +5,7 @@
 pkgbase=nvidia-304xx-utils
 pkgname=('nvidia-304xx-utils' 'opencl-nvidia-304xx' 'mhwd-nvidia-304xx')
 pkgver=304.134
-pkgrel=5
+pkgrel=6
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -148,5 +148,8 @@ package_nvidia-304xx-utils() {
     install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf"
 
     create_links
+
+    # clean-up
+    rm "${pkgdir}"/usr/lib/libGLX_mesa.so*
 }
 
