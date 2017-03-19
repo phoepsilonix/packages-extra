@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=6
+pkgrel=7
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -56,7 +56,7 @@ prepare() {
 
 package_catalyst-utils() {
 	pkgdesc="AMD Catalyst drivers utilities and libraries."
-	depends=('catalyst-video' 'catalyst-server>=1.7.0' 'catalyst-server<1.18.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mhwd' 'xdg-su')
+	depends=('catalyst-video' 'catalyst-server>=1.7.0' 'catalyst-server<1.18.0' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama' 'mesa' 'mhwd' 'xdg-su')
         optdepends=('qt4: to run ATi Catalyst Control Center (amdcccle)'
 		    'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
 		    'acpid: acpi event support  / atieventsd'
@@ -103,9 +103,12 @@ package_catalyst-utils() {
       install -m755 drivers/*.so ${pkgdir}/usr/lib/xorg/modules/drivers
       install -m755 linux/*.so ${pkgdir}/usr/lib/xorg/modules/linux
 
-	# GLX extension module for X
-	install -D -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/fglrx/xorg/libglx.so.1"
-	ln -s "libglx.so.1"  "${pkgdir}/usr/lib/fglrx/xorg/libglx.so"
+    # GLX extension module for X
+    install -D -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/fglrx/xorg/libglx.so.1"
+    ln -s "libglx.so.1"  "${pkgdir}/usr/lib/fglrx/xorg/libglx.so"
+
+    # We have to provide symlink to mesa (see https://bugzilla.redhat.com/show_bug.cgi?id=1413579#c57)
+    ln -s "/usr/lib/libGLX_mesa.so.0.0.0" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
 
 
     # We have to provide symlinks to mesa, as catalyst doesn't ship them

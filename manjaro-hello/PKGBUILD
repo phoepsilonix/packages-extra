@@ -2,8 +2,8 @@
 # Author: Hugo Posnic <huluti@manjaro.org>
 
 pkgname=manjaro-hello
-pkgver=0.4.11
-pkgrel=0
+pkgver=0.4.12
+pkgrel=1
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
 url="https://github.com/manjaro/$pkgname"
 arch=('any')
@@ -11,10 +11,10 @@ license=('GPL')
 depends=('gtk3' 'manjaro-icons' 'python-gobject')
 optdepends=('calamares: universal installer framework')
 replaces=('manjaro-welcome')
-#source=("$url/archive/$pkgver.tar.gz")
-#md5sums=('e4926ef79472684dd53ab558b7691f3d')
-source=("git+$url.git")
-md5sums=('SKIP')
+source=("$url/archive/$pkgver.tar.gz")
+md5sums=('92905a4016ba349fedf3b302c3474c59')
+#source=("git+$url.git")
+#md5sums=('SKIP')
 
 
 #pkgver() {
@@ -22,9 +22,9 @@ md5sums=('SKIP')
 #    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 #}
 
-prepare() {
-    mv $pkgname $pkgname-$pkgver
-}
+#prepare() {
+#    mv $pkgname $pkgname-$pkgver
+#}
 
 package() {
     cd $pkgname-$pkgver
