@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=7
+pkgrel=8
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -108,7 +108,8 @@ package_catalyst-utils() {
     ln -s "libglx.so.1"  "${pkgdir}/usr/lib/fglrx/xorg/libglx.so"
 
     # We have to provide symlink to mesa (see https://bugzilla.redhat.com/show_bug.cgi?id=1413579#c57)
-    ln -s "/usr/lib/libGLX_mesa.so.0.0.0" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
+    #ln -s "/usr/lib/libGLX_mesa.so.0.0.0" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
+    ln -s "fglrx/xorg/libglx.so.1" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
 
 
     # We have to provide symlinks to mesa, as catalyst doesn't ship them
@@ -210,6 +211,9 @@ package_catalyst-utils() {
     # distro specific files must be installed in /usr/share/X11/xorg.conf.d
     install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
     install -m644 "${srcdir}/fglrx-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
+
+    install -dm 755 "${pkgdir}"/etc/ld.so.conf.d
+    echo -e '/usr/lib/fglrx/' > "${pkgdir}"/etc/ld.so.conf.d/00-fglrx.conf
 }
 
 package_opencl-catalyst() {

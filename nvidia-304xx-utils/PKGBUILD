@@ -5,7 +5,7 @@
 pkgbase=nvidia-304xx-utils
 pkgname=('nvidia-304xx-utils' 'opencl-nvidia-304xx' 'mhwd-nvidia-304xx')
 pkgver=304.134
-pkgrel=6
+pkgrel=7
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -91,7 +91,8 @@ package_nvidia-304xx-utils() {
     ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.1"	# X doesn't find glx otherwise
     ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so"	# X doesn't find glx otherwise
     # We have to provide symlinks to mesa, as nvidia 304xx doesn't ship them
-    ln -s "/usr/lib/libGLX_mesa.so.0.0.0" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
+    #ln -s "/usr/lib/libGLX_mesa.so.0.0.0" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
+    ln -s "nvidia/xorg/libglx.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
 
     # OpenGL library
     install -D -m755 "libGL.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/libGL.so.${pkgver}"
@@ -149,7 +150,10 @@ package_nvidia-304xx-utils() {
 
     create_links
 
+    install -dm 755 "${pkgdir}"/etc/ld.so.conf.d
+    echo -e '/usr/lib/nvidia/' > "${pkgdir}"/etc/ld.so.conf.d/00-nvidia.conf
+
     # clean-up
-    rm "${pkgdir}"/usr/lib/libGLX_mesa.so*
+    #rm "${pkgdir}"/usr/lib/libGLX_mesa.so*
 }
 
