@@ -1,0 +1,21 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <artoo@manjaro.org>
+# Contributor: anex <assassin.anex[@]gmail.com>
+
+
+pkgname=grub-theme-live
+pkgver=17.0.1
+pkgrel=1
+pkgdesc='Manjaro Linux grub theme for install media'
+arch=('any')
+url="https://github.com/manjaro/grub-theme"
+license=('GPL')
+depends=('grub')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+package() {
+	cd grub-theme
+	make PREFIX=/usr DESTDIR=${pkgdir} install
+}
