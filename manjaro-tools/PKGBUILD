@@ -6,7 +6,7 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-pkg'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
@@ -15,7 +15,7 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('193dc2201ed59b5d72f89ede7ebae2e094334f85e15b8cb6327d998bb67d3718')
+sha256sums=('f26b65120c1a9a874d76d70756c4152c9091f0edb8e70bc2b679d5028aaa9805')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
@@ -60,7 +60,8 @@ package_manjaro-tools-yaml() {
 
 package_manjaro-tools-iso() {
     pkgdesc='Development tools for Manjaro Linux (ISO tools)'
-    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml' 'mkinitcpio' 'mktorrent')
+    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml'
+            'mkinitcpio' 'mktorrent' 'grub')
     optdepends=('qemu: quickly test isos')
 
 	cd ${srcdir}/${pkgbase}-${pkgver}
