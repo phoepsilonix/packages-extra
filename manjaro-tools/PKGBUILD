@@ -7,21 +7,25 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
 pkgver=0.15.1
-pkgrel=1
+pkgrel=2
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('f26b65120c1a9a874d76d70756c4152c9091f0edb8e70bc2b679d5028aaa9805')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "fix-systemd-boot-args.patch::${url}/commit/722450350ee649d5d6df7e89637b63f412c465b8.patch")
+sha256sums=('f26b65120c1a9a874d76d70756c4152c9091f0edb8e70bc2b679d5028aaa9805'
+            'f00e69776b4f07a80353ae230fa6c22123f9994d69c24807cf6199aa5e387ba9')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
     #sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
     sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
+
+    patch -Np 1 -i ${srcdir}/fix-systemd-boot-args.patch
 }
 
 build() {
