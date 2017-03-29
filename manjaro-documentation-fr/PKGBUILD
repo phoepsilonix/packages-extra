@@ -1,9 +1,9 @@
 # Maintainer: Manuel Barrette (manb[at]manjaro[dot]org)
 # Contributor: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
 
-pkgname=('manjaro-documentation-en')
+pkgname=('manjaro-documentation-fr')
 pkgver=20170326
-_gitcommit=c4892f38aecd13332bdb3d0b8bb7dd05714748e4
+_gitcommit=98411b4ae524a147432b1e0a2d53bd34b63f3350
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
@@ -11,9 +11,9 @@ makedepends=('ghostscript' 'lyx' 'python2' 'texlive-core' 'texlive-latexextra' '
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz"
 	'manjaro-documentation'
 	'manjaro-documentation.desktop')
-sha256sums=('e64b4bba6f1f5ab13558109022533f63d64707c7ad52098f3726d7b17cc92bd9'
-            'b122d1f817d60b5a18b2bb404d54c2267307b6bb0c215fc897c58cc81226a80e'
-            '51b209d9da5bb7d7a6b88abe097702b603c9bcfea340753187221a12955a92dd')
+sha256sums=('96038373ba21e10f40d24697fc9234b7b08803e25f6d5b1ddaf96cd0cfc905f2'
+            '5ba5683ccd86e939e88b3f42a3c0fb492fb6d5330e8522abc4800853dc71af70'
+            'cfdc3cc5fb759b835f2cb9bca830ea0ea48b4ab98b58867c0420930e890d74c6')
 
 prepare() {
   cd ${srcdir}/manjaro-user-guide-$_gitcommit
@@ -27,13 +27,12 @@ prepare() {
 }
 
 package() {
-  pkgdesc="Manjaro Beginner User Guide in English"
+  pkgdesc="Manjaro Beginner User Guide in French"
   license=('CC-BY-SA 4.0')
   provides=("manjaro-documentation=$pkgver")
-  replaces=('manjaro-documentation')
   conflicts=('manjaro-documentation')
   install -Dm644 "$srcdir/manjaro-user-guide-$_gitcommit/manjaro-user-guide-printer.pdf" \
-  	"$pkgdir/usr/share/doc/livecd/Beginner_User_Guide.pdf"
-  install -Dm755 manjaro-documentation "$pkgdir/usr/bin/manjaro-documentation"
-  install -Dm644 manjaro-documentation.desktop "$pkgdir/usr/share/applications/manjaro-documentation.desktop"
+  	"$pkgdir/usr/share/doc/livecd/Beginner_User_Guide_Fr.pdf"
+  install -Dm755 manjaro-documentation "$pkgdir/usr/bin/manjaro-documentation-fr"
+  install -Dm644 manjaro-documentation.desktop "$pkgdir/usr/share/applications/manjaro-documentation-fr.desktop"
 }

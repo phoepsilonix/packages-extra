@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xdg-open '/usr/share/doc/livecd/Beginner_User_Guide_Fr.pdf'
