@@ -1,18 +1,17 @@
 # Maintainer: Manuel Barrette (manb[at]manjaro[dot]org)
 # Contributor: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
 
-pkgbase=manjaro-documentation
-pkgname=('manjaro-documentation')
-pkgver=20170319
-_gitcommit=1eaba69212cd79edfcc4757b523e05cb13ce9cc4
-pkgrel=2
+pkgname=('manjaro-documentation-en')
+pkgver=20170326
+_gitcommit=c4892f38aecd13332bdb3d0b8bb7dd05714748e4
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
 makedepends=('ghostscript' 'lyx' 'python2' 'texlive-core' 'texlive-latexextra' 'texlive-pictures' 'ttf-comfortaa')
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz"
 	'manjaro-documentation'
 	'manjaro-documentation.desktop')
-sha256sums=('f381a9d17016f0100dbf451310910ecfb87befd51bea883c3c761dcbb5657a70'
+sha256sums=('e64b4bba6f1f5ab13558109022533f63d64707c7ad52098f3726d7b17cc92bd9'
             'b122d1f817d60b5a18b2bb404d54c2267307b6bb0c215fc897c58cc81226a80e'
             '51b209d9da5bb7d7a6b88abe097702b603c9bcfea340753187221a12955a92dd')
 
@@ -28,8 +27,11 @@ prepare() {
 }
 
 package() {
-  pkgdesc="Manjaro Beginner User Guide"
+  pkgdesc="Manjaro Beginner User Guide in English"
   license=('CC-BY-SA 4.0')
+  provides=("manjaro-documentation=$pkgver")
+  replaces=('manjaro-documentation')
+  conflicts=('manjaro-documentation')
   install -Dm644 "$srcdir/manjaro-user-guide-$_gitcommit/manjaro-user-guide-printer.pdf" \
   	"$pkgdir/usr/share/doc/livecd/Beginner_User_Guide.pdf"
   install -Dm755 manjaro-documentation "$pkgdir/usr/bin/manjaro-documentation"

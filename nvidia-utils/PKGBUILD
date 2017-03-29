@@ -5,7 +5,7 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=375.39
-pkgrel=8
+pkgrel=9
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -97,7 +97,7 @@ package_nvidia-utils() {
     ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so.1"	# X doesn't find glx otherwise
     ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so"	# X doesn't find glx otherwise
     install -D -m755 "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_nvidia.so.${pkgver}"
-    ln -s "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
+    #ln -s "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
 
     # Wayland
     install -D -m755 "libnvidia-egl-wayland.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.${pkgver}"

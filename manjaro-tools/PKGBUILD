@@ -7,7 +7,7 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
 pkgver=0.15.1
-pkgrel=4
+pkgrel=5
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
@@ -15,9 +15,17 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        "fix-systemd-boot-args.patch::${url}/commit/722450350ee649d5d6df7e89637b63f412c465b8.patch")
+        "fix-systemd-boot-args.patch::${url}/commit/722450350ee649d5d6df7e89637b63f412c465b8.patch"
+        "split-out-chroot-part.patch::${url}/commit/acf439224760c5c9ca54e4e9f6d80592bbe5a0d2.patch"
+        "move-config-grub.patch::${url}/commit/bb943b47a1c47b9100a6cea64a3fb96d24b976b9.patch"
+        "add-efi-part-args-to-xorriso.patch::${url}/commit/9a017a4ce915e990961ebb93a657f1ecd59cf522.patch"
+        "copy-new-grub-video-dir.patch::${url}/commit/8db403183eaaeb8b4d096ef5e492f865f955c728.patch")
 sha256sums=('f26b65120c1a9a874d76d70756c4152c9091f0edb8e70bc2b679d5028aaa9805'
-            'f00e69776b4f07a80353ae230fa6c22123f9994d69c24807cf6199aa5e387ba9')
+            'f00e69776b4f07a80353ae230fa6c22123f9994d69c24807cf6199aa5e387ba9'
+            '967f9f49bba842ef2f3e90ab45da3f1692168293247bf926c7d6daaab87865a2'
+            '54760a1a0d58add9f7e7a527ae19878741b188de456966e9f0c2a20962352bf9'
+            '2854f0feebda891cd170f34ddfae5053a347cddc7ec3c39c147ab27081ca5bd2'
+            'c52c9d417aabe42be3171e4572f4fc163399a8fc5f9caff531ec770e9ac94329')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
@@ -26,6 +34,10 @@ prepare() {
     sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
 
     patch -Np 1 -i ${srcdir}/fix-systemd-boot-args.patch
+    patch -Np 1 -i ${srcdir}/split-out-chroot-part.patch
+    patch -Np 1 -i ${srcdir}/move-config-grub.patch
+    patch -Np 1 -i ${srcdir}/add-efi-part-args-to-xorriso.patch
+    patch -Np 1 -i ${srcdir}/copy-new-grub-video-dir.patch
 }
 
 build() {
