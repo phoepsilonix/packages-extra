@@ -3,9 +3,9 @@
 # Contributor: Jakub Schmidtke <sjakub@gmail.com>
 
 pkgname=firefox
-pkgver=52.0.1
-_pkgver=2
-pkgrel=2.2
+pkgver=52.0.2
+_pkgver=1
+pkgrel=1.1
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
@@ -17,8 +17,8 @@ optdepends=('networkmanager: Location detection via available WiFi networks'
             'speech-dispatcher: Text-to-Speech')
 source_x86_64=("http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgver-x86_64.pkg.tar.xz")
 source_i686=("http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgver-i686.pkg.tar.xz")
-md5sums_i686=('285451904927c0e6b183e2b68be1725a')
-md5sums_x86_64=('36327c6af80df933bb77588f9e45e414')
+md5sums_i686=('56ac932a4081cc3928325be95bd4ab39')
+md5sums_x86_64=('a41716bc2e630ed704dd35e3c296fecc')
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
