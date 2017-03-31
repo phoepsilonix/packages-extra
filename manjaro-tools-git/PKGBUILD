@@ -2,7 +2,7 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 _pkgbase=manjaro-tools
-_ver=0.15.0
+_ver=0.15.2
 _branch=master
 
 pkgbase=manjaro-tools-git
@@ -75,7 +75,8 @@ package_manjaro-tools-yaml-git() {
 package_manjaro-tools-iso-git() {
     pkgdesc='Development tools for Manjaro Linux (ISO tools)'
 	provides=("manjaro-tools-iso=$_ver")
-    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml-git' 'mkinitcpio' 'mktorrent')
+    depends=('dosfstools' 'libisoburn' 'squashfs-tools' 'manjaro-tools-yaml-git'
+            'mkinitcpio' 'mktorrent' 'grub')
 	conflicts=('manjaro-tools-iso')
     optdepends=('qemu: quickly test isos')
 
