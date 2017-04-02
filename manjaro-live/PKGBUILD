@@ -8,9 +8,10 @@ pkgbase=manjaro-live
 pkgname=('manjaro-live-base'
 	'manjaro-live-openrc'
 	'manjaro-live-systemd'
-	'manjaro-live-skel')
-pkgver=20170331
-pkgrel=2
+	'manjaro-live-skel'
+	'manjaro-live-portable-efi')
+pkgver=20170402
+pkgrel=1
 pkgdesc='Manjaro Linux live session'
 arch=('any')
 url="https://github.com/manjaro/manjaro-tools-livecd"
@@ -63,4 +64,13 @@ package_manjaro-live-skel() {
 
 	cd ${srcdir}/${_repo} #-${pkgver}
 	make PREFIX=/usr SYSCONFDIR=/etc DESTDIR=${pkgdir} install_xdg
+}
+
+
+package_manjaro-live-portable-efi() {
+	pkgdesc='Manjaro Linux live session portable efi settings'
+    depends=('grub')
+
+	cd ${srcdir}/${_repo} #-${pkgver}
+	make PREFIX=/usr SYSCONFDIR=/etc DESTDIR=${pkgdir} install_portable_efi
 }
