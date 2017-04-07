@@ -6,7 +6,7 @@
 pkgbase=grub-theme-live
 pkgname=('grub-theme-live-common' 'grub-theme-live-manjaro' 'grub-theme-live-sonar')
 pkgver=17.0.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Manjaro Linux grub theme for install media'
 arch=('any')
 url="https://github.com/manjaro/grub-theme"

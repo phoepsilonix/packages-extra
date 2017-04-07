@@ -1,0 +1,37 @@
+# $Id$
+# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Alexander Baldeck <alexander@archlinux.org>
+# Contributor: Dale Blount <dale@archlinux.org>
+# Contributor: Anders Bostrom <anders.bostrom@home.se>
+
+pkgname=thunderbird
+pkgver=52.0
+pkgrel=1.1
+_pkgrel=1
+pkgdesc="Standalone mail and news reader from mozilla.org"
+arch=(i686 x86_64)
+license=(MPL GPL LGPL)
+url="https://www.mozilla.org/thunderbird/"
+depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
+         libvpx libevent nss hunspell sqlite ttf-font icu)
+optdepends=('libcanberra: sound support')
+source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
+source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
+sha256sums_i686=('6b43992036af6f28e476da2c12092c7bac4c2288aa1b5f3bbec134fb130b438c')
+sha256sums_x86_64=('4fe8ee36154c493b9cf7366db7ea7ad792bdbf29011a038229efec6d55b9ab3e')
+
+prepare() {
+  rm -rf $srcdir/usr/lib/firefox/distribution
+}
+
+package() {
+  cp -r $srcdir/usr $pkgdir
+  _distini="$pkgdir/usr/lib/thunderbird/distribution/distribution.ini"
+  install -Dm644 /dev/stdin "$_distini" <<END
+[Global]
+id=Manjaro
+version=Rolling
+about=Mozilla Thunderbird for Manjaro
+END
+}
