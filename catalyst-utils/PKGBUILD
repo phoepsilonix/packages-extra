@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=9
+pkgrel=10
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -117,8 +117,8 @@ package_catalyst-utils() {
     ln -s libEGL.so.1.0.0      "${pkgdir}/usr/lib/fglrx/libEGL.so"
 
     ln -s /usr/lib/libGLESv1_CM.so.1.0.0 "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so.1.0.0"
-    ln -s libGLESv1_CM.so.1.1.0      "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so.1"
-    ln -s libGLESv1_CM.so.1.1.0      "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so"
+    ln -s libGLESv1_CM.so.1.0.0      "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so.1"
+    ln -s libGLESv1_CM.so.1.0.0      "${pkgdir}/usr/lib/fglrx/libGLESv1_CM.so"
 
     ln -s /usr/lib/libGLESv2.so.2.0.0 "${pkgdir}/usr/lib/fglrx/libGLESv2.so.2.0.0"
     ln -s libGLESv2.so.2.0.0      "${pkgdir}/usr/lib/fglrx/libGLESv2.so.2"
