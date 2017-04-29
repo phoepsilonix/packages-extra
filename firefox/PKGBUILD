@@ -4,8 +4,8 @@
 
 pkgname=firefox
 pkgver=53.0
-_pkgver=1
-pkgrel=1
+_pkgrel=2
+pkgrel=2
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
@@ -15,10 +15,10 @@ depends=(gtk3 gtk2 manjaro-browser-settings mozilla-common libxt startup-notific
 optdepends=('networkmanager: Location detection via available WiFi networks'
             'libnotify: Notification integration'
             'speech-dispatcher: Text-to-Speech')
-source_x86_64=("http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgver-x86_64.pkg.tar.xz")
-source_i686=("http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgver-i686.pkg.tar.xz")
-md5sums_i686=('08e5349408d04773361c8de493a5bf9c')
-md5sums_x86_64=('821978f763fac9115d4c43b8b944d341')
+source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
+source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
+md5sums_i686=('f17c2bd1a0cbe9ff6af96d5f3543aae1')
+md5sums_x86_64=('28c5726d46282f67f272cd6afc632f5c')
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
