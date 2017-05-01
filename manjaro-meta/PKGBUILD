@@ -55,6 +55,7 @@ package_manjaro-printer() {
 		"cups-pk-helper"
 		"ghostscript"
 		"gsfonts"
+		"gutenprint"
 		"hplip"
 		"python-gobject"
 		"python-pyqt5"
