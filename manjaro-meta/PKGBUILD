@@ -5,7 +5,6 @@ pkgbase=manjaro-meta
 arch=('i686' 'x86_64')
 pkgname=('manjaro-alsa'
 	 'manjaro-pulse'
-         'manjaro-printer'
 )
 
 pkgver=2015.06
@@ -47,18 +46,3 @@ package_manjaro-pulse() {
 			'pnmixer-xfce4: GTK volume mixer applet that runs in the system tray')
 }
 
-package_manjaro-printer() {
-	pkgdesc="Manjaro Printer support (Meta-PKG)"
-#	arch=('any')
-	depends=("cups"
-		"cups-pdf"
-		"cups-pk-helper"
-		"ghostscript"
-		"gsfonts"
-		"gutenprint"
-		"hplip"
-		"python-gobject"
-		"python-pyqt5"
-		"splix"
-		"system-config-printer")
-}
