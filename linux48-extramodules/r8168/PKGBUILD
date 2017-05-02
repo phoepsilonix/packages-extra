@@ -11,7 +11,7 @@ _linuxprefix=linux48
 _extramodules=extramodules-4.8-MANJARO
 pkgname=$_linuxprefix-r8168
 _pkgname=r8168
-pkgver=8.043.02
+pkgver=8.044.02
 pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
@@ -21,17 +21,9 @@ depends=('glibc' "$_linuxprefix")
 makedepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
-source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz" kernel-47.patch)
-sha256sums=('ea22aa1dfda20615f5e114f982f7e61385f871f682eea0c154245760a439abc4'
-            'ab9bda30f23cb1fa932c637b67e987de3a981a82cbcc71eccbd212b26d293dd3')
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
+sha256sums=('aad7bccc4f625c35abe0455b2a6271e9938b76b46e11b24b4f138eb5c95db6d3')
 install=$_pkgname.install
-
-prepare() {
-    # https://github.com/torvalds/linux/commit/a188222b6ed29404ac2d4232d35d1fe0e77af370
-    sed -i 's|NETIF_F_ALL_CSUM|NETIF_F_CSUM_MASK|g' "$_pkgname-$pkgver"/src/r8168_n.c
-    cd "$_pkgname-$pkgver"
-    patch -p1 -i "${srcdir}/kernel-47.patch"
-}
 
 build() {
     _kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
