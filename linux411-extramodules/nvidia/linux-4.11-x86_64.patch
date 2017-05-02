@@ -1,0 +1,106 @@
+--- kernel/nvidia-uvm/uvm_linux.h	2017-02-01 03:50:33.000000000 +0100
++++ kernel/nvidia-uvm/uvm_linux.h	2017-05-02 09:34:37.808111668 +0200
+@@ -58,6 +58,8 @@
+ 
+ #include <linux/percpu.h>
+ 
++#include <linux/sched/signal.h>
++
+ #if defined(NV_LINUX_PRINTK_H_PRESENT)
+ #include <linux/printk.h>
+ #endif
+@@ -206,18 +208,6 @@
+     void address_space_init_once(struct address_space *mapping);
+ #endif
+ 
+-#if !defined(NV_FATAL_SIGNAL_PENDING_PRESENT)
+-    static inline int __fatal_signal_pending(struct task_struct *p)
+-    {
+-        return unlikely(sigismember(&p->pending.signal, SIGKILL));
+-    }
+-
+-    static inline int fatal_signal_pending(struct task_struct *p)
+-    {
+-        return signal_pending(p) && __fatal_signal_pending(p);
+-    }
+-#endif
+-
+ // Develop builds define DEBUG but enable optimization
+ #if defined(DEBUG) && !defined(NVIDIA_UVM_DEVELOP)
+   // Wrappers for functions not building correctly without optimizations on,
+--- kernel/nvidia-uvm/uvm8.c	2017-02-01 03:50:33.000000000 +0100
++++ kernel/nvidia-uvm/uvm8.c	2017-05-02 09:39:43.093316430 +0200
+@@ -99,7 +99,7 @@ static void uvm_destroy_vma_semaphore_po
+ // If a fault handler is not set, paths like handle_pte_fault in older kernels
+ // assume the memory is anonymous. That would make debugging this failure harder
+ // so we force it to fail instead.
+-static int uvm_vm_fault_sigbus(struct vm_area_struct *vma, struct vm_fault *vmf)
++static int uvm_vm_fault_sigbus(struct vm_fault *vmf)
+ {
+     UVM_DBG_PRINT_RL("Fault to address 0x%lx in disabled vma\n", nv_page_fault_va(vmf));
+     vmf->page = NULL;
+@@ -311,7 +311,7 @@ static void uvm_vm_close_managed(struct
+         uvm_record_unlock_mmap_sem_write(&current->mm->mmap_sem);
+ }
+ 
+-static int uvm_vm_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
++static int uvm_vm_fault(struct vm_fault *vmf)
+ {
+     uvm_va_space_t *va_space = uvm_va_space_get(vma->vm_file);
+     uvm_va_block_t *va_block;
+@@ -313,7 +313,7 @@ static void uvm_vm_close_managed(struct
+ 
+ static int uvm_vm_fault(struct vm_fault *vmf)
+ {
+-    uvm_va_space_t *va_space = uvm_va_space_get(vma->vm_file);
++    uvm_va_space_t *va_space = uvm_va_space_get(vmf->vma->vm_file);
+     uvm_va_block_t *va_block;
+     NvU64 fault_addr = nv_page_fault_va(vmf);
+     bool is_write = vmf->flags & FAULT_FLAG_WRITE;
+@@ -327,7 +327,7 @@ static int uvm_vm_fault(struct vm_area_s
+     // The mmap_sem might be held in write mode, but the mode doesn't matter for
+     // the purpose of lock ordering and we don't rely on it being in write
+     // anywhere so just record it as read mode in all cases.
+-    uvm_record_lock_mmap_sem_read(&vma->vm_mm->mmap_sem);
++    uvm_record_lock_mmap_sem_read(&vmf->vma->vm_mm->mmap_sem);
+ 
+     do {
+         if (status == NV_WARN_MORE_PROCESSING_REQUIRED) {
+@@ -357,7 +357,7 @@ static int uvm_vm_fault(struct vm_area_s
+         }
+ 
+         // Watch out, current->mm might not be vma->vm_mm
+-        UVM_ASSERT(vma == uvm_va_range_vma(va_block->va_range));
++        UVM_ASSERT(vmf->vma == uvm_va_range_vma(va_block->va_range));
+ 
+         // Loop until thrashing goes away.
+         status = uvm_va_block_cpu_fault(va_block, fault_addr, is_write, &gpus_to_check_for_ecc);
+@@ -379,7 +379,7 @@ out:
+         uvm_gpu_retain_mask(&gpus_to_check_for_ecc);
+ 
+     uvm_va_space_up_read(va_space);
+-    uvm_record_unlock_mmap_sem_read(&vma->vm_mm->mmap_sem);
++    uvm_record_unlock_mmap_sem_read(&vmf->vma->vm_mm->mmap_sem);
+ 
+     if (status == NV_OK) {
+         uvm_gpu_t *gpu;
+--- kernel/nvidia-uvm/uvm8_gpu_page_fault.c
++++ kernel/nvidia-uvm/uvm8_gpu_page_fault.c
+@@ -270,7 +270,7 @@
+ 
+ void uvm_gpu_replayable_faults_isr_unlock(uvm_gpu_t *gpu)
+ {
+-    UVM_ASSERT(atomic_read(&gpu->gpu_kref.refcount) > 0);
++    UVM_ASSERT(atomic_read(&(gpu->gpu_kref.refcount.refs)) > 0);
+ 
+     uvm_spin_lock_irqsave(&gpu->isr.replayable_faults.interrupts_lock);
+ 
+--- kernel/nvidia-uvm/uvm_common.c	2017-02-01 03:50:33.000000000 +0100
++++ kernel/nvidia-uvm/uvm_common.c	2017-05-02 11:19:39.373384801 +0200
+@@ -388,5 +388,5 @@ module_param(uvm_enable_builtin_tests, i
+ MODULE_PARM_DESC(uvm_enable_builtin_tests,
+                  "Enable the UVM built-in tests. (This is a security risk)");
+ 
+-MODULE_LICENSE("MIT");
++MODULE_LICENSE("Dual MIT/GPL");
+ MODULE_INFO(supported, "external");
