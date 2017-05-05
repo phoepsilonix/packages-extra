@@ -14,7 +14,7 @@ cd ../../linux318*/*nvidia
 makepkg -df
 #cd ../../linux319*/*nvidia
 #makepkg -df
-cd ../../linux41*/*nvidia
+cd ../../linux41-*/*nvidia
 makepkg -df
 #cd ../../linux42*/*nvidia
 #makepkg -df
@@ -31,4 +31,6 @@ makepkg -df
 cd ../../linux49*/*nvidia
 makepkg -df
 cd ../../linux410*/*nvidia
+makepkg -df
+cd ../../linux411*/*nvidia
 makepkg -df

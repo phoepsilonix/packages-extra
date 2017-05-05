@@ -9,8 +9,8 @@ _linuxprefix=linux318
 _extramodules=extramodules-3.18-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=375.39
-pkgrel=4
+pkgver=375.66
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -28,8 +28,8 @@ durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 #source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums_i686=('7f33f6572c5c5c57df71531749c7339309a2097918375685ea8018826cf19456')
-sha256sums_x86_64=('95a3221292f357fbd77697b9bb78d1694def5761202f695ef2065c61efb2ddd8')
+sha256sums_i686=('29220e249a308f89c2a6fa48be6a0009d58f082d07d3fedfbf4ab0015559f14c')
+sha256sums_x86_64=('26f3133dd053835c35fb27b04fccd3a3bb4f18bbbacb5e4bf89c40d142cab397')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 #[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"

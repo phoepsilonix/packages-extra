@@ -9,8 +9,8 @@ _linuxprefix=linux410
 _extramodules=extramodules-4.10-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=375.39
-pkgrel=12
+pkgver=375.66
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -24,13 +24,10 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=("linux-4.10-rc1.patch")
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
-source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run" "linux-4.10-rc1-x86_64.patch")
-md5sums=('40f62d56af04e327869f608efef60fd4')
-md5sums_i686=('9247d5eb9df58bb7755c9060ef5d103d')
-md5sums_x86_64=('3541e67b444f020b89bcad8334be6d65'
-                'a9a942ea0f452057cba7c46670758d01')
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+sha256sums_i686=('29220e249a308f89c2a6fa48be6a0009d58f082d07d3fedfbf4ab0015559f14c')
+sha256sums_x86_64=('26f3133dd053835c35fb27b04fccd3a3bb4f18bbbacb5e4bf89c40d142cab397')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -39,12 +36,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -p1 -i "$srcdir/linux-4.10-rc1.patch"
-    if [[ "$CARCH" = "x86_64" ]];
-       then patch -p1 -i "$srcdir/linux-4.10-rc1-x86_64.patch"
-    else
-       sed -i -e 's|return (unsigned long)(uintptr_t)(vmf->virtual_address);|return vmf->address;|' kernel/common/inc/nv-mm.h
-    fi
 }
 
 build() {
