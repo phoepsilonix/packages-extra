@@ -4,24 +4,36 @@ pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
 pkgver=4.3.4
 _pkgver=4.3.4
-pkgrel=1
+pkgrel=5
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
 depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.22'
          'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4')
-makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
+makedepends=('gettext' 'itstool' 'vala>=0.36' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz")
-sha256sums=('4befca2d0f93665bfa6ddf4551fefc1f2e7f9f1ce446411e4555569752ee5d0b')
+source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
+        "fix-aur-only-build.patch::https://github.com/manjaro/pamac/commit/3f963bf4e669ad16eb558e27957ec88ced5e2592.patch"
+        "dont-force-CSD-dialogs.patch::https://github.com/manjaro/pamac/commit/974cfe15acb3689f601c2b84c1a77ba95d08e006.patch"
+        "fix-writing-of-pacman-mirrors.conf.patch::https://github.com/manjaro/pamac/commit/61f04da9a2372320fd22a75e9bc1e316d166ceb5.patch"
+        "adopt-vala-gtk-bindings.patch::https://github.com/manjaro/pamac/commit/2aaf2f7ecf1aae06e5085a7a7b04e7eedf302137.patch")
+sha256sums=('4befca2d0f93665bfa6ddf4551fefc1f2e7f9f1ce446411e4555569752ee5d0b'
+            '2fc7c3fff96a8703a0e96c060ea89a757108fec10a63502468eee759649884af'
+            'fb08755890ce3e992ecb69ed683a1f2e978edf251f00aea10032362a2ac79c0e'
+            '626ea3c3f6025056497d8f33d43951ec666288d74b9a15ce97b9183fe9c7262f'
+            'bf17aa030dab0be3df3537a4ed8e312ea59bcc8cc64eb9756cfc212191009aa1')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
   sed -i -e "s|\"$pkgver\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala
   # patches here
+  patch -p1 -i $srcdir/fix-aur-only-build.patch
+  patch -p1 -i $srcdir/dont-force-CSD-dialogs.patch
+  patch -p1 -i $srcdir/fix-writing-of-pacman-mirrors.conf.patch
+  patch -p1 -i $srcdir/adopt-vala-gtk-bindings.patch
 }
 
 build() {

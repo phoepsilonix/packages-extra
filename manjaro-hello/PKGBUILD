@@ -2,7 +2,7 @@
 # Author: Hugo Posnic <huluti@manjaro.org>
 
 pkgname=manjaro-hello
-pkgver=0.4.18
+pkgver=0.4.20
 pkgrel=1
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
 url="https://github.com/manjaro/$pkgname"

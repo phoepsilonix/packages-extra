@@ -11,7 +11,7 @@ pkgbase=ndiswrapper
 pkgname=('linux318-ndiswrapper' 'ndiswrapper-utils')
 groups=('linux318-extramodules')
 pkgver=1.61
-pkgrel=6
+pkgrel=7
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -60,7 +60,7 @@ package_linux318-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=6
+  pkgrel=7
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"
 }
