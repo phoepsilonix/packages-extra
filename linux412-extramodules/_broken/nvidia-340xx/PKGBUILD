@@ -1,0 +1,80 @@
+# Based on the file created for Arch Linux by:
+# Maintainer : Thomas Baechler <thomas@archlinux.org>
+
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
+
+_linuxprefix=linux412
+_extramodules=extramodules-4.12-MANJARO
+pkgname=$_linuxprefix-nvidia-340xx
+_pkgname=nvidia
+pkgver=340.101
+pkgrel=0
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+pkgdesc="NVIDIA drivers for linux."
+arch=('i686' 'x86_64')
+url="http://www.nvidia.com/"
+depends=("$_linuxprefix" "nvidia-340xx-utils=${pkgver}")
+makedepends=("$_linuxprefix-headers")
+conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia" "$_linuxprefix-nvidia-304xx")
+license=('custom')
+install=nvidia.install
+options=(!strip)
+source=('nvidia-3.18.patch' 'linux49.patch' 'linux410.patch' 'linux411.patch' 'linux412.patch')
+source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
+source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+md5sums=('79671a27131da619a33eb02ed0c2c031'
+         '04092c500e507ada8644337d99f4d903'
+         '0cf816448e8efa150e146021a3890501'
+         '84ad7814274d28a7e3df2c76d33e658f'
+         'ccad4e41b2eb5257e95b6f63981b8272')
+md5sums_i686=('b2b33b50cf375ccba7d3b959b9f509ec')
+md5sums_x86_64=('dd1a25ab34b7855d533474f3e8f3e868')
+
+[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+
+prepare() {
+    sh "${_pkg}.run" --extract-only
+    cd "${_pkg}"
+    # patches here
+    # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
+    patch -Np0 -i ${srcdir}/nvidia-3.18.patch
+
+    # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+    # get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
+    sed -i 's|page_cache_release|put_page|g' kernel/os-mlock.c
+    sed -i 's|get_user_pages(current, mm, |get_user_pages(|g' kernel/os-mlock.c
+
+    # Fix "already registered" problem with 4.9
+    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux49.patch)
+
+    # Fix compile problem with 4.10
+    (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/linux410.patch)
+
+    # Fix compile problem with 4.11
+    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux411.patch)
+
+    # Fix compile problem with 4.12
+    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux412.patch)
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+    cd "${_pkg}"/kernel
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+
+    cd uvm
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+}
+
+package() {
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    install -D -m644 "${srcdir}/${_pkg}/kernel/uvm/nvidia-uvm.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+}

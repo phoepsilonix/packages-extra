@@ -1,0 +1,26 @@
+DKMS make.log for broadcom-wl-6.30.223.271 for kernel 4.12.0-1-MANJARO (x86_64)
+Sun May 14 13:45:13 CEST 2017
+make: Entering directory '/usr/lib/modules/4.12.0-1-MANJARO/build'
+CFG80211 API is prefered for this kernel version
+Using CFG80211 API
+  LD      /home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/built-in.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/shared/linux_osl.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_linux.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_iw.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_cfg80211_hybrid.o
+/home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_cfg80211_hybrid.c:1795:25: error: initialization from incompatible pointer type [-Werror=incompatible-pointer-types]
+  .change_virtual_intf = wl_cfg80211_change_iface,
+                         ^~~~~~~~~~~~~~~~~~~~~~~~
+/home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_cfg80211_hybrid.c:1795:25: note: (near initialization for 'wl_cfg80211_ops.change_virtual_intf')
+/home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_linux.c: In function 'wl_pci_probe':
+/home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_linux.c:773:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  if ((val & 0x0000ff00) != 0)
+  ^~
+/home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_linux.c:775:3: note: ...this statement, but the latter is misleadingly indented as if it is guarded by the 'if'
+   bar1_size = pci_resource_len(pdev, 2);
+   ^~~~~~~~~
+cc1: some warnings being treated as errors
+make[1]: *** [scripts/Makefile.build:302: /home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build/src/wl/sys/wl_cfg80211_hybrid.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1512: _module_/home/phil/dev/git/manjaro/repositories/extra/linux412-extramodules/_broken/broadcom-wl/src/dkms/broadcom-wl/6.30.223.271/build] Error 2
+make: Leaving directory '/usr/lib/modules/4.12.0-1-MANJARO/build'
