@@ -10,7 +10,7 @@ _extramodules=extramodules-4.11-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=375.66
-pkgrel=0.4
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -24,10 +24,8 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=('linux-4.11.patch')
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('b3a42a65ee1b6468418f5fd7bf3e4f20ac6e2e8075db747275fcd58cff1ec66c')
 sha256sums_i686=('29220e249a308f89c2a6fa48be6a0009d58f082d07d3fedfbf4ab0015559f14c')
 sha256sums_x86_64=('26f3133dd053835c35fb27b04fccd3a3bb4f18bbbacb5e4bf89c40d142cab397')
 
@@ -38,7 +36,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -p1 -i "$srcdir/linux-4.11.patch"
 }
 
 build() {
