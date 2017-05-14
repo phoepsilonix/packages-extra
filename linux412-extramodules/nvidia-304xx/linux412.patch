@@ -1,0 +1,35 @@
+--- a/nv-vtophys.c	2016-12-09 20:30:08.000000000 +0100
++++ b/nv-vtophys.c	2017-05-10 10:05:28.452722808 +0200
+@@ -25,6 +25,7 @@ NvU64 nv_get_phys_address(
+ #else
+     struct mm_struct *mm;
+     pgd_t *pgd = NULL;
++    p4d_t *p4d = NULL;
+     pmd_t *pmd = NULL;
+     pte_t *pte = NULL;
+     NvU64 retval;
+@@ -41,7 +42,7 @@ NvU64 nv_get_phys_address(
+     if (!NV_PGD_PRESENT(pgd))
+         goto failed;
+ 
+-    pmd = NV_PMD_OFFSET(address, pgd);
++    pmd = NV_PMD_OFFSET(address, p4d);
+     if (!NV_PMD_PRESENT(pmd))
+         goto failed;
+ 
+--- a/nv-linux.h	2017-05-10 09:19:05.820789291 +0200
++++ b/nv-linux.h	2017-05-10 10:05:57.656844602 +0200
+@@ -1389,11 +1389,11 @@ typedef void irqreturn_t;
+ #define NV_PMD_UNMAP(pmd) pmd_unmap(pmd);
+ #else
+ #if defined(PUD_SHIFT) /* 4-level pgtable */
+-#define NV_PMD_OFFSET(address, pgd)                     \
++#define NV_PMD_OFFSET(address, p4d)                     \
+    ({                                                   \
+         pmd_t *__pmd = NULL;                            \
+         pud_t *__pud;                                   \
+-        __pud = pud_offset(pgd, address);               \
++        __pud = pud_offset(p4d, address);               \
+         if ((__pud != NULL) &&                          \
+             !(pud_bad(*__pud) || pud_none(*__pud)))     \
+             __pmd = pmd_offset(__pud, address);         \

@@ -1,0 +1,104 @@
+# Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
+# Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
+
+_linuxprefix=linux412
+_extramodules=extramodules-4.12-MANJARO
+pkgbase=$_linuxprefix-spl_zfs
+pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
+pkgver=0.6.5.9
+_pkgver=spl-0.6.5.9
+pkgrel=0
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=("$_linuxprefix" "kmod")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+install=install
+source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        "https://github.com/zfsonlinux/zfs/raw/zfs-0.6.5-release/TEST"
+        'spl-linux-4.11-set_task_state-removed.patch::https://github.com/zfsonlinux/spl/commit/8d5feecacfdcca29336209bdccd6493a5fa53576.patch'
+        'spl-linux-4.11-vfs_getattr-takes-4-args.patch::https://github.com/zfsonlinux/spl/commit/94b1ab2ae01e9ee642aee87dd1a73e8d63629372.patch'
+        'spl-linux-4.11-add-linux-sched-signal.h.patch::https://github.com/zfsonlinux/spl/commit/9a054d54fb6772305fdbe0bb5b312cf051331726.patch'
+        'spl-linux-4.11-remove-stub-for-__put_task_struct.patch::https://github.com/zfsonlinux/spl/commit/bf8abea4dade111bdf3aeae30bd4bd75d49aca70.patch'
+        'spl-linux-4.12-PF_FSTRANS-was-removed.patch' #::https://github.com/zfsonlinux/spl/commit/8f87971e1fd11e3bca034dff2cbc0e884381c350.patch'
+        'zfs-linux-4.11.patch::https://patch-diff.githubusercontent.com/raw/zfsonlinux/zfs/pull/6033.patch'
+        'zfs-linux-4.12-super_setup_bdi_name.patch' #::https://github.com/zfsonlinux/zfs/commit/7dae2c81e7b2e68a596c5b431444be0fae308156.patch'
+        'zfs-linux-4.12-PF_FSTRANS-was-removed.patch' #::https://github.com/zfsonlinux/zfs/commit/e624cd1959904735eda81f1a9a45d99848bb3503.patch'
+        'zfs-linux-4.12-CURRENT_TIME-removed.patch') #::https://github.com/zfsonlinux/zfs/commit/2946a1a15aab874107b4425513c1bf805e730803.patch')
+sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
+            'b724b57dbddae59246fdc15f88f1224061c712945bb36412a2087e0c7760d77f'
+            '54bbbb95e6cd909b2cbc4cdcc88f6e5fa299e62e77d076bfd7bfa7c11f329105'
+            '79849c25dce0b7f87d1c57de4a556669ca1129f7fe7a4410d27cc3a6c7349f0c'
+            '000993bde7720492b32086e567448fdb8d6feea13fabe17e914f18720d593bd3'
+            '3f85cecff6129154aca336018ad33174e9e592b44a82fce58af2861ee2d3daea'
+            '998b3f31f9e7fdd4cd216fcd4cb84c5ea9f46b91760c7cb12ebe4976687543e7'
+            'feeaa8b7e9fe63b5dc427f2bf7fd428db7e60af4f9a8c0c9b60498d081d22e5f'
+            '2cd7f57c46091745e566ee1af2b5119b4ad124daf08df84edc39d2e55a7ecc7a'
+            '11e251995e9e9aae0ccb37e3b578832e57f726031c54833a69d8ce121dc4fa8d'
+            '68d8b06960e14b3359bb4fc21e2686e521ac1f00c7e3c1c6c14de333941dae03'
+            '29c785c7cb44a04f4b9fd765dce503ba7c6b8541091f5d48b13a9f9f50588210')
+
+prepare() {
+  cd "${srcdir}/spl-${_pkgver}"
+  # patches here
+  patch -p1 -i ${srcdir}/spl-linux-4.11-set_task_state-removed.patch
+  patch -p1 -i ${srcdir}/spl-linux-4.11-vfs_getattr-takes-4-args.patch
+  patch -p1 -i ${srcdir}/spl-linux-4.11-add-linux-sched-signal.h.patch
+  patch -p1 -i ${srcdir}/spl-linux-4.11-remove-stub-for-__put_task_struct.patch
+  patch -p1 -i ${srcdir}/spl-linux-4.12-PF_FSTRANS-was-removed.patch
+  cd "${srcdir}/zfs-${pkgver}"
+  # patches here
+  cp ${srcdir}/TEST .
+  patch -p1 -i ${srcdir}/zfs-linux-4.11.patch
+  patch -p1 -i ${srcdir}/zfs-linux-4.12-super_setup_bdi_name.patch
+  patch -p1 -i ${srcdir}/zfs-linux-4.12-PF_FSTRANS-was-removed.patch
+  patch -p1 -i ${srcdir}/zfs-linux-4.12-CURRENT_TIME-removed.patch
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+  cd "${srcdir}/spl-${_pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-config=kernel
+  make
+  cd "${srcdir}/zfs-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
+              --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
+              --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-spl=${srcdir}/spl-${_pkgver}
+  make
+}
+
+package_linux412-spl(){
+  _pkgname=spl
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("spl-utils=${pkgver}")
+
+  cd "${srcdir}/spl-${_pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}
+
+package_linux412-zfs(){
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
+
+  cd "${srcdir}/zfs-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}

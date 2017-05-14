@@ -1,0 +1,56 @@
+From e624cd1959904735eda81f1a9a45d99848bb3503 Mon Sep 17 00:00:00 2001
+From: Chunwei Chen <tuxoko@gmail.com>
+Date: Tue, 9 May 2017 10:38:46 -0700
+Subject: [PATCH] Linux 4.12 compat: PF_FSTRANS was removed
+
+zfsonlinux/spl@8f87971 added __spl_pf_fstrans_check for the xfs related
+check, so we use them accordingly.
+
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Chunwei Chen <david.chen@osnexus.com>
+Closes #6113
+---
+ include/sys/zfs_context.h | 2 +-
+ lib/libzpool/kernel.c     | 2 +-
+ module/zfs/vdev_file.c    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/include/sys/zfs_context.h b/include/sys/zfs_context.h
+index b4f63e1..6163b2f 100644
+--- a/include/sys/zfs_context.h
++++ b/include/sys/zfs_context.h
+@@ -799,7 +799,7 @@ typedef int fstrans_cookie_t;
+ 
+ extern fstrans_cookie_t spl_fstrans_mark(void);
+ extern void spl_fstrans_unmark(fstrans_cookie_t);
+-extern int spl_fstrans_check(void);
++extern int __spl_pf_fstrans_check(void);
+ 
+ #endif /* _KERNEL */
+ #endif	/* _SYS_ZFS_CONTEXT_H */
+diff --git a/lib/libzpool/kernel.c b/lib/libzpool/kernel.c
+index 40b96da..ed9c1a9 100644
+--- a/lib/libzpool/kernel.c
++++ b/lib/libzpool/kernel.c
+@@ -1500,7 +1500,7 @@ spl_fstrans_unmark(fstrans_cookie_t cookie)
+ }
+ 
+ int
+-spl_fstrans_check(void)
++__spl_pf_fstrans_check(void)
+ {
+ 	return (0);
+ }
+diff --git a/module/zfs/vdev_file.c b/module/zfs/vdev_file.c
+index 54a50c3..c5e6452 100644
+--- a/module/zfs/vdev_file.c
++++ b/module/zfs/vdev_file.c
+@@ -200,7 +200,7 @@ vdev_file_io_start(zio_t *zio)
+ 			 * already set, see xfs_vm_writepage().  Therefore
+ 			 * the sync must be dispatched to a different context.
+ 			 */
+-			if (spl_fstrans_check()) {
++			if (__spl_pf_fstrans_check()) {
+ 				VERIFY3U(taskq_dispatch(system_taskq,
+ 				    vdev_file_io_fsync, zio, TQ_SLEEP), !=, 0);
+ 				return;
