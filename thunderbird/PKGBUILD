@@ -6,7 +6,7 @@
 # Contributor: Anders Bostrom <anders.bostrom@home.se>
 
 pkgname=thunderbird
-pkgver=52.1.0
+pkgver=52.1.1
 pkgrel=1
 _pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
@@ -18,8 +18,8 @@ depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-gli
 optdepends=('libcanberra: sound support')
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
 source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
-md5sums_i686=('890489552294bdcf4c15d3a54d1fed4e')
-md5sums_x86_64=('d7c6313de4f2c4922bfc1c31535edcad')
+md5sums_i686=('67647a85fc2b3e3d83e392d790839a15')
+md5sums_x86_64=('690b794a8eb2743ba15af68183030e71')
 
 prepare() {
   rm -rf $srcdir/usr/lib/firefox/distribution

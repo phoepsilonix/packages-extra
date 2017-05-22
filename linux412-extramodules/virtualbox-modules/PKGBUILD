@@ -19,6 +19,9 @@ license=('GPL')
 depends=("$_linuxprefix")
 groups=("$_linuxprefix-extramodules")
 
+source=('linux-4.12.patch')
+sha256sums=('00a5cb371a7a31f836fa6077d45665a1104276a83b7092a37eeb09872c01f0d7')
+
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
              'dkms'
@@ -29,6 +32,20 @@ prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+  rm "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
+  cp -r "/usr/src/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/"
+  mv "$srcdir/dkms/vboxhost/${pkgver}_OSE/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
+
+  rm "$srcdir/dkms/vboxguest/${pkgver}_OSE/source"
+  cp -r "/usr/src/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/"
+  mv "$srcdir/dkms/vboxguest/${pkgver}_OSE/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
+
+  cd "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/vboxdrv"
+  patch -p5 -i "$srcdir/linux-4.12.patch"
+
+  cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/vboxguest"
+  patch -p5 -i "$srcdir/linux-4.12.patch"
 
   if [ -e dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/vboxguest.ko ]; then
      rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko

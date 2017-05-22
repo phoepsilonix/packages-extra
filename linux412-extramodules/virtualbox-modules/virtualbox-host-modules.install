@@ -1,15 +1,17 @@
-EXTRAMODULES='extramodules-4.11-MANJARO'
+EXTRAMODULES='extramodules-4.12-MANJARO'
 
 
 post_install() {
 cat << EOF
-===> You may want to load vboxguest, vboxsf and vboxvideo
+===> You must load vboxdrv module before starting VirtualBox:
+===> # modprobe vboxdrv
 EOF
     depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_upgrade() {
     depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    echo 'In order to use the new version, reload all virtualbox modules manually.'
 }
 
 post_remove() {
