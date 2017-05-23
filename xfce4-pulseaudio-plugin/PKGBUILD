@@ -5,8 +5,8 @@
 # Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=xfce4-pulseaudio-plugin
-pkgver=0.2.4
-pkgrel=5.1
+pkgver=0.2.5
+pkgrel=1.1
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -18,7 +18,7 @@ optdepends=('ido: appindicator support'
 makedepends=('intltool' 'dbus-glib')
 source=(http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
         use-panel-icons.patch)
-sha256sums=('8d9330ddf1d44a864a36d566cce4b76d4f859c5984bba7653d7dc39aa24d5c3e'
+sha256sums=('087441331240f8fca6cbcc2839251ad7e8d624fed7b4b7b4cd4e6938cb26c0b2'
             'bce647fdeea4bc682a5eec0a84f57996690cbc982efbfeb0691e8d9eb4e9405e')
 
 prepare() {
