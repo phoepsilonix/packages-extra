@@ -32,15 +32,17 @@ prepare() {
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
   # copy this dir to local dir so we can patch it.
-  cp -r -L dkms/broadcom-wl/$pkgver/source dkms/broadcom-wl/$pkgver/src
-  rm dkms/broadcom-wl/$pkgver/source
-  mv dkms/broadcom-wl/$pkgver/src dkms/broadcom-wl/$pkgver/source
+  #cp -r -L dkms/broadcom-wl/$pkgver/source dkms/broadcom-wl/$pkgver/src
+  #rm dkms/broadcom-wl/$pkgver/source
+  #mv dkms/broadcom-wl/$pkgver/src dkms/broadcom-wl/$pkgver/source
 
-  sed -i -e 's|rdtscl(cycles)|cycles = 0|g' dkms/broadcom-wl/$pkgver/source/src/shared/linux_osl.c
-  sed -i '/skb->dev->last_rx = jiffies;/d' dkms/broadcom-wl/$pkgver/source/src/wl/sys/wl_linux.c
-  sed -i 's|#include <wl_cfg80211_hybrid.h>|&\n#include <linux/sched/signal.h>|' dkms/broadcom-wl/$pkgver/source/src/wl/sys/wl_cfg80211_hybrid.c
-  cd dkms/broadcom-wl/$pkgver/source
-  patch -p1 -i $srcdir/linux-4.12-rc1.patch
+  #sed -i -e 's|rdtscl(cycles)|cycles = 0|g' dkms/broadcom-wl/$pkgver/source/src/shared/linux_osl.c
+  #sed -i '/skb->dev->last_rx = jiffies;/d' dkms/broadcom-wl/$pkgver/source/src/wl/sys/wl_linux.c
+  #sed -i 's|#include <wl_cfg80211_hybrid.h>|&\n#include <linux/sched/signal.h>|' dkms/broadcom-wl/$pkgver/source/src/wl/sys/wl_cfg80211_hybrid.c
+  #sed -i 's|EXTRA_CFLAGS :=|&\nEXTRA_CFLAGS += -Wno-error|' dkms/broadcom-wl/$pkgver/source/Makefile
+
+  #cd dkms/broadcom-wl/$pkgver/source
+  #patch -p1 -i $srcdir/linux-4.12-rc1.patch
 }
 
 build() {
@@ -48,6 +50,12 @@ build() {
 
   # build host modules
   msg2 'Build module'
+
+  CFLAGS="${CFLAGS} -Wno-error"
+  CXXFLAGS="${CXXFLAGS}  -Wno-error"
+
+  msg2 "$CFLAGS, ${CXXFLAGS}"
+
   dkms --dkmsframework dkms.conf build "broadcom-wl/$pkgver" -k "$_kernver"
 }
 
