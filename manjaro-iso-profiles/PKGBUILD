@@ -8,13 +8,13 @@ pkgname=('manjaro-iso-profiles-base'
         'manjaro-iso-profiles-official'
         'manjaro-iso-profiles-community')
 pkgver=17.0.1
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="https://github.com/manjaro/iso-profiles"
 license=('GPL')
-_git=641b50569ee288b8b48c5e3cc334ccfb70d8d7ff
+_git=a19a911b77f424dbe531ff3c13cc23457a9e7bb2
 source=("iso-profiles-$pkgver-$pkgrel.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('3fb643c5bc8203e71e58d67dfbd5b378bbe959e5c1441005c121c49af5909d19')
+sha256sums=('ee6a2d1c33727c1a88b903c57d7e70b8712cd82eb0e6fd4145b8c22fda41060e')
 
 prepare(){
     # remove this
