@@ -2,26 +2,27 @@
 
 pkgbase=pamac
 pkgname=('pamac-dev' 'pamac-dev-tray-appindicator')
-pkgver=4.2.11
-_pkgver=bfee1fcc52bec611f85760318bf19f013fe4415e
+pkgver=4.3.6
+_pkgver=83aa5fc839c093bbdb6d92140b6d4a5e87954989
 pkgrel=2
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
-depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.18'
+depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.22'
          'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4')
-makedepends=('gettext' 'itstool' 'vala>=0.28' 'libappindicator-gtk3')
+makedepends=('gettext' 'itstool' 'vala>=0.36' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz")
-sha256sums=('9da144d262e003de3f3184a225f4c23a3c0b002b2d1e15ed65ce1d7fb097a953')
+source=("pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_pkgver.tar.gz" "a.patch")
+sha256sums=('c033e1ba9c2b358733206ecc1567f9d6909d0af30331809bbc2332d9994b438a' 'SKIP')
   
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
   sed -i -e "s|\"$pkgver\"|\"$pkgver-$pkgrel\"|g" src/transaction.vala
   # patches here
+  patch -p1 -i "$srcdir/a.patch"
 }
 
 build() {
