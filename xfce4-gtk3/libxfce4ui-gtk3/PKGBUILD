@@ -1,0 +1,43 @@
+# $Id: PKGBUILD 267109 2016-05-07 05:03:06Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Xavier Devlamynck <magicrhesus@ouranos.be>
+
+pkgname=libxfce4ui-gtk3
+_pkgname=libxfce4ui
+pkgver=4.13.1
+pkgrel=1.2
+pkgdesc="Commonly used Xfce widgets among Xfce applications (GTK3)"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4-gtk3')
+depends=('libxfce4util' 'gtk2' 'gtk3' 'xfconf-gtk3' 'libsm' 'startup-notification'
+         'hicolor-icon-theme')
+makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools' 'exo-gtk3')
+conflicts=($_pkgname)
+provides=("$_pkgname=$pkgver")
+_commit=ccb432cf3e0717e1c4e4293e6116b0a519321cd6
+source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
+sha256sums=('63cd4bf036872f92a5b707e83fbbdc6922edbf76dfa77aa1b57fac0a701103e7')
+
+build() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-static \
+    --enable-gtk-doc \
+    --disable-debug \
+    --with-vendor-info="Manjaro-Linux"
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_commit"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

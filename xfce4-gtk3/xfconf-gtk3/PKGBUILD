@@ -1,0 +1,54 @@
+# $Id: PKGBUILD 269425 2016-06-13 05:41:56Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: tobias <tobias funnychar archlinux.org>
+
+pkgname=xfconf-gtk3
+_pkgname=xfconf
+pkgver=4.13.0
+pkgrel=1.2
+pkgdesc="A simple client-server configuration storage and query system"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4-gtk3')
+depends=('libxfce4util' 'dbus-glib')
+makedepends=('perl-extutils-depends' 'perl-extutils-pkgconfig' 'glib-perl'
+             'intltool' 'gtk-doc' 'chrpath' 'xfce4-dev-tools')
+options=('!emptydirs')
+provides=($_pkgname)
+conflicts=($_pkgname)
+_commit=9db6659f309d68e615f1141fd334bfc03733adfe
+source=(https://git.xfce.org/users/ali/xfconf/snapshot/xfconf-$_commit.tar.bz2
+        GdkRGBA.patch::http://bug-attachment.xfce.org/attachment.cgi?id=6690)
+sha256sums=('SKIP' 'SKIP')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$_commit"
+  patch -Np1 -i $srcdir/GdkRGBA.patch
+}
+
+build() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/xfce4 \
+    --localstatedir=/var \
+    --disable-static \
+    --enable-gtk-doc \
+    --with-perl-options=INSTALLDIRS="vendor" \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  make DESTDIR="$pkgdir" install
+
+  # Fix insecure rpath, http://bugs.archlinux.org/task/19980
+  chrpath -d "$pkgdir/usr/lib/perl5/vendor_perl/auto/Xfce4/Xfconf/Xfconf.so"
+}
+
+# vim:set ts=2 sw=2 et:

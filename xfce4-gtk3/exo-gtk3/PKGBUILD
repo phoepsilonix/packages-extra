@@ -1,0 +1,43 @@
+# $Id: PKGBUILD 267107 2016-05-07 05:02:53Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: tobias <tobias funnychar archlinux.org>
+# Contributor: Aurelien Foret <orelien@chez.com>
+
+pkgname=exo-gtk3
+_pkgname=exo
+pkgver=0.11.2
+pkgrel=1
+pkgdesc="Extensions to Xfce by os-cillation"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2' 'LGPL')
+groups=('xfce4-gtk3')
+depends=('libxfce4ui-gtk3' 'perl-uri' 'hicolor-icon-theme')
+makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
+provides=($_pkgname)
+conflicts=($_pkgname)
+_commit=d03b1d29bde75b44d84199a7cb978546574788a8
+source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
+sha256sums=('a44dae1e723ba4614c8ed5e6f6746769a951cb6835d29950b94c46e65828fa2c')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$_commit"
+}
+
+build() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-gtk-doc \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_commit"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

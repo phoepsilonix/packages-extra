@@ -1,0 +1,41 @@
+# $Id: PKGBUILD 232147 2015-03-01 06:33:54Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Xavier Devlamynck <magicrhesus@ouranos.be>
+
+pkgname=garcon-gtk3
+_pkgname=garcon
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="Implementation of the freedesktop.org menu specification"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('LGPL')
+groups=('xfce4-gtk3')
+depends=('libxfce4ui-gtk3')
+makedepends=('intltool' 'xfce4-dev-tools')
+replaces=('libxfce4menu')
+provides=($_pkgname)
+conflicts=($_pkgname)
+_commit=881b92c8e220a37ace68a7663affa2f459f14ad8
+source=(https://git.xfce.org/xfce/garcon/snapshot/garcon-$_commit.tar.bz2)
+sha256sums=('e837394cd48c95015840743e78b77d8927f2ff12b7e02626bdf5b5acc83d7233')
+
+build() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-static \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_commit"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:
