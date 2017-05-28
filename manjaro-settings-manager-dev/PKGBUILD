@@ -18,8 +18,8 @@ optdepends=('manjaro-settings-manager-notifier: qt-based'
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'knotifications' 
              'kconfigwidgets' 'kcmutils')
 conflicts=('kcm-msm')
-source=("msm-$pkgver-$pkgrel.tar.gz::$url/archive/$_snapshot.tar.gz")
-sha256sums=('ce946f9846c246b4a011bd6e4e761a98547e3cd7399b05f470578d1858836483')
+source=("msm-$_snapshot.tar.gz::$url/archive/$_snapshot.tar.gz")
+sha256sums=('55b36e79683250f0c9a0afc5371d2e6892a1bd9d2e52acdb373d09746c2d40a1')
 
 build() {
   cd "$srcdir/${pkgbase}-${_snapshot}"
