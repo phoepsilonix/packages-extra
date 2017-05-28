@@ -6,7 +6,7 @@ pkgbase=gdm-dev
 _pkgbase=gdm
 pkgname=(gdm-dev libgdm-dev)
 pkgver=3.24.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Display manager and login screen"
 arch=(i686 x86_64)
 license=(GPL)
@@ -68,7 +68,7 @@ package_gdm-dev() {
   backup=(etc/pam.d/gdm-autologin etc/pam.d/gdm-fingerprint etc/pam.d/gdm-launch-environment
           etc/pam.d/gdm-password etc/pam.d/gdm-smartcard etc/gdm/custom.conf
           etc/gdm/Xsession etc/gdm/PostSession/Default etc/gdm/PreSession/Default)
-  groups=(gnome)
+  #groups=(gnome)
   install=gdm.install
 
   cd $_pkgbase

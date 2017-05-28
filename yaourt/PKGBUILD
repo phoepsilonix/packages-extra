@@ -4,12 +4,13 @@
 
 pkgname=yaourt
 pkgver=1.8.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A pacman wrapper with extended features and AUR support"
 arch=('any')
 url="https://github.com/archlinuxfr/$pkgname"
 license=(GPL)
 depends=('diffutils' 'pacman>=5.0' 'package-query>=1.8' 'gettext')
+provides=('manjaro-aur')
 optdepends=('aurvote: vote for favorite packages from AUR'
             'customizepkg: automatically modify PKGBUILD during install/upgrade'
             'rsync: retrieve PKGBUILD from official repositories')
