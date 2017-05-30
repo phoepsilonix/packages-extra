@@ -7,7 +7,7 @@ _extramodules=extramodules-4.11-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=3
+pkgrel=4
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -38,7 +38,7 @@ source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}-x86.x86_64.zi
         manjaro_fglrx_4.5.patch
         linux-4.9-rc2.patch
         linux410-rc1.patch
-        buildfix_kernel_4.11.patch
+        linux411.patch
 	LICENSE.TXT)
 
 url_ref="http://support.amd.com/en-us/download/desktop?os=Linux+x86"
@@ -59,7 +59,7 @@ sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             'b60a04538f55e77b58351face25f2e12b55a2b1bc5be89e17b9b35e65f78cda8'
             'f846b24a56179abbae694f3f3379dc4e2883e13719d23e9c9125f353e9babfe8'
             'fe6cd988c1492c350fd87f6885e5b01ea1ee20a88bbf8830d1727deaa021b3c4'
-            'bbbe869143e3ce0d0d901afdea7422bc3049246c884b77f4ff0957f260858ec5'
+            '50cf50dced85d267c3a9df997219f75bef1fc19755041f83931eddafd713051b'
             '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
 
 prepare() {
@@ -117,7 +117,7 @@ build() {
         patch -Np1 -i ${srcdir}/manjaro_fglrx_4.5.patch
         patch -Np7 -i ${srcdir}/linux-4.9-rc2.patch
         patch -Np7 -i ${srcdir}/linux410-rc1.patch
-        patch -Np1 -i ${srcdir}/buildfix_kernel_4.11.patch
+        patch -Np6 -i ${srcdir}/linux411.patch
 
 	## fix linux44 build
 	sed -i -e s'|XSTATE_FP|XFEATURE_MASK_FP|g' firegl_public.c
