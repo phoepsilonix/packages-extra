@@ -5,7 +5,7 @@
 pkgname=xfce4-panel-gtk3
 _pkgname=xfce4-panel
 pkgver=4.13.0
-pkgrel=1.3
+pkgrel=1.4
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -14,11 +14,11 @@ groups=('xfce4-gtk3')
 depends=('exo-gtk3' 'garcon-gtk3' 'libxfce4ui-gtk3' 'libwnck3' 'hicolor-icon-theme'
          'desktop-file-utils')
 makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
-_commit=9221757ce763a10a81d47f64d872d73e905ec781
+_commit=18a9f030d25f4c9d22af1233ab6dff7ec897cf96
 provides=($_pkgname)
 conflicts=($_pkgname)
 source=(https://git.xfce.org/xfce/xfce4-panel/snapshot/xfce4-panel-$_commit.tar.bz2)
-sha256sums=('b49f27db66e6bd926f155d9cba77678f8c63bd991e752790ee5328faeb1a2d64')
+sha256sums=('9fae22c87d8bbf8a08c747b332eaeaf982edad80c540e7575caa152c37e53500')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"

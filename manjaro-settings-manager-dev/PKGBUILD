@@ -3,9 +3,9 @@
 pkgbase=manjaro-settings-manager
 pkgname=('manjaro-settings-manager-dev' 'manjaro-settings-manager-kcm-dev' 
          'manjaro-settings-manager-notifier-dev' 'manjaro-settings-manager-knotifier-dev')
-pkgver=0.5.2
-pkgrel=2
-_snapshot=4504e6d798c77ba91bb9b6db1de80177c47aebfe
+pkgver=0.5.3rc1
+pkgrel=1
+_snapshot=1e008d8da3a5eb9cca28598688be139f8a6f3544
 _git=0.5.2
 pkgdesc="Manjaro Linux System Settings Tool"
 arch=('i686' 'x86_64')
@@ -19,7 +19,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'knotifications'
              'kconfigwidgets' 'kcmutils')
 conflicts=('kcm-msm')
 source=("msm-$_snapshot.tar.gz::$url/archive/$_snapshot.tar.gz")
-sha256sums=('55b36e79683250f0c9a0afc5371d2e6892a1bd9d2e52acdb373d09746c2d40a1')
+sha256sums=('6fe63da70909938aff9c665a3ccbcb9b608ce56d221f0d40c5f03af17fb8bef1')
 
 build() {
   cd "$srcdir/${pkgbase}-${_snapshot}"
