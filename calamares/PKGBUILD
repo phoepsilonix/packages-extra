@@ -3,14 +3,14 @@
 pkgname=calamares
 pkgver=3.1.0
 _pkgver=3.1.0
-pkgrel=7
-_commit=24c877b36e9eab79df342a2c2856b2d20ff75b90
+pkgrel=9
+_commit=1415ec69befd1cb8138d0b593a5a083902030f84
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.0.2' 'mkinitcpio-openswap'
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.1.0' 'mkinitcpio-openswap'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
@@ -20,7 +20,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
          "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
-sha256sums=('81bd112fcdaf99d96c6789b9fd1eac4666104f25e3c27f4cfbc0112ee3141537')
+sha256sums=('4819a37a05196c641168b51a4f942d14564c8d7a9236b1360b822885e3eb60ac')
 
 prepare() {
 	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
