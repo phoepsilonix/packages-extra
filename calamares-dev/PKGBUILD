@@ -2,7 +2,7 @@
 
 pkgname=calamares-dev
 pkgver=3.1.0.r3408.0ad9ae943
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
