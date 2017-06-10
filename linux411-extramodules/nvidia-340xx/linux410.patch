@@ -11,15 +11,6 @@ diff -Npur NVIDIA-Linux-x86_64-340.101-no-compat32.orig/kernel/nv-linux.h NVIDIA
  #define NV_ENABLE_HOTPLUG_CPU
  #include <linux/cpu.h>              /* CPU hotplug support              */
  #include <linux/notifier.h>         /* struct notifier_block, etc       */
-@@ -2120,7 +2120,7 @@ static inline NvU64 nv_node_end_pfn(int
-             if (force)
-                 flags |= FOLL_FORCE;
- 
--            return get_user_pages_remote(tsk, mm, start, nr_pages, flags, pages, vmas);
-+            return get_user_pages_remote(tsk, mm, start, nr_pages, flags, pages, vmas, NULL);
-         }
-     #endif
- #else
 diff -Npur NVIDIA-Linux-x86_64-340.101-no-compat32.orig/kernel/nv-p2p.c NVIDIA-Linux-x86_64-340.101-no-compat32/kernel/nv-p2p.c
 --- NVIDIA-Linux-x86_64-340.101-no-compat32.orig/kernel/nv-p2p.c	2016-12-01 23:48:28.000000000 +0100
 +++ NVIDIA-Linux-x86_64-340.101-no-compat32/kernel/nv-p2p.c	2017-01-10 09:32:17.959342729 +0100
