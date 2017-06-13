@@ -1,38 +1,27 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
 
-pkgbase=plasma-agents
-pkgname=('plasma-ssh-agent' 'plasma-gpg-agent')
-pkgver=5.5
-pkgrel=2
+pkgname=plasma-agents
+pkgver=5.10
+pkgrel=1
+pkgdesc='KDE Plasma Workspace gpg-agent'
 arch=('any')
 url='https://github.com/manjaro/packages-extra'
 license=('GPL')
 groups=('plasma')
-source=('ssh-agent-shutdown.sh'
-	'ssh-agent-startup.sh'
-	'gpg-agent-shutdown.sh'
-	'gpg-agent-startup.sh')
-sha256sums=('1a3bf87644f9505ae2cdf11ec5fb3590071822cfc30a78e2d38dc0a6491228b3'
-            'c7361253432a5c27e1430371c0fa9f905873caa53688a21f938c499adf9774cd'
-            'eeb84474b2dc6f3bb69653e68aa91401e16218bff8f68d763fe66d44087e6113'
-            '2c4801b6618171186e1860598672275897dd37f273742d24dfa8da7595651441')
+depends=('plasma-workspace' 'gnupg' 'openssh')
+conflicts=('plasma-gpg-agent' 'plasma-ssh-agent')
+replaces=('plasma-gpg-agent' 'plasma-ssh-agent')
+source=('10-agent-startup.sh'
+        '10-agent-shutdown.sh'
+        '05-ksshaskpass.sh')
+sha256sums=('2a0a800e5f8ac266b341f13c53fc65e7e2ef40d3465196fea53d7e010804337e'
+            'ab9355d0a207f0baffa518fb9f42a15a277e0a81a00aa4c3618516c245cbbdc4'
+            'd1eca5ea29e585245b6014c7d710a1a079146182b53b5b435b6fdf8ea5c55f1b')
 
-package_plasma-ssh-agent() {
-	pkgdesc='KDE Plasma Workspace ssh-agent'
-	depends=('plasma-workspace' 'openssh')
-	install=$pkgname.install
-
-	install -d $pkgdir/etc/xdg/plasma-workspace/{env,shutdown}
-	install -D $srcdir/ssh-agent-shutdown.sh $pkgdir/etc/xdg/plasma-workspace/shutdown
-	install -D $srcdir/ssh-agent-startup.sh $pkgdir/etc/xdg/plasma-workspace/env
-}
-
-package_plasma-gpg-agent() {
-	pkgdesc='KDE Plasma Workspace gpg-agent'
-	depends=('plasma-workspace' 'gnupg')
-
-	install -d $pkgdir/etc/xdg/plasma-workspace/{env,shutdown}
-	install -D $srcdir/gpg-agent-shutdown.sh $pkgdir/etc/xdg/plasma-workspace/shutdown
-	install -D $srcdir/gpg-agent-startup.sh $pkgdir/etc/xdg/plasma-workspace/env
+package() {
+    install -dm0755 $pkgdir/etc/xdg/plasma-workspace/{env,shutdown}
+    install -m0644 $srcdir/10-agent-shutdown.sh $pkgdir/etc/xdg/plasma-workspace/shutdown
+    install -m0644 $srcdir/10-agent-startup.sh $pkgdir/etc/xdg/plasma-workspace/env
+    install -m0644 $srcdir/05-ksshaskpass.sh $pkgdir/etc/xdg/plasma-workspace/env
 }
