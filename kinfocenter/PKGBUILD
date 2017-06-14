@@ -4,7 +4,7 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.10.1
+pkgver=5.10.2
 pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
@@ -16,7 +16,7 @@ conflicts=('kdebase-workspace')
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"{,.sig}
         'kcm-about-distrorc')
-sha256sums=('8745f5599df59226267930014ae0c11d4315d25d118b86e38427f0496f40720b'
+sha256sums=('1202b32504925f6746369e5ad63ef7c014e89ea2d3a820387b1dd4b46a4718e4'
             'SKIP'
             '5e0c86c13b97a7bdd9a0662656cfe750489852bd9ecf19f7354d194624a98522')
 validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell

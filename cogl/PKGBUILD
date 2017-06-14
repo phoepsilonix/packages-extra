@@ -2,32 +2,38 @@
 # Maintainer: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=cogl
-pkgver=1.22.2
-pkgrel=1.1
+pkgver=1.22.2+11+g811f285a
+pkgrel=1
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
-arch=('i686' 'x86_64')
-url="http://www.clutter-project.org/"
-license=('GPL2')
-depends=('mesa' 'libdrm' 'libxext' 'libxdamage' 'libxcomposite' 'gdk-pixbuf2' 'pango' 'libxrandr')
-makedepends=('gobject-introspection')
-options=(!emptydirs)
+url="https://blogs.gnome.org/clutter/"
+arch=(i686 x86_64)
+license=(GPL2)
+depends=(mesa libdrm libxext libxdamage libxcomposite gdk-pixbuf2 pango libxrandr)
+makedepends=(gobject-introspection git gtk-doc)
 replaces=('cogl-catalyst')
-source=(https://download.gnome.org/sources/$pkgname/${pkgver:0:4}/$pkgname-$pkgver.tar.xz
+_commit=811f285a8e7f20edd435d7d641b4db391dbf45ed  # cogl-1.22
+source=("git+https://git.gnome.org/browse/cogl#commit=$_commit"
         gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
         Use_better_vendor_strings_from_AMD.patch)
-sha256sums=('39a718cdb64ea45225a7e94f88dddec1869ab37a21b339ad058a9d898782c00d'
+sha256sums=('SKIP'
             'bed12e762657b2a864fd3abe8722e8acf436576d8fd1e7325d69590294ac72b0'
             '47a2ed89b5c6c1e3a6e5b64c97ae4dc000290b6bc9ef18b276934de4d29e8933')
 
+pkgver() {
+  cd $pkgname
+  git describe | sed 's/-/+/g'
+}
+
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   # https://bugzilla.gnome.org/show_bug.cgi?id=756306
   patch -Np1 -i ../gl_Add_a_quirk_for_the_GLSL_version_to_use_on_AMD_v2.patch
   patch -Np1 -i ../Use_better_vendor_strings_from_AMD.patch
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr \
     --enable-gles{1,2} \
     --enable-{kms,wayland}-egl-platform \
@@ -36,11 +42,11 @@ build() {
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
-  make -j1
+  make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
 
