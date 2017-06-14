@@ -2,15 +2,15 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 _pkgbase=manjaro-tools
-_ver=0.15.2
-_branch=master
+_ver=0.16.0
+_branch=devel
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git'
         'manjaro-tools-pkg-git'
         'manjaro-tools-iso-git'
         'manjaro-tools-yaml-git')
-pkgver=r2585.1d3003e
+pkgver=r2656.9d4bd37
 pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
