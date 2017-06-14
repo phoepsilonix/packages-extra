@@ -1,20 +1,20 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 
-_mt_pkgver=0.15.2
+_mt_pkgver=0.16dev
 
 pkgbase=manjaro-iso-profiles
 pkgname=('manjaro-iso-profiles-base'
         'manjaro-iso-profiles-official'
         'manjaro-iso-profiles-community')
-pkgver=17.0.1
-pkgrel=4
+pkgver=17.1dev.20170610
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/iso-profiles"
 license=('GPL')
-_git=f24e149d12b507cf5289a4d4747e5b3ff5bbfd06
+_git=262eee23f542dc6e4d3e4eb3ebb293f3a7767621
 source=("iso-profiles-$pkgver-$pkgrel.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('9bdabb50497485855ff9039523edc8c76495a99cc98b8ee613154943c3f3823b')
+sha256sums=('1f1f5da18abba52f293c41345ce9e5688ded500dadf3faf2fe7face50207da93')
 
 prepare(){
     # remove this
