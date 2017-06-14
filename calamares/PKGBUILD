@@ -1,11 +1,9 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=3.1.0
-_pkgver=3.1.0
-pkgrel=11.1
-_commit=8f6d08d23e9c3cba43d0d1891b81ad78816be7be
-pkgdesc='Distribution-independent installer framework'
+pkgver=3.1.0.r3443.5e2c6b87d
+pkgrel=1
+pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
@@ -13,23 +11,33 @@ license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.1.0' 'mkinitcpio-openswap'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
-backup=('usr/share/calamares/modules/bootloader.conf'
-        'usr/share/calamares/modules/displaymanager.conf'
-        'usr/share/calamares/modules/initcpio.conf'
-        'usr/share/calamares/modules/unpackfs.conf')
+# backup=('usr/share/calamares/modules/bootloader.conf'
+#         'usr/share/calamares/modules/displaymanager.conf'
+#         'usr/share/calamares/modules/initcpio.conf'
+#         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
-sha256sums=('1416c4bb1a119422d6b5e58262f3587e93e333d643f93c2884c90a75bba03b4b')
+source+=(git+https://github.com/manjaro/calamares.git#branch=development)
+sha256sums=('SKIP')
+
+pkgver() {
+	cd ${srcdir}/calamares
+	_ver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_MAJOR -e CALAMARES_VERSION_MINOR -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
+	_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
+	printf '%s%s' "${_ver}" "${_git}"
+	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver$_git|g" CMakeLists.txt
+	rm -rf ${srcdir}/calamares/.git
+}
 
 prepare() {
-	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
-	cd ${srcdir}/calamares-${_pkgver}
-	# patches here
+	sed -i -e "s|'calamares'|'calamares-dev'|g" ${srcdir}/calamares/src/modules/postcfg/main.py
+	cd ${srcdir}/calamares
+	git submodule init
+	git submodule update
 }
 
 build() {
-	cd ${srcdir}/calamares-${_pkgver}
+	cd ${srcdir}/calamares
 
 	mkdir -p build
 	cd build
@@ -46,7 +54,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/calamares-${_pkgver}/build
+	cd ${srcdir}/calamares/build
 	make DESTDIR="$pkgdir" install
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
