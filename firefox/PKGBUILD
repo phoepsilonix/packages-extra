@@ -1,24 +1,26 @@
-# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Bernhard Landauer (oberon) <oberon_at_manjaro_dog_org>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Jakub Schmidtke <sjakub@gmail.com>
 
 pkgname=firefox
-pkgver=53.0.3
+pkgver=54.0
 _pkgrel=1
 pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/firefox/"
-depends=(gtk3 gtk2 manjaro-browser-settings mozilla-common libxt startup-notification mime-types dbus-glib
-         alsa-lib ffmpeg libvpx libevent nss hunspell sqlite ttf-font icu)
+depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
+         nss hunspell sqlite ttf-font libpulse icu libvpx)
 optdepends=('networkmanager: Location detection via available WiFi networks'
             'libnotify: Notification integration'
+            'pulseaudio: Audio support'
             'speech-dispatcher: Text-to-Speech')
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
 source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
-md5sums_i686=('366e491c1755e5ff7597f5f0bbb88ab8')
-md5sums_x86_64=('17fde94f7b858c31f8e55d01bb69c426')
+md5sums_i686=('5d6e14a5ccab5fc0c99360c6dd10f27a')
+md5sums_x86_64=('ce2cb2da8796dd28844f2614c6dae792')
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
