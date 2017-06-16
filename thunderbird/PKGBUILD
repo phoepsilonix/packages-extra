@@ -1,12 +1,13 @@
 # $Id$
-# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Bernhard Landauer (oberon) <oberon_at_manjaro_dog_org>
+# Contributor:  Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Alexander Baldeck <alexander@archlinux.org>
 # Contributor: Dale Blount <dale@archlinux.org>
 # Contributor: Anders Bostrom <anders.bostrom@home.se>
 
 pkgname=thunderbird
-pkgver=52.1.1
+pkgver=52.2.0
 pkgrel=1
 _pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
@@ -14,12 +15,12 @@ arch=(i686 x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/thunderbird/"
 depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
-         libvpx libevent nss hunspell sqlite ttf-font icu)
+         nss hunspell sqlite ttf-font icu libvpx)
 optdepends=('libcanberra: sound support')
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
 source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
-md5sums_i686=('67647a85fc2b3e3d83e392d790839a15')
-md5sums_x86_64=('690b794a8eb2743ba15af68183030e71')
+md5sums_i686=('5bc6f02d93e01768ea8aff5125c02821')
+md5sums_x86_64=('db8d622061d4af6963f6764952dbb614')
 
 prepare() {
   rm -rf $srcdir/usr/lib/firefox/distribution
