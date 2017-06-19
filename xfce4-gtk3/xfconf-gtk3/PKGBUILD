@@ -4,8 +4,8 @@
 
 pkgname=xfconf-gtk3
 _pkgname=xfconf
-pkgver=4.13.0
-pkgrel=1.2
+pkgver=4.13.1
+pkgrel=1
 pkgdesc="A simple client-server configuration storage and query system"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,14 +17,13 @@ makedepends=('perl-extutils-depends' 'perl-extutils-pkgconfig' 'glib-perl'
 options=('!emptydirs')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=9db6659f309d68e615f1141fd334bfc03733adfe
-source=(https://git.xfce.org/users/ali/xfconf/snapshot/xfconf-$_commit.tar.bz2
-        GdkRGBA.patch::http://bug-attachment.xfce.org/attachment.cgi?id=6690)
-sha256sums=('SKIP' 'SKIP')
+_commit=a75c27c5e81e9ffbbf758900b3ff37d4e9506ebe
+source=(https://git.xfce.org/xfce/xfconf/snapshot/xfconf-$_commit.tar.bz2)
+sha256sums=('7641b108f38d15c94192435c473d9e922a46949c6d5f431724a1c4f85d7a5c73')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
-  patch -Np1 -i $srcdir/GdkRGBA.patch
+  # patches here
 }
 
 build() {

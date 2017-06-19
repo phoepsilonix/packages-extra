@@ -4,7 +4,7 @@
 
 pkgname=garcon-gtk3
 _pkgname=garcon
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="Implementation of the freedesktop.org menu specification"
 arch=('i686' 'x86_64')
@@ -16,9 +16,9 @@ makedepends=('intltool' 'xfce4-dev-tools')
 replaces=('libxfce4menu')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=881b92c8e220a37ace68a7663affa2f459f14ad8
+_commit=2e640f89f8538379bacffb87a1f01c7d5d68909c
 source=(https://git.xfce.org/xfce/garcon/snapshot/garcon-$_commit.tar.bz2)
-sha256sums=('e837394cd48c95015840743e78b77d8927f2ff12b7e02626bdf5b5acc83d7233')
+sha256sums=('0158cb699844d2207a040304496eef87bef5940950de2a7b4b6b0f4a2ca61778')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"

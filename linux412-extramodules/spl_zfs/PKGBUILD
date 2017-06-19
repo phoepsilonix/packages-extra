@@ -23,6 +23,7 @@ source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
         'spl-linux-4.11-add-linux-sched-signal.h.patch::https://github.com/zfsonlinux/spl/commit/9a054d54fb6772305fdbe0bb5b312cf051331726.patch'
         'spl-linux-4.11-remove-stub-for-__put_task_struct.patch::https://github.com/zfsonlinux/spl/commit/bf8abea4dade111bdf3aeae30bd4bd75d49aca70.patch'
         'spl-linux-4.12-PF_FSTRANS-was-removed.patch' #::https://github.com/zfsonlinux/spl/commit/8f87971e1fd11e3bca034dff2cbc0e884381c350.patch'
+        'spl-dont-take-spin-lock-on-rwlock-owner.patch::https://github.com/zfsonlinux/spl/commit/4f8e643afe9d8cc558566e1dda05ef597cb2526e.patch'
         'zfs-linux-4.11.patch::https://patch-diff.githubusercontent.com/raw/zfsonlinux/zfs/pull/6033.patch'
         'zfs-linux-4.12-super_setup_bdi_name.patch' #::https://github.com/zfsonlinux/zfs/commit/7dae2c81e7b2e68a596c5b431444be0fae308156.patch'
         'zfs-linux-4.12-PF_FSTRANS-was-removed.patch' #::https://github.com/zfsonlinux/zfs/commit/e624cd1959904735eda81f1a9a45d99848bb3503.patch'
@@ -35,6 +36,7 @@ sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
             '3f85cecff6129154aca336018ad33174e9e592b44a82fce58af2861ee2d3daea'
             '998b3f31f9e7fdd4cd216fcd4cb84c5ea9f46b91760c7cb12ebe4976687543e7'
             'feeaa8b7e9fe63b5dc427f2bf7fd428db7e60af4f9a8c0c9b60498d081d22e5f'
+            '80885cfdab244584c5fb61b374d6dedd219192cb86da871b1ac91d35c93caa40'
             '2cd7f57c46091745e566ee1af2b5119b4ad124daf08df84edc39d2e55a7ecc7a'
             '11e251995e9e9aae0ccb37e3b578832e57f726031c54833a69d8ce121dc4fa8d'
             '68d8b06960e14b3359bb4fc21e2686e521ac1f00c7e3c1c6c14de333941dae03'
@@ -43,6 +45,7 @@ sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
   # patches here
+  patch -p1 -i ${srcdir}/spl-dont-take-spin-lock-on-rwlock-owner.patch
   patch -p1 -i ${srcdir}/spl-linux-4.11-set_task_state-removed.patch
   patch -p1 -i ${srcdir}/spl-linux-4.11-vfs_getattr-takes-4-args.patch
   patch -p1 -i ${srcdir}/spl-linux-4.11-add-linux-sched-signal.h.patch

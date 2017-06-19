@@ -1,31 +1,34 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=3.1.0
-_pkgver=3.1.0
-pkgrel=12
-_commit=b99fa43e6a75efbea8bb0568876e15e2664fedb8
+pkgver=3.1.0.1
+_pkgver=3.1.0.1
+pkgrel=2
+#_commit=v3.1.0.1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.1.0' 'mkinitcpio-openswap'
-         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt')
+         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
-sha256sums=('70e008dbb51607d67e81e966a67b79face742454120e8217536bed77e2ca3455')
+source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
+         #"$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
+         "pythonqt-32.patch::https://github.com/manjaro/calamares/commit/9b9789d299ece78c61c040c0b0c935eac22e11f7.patch")
+sha256sums=('aeb0627291e2a9e0a611728a5bb4d00dd28c77cb6efd9379968fd54102175639'
+            '1333d8bff46cc7b8361e3e769b1196d6b67cf4fd632295049cdf5e2b67d3cea1')
 
 prepare() {
-	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
+	#mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
+	patch -p1 -i "$srcdir/pythonqt-32.patch"
 }
 
 build() {
