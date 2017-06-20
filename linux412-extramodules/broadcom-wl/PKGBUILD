@@ -9,7 +9,7 @@ _extramodules=extramodules-4.12-MANJARO
 pkgname=$_linuxprefix-broadcom-wl
 _pkgname=broadcom-wl
 pkgver=6.30.223.271
-pkgrel=0
+pkgrel=0.4
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')
@@ -22,9 +22,9 @@ groups=("$_linuxprefix-extramodules")
 provides=("$_pkgname=$pkgver")
 install=$_pkgname.install
 backup=('etc/modprobe.d/linux412-broadcom-wl.conf')
-source=(broadcom-wl-dkms.conf linux-4.12-rc1.patch)
+source=(broadcom-wl-dkms.conf linux-4.12.patch)
 sha256sums=('b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283'
-            '32f9be85884ac91a7e927861fbfefe4eb0d6eee7fbae523b70eef9ef53176435')
+            '604255e6d9b1b9735b736b4b12326590da2c9e96a37a888a9f1098ea62a12beb')
 
 prepare() {
   # dkms need modification to be run as user
@@ -36,13 +36,10 @@ prepare() {
   #rm dkms/broadcom-wl/$pkgver/source
   #mv dkms/broadcom-wl/$pkgver/src dkms/broadcom-wl/$pkgver/source
 
-  #sed -i -e 's|rdtscl(cycles)|cycles = 0|g' dkms/broadcom-wl/$pkgver/source/src/shared/linux_osl.c
-  #sed -i '/skb->dev->last_rx = jiffies;/d' dkms/broadcom-wl/$pkgver/source/src/wl/sys/wl_linux.c
-  #sed -i 's|#include <wl_cfg80211_hybrid.h>|&\n#include <linux/sched/signal.h>|' dkms/broadcom-wl/$pkgver/source/src/wl/sys/wl_cfg80211_hybrid.c
   #sed -i 's|EXTRA_CFLAGS :=|&\nEXTRA_CFLAGS += -Wno-error|' dkms/broadcom-wl/$pkgver/source/Makefile
 
   #cd dkms/broadcom-wl/$pkgver/source
-  #patch -p1 -i $srcdir/linux-4.12-rc1.patch
+  #patch -p1 -i $srcdir/linux-4.12.patch
 }
 
 build() {
