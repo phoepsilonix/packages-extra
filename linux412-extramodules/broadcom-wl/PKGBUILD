@@ -9,7 +9,7 @@ _extramodules=extramodules-4.12-MANJARO
 pkgname=$_linuxprefix-broadcom-wl
 _pkgname=broadcom-wl
 pkgver=6.30.223.271
-pkgrel=0.4
+pkgrel=0.5
 pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
 url='https://bbs.archlinux.org/viewtopic.php?id=145884'
 arch=('i686' 'x86_64')
@@ -22,24 +22,13 @@ groups=("$_linuxprefix-extramodules")
 provides=("$_pkgname=$pkgver")
 install=$_pkgname.install
 backup=('etc/modprobe.d/linux412-broadcom-wl.conf')
-source=(broadcom-wl-dkms.conf linux-4.12.patch)
-sha256sums=('b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283'
-            '604255e6d9b1b9735b736b4b12326590da2c9e96a37a888a9f1098ea62a12beb')
+source=(broadcom-wl-dkms.conf)
+sha256sums=('b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283')
 
 prepare() {
   # dkms need modification to be run as user
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-
-  # copy this dir to local dir so we can patch it.
-  #cp -r -L dkms/broadcom-wl/$pkgver/source dkms/broadcom-wl/$pkgver/src
-  #rm dkms/broadcom-wl/$pkgver/source
-  #mv dkms/broadcom-wl/$pkgver/src dkms/broadcom-wl/$pkgver/source
-
-  #sed -i 's|EXTRA_CFLAGS :=|&\nEXTRA_CFLAGS += -Wno-error|' dkms/broadcom-wl/$pkgver/source/Makefile
-
-  #cd dkms/broadcom-wl/$pkgver/source
-  #patch -p1 -i $srcdir/linux-4.12.patch
 }
 
 build() {
