@@ -1,10 +1,10 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=3.1.0.1
-_pkgver=3.1.0.1
-pkgrel=2
-#_commit=v3.1.0.1
+pkgver=3.1.0.2
+_pkgver=3.1.0.2
+pkgrel=1
+#_commit=v3.1.0.2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,17 +18,14 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         #"$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
-         "pythonqt-32.patch::https://github.com/manjaro/calamares/commit/9b9789d299ece78c61c040c0b0c935eac22e11f7.patch")
-sha256sums=('aeb0627291e2a9e0a611728a5bb4d00dd28c77cb6efd9379968fd54102175639'
-            '1333d8bff46cc7b8361e3e769b1196d6b67cf4fd632295049cdf5e2b67d3cea1')
+source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
+         #"$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
+sha256sums=('80e7c51b248bbb264152561d926250a4facd6bebefd6fee9d912622b8a1e74d4')
 
 prepare() {
 	#mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 	# patches here
-	patch -p1 -i "$srcdir/pythonqt-32.patch"
 }
 
 build() {
