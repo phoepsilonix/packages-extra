@@ -2,7 +2,7 @@
 # Contributor: artoo <artoo@manjaro.org>
 
 pkgname=manjaro-base-skel
-pkgver=20170207
+pkgver=20170630
 pkgrel=1
 pkgdesc='Manjaro Linux base skeleton files'
 arch=('any')
