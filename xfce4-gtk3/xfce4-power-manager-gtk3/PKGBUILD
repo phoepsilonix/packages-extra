@@ -1,0 +1,48 @@
+# $Id: PKGBUILD 275804 2016-09-07 09:29:26Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
+
+_pkgname=xfce4-power-manager
+pkgname=$_pkgname-gtk3
+pkgver=1.6.0.41.g9daecb5
+_commit=9daecb5a1763035db6adc83f45a7a01349872f53
+pkgrel=1
+pkgdesc="Power manager for Xfce desktop"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4-gtk3')
+depends=('libxfce4ui' 'upower' 'libnotify' 'hicolor-icon-theme')
+optdepends=('xfce4-panel: for the Xfce panel plugin')
+makedepends=('intltool' 'xfce4-panel' 'git' 'xfce4-dev-tools' 'exo' 'python')
+conflicts=($_pkgname)
+provides=($_pkgname)
+source=(git://git.xfce.org/xfce/xfce4-power-manager#commit=$_commit)
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_pkgname"
+  git describe --long | sed 's/^xfce4-power-manager-//;s/-/./g'
+}
+
+build() {
+  cd "$srcdir/$_pkgname"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-network-manager \
+    --enable-polkit \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:
