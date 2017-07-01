@@ -1,0 +1,44 @@
+# $Id: PKGBUILD 290944 2017-03-16 17:44:37Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: tobias <tobias funnychar archlinux.org>
+
+pkgname=xfwm4-gtk3
+_pkgname=xfwm4
+pkgver=4.13.0
+pkgrel=1
+pkgdesc="Xfce window manager"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4-gtk3')
+depends=('exo-gtk3' 'libxfce4ui-gtk3' 'libwnck' 'libdrm' 'hicolor-icon-theme')
+makedepends=('intltool' 'xfce4-dev-tools')
+provides=($_pkgname)
+conflicts=($_pkgname)
+_commit=ee73b7066cdf410358157d2f6735ee1b957dde78
+source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
+sha256sums=('207f77a308c45b349b8acf665bddf61259cf5b5b3e085f55bb4f72eb8877d7e9')
+
+build() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-static \
+    --enable-startup-notification \
+    --enable-randr \
+    --enable-compositor \
+    --enable-xsync \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_commit"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

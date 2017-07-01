@@ -58,6 +58,9 @@ prepare() {
 
     # Fix compile problem with 4.12
     (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux412.patch)
+
+    export DISTCC_DISABLE=1
+    export CCACHE_DISABLE=1
 }
 
 build() {
