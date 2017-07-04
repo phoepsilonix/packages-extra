@@ -6,7 +6,7 @@
 pkgname=xfce4-settings-gtk3
 _pkgname=xfce4-settings
 pkgver=4.13.1
-pkgrel=1.1
+pkgrel=2
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -18,10 +18,10 @@ makedepends=('intltool' 'xf86-input-libinput' 'xfce4-dev-tools')
 optdepends=('libcanberra: for sound control')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=b63fcdf2b3446c016f85bbca08b96b9d1dfe01f8
+_commit=3261840e173c4dbff2464a339270c795d9e7a07e
 source=(https://git.xfce.org/xfce/xfce4-settings/snapshot/xfce4-settings-$_commit.tar.bz2
         default-xsettings-xml.patch)
-sha256sums=('a8e630920367199186e645603b5151699e510c0821412a65e440051f751b6942'
+sha256sums=('75fe91ba2283c66b0994785e17d3009ee390a0cfed168cd34eb5ecd683f7112b'
             '1c4110fd5ce0f17564cda892b72d59a87b515fdb4580c7154bbb4c1979f5ade7')
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"

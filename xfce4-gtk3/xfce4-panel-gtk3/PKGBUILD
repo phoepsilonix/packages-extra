@@ -1,11 +1,10 @@
-# $Id$
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfce4-panel-gtk3
 _pkgname=xfce4-panel
 pkgver=4.13.0
-pkgrel=1.5
+pkgrel=2
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -18,11 +17,11 @@ depends=('desktop-file-utils'
     'libwnck3'
     'libxfce4ui-gtk3')
 makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
-_commit=a8def839a0ce84285cb6c9fed82d96ec6f1ea20d
+_commit=075a85dece34ddfedb455e07971e66dde77072c0
 provides=($_pkgname)
 conflicts=($_pkgname)
 source=(https://git.xfce.org/xfce/xfce4-panel/snapshot/xfce4-panel-$_commit.tar.bz2)
-sha256sums=('3f294a738eb0773690154b84ec6f28f14be888c1c5e829041556a7ff7ba2acf7')
+sha256sums=('0f492b79a21dd052a2c65dbec2addca5f7b9e481726bf2249edfaefaa3e7d317')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"

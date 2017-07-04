@@ -1,10 +1,9 @@
-# $Id: PKGBUILD 267109 2016-05-07 05:03:06Z foutrelis $
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Xavier Devlamynck <magicrhesus@ouranos.be>
 
 pkgname=libxfce4ui-gtk3
 _pkgname=libxfce4ui
-pkgver=4.13.2
+pkgver=4.13.3
 pkgrel=1
 pkgdesc="Commonly used Xfce widgets among Xfce applications (GTK3)"
 arch=('i686' 'x86_64')
@@ -21,14 +20,15 @@ depends=('gtk2'
 makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools' 'exo-gtk3')
 conflicts=($_pkgname)
 provides=("$_pkgname=$pkgver")
-_commit=ccb1ee69ff7447835018b28d07470eeefa10157c
-source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('5f735578e504e06d0e5fb227e74fe2f7b3d0d5bd0298788a29b814b239e8b2d1')
+#_commit=ccb1ee69ff7447835018b28d07470eeefa10157c
+#source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
+source=(http://archive.xfce.org/src/xfce/$_pkgname/${pkgver%.*}/$_pkgname-$pkgver.tar.bz2)
+sha256sums=('815c33a49392520feb84f119cd8f558632a735e322ca55edce33f815a0624470')
 
 build() {
-  cd "$srcdir/$_pkgname-$_commit"
+  cd "$srcdir/$_pkgname-$pkgver"
 
-  ./autogen.sh \
+  ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
@@ -41,8 +41,6 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$_commit"
+  cd "$srcdir/$_pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:

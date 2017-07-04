@@ -1,4 +1,3 @@
-# $Id: PKGBUILD 267107 2016-05-07 05:02:53Z foutrelis $
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 # Contributor: Aurelien Foret <orelien@chez.com>
@@ -6,7 +5,7 @@
 pkgname=exo-gtk3
 _pkgname=exo
 pkgver=0.11.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensions to Xfce by os-cillation"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -16,9 +15,9 @@ depends=('libxfce4ui-gtk3' 'perl-uri' 'hicolor-icon-theme')
 makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=2708f54a3eabefa224e1c18851716df828d10a3e
+_commit=0f22ff6df412f63520f1dc5b2345c2be2800bd19
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('68bfccec8e1974a99b2d04af212fa3133dfac75b0663dce112ff9b8aa8e08938')
+sha256sums=('a19eb00b901df9f66786c7548c0ec353ee8f37d5df685b2c3b239bc40538a414')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -39,5 +38,3 @@ package() {
   cd "$srcdir/$_pkgname-$_commit"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:
