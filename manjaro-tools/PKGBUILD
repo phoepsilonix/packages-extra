@@ -6,40 +6,21 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-pkg'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
-pkgver=0.15.2
-pkgrel=6
+pkgver=0.15.3
+pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        "fix-i686-build.patch::https://github.com/manjaro/manjaro-tools/compare/a1492e8d1eb929075ad369cc336efc2ecd0eb13b...a4fc8325dfc6b3767ec4fc968df07ce333431066.patch"
-        "fix-pxe-boot.patch::https://github.com/manjaro/manjaro-tools/commit/aa84e639a37af8725ab9757850f425e05d1ee71b.patch"
-        "add-log-writing.patch::https://github.com/manjaro/manjaro-tools/commit/1648288c9f348aa41e7307a71da050a400a2e4cd.patch"
-        "update-os-release-path.patch::https://github.com/manjaro/manjaro-tools/commit/a4f2fd33a4b8628ef6b3a8089cdabb2ff344e024.patch"
-        "add-support-to-disable-vb-drv.patch::https://github.com/manjaro/manjaro-tools/commit/965de2f5fc0c03661e970766883d3b887e51fd34.patch"
-        "rm-existing-.sig-file.patch::https://github.com/manjaro/manjaro-tools/commit/4b76f7fa83a4567ad247057f5adfa266879b9a30.patch")
-sha256sums=('6a545b27c0ffdc67fbb916143c0a97b8b93ab6f6be9f75c794b05d73666403c8'
-            '5dc954c7783fec5fb155f0218e90979afb2b3230c71efe38f1ee00073ecf2da0'
-            '5b42475678844cec38691652e7956c74886e0794e89e71ad6960874f5140ced2'
-            '918082bad9f08912eb54a5b06a966a5d113b38f5bdd97c2758b4a6868282c629'
-            'bfabd31f3741fc8faed1c9cbbe1d3eaee617b4fceff66d460f3cfeed7d268d3c'
-            'f2e821e2888c1511140064b155c815984aec9ca7ab49a1804262846e944021f1'
-            'd85c070ec09cb0f83a174e23dbc5893113eddad6130b862f7eaa8ac41f94d314')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('965184fc77b5f01da76108012962abb4867f5d0a0276afbb458fd389df7efd9a')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
-    #sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
     sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
-    patch -p1 -i "${srcdir}/fix-i686-build.patch"
-    patch -p1 -i "${srcdir}/fix-pxe-boot.patch"
-    patch -p1 -i "${srcdir}/add-log-writing.patch"
-    patch -p1 -i "${srcdir}/update-os-release-path.patch"
-    patch -p1 -i "${srcdir}/add-support-to-disable-vb-drv.patch"
-    patch -p1 -i "${srcdir}/rm-existing-.sig-file.patch"
 }
 
 build() {

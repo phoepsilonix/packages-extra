@@ -1,0 +1,356 @@
+phil@manjaro ~/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst $ makepkg -d
+==> Making package: linux412-catalyst 1:15.201.1151-0.7 (Tue Jul  4 08:42:31 CEST 2017)
+==> WARNING: Skipping dependency checks.
+==> Retrieving sources...
+  -> Found amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip
+  -> Found ati_make.sh
+  -> Found lano1106_fglrx_intel_iommu.patch
+  -> Found lano1106_kcl_agp_13_4.patch
+  -> Found makefile_compat.patch
+  -> Found kolasa_fglrx_312.patch
+  -> Found cold-fglrx-3.14-current_euid.patch
+  -> Found manjaro_fglrx_40.patch
+  -> Found kolasa_fglrx_4.1.patch
+  -> Found manjaro_fglrx_4.2.patch
+  -> Found manjaro_fglrx_4.3.patch
+  -> Found gentoo_fglrx_4.3_mtrr.patch
+  -> Found manjaro_fglrx_4.5.patch
+  -> Found linux-4.9-rc2.patch
+  -> Found linux410-rc1.patch
+  -> Found linux411.patch
+  -> Found buildfix_kernel_4.12.patch
+  -> Found LICENSE.TXT
+==> Validating source files with sha256sums...
+    amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip ... Passed
+    ati_make.sh ... Passed
+    lano1106_fglrx_intel_iommu.patch ... Passed
+    lano1106_kcl_agp_13_4.patch ... Passed
+    makefile_compat.patch ... Passed
+    kolasa_fglrx_312.patch ... Passed
+    cold-fglrx-3.14-current_euid.patch ... Passed
+    manjaro_fglrx_40.patch ... Passed
+    kolasa_fglrx_4.1.patch ... Passed
+    manjaro_fglrx_4.2.patch ... Passed
+    manjaro_fglrx_4.3.patch ... Passed
+    gentoo_fglrx_4.3_mtrr.patch ... Passed
+    manjaro_fglrx_4.5.patch ... Passed
+    linux-4.9-rc2.patch ... Passed
+    linux410-rc1.patch ... Passed
+    linux411.patch ... Passed
+    buildfix_kernel_4.12.patch ... Passed
+    LICENSE.TXT ... Passed
+==> Extracting sources...
+  -> Extracting amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip with bsdtar
+==> Starting prepare()...
+Creating directory archive_files
+Verifying archive integrity... All good.
+Uncompressing AMD Catalyst(TM) Proprietary Driver-15.201.1151......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+==> Starting build()...
+OsVersion says: SMP=1
+file /proc/kallsyms says: SMP=1
+file /usr/lib/modules/4.12.0-1-MANJARO/build/include/generated/autoconf.h says: SMP=1
+file /usr/lib/modules/4.12.0-1-MANJARO/build/include/generated/autoconf.h says: MODVERSIONS=1
+file /usr/lib/modules/4.12.0-1-MANJARO/build/arch/x86/include/asm/compat.h says: COMPAT_ALLOC_USER_SPACE=arch_compat_alloc_user_space
+patching file common/lib/modules/fglrx/build_mod/2.6.x/Makefile
+Hunk #1 succeeded at 68 (offset 2 lines).
+patching file common/lib/modules/fglrx/build_mod/firegl_public.c
+Hunk #1 succeeded at 93 with fuzz 2.
+patching file common/lib/modules/fglrx/build_mod/kcl_agp.c
+patching file common/lib/modules/fglrx/build_mod/firegl_public.c
+Hunk #1 succeeded at 1814 with fuzz 2 (offset 53 lines).
+patching file firegl_public.c
+Hunk #1 succeeded at 277 (offset 18 lines).
+patching file kcl_str.c
+patching file firegl_public.c
+Hunk #1 succeeded at 3513 (offset 8 lines).
+patching file firegl_public.c
+Hunk #2 succeeded at 1718 (offset 12 lines).
+Hunk #3 succeeded at 1757 (offset 12 lines).
+Hunk #4 succeeded at 6448 (offset 20 lines).
+Hunk #5 succeeded at 6505 (offset 20 lines).
+Hunk #6 succeeded at 6546 (offset 20 lines).
+Hunk #7 succeeded at 6575 (offset 20 lines).
+Hunk #8 succeeded at 6600 (offset 20 lines).
+patching file firegl_public.c
+Hunk #1 succeeded at 635 (offset 8 lines).
+patching file firegl_public.c
+Hunk #1 succeeded at 3436 (offset 24 lines).
+Hunk #2 succeeded at 3449 (offset 24 lines).
+patching file firegl_public.c
+patching file firegl_public.c
+patching file kcl_acpi.c
+patching file firegl_public.c
+(Stripping trailing CRs from patch; use --binary to disable.)
+patching file firegl_public.c
+Hunk #2 succeeded at 4170 with fuzz 2 (offset -30 lines).
+Hunk #3 succeeded at 4223 (offset -30 lines).
+(Stripping trailing CRs from patch; use --binary to disable.)
+patching file kcl.c
+patch unexpectedly ends in middle of line
+Hunk #1 succeeded at 30 with fuzz 1.
+patching file firegl_public.c
+Hunk #1 succeeded at 208 with fuzz 1 (offset 2 lines).
+make: Entering directory '/usr/lib/modules/4.12.0-1-MANJARO/build'
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_acpi.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_agp.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_debug.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_ioctl.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_io.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_pci.o
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_str.o
+In file included from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_ioctl.c:34:0:
+./arch/x86/include/asm/uaccess.h:674:32: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'movsl_mask'
+ } ____cacheline_aligned_in_smp movsl_mask;
+                                ^
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_iommu.o
+make[1]: *** [scripts/Makefile.build:303: /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_ioctl.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+  CC [M]  /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl.o
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_acpi.c:840:20: warning: 'KCL_ACPI_Slot_No_Hotplug' defined but not used [-Wunused-function]
+ static acpi_status KCL_ACPI_Slot_No_Hotplug(KCL_ACPI_DevHandle handle, u32 lvl, void *data, void **rv)
+                    ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_iommu.c: In function 'KCL_IOMMU_RestoreCBs':
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_iommu.c:230:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+In file included from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:215:0:
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'KCL_GetInitKerPte':
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:2780:23: warning: passing argument 1 of 'pud_offset' from incompatible pointer type
+     PUD_OFFSET(pud_p, pgd_p, address);
+                       ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:106:24: note: in definition of macro 'PUD_OFFSET'
+     pud_p = pud_offset(pgd_p, pte_linear); \
+                        ^
+In file included from ./arch/x86/include/asm/pgtable_types.h:309:0,
+                 from ./arch/x86/include/asm/paravirt_types.h:44,
+                 from ./arch/x86/include/asm/ptrace.h:71,
+                 from ./arch/x86/include/asm/math_emu.h:4,
+                 from ./arch/x86/include/asm/processor.h:11,
+                 from ./arch/x86/include/asm/cpufeature.h:4,
+                 from ./arch/x86/include/asm/thread_info.h:52,
+                 from ./include/linux/thread_info.h:37,
+                 from ./arch/x86/include/asm/preempt.h:6,
+                 from ./include/linux/preempt.h:80,
+                 from ./include/linux/spinlock.h:50,
+                 from ./include/linux/seqlock.h:35,
+                 from ./include/linux/time.h:5,
+                 from ./include/linux/stat.h:18,
+                 from ./include/linux/module.h:10,
+                 from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:109:
+./include/asm-generic/pgtable-nopud.h:43:22: note: expected 'struct p4d_t *' but argument is of type 'struct pgd_t *'
+ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+                      ^
+In file included from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:215:0:
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'KCL_GetPageTableByVirtAddr':
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:2849:23: warning: passing argument 1 of 'pud_offset' from incompatible pointer type
+     PUD_OFFSET(pud_p, pgd_p, virtual_addr);
+                       ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:106:24: note: in definition of macro 'PUD_OFFSET'
+     pud_p = pud_offset(pgd_p, pte_linear); \
+                        ^
+In file included from ./arch/x86/include/asm/pgtable_types.h:309:0,
+                 from ./arch/x86/include/asm/paravirt_types.h:44,
+                 from ./arch/x86/include/asm/ptrace.h:71,
+                 from ./arch/x86/include/asm/math_emu.h:4,
+                 from ./arch/x86/include/asm/processor.h:11,
+                 from ./arch/x86/include/asm/cpufeature.h:4,
+                 from ./arch/x86/include/asm/thread_info.h:52,
+                 from ./include/linux/thread_info.h:37,
+                 from ./arch/x86/include/asm/preempt.h:6,
+                 from ./include/linux/preempt.h:80,
+                 from ./include/linux/spinlock.h:50,
+                 from ./include/linux/seqlock.h:35,
+                 from ./include/linux/time.h:5,
+                 from ./include/linux/stat.h:18,
+                 from ./include/linux/module.h:10,
+                 from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:109:
+./include/asm-generic/pgtable-nopud.h:43:22: note: expected 'struct p4d_t *' but argument is of type 'struct pgd_t *'
+ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+                      ^
+In file included from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:215:0:
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'KCL_GetPageSizeByVirtAddr':
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:2918:23: warning: passing argument 1 of 'pud_offset' from incompatible pointer type
+     PUD_OFFSET(pud_p, pgd_p, virtual_addr);
+                       ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:106:24: note: in definition of macro 'PUD_OFFSET'
+     pud_p = pud_offset(pgd_p, pte_linear); \
+                        ^
+In file included from ./arch/x86/include/asm/pgtable_types.h:309:0,
+                 from ./arch/x86/include/asm/paravirt_types.h:44,
+                 from ./arch/x86/include/asm/ptrace.h:71,
+                 from ./arch/x86/include/asm/math_emu.h:4,
+                 from ./arch/x86/include/asm/processor.h:11,
+                 from ./arch/x86/include/asm/cpufeature.h:4,
+                 from ./arch/x86/include/asm/thread_info.h:52,
+                 from ./include/linux/thread_info.h:37,
+                 from ./arch/x86/include/asm/preempt.h:6,
+                 from ./include/linux/preempt.h:80,
+                 from ./include/linux/spinlock.h:50,
+                 from ./include/linux/seqlock.h:35,
+                 from ./include/linux/time.h:5,
+                 from ./include/linux/stat.h:18,
+                 from ./include/linux/module.h:10,
+                 from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:109:
+./include/asm-generic/pgtable-nopud.h:43:22: note: expected 'struct p4d_t *' but argument is of type 'struct pgd_t *'
+ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+                      ^
+In file included from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:215:0:
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'KCL_TestAndClearPageDirtyFlag':
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:3149:28: warning: passing argument 1 of 'pud_offset' from incompatible pointer type
+          PUD_OFFSET(pud_p, pgd_p, page_addr);
+                            ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:106:24: note: in definition of macro 'PUD_OFFSET'
+     pud_p = pud_offset(pgd_p, pte_linear); \
+                        ^
+In file included from ./arch/x86/include/asm/pgtable_types.h:309:0,
+                 from ./arch/x86/include/asm/paravirt_types.h:44,
+                 from ./arch/x86/include/asm/ptrace.h:71,
+                 from ./arch/x86/include/asm/math_emu.h:4,
+                 from ./arch/x86/include/asm/processor.h:11,
+                 from ./arch/x86/include/asm/cpufeature.h:4,
+                 from ./arch/x86/include/asm/thread_info.h:52,
+                 from ./include/linux/thread_info.h:37,
+                 from ./arch/x86/include/asm/preempt.h:6,
+                 from ./include/linux/preempt.h:80,
+                 from ./include/linux/spinlock.h:50,
+                 from ./include/linux/seqlock.h:35,
+                 from ./include/linux/time.h:5,
+                 from ./include/linux/stat.h:18,
+                 from ./include/linux/module.h:10,
+                 from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:109:
+./include/asm-generic/pgtable-nopud.h:43:22: note: expected 'struct p4d_t *' but argument is of type 'struct pgd_t *'
+ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+                      ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'KCL_MEM_VM_GetRegionPhysAddrStr':
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4076:24: warning: passing argument 1 of 'pud_offset' from incompatible pointer type
+     pud_p = pud_offset(pgd_p, virtual_addr);
+                        ^
+In file included from ./arch/x86/include/asm/pgtable_types.h:309:0,
+                 from ./arch/x86/include/asm/paravirt_types.h:44,
+                 from ./arch/x86/include/asm/ptrace.h:71,
+                 from ./arch/x86/include/asm/math_emu.h:4,
+                 from ./arch/x86/include/asm/processor.h:11,
+                 from ./arch/x86/include/asm/cpufeature.h:4,
+                 from ./arch/x86/include/asm/thread_info.h:52,
+                 from ./include/linux/thread_info.h:37,
+                 from ./arch/x86/include/asm/preempt.h:6,
+                 from ./include/linux/preempt.h:80,
+                 from ./include/linux/spinlock.h:50,
+                 from ./include/linux/seqlock.h:35,
+                 from ./include/linux/time.h:5,
+                 from ./include/linux/stat.h:18,
+                 from ./include/linux/module.h:10,
+                 from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:109:
+./include/asm-generic/pgtable-nopud.h:43:22: note: expected 'struct p4d_t *' but argument is of type 'struct pgd_t *'
+ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+                      ^
+In file included from ./include/linux/bitops.h:36:0,
+                 from ./include/linux/kernel.h:10,
+                 from ./include/linux/list.h:8,
+                 from ./include/linux/module.h:9,
+                 from /home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:109:
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'kcl_mem_pat_setup':
+./arch/x86/include/asm/bitops.h:350:29: warning: passing argument 2 of 'constant_test_bit' from incompatible pointer type
+   ? constant_test_bit((nr), (addr)) \
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4577:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:321:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool constant_test_bit(long nr, const volatile unsigned long *addr)
+                             ^
+./arch/x86/include/asm/bitops.h:351:29: warning: passing argument 2 of 'variable_test_bit' from incompatible pointer type
+   : variable_test_bit((nr), (addr)))
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4577:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:327:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool variable_test_bit(long nr, volatile const unsigned long *addr)
+                             ^
+./arch/x86/include/asm/bitops.h:350:29: warning: passing argument 2 of 'constant_test_bit' from incompatible pointer type
+   ? constant_test_bit((nr), (addr)) \
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4591:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:321:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool constant_test_bit(long nr, const volatile unsigned long *addr)
+                             ^
+./arch/x86/include/asm/bitops.h:351:29: warning: passing argument 2 of 'variable_test_bit' from incompatible pointer type
+   : variable_test_bit((nr), (addr)))
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4591:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:327:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool variable_test_bit(long nr, volatile const unsigned long *addr)
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c: In function 'kcl_mem_pat_restore':
+./arch/x86/include/asm/bitops.h:350:29: warning: passing argument 2 of 'constant_test_bit' from incompatible pointer type
+   ? constant_test_bit((nr), (addr)) \
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4618:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:321:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool constant_test_bit(long nr, const volatile unsigned long *addr)
+                             ^
+./arch/x86/include/asm/bitops.h:351:29: warning: passing argument 2 of 'variable_test_bit' from incompatible pointer type
+   : variable_test_bit((nr), (addr)))
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4618:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:327:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool variable_test_bit(long nr, volatile const unsigned long *addr)
+                             ^
+./arch/x86/include/asm/bitops.h:350:29: warning: passing argument 2 of 'constant_test_bit' from incompatible pointer type
+   ? constant_test_bit((nr), (addr)) \
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4631:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:321:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool constant_test_bit(long nr, const volatile unsigned long *addr)
+                             ^
+./arch/x86/include/asm/bitops.h:351:29: warning: passing argument 2 of 'variable_test_bit' from incompatible pointer type
+   : variable_test_bit((nr), (addr)))
+                             ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.h:654:21: note: in expansion of macro 'test_bit'
+ #define cpu_has_pge test_bit(X86_FEATURE_PGE, &boot_cpu_data.x86_capability)
+                     ^
+/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c:4631:9: note: in expansion of macro 'cpu_has_pge'
+     if (cpu_has_pge)
+         ^
+./arch/x86/include/asm/bitops.h:327:29: note: expected 'const volatile long unsigned int *' but argument is of type '__u32 (*)[19]'
+ static __always_inline bool variable_test_bit(long nr, volatile const unsigned long *addr)
+                             ^
+make: *** [Makefile:1512: _module_/home/phil/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst/src/fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod] Error 2
+make: Leaving directory '/usr/lib/modules/4.12.0-1-MANJARO/build'
+==> ERROR: A failure occurred in build().
+    Aborting...
+phil@manjaro ~/dev/git/manjaro/repositories/stable-repos/extra/linux412-extramodules/catalyst $ 
+
