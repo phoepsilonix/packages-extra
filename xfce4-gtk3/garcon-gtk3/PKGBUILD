@@ -1,11 +1,10 @@
-# $Id: PKGBUILD 232147 2015-03-01 06:33:54Z foutrelis $
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Xavier Devlamynck <magicrhesus@ouranos.be>
 
-pkgname=garcon-gtk3
 _pkgname=garcon
+pkgname=$_pkgname-gtk3
 pkgver=0.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Implementation of the freedesktop.org menu specification"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -16,9 +15,9 @@ makedepends=('intltool' 'xfce4-dev-tools')
 replaces=('libxfce4menu')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=2e640f89f8538379bacffb87a1f01c7d5d68909c
-source=(https://git.xfce.org/xfce/garcon/snapshot/garcon-$_commit.tar.bz2)
-sha256sums=('0158cb699844d2207a040304496eef87bef5940950de2a7b4b6b0f4a2ca61778')
+_commit=37ffacbcbd2c2fd37eb05dd851f05ca8ae7952f1
+source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
+sha256sums=('302e38af392a69b55e38bf723c23c18f3aa954ee3cec12f28f81788d94019e42')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -37,5 +36,3 @@ package() {
   cd "$srcdir/$_pkgname-$_commit"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:
