@@ -4,8 +4,8 @@
 
 pkgname=exo-gtk3
 _pkgname=exo
-pkgver=0.11.3
-pkgrel=2
+pkgver=0.11.4
+pkgrel=1
 pkgdesc="Extensions to Xfce by os-cillation"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -15,9 +15,9 @@ depends=('libxfce4ui-gtk3' 'perl-uri' 'hicolor-icon-theme')
 makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=0f22ff6df412f63520f1dc5b2345c2be2800bd19
+_commit=8cdccc50ca67197c93ec2e652131920008a31ebf
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('a19eb00b901df9f66786c7548c0ec353ee8f37d5df685b2c3b239bc40538a414')
+sha256sums=('3203330f6172753149ca67188d88cc31c43a2b5ded5e75947f83915b310d5d8d')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
