@@ -14,7 +14,7 @@ url="https://github.com/manjaro/iso-profiles"
 license=('GPL')
 _git=f12638c59fb59c2896b859539f0a027c509e3d9c
 source=("iso-profiles-$pkgver-$pkgrel.tar.gz::$url/archive/${_git}.tar.gz")
-sha256sums=('1c60b75d50582c43a507632be5c51f4dc674de3cc0ee50cce00a5cccbaac30db')
+sha256sums=('123841dbff0b82e64fc87757db55f0645833b2166fe1b7dc63836e9994eebd27')
 
 prepare(){
     mv $srcdir/iso-profiles-$_git $srcdir/iso-profiles-$pkgver
