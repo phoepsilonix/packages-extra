@@ -1,0 +1,31 @@
+--- a/include/linux/blkdev_compat.h	2017-02-03 22:30:06.000000000 +0100
++++ b/include/linux/blkdev_compat.h	2017-07-13 11:39:32.506637513 +0200
+@@ -215,7 +215,7 @@ bio_set_flags_failfast(struct block_devi
+  */
+ #ifdef HAVE_1ARG_BIO_END_IO_T
+ #define	BIO_END_IO_PROTO(fn, x, z)	static void fn(struct bio *x)
+-#define	BIO_END_IO(bio, error)		bio->bi_error = error; bio_endio(bio);
++#define	BIO_END_IO(bio, error)		bio->bi_status = error; bio_endio(bio);
+ #else
+ #define	BIO_END_IO_PROTO(fn, x, z)	static void fn(struct bio *x, int z)
+ #define	BIO_END_IO(bio, error)		bio_endio(bio, error);
+--- a/module/zfs/vdev_disk.c	2017-02-03 22:30:53.000000000 +0100
++++ b/module/zfs/vdev_disk.c	2017-07-13 11:35:27.005956382 +0200
+@@ -426,7 +426,7 @@ BIO_END_IO_PROTO(vdev_disk_physio_comple
+ 
+ 	if (dr->dr_error == 0) {
+ #ifdef HAVE_1ARG_BIO_END_IO_T
+-		dr->dr_error = -(bio->bi_error);
++		dr->dr_error = -(bio->bi_status);
+ #else
+ 		if (error)
+ 			dr->dr_error = -(error);
+@@ -617,7 +617,7 @@ BIO_END_IO_PROTO(vdev_disk_io_flush_comp
+ {
+ 	zio_t *zio = bio->bi_private;
+ #ifdef HAVE_1ARG_BIO_END_IO_T
+-	int rc = bio->bi_error;
++	int rc = bio->bi_status;
+ #endif
+ 
+ 	zio->io_delay = jiffies_64 - zio->io_delay;

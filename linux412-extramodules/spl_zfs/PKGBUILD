@@ -7,7 +7,7 @@ pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.6.5.9
 _pkgver=spl-0.6.5.9
-pkgrel=1
+pkgrel=3
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -27,7 +27,8 @@ source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
         'zfs-linux-4.11.patch::https://patch-diff.githubusercontent.com/raw/zfsonlinux/zfs/pull/6033.patch'
         'zfs-linux-4.12-super_setup_bdi_name.patch' #::https://github.com/zfsonlinux/zfs/commit/7dae2c81e7b2e68a596c5b431444be0fae308156.patch'
         'zfs-linux-4.12-PF_FSTRANS-was-removed.patch' #::https://github.com/zfsonlinux/zfs/commit/e624cd1959904735eda81f1a9a45d99848bb3503.patch'
-        'zfs-linux-4.12-CURRENT_TIME-removed.patch') #::https://github.com/zfsonlinux/zfs/commit/2946a1a15aab874107b4425513c1bf805e730803.patch')
+        'zfs-linux-4.12-CURRENT_TIME-removed.patch' #::https://github.com/zfsonlinux/zfs/commit/2946a1a15aab874107b4425513c1bf805e730803.patch'
+        'zfs-linux-4.13-bi_error-removed.patch')
 sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
             'b724b57dbddae59246fdc15f88f1224061c712945bb36412a2087e0c7760d77f'
             '54bbbb95e6cd909b2cbc4cdcc88f6e5fa299e62e77d076bfd7bfa7c11f329105'
@@ -40,7 +41,8 @@ sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
             '08a5a079a86b1af1361161fcdf17cc36e77c863403fc2cbbec77ba94cfd3e04a'
             '11e251995e9e9aae0ccb37e3b578832e57f726031c54833a69d8ce121dc4fa8d'
             '68d8b06960e14b3359bb4fc21e2686e521ac1f00c7e3c1c6c14de333941dae03'
-            '29c785c7cb44a04f4b9fd765dce503ba7c6b8541091f5d48b13a9f9f50588210')
+            '29c785c7cb44a04f4b9fd765dce503ba7c6b8541091f5d48b13a9f9f50588210'
+            '08c3d7617cabec1c9a037756141ee84db6500e6eb10405966690aca7ac065517')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
@@ -58,6 +60,7 @@ prepare() {
   patch -p1 -i ${srcdir}/zfs-linux-4.12-super_setup_bdi_name.patch
   patch -p1 -i ${srcdir}/zfs-linux-4.12-PF_FSTRANS-was-removed.patch
   patch -p1 -i ${srcdir}/zfs-linux-4.12-CURRENT_TIME-removed.patch
+  patch -p1 -i ${srcdir}/zfs-linux-4.13-bi_error-removed.patch
 }
 
 build() {

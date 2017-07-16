@@ -7,20 +7,23 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
 pkgver=0.15.3
-pkgrel=1
+pkgrel=2
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('965184fc77b5f01da76108012962abb4867f5d0a0276afbb458fd389df7efd9a')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        'relro-bind-now.patch::https://github.com/manjaro/manjaro-tools/commit/b8255e9e175ed287e7d91f96fc8733b7956ebbce.patch')
+sha256sums=('965184fc77b5f01da76108012962abb4867f5d0a0276afbb458fd389df7efd9a'
+            'da87197ca017ed62f61b657c165db6dc8cb3aa3af539bfbf15d5815c9c0da29c')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
     sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
+    patch -p1 -i "$srcdir/relro-bind-now.patch"
 }
 
 build() {
