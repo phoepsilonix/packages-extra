@@ -5,7 +5,7 @@
 _pkgname=xfce4-appfinder
 pkgname=$_pkgname-gtk3
 pkgver=4.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An application finder for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -16,9 +16,9 @@ makedepends=('intltool')
 replaces=('xfce-utils')
 conflicte=($_pkgname)
 provides=(_pkgname)
-_commit=a9d13e1b463d2d884a769f52614b667ce0a02a3f
+_commit=a390d3d8c40a7adbd9c11a1fe864847ef1458520
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('deb5b2f08980e8a49f192b50e12a3359e61afaa9d2df83f1bc9d3a466bbb2cbb')
+sha256sums=('39eef3eb7331d6bb613c28465d441c5a765f80e38db57b2c76af2ade0dc9cedb')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"

@@ -5,16 +5,16 @@
 _pkgname=thunar
 pkgname=$_pkgname-gtk3
 pkgver=1.6.12
-pkgrel=2
+pkgrel=3
 pkgdesc="Modern file manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://thunar.xfce.org"
 _commit=8827c23369b8bce5c275036871d4eeb2245b7929
 license=('GPL2' 'LGPL2.1')
-groups=('xfce4')
+groups=('xfce4-gtk3')
 depends=('desktop-file-utils' 'libexif' 'hicolor-icon-theme' 'libnotify'
          'libgudev' 'gtk3' 'exo-gtk3' 'libxfce4util-gtk3' 'libxfce4ui-gtk3' 'libpng')
-makedepends=('intltool' 'xfce4-panel')
+makedepends=('intltool' 'xfce4-dev-tools' 'xfce4-panel')
 optdepends=('gvfs: for trash support, mounting with udisk and remote filesystems'
             'xfce4-panel: for trash applet'
             'tumbler: for thumbnail previews'
