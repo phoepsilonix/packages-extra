@@ -1,0 +1,39 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: AndyRTR <andyrtr@archlinux.org>
+# Contributor: tobias <tobias funnychar archlinux.org>
+
+_pkgname=xfce4-appfinder
+pkgname=$_pkgname-gtk3
+pkgver=4.12.0
+pkgrel=1
+pkgdesc="An application finder for Xfce"
+arch=('i686' 'x86_64')
+url="http://www.xfce.org/"
+license=('GPL2')
+groups=('xfce4-gtk3')
+depends=('libxfce4ui' 'garcon' 'hicolor-icon-theme')
+makedepends=('intltool')
+replaces=('xfce-utils')
+conflicte=($_pkgname)
+provides=(_pkgname)
+_commit=a9d13e1b463d2d884a769f52614b667ce0a02a3f
+source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
+sha256sums=('deb5b2f08980e8a49f192b50e12a3359e61afaa9d2df83f1bc9d3a466bbb2cbb')
+
+build() {
+  cd "$srcdir/$_pkgname-$_commit"
+
+  ./autogen.sh \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --disable-static \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$_commit"
+  make DESTDIR="$pkgdir" install
+}
