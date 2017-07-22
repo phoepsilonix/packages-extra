@@ -9,7 +9,7 @@ _extramodules=extramodules-4.12-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.134
-pkgrel=3
+pkgrel=5
 epoch=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
@@ -31,7 +31,7 @@ md5sums=('79671a27131da619a33eb02ed0c2c031'
          'f1003d21dcadde47d532a27bdfc79b55'
          'a2518ee171134b4d0aa2d96483746a34'
          'b44ca6919a2001c977f0aeb3e9af4484'
-         '613280c3eceed47d4922a5ec351526b3')
+         '9bf784d939ab1bf3191575df89c9e218')
 md5sums_i686=('9abd7e9272382bd0e6939c3a367cc1a6')
 md5sums_x86_64=('2ecfa6bd145f673264f7977e0366e259')
 
@@ -54,7 +54,7 @@ prepare() {
   # Fix compile problem with 4.11
   (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux411.patch)
   # Fix compile problem with 4.12
-  (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux412.patch)
+  (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/linux412.patch)
 }
 
 build() {
