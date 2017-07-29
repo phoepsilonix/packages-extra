@@ -5,9 +5,9 @@ _linuxprefix=linux44
 _extramodules=extramodules-4.4-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.6.5.9
-_pkgver=spl-0.6.5.9
-pkgrel=17
+pkgver=0.7.0
+_pkgver=spl-0.7.0
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -16,16 +16,13 @@ makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
-        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
-        'spl-dont-take-spin-lock-on-rwlock-owner.patch::https://github.com/zfsonlinux/spl/commit/4f8e643afe9d8cc558566e1dda05ef597cb2526e.patch')
-sha256sums=('1a1fab3b796b29a47e2cbeaece2a09ed3f7f6e5d7d1d17a8e8d6d570b12a0081'
-            'b724b57dbddae59246fdc15f88f1224061c712945bb36412a2087e0c7760d77f'
-            '80885cfdab244584c5fb61b374d6dedd219192cb86da871b1ac91d35c93caa40')
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=('a450912776e2f5541e52f14ebba3d9c00beec109854d47898d1f51d5c1c539df'
+            '6907524f5ca4149b799fe65cd31b552b0ae90dba5dc20524e1a24fc708d807d2')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
   # patches here
-  patch -p1 -i ${srcdir}/spl-dont-take-spin-lock-on-rwlock-owner.patch
   cd "${srcdir}/zfs-${pkgver}"
   # patches here
 }

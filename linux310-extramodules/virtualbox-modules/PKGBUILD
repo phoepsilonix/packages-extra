@@ -9,7 +9,7 @@
 
 pkgbase=linux310-virtualbox-modules
 pkgname=('linux310-virtualbox-host-modules' 'linux310-virtualbox-guest-modules')
-pkgver=5.1.24
+pkgver=5.1.26
 pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
@@ -31,6 +31,8 @@ prepare() {
      rm -v dkms/vboxguest/$pkgver/$_kernver/$CARCH/module/*.ko
      rm -v dkms/vboxhost/$pkgver/$_kernver/$CARCH/module/*.ko
   fi
+  export KCPPFLAGS="-fno-pie -Wno-pointer-sign -fno-stack-protector -mfentry"
+  export CPPFLAGS="$KCPPFLAGS" 
 }
 
 build() {
