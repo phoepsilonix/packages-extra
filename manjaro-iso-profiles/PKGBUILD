@@ -8,7 +8,7 @@ pkgname=('manjaro-iso-profiles-base'
         'manjaro-iso-profiles-official'
         'manjaro-iso-profiles-community')
 pkgver=17.0.2
-pkgrel=4
+pkgrel=5
 arch=('any')
 url="https://github.com/manjaro/iso-profiles"
 license=('GPL')
