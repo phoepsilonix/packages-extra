@@ -4,7 +4,7 @@
 
 pkgname=xfconf-gtk3
 _pkgname=xfconf
-pkgver=4.13.2
+pkgver=4.13.3
 pkgrel=1
 pkgdesc="A simple client-server configuration storage and query system"
 arch=('i686' 'x86_64')
@@ -17,9 +17,9 @@ makedepends=('perl-extutils-depends' 'perl-extutils-pkgconfig' 'glib-perl'
 options=('!emptydirs')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=44a93a88d00db567b8a8650fd782f2a8b4b78ea7
+_commit=d12062f3bb2e2c9318165f51cca5206740f2f068
 source=(https://git.xfce.org/xfce/xfconf/snapshot/xfconf-$_commit.tar.bz2)
-sha256sums=('a8cd3be230fc689367bdc91d457d75dd14618cae643a957dd6f1392f9ce239fd')
+sha256sums=('458148d3eaded17f8e907ca47a78aa007833f84cc5b2763bab590370eebab0a3')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -29,13 +29,13 @@ prepare() {
 build() {
   cd "$srcdir/$_pkgname-$_commit"
 
+# gtk-doc enabled creates errors!     --enable-gtk-doc \ 
   ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib/xfce4 \
     --localstatedir=/var \
     --disable-static \
-    --enable-gtk-doc \
     --with-perl-options=INSTALLDIRS="vendor" \
     --disable-debug
   make
