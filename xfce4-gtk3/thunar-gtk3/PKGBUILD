@@ -1,22 +1,22 @@
-# $Id: PKGBUILD 299446 2017-06-30 23:32:06Z foutrelis $
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Andrew Simmons <andrew.simmons@gmail.com>
 
 _pkgname=thunar
 pkgname=$_pkgname-gtk3
 pkgver=1.6.12
-pkgrel=3
+pkgrel=4
 pkgdesc="Modern file manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://thunar.xfce.org"
-_commit=8827c23369b8bce5c275036871d4eeb2245b7929
+_commit=9a1c06ea65ad55aa6308214b6a5d1371c836441f
 license=('GPL2' 'LGPL2.1')
 groups=('xfce4-gtk3')
 depends=('desktop-file-utils' 'libexif' 'hicolor-icon-theme' 'libnotify'
          'libgudev' 'gtk3' 'exo-gtk3' 'libxfce4util-gtk3' 'libxfce4ui-gtk3' 'libpng')
-makedepends=('intltool' 'xfce4-dev-tools' 'xfce4-panel')
+makedepends=('intltool' 'xfce4-dev-tools' 'xfce4-panel-gtk3')
 optdepends=('gvfs: for trash support, mounting with udisk and remote filesystems'
-            'xfce4-panel: for trash applet'
+            'xfce4-panel-gtk3: for trash applet'
             'tumbler: for thumbnail previews'
             'thunar-volman: manages removable devices'
             'thunar-archive-plugin: create and deflate archives'
@@ -25,7 +25,7 @@ conflicts=($_pkgname)
 provides=($_pkgname)
 #source=(http://archive.xfce.org/src/xfce/$_pkgname/${pkgver%.*}/Thunar-$pkgver.tar.bz2)
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('302388647b86ea1691fcddc59260a1003dbffe5165548e7a8951a8a42cbc40c5')
+sha256sums=('4eb29988090502b200af0a4ee0a32a92241cb446e10a71d8da185354dfb81591')
 
 build() {
   cd "$_pkgname-$_commit"
@@ -42,7 +42,6 @@ build() {
         --enable-gudev \
         --enable-exif \
         --enable-pcre \
-        --enable-gtk-doc \
         --disable-debug
   make
 }
@@ -51,5 +50,3 @@ package() {
   cd "$_pkgname-$_commit"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:

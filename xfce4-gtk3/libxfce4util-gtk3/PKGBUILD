@@ -1,37 +1,40 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 _pkgname=libxfce4util
 pkgname=$_pkgname-gtk3
 pkgver=4.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Basic utility non-GUI functions for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 depends=('glib2')
-makedepends=('intltool' 'gtk-doc')
+makedepends=('gobject-introspection' 'xfce4-dev-tools')
 conflicts=($_pkgname)
 provides=($_pkgname)
-source=(http://archive.xfce.org/src/xfce/$_pkgname/${pkgver%.*}/$_pkgname-$pkgver.tar.bz2)
-sha256sums=('278013dca14bfd50c9efd3898a28e3f3c5053b506de257267947fbb852d2ed2c')
+_commit=6c41dea244bf308116069063bea5b42257c756fd
+options=(!libtool)
+source=("https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2")
+sha256sums=('d53a3ab06fad736c71e625651e2652ecf686f4bdd7f42744b378d7d441962150')
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd $_pkgname-$_commit
 
-  ./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --sbindir=/usr/bin \
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-static \
-    --enable-gtk-doc \
     --disable-debug
   make
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd $_pkgname-$_commit
   make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/share/gtk-doc/
 }

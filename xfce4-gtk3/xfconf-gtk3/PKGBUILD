@@ -1,11 +1,11 @@
-# $Id: PKGBUILD 269425 2016-06-13 05:41:56Z foutrelis $
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfconf-gtk3
 _pkgname=xfconf
 pkgver=4.13.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple client-server configuration storage and query system"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -13,13 +13,13 @@ license=('GPL2')
 groups=('xfce4-gtk3')
 depends=('dbus-glib' 'libxfce4util-gtk3')
 makedepends=('perl-extutils-depends' 'perl-extutils-pkgconfig' 'glib-perl'
-             'intltool' 'gtk-doc' 'chrpath' 'xfce4-dev-tools')
+             'intltool' 'chrpath' 'xfce4-dev-tools')
 options=('!emptydirs')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=d12062f3bb2e2c9318165f51cca5206740f2f068
+_commit=b13fe369051af3c6bc50959f513dbae82238c045
 source=(https://git.xfce.org/xfce/xfconf/snapshot/xfconf-$_commit.tar.bz2)
-sha256sums=('458148d3eaded17f8e907ca47a78aa007833f84cc5b2763bab590370eebab0a3')
+sha256sums=('9550cdabf4880bc8880624afaea419657468dbe6afe99462c899ef90a272e60b')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -29,7 +29,6 @@ prepare() {
 build() {
   cd "$srcdir/$_pkgname-$_commit"
 
-# gtk-doc enabled creates errors!     --enable-gtk-doc \ 
   ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -49,5 +48,3 @@ package() {
   # Fix insecure rpath, http://bugs.archlinux.org/task/19980
   chrpath -d "$pkgdir/usr/lib/perl5/vendor_perl/auto/Xfce4/Xfconf/Xfconf.so"
 }
-
-# vim:set ts=2 sw=2 et:

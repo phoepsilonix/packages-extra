@@ -1,10 +1,11 @@
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Xavier Devlamynck <magicrhesus@ouranos.be>
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=libxfce4ui-gtk3
 _pkgname=libxfce4ui
 pkgver=4.13.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Commonly used Xfce widgets among Xfce applications (GTK3)"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,30 +18,28 @@ depends=('gtk2'
     'libxfce4util-gtk3'
     'startup-notification'
     'xfconf-gtk3')
-makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools' 'exo-gtk3')
+makedepends=('intltool' 'xfce4-dev-tools' 'exo-gtk3')
 conflicts=($_pkgname)
 provides=("$_pkgname=$pkgver")
-#_commit=ccb1ee69ff7447835018b28d07470eeefa10157c
-#source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-source=(http://archive.xfce.org/src/xfce/$_pkgname/${pkgver%.*}/$_pkgname-$pkgver.tar.bz2)
-sha256sums=('815c33a49392520feb84f119cd8f558632a735e322ca55edce33f815a0624470')
+_commit=bffab34c0b8d17b6abd3889fa016dade90e56b0a
+source=("https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2")
+sha256sums=('118b17d1fb33cd0cb069dad20e9e42676e40b18162a9b5e90e6984597a9f6a8d')
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd $_pkgname-$_commit
 
-  ./configure \
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-static \
-    --enable-gtk-doc \
     --disable-debug \
     --with-vendor-info="Manjaro-Linux"
   make
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd $_pkgname-$_commit
   make DESTDIR="$pkgdir" install
 }

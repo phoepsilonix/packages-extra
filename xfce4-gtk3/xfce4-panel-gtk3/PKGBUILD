@@ -1,10 +1,11 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
-pkgname=xfce4-panel-gtk3
 _pkgname=xfce4-panel
+pkgname="$_pkgname-gtk3"
 pkgver=4.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -16,18 +17,17 @@ depends=('desktop-file-utils'
     'hicolor-icon-theme'
     'libwnck3'
     'libxfce4ui-gtk3'
+    'vala'
     'xfconf-gtk3>=4.13.3')
-makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
-_commit=543b852878aaee31b345568ccdfa9f3b52e06cc2
+makedepends=('intltool' 'xfce4-dev-tools')
+_commit=e2dbdf186e20402c7133bc0ed90d7b98f23a050e
 provides=($_pkgname)
 conflicts=($_pkgname)
 source=(https://git.xfce.org/xfce/xfce4-panel/snapshot/xfce4-panel-$_commit.tar.bz2)
-sha256sums=('b825f99c432a066974104e0f8a90630dad4b8d9d29309c7c88013e1467711795')
+sha256sums=('06832b7d4c3ee8c1c8efb45a43a0d34470a72115364a63064f7bf1a6a32f7b68')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
-
-# enabling gtk-doc creates errors:     --enable-gtk-doc \
 
   ./autogen.sh \
     --prefix=/usr \
@@ -45,6 +45,3 @@ package() {
   cd "$srcdir/$_pkgname-$_commit"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:
-

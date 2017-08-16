@@ -1,11 +1,11 @@
-# $Id: PKGBUILD 290944 2017-03-16 17:44:37Z foutrelis $
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfwm4-gtk3
 _pkgname=xfwm4
 pkgver=4.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Xfce window manager"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -15,9 +15,9 @@ depends=('exo-gtk3' 'hicolor-icon-theme' 'libxfce4ui-gtk3' 'libwnck' 'libdrm')
 makedepends=('intltool' 'xfce4-dev-tools')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=804e3528aa66c79ca97d1a5042b5cf17717199c9
+_commit=25801b2e7162f091a092c5265b621f054c54da87
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('e30ea35cdebafcc5b63032fcf32c575db402bf10907aadce3be4e086949bfe63')
+sha256sums=('be92a42728ec23d0dd4208871ff968c3389d099e266119886755ad8de767b596')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -40,5 +40,3 @@ package() {
   cd "$srcdir/$_pkgname-$_commit"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:

@@ -1,10 +1,10 @@
-# $Id: PKGBUILD 275804 2016-09-07 09:29:26Z foutrelis $
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
 
 _pkgname=xfce4-power-manager
 pkgname=$_pkgname-gtk3
-pkgver=1.6.0.41.g9daecb5
+pkgver=1.6.0.79.g23fc649
 _commit=9daecb5a1763035db6adc83f45a7a01349872f53
 pkgrel=2
 pkgdesc="Power manager for Xfce desktop"
@@ -12,12 +12,16 @@ arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4-gtk3')
-depends=('libxfce4ui' 'upower' 'libnotify' 'hicolor-icon-theme')
-optdepends=('xfce4-panel: for the Xfce panel plugin')
-makedepends=('intltool' 'xfce4-panel' 'git' 'xfce4-dev-tools' 'exo' 'python')
+depends=('libxfce4ui-gtk3' 'upower' 'libnotify' 'hicolor-icon-theme')
+optdepends=('xfce4-panel-gtk3: for the Xfce panel plugin')
+makedepends=('exo-gtk3'
+	'intltool'
+	'python'
+	'xfce4-dev-tools'	
+'xfce4-panel-gtk3')
 conflicts=($_pkgname)
 provides=($_pkgname)
-source=(git://git.xfce.org/xfce/xfce4-power-manager#commit=$_commit)
+source=(https://git.xfce.org/apps/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
 sha256sums=('SKIP')
 
 pkgver() {
@@ -44,5 +48,3 @@ package() {
   cd "$srcdir/$_pkgname"
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:

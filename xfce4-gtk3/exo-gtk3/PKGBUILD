@@ -1,3 +1,4 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 # Contributor: Aurelien Foret <orelien@chez.com>
@@ -5,19 +6,19 @@
 pkgname=exo-gtk3
 _pkgname=exo
 pkgver=0.11.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensions to Xfce by os-cillation"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2' 'LGPL')
 groups=('xfce4-gtk3')
 depends=('libxfce4ui-gtk3' 'perl-uri' 'hicolor-icon-theme')
-makedepends=('intltool' 'gtk-doc' 'xfce4-dev-tools')
+makedepends=('intltool' 'xfce4-dev-tools')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=8cdccc50ca67197c93ec2e652131920008a31ebf
+_commit=a28159db0c5f34b1b0dc9441dfb97ca1fcf9bfa2
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('3203330f6172753149ca67188d88cc31c43a2b5ded5e75947f83915b310d5d8d')
+sha256sums=('83ba4380ff5ee19d969b6281f055f961fd5d42b82c67fd9c41db539d2d41ce2d')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -29,7 +30,6 @@ build() {
   ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
-    --enable-gtk-doc \
     --disable-debug
   make
 }

@@ -1,11 +1,11 @@
-# $Id: PKGBUILD 267161 2016-05-07 05:08:42Z foutrelis $
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
-pkgname=xfce4-session-gtk3
 _pkgname=xfce4-session
+pkgname=$_pkgname-gtk3
 pkgver=4.13.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -30,11 +30,11 @@ optdepends=('gnome-keyring: for keyring support when GNOME compatibility is enab
 replaces=('xfce-utils')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=560219ad500c73e0fc2c3d959f96bcb8e2a54556
-source=(https://git.xfce.org/xfce/xfce4-session/snapshot/xfce4-session-$_commit.tar.bz2
+_commit=989cb9b83e593498b45ab8642fe374571f6b1022
+source=("https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2"
         dbus-update-environment.patch
         xfce-polkit-gnome-authentication-agent-1.desktop)
-sha256sums=('836f46e39b8760409d9f59c53845f2c404f7cbad83da83a35fc16bd1606ab026'
+sha256sums=('b33108486805ad03599887cdcf9594a53fc14c6d69221b29c1d160c4bf88f501'
             '9158404ba903b20b32f366a19cef7627eaf385ee145abbb3e8b1b459b6604cc3'
             '74c94c5f7893d714e04ec7d8b8520c978a5748757a0cdcf5128492f09f31b643')
 
@@ -67,5 +67,3 @@ package() {
   cp "$srcdir/xfce-polkit-gnome-authentication-agent-1.desktop" \
     "$pkgdir/etc/xdg/autostart/"
 }
-
-# vim:set ts=2 sw=2 et:

@@ -1,24 +1,24 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: AndyRTR <andyrtr@archlinux.org>
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 _pkgname=xfce4-appfinder
 pkgname=$_pkgname-gtk3
-pkgver=4.12.0
-pkgrel=2
+pkgver=4.13.0
+pkgrel=1
 pkgdesc="An application finder for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4-gtk3')
-depends=('libxfce4ui' 'garcon' 'hicolor-icon-theme')
+depends=('libxfce4ui-gtk3' 'garcon-gtk3' 'hicolor-icon-theme')
 makedepends=('intltool')
-replaces=('xfce-utils')
 conflicte=($_pkgname)
 provides=(_pkgname)
-_commit=a390d3d8c40a7adbd9c11a1fe864847ef1458520
+_commit=27eea4663d627bdcdba15b233b1f1419ff90f5e3
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('39eef3eb7331d6bb613c28465d441c5a765f80e38db57b2c76af2ade0dc9cedb')
+sha256sums=('996eb4cf8d2ff4eecd40db66813132357a7c4a30ec93cb8b5de148e4cc6d3bfb')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
