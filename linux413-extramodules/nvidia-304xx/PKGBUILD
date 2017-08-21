@@ -1,0 +1,72 @@
+# Based on the file created for Arch Linux by:
+# Maintainer : Thomas Baechler <thomas@archlinux.org>
+
+# Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Roland Singer <roland@manjaro.org>
+
+_linuxprefix=linux413
+_extramodules=extramodules-4.13-MANJARO
+pkgname=$_linuxprefix-nvidia-304xx
+_pkgname=nvidia
+pkgver=304.134
+pkgrel=0.5
+epoch=1
+pkgdesc="NVIDIA drivers for linux."
+arch=('i686' 'x86_64')
+url="http://www.nvidia.com/"
+depends=("$_linuxprefix" "nvidia-304xx-utils=${epoch}:${pkgver}")
+makedepends=("$_linuxprefix-headers")
+provides=("$_pkgname=$pkgver" "$_linuxprefix-nvidia-legacy")
+replaces=("$_linuxprefix-nvidia-legacy")
+groups=("$_linuxprefix-extramodules")
+conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia")
+license=('custom')
+install=nvidia.install
+options=(!strip)
+source=('nvidia-3.18.patch' 'disable-mtrr.patch' 'linux49.patch' 'linux410.patch' 'linux411.patch' 'linux412.patch')
+source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
+source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+md5sums=('79671a27131da619a33eb02ed0c2c031'
+         'c4becf1145a139cc0121be9ad340bcd8'
+         'f1003d21dcadde47d532a27bdfc79b55'
+         'a2518ee171134b4d0aa2d96483746a34'
+         'b44ca6919a2001c977f0aeb3e9af4484'
+         '9bf784d939ab1bf3191575df89c9e218')
+md5sums_i686=('9abd7e9272382bd0e6939c3a367cc1a6')
+md5sums_x86_64=('2ecfa6bd145f673264f7977e0366e259')
+
+[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+
+prepare() {
+  cd "$srcdir"
+  sh "$_pkg.run" --extract-only
+  cd "${_pkg}"
+  # patches here
+  # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
+  patch -p0 --no-backup-if-mismatch -i ${srcdir}/nvidia-3.18.patch
+  # FS#47092
+  (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/disable-mtrr.patch)
+  # Fix "already registered" problem with 4.9
+  (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux49.patch)
+  # Fix compile problem with 4.10
+  (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/linux410.patch)
+  # Fix compile problem with 4.11
+  (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux411.patch)
+  # Fix compile problem with 4.12
+  (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/linux412.patch)
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+    cd "${_pkg}/kernel"
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+}
+
+package() {
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+}
