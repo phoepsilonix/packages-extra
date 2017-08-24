@@ -5,7 +5,7 @@
 _pkgname=xfce4-session
 pkgname=$_pkgname-gtk3
 pkgver=4.13.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -21,7 +21,7 @@ depends=('exo-gtk3'
     'xorg-iceauth'
     'xorg-xinit'
     'xorg-xrdb')
-makedepends=('intltool')
+makedepends=('intltool' 'xfce4-dev-tools')
 optdepends=('gnome-keyring: for keyring support when GNOME compatibility is enabled'
             'xscreensaver: for locking screen with xflock4'
             'gnome-screensaver: for locking screen with xflock4'
@@ -30,11 +30,11 @@ optdepends=('gnome-keyring: for keyring support when GNOME compatibility is enab
 replaces=('xfce-utils')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=989cb9b83e593498b45ab8642fe374571f6b1022
+_commit=0491b5eee45b4885478f5689cca20423b13ee27c
 source=("https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2"
         dbus-update-environment.patch
         xfce-polkit-gnome-authentication-agent-1.desktop)
-sha256sums=('b33108486805ad03599887cdcf9594a53fc14c6d69221b29c1d160c4bf88f501'
+sha256sums=('12ee3cf5ffc3535362c34295f9acb412847b29fee4c1d71478ae12a11810fb05'
             '9158404ba903b20b32f366a19cef7627eaf385ee145abbb3e8b1b459b6604cc3'
             '74c94c5f7893d714e04ec7d8b8520c978a5748757a0cdcf5128492f09f31b643')
 
