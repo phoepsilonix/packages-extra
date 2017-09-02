@@ -4,8 +4,8 @@
 
 pkgname=xfconf-gtk3
 _pkgname=xfconf
-pkgver=4.13.3
-pkgrel=2
+pkgver=4.13.4
+pkgrel=1
 pkgdesc="A simple client-server configuration storage and query system"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,9 +17,9 @@ makedepends=('perl-extutils-depends' 'perl-extutils-pkgconfig' 'glib-perl'
 options=('!emptydirs')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=b13fe369051af3c6bc50959f513dbae82238c045
+_commit=c38105c0987c0ed997fe24c486ad1de55610b0f5
 source=(https://git.xfce.org/xfce/xfconf/snapshot/xfconf-$_commit.tar.bz2)
-sha256sums=('9550cdabf4880bc8880624afaea419657468dbe6afe99462c899ef90a272e60b')
+sha256sums=('dd2153a984bd9b2df8b5d4b0b70872be3cc504ab6f436b57fd637d2da9fb95c0')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
