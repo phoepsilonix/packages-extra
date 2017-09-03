@@ -29,7 +29,7 @@ source=(https://git.xfce.org/apps/parole/snapshot/$_pkgname-$pkgver.tar.bz2)
 sha256sums=('b29b561fad417d7cb16f1698a5f74f10d3120e2ea0970466fd93ccd9c9b14825')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$_pkgname-$pkgver"
   ./autogen.sh --prefix=/usr --libexecdir=/usr/lib \
     --enable-taglib --enable-libnotify --with-gstreamer=1.0 \
     --enable-clutter
@@ -37,7 +37,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$_pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
 
