@@ -4,7 +4,7 @@ pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
 _pkgver=5.1.1
 pkgver=$_pkgver
-pkgrel=1
+pkgrel=2
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
@@ -20,7 +20,7 @@ sha256sums=('edb3cf635ae94da9ae87f9feafd836e264b24bdf1e7a07396abd4e062f29b0f1')
 prepare() {
   # adjust version string
   cd "$srcdir/pamac-$_pkgver"
-  sed -i -e "s|\"$pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala
+  sed -i -e "s|\"5.1.0\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala
   # patches here
 }
 
