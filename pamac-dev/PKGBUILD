@@ -2,9 +2,9 @@
 
 pkgbase=pamac
 pkgname=('pamac-dev' 'pamac-dev-tray-appindicator')
-pkgver=5.90.2
+pkgver=5.90.3
 _pkgver=5.9.0
-_commit=80ea4ea70f95f0170083fff00ab4480fa62e2cd9
+_commit=86713ef0ed2c7f48f0addf77562080bd3f5c1235
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -18,7 +18,7 @@ options=(!emptydirs)
 
 source=(#"pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/v$_pkgver.tar.gz"
         "pamac-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/pamac/archive/$_commit.tar.gz")
-sha256sums=('7efdff5a387f6420a121a414f2bb40115a295a25a1b3bb681387e90576a53239')
+sha256sums=('f4ded5344acfd56e264f5ed7d448429a6a8489bd1088af69ee49429ee8f3026a')
   
 prepare() {
   mv "$srcdir/pamac-$_commit" "$srcdir/pamac-$_pkgver"
