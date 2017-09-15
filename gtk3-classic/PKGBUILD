@@ -8,7 +8,7 @@ __arch_pkg_commit="712b5a879d9389efba706c8817607fa65ac562e9"
 
 pkgname=gtk3-classic
 pkgver=3.22.21
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3)
@@ -16,6 +16,7 @@ provides=("gtk3=$pkgver")
 arch=(i686 x86_64)
 license=(LGPL)
 depends=(
+    adwaita-icon-theme
     atk
     at-spi2-atk
     cairo
@@ -41,7 +42,6 @@ depends=(
 optdepends=(
     'gtk3-print-backends: printing'
     'dconf: default GSettings backend'
-    'adwaita-icon-theme: default icon theme'
     'cantarell-fonts: default font'
 )
 makedepends=(
