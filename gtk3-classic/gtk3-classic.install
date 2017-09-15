@@ -3,7 +3,7 @@ ALL_OFF="\e[1;0m"
 BOLD="\e[1;1m"
 GREEN="${BOLD}\e[1;32m"
 local mesg=$1; shift
-printf "${GREEN}==>${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}" "$@" >&2
+printf "\n${GREEN} ==>${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}" "$@" >&2
 }
 
 post_install() {
