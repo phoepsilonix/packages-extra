@@ -2,30 +2,26 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-_pkgver=5.1.1
+_pkgver=6.0.0
 pkgver=$_pkgver
-pkgrel=4
+pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
 depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.22'
-         'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4')
+         'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4'
+         'appstream-glib' 'archlinux-appstream-data')
 makedepends=('gettext' 'itstool' 'vala>=0.36' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
-        "fix-confirm-dialog.patch::https://github.com/manjaro/pamac/commit/282aedada1809b64ed139242dfaf4afaa24c112c.patch"
-        "fix-ignore-pkg-list.patch::https://github.com/manjaro/pamac/commit/7b34054289b5214be14c1f32e9a1e1ffefbfc6f5.patch")
-sha256sums=('edb3cf635ae94da9ae87f9feafd836e264b24bdf1e7a07396abd4e062f29b0f1'
-            'f988346fc07d86a614f2fcdaf9e4817524c8864df13c6321a3c09aaaad298144'
-            'a8f91ace6a3c38a1c624b5931f1f4839bc7a89bddcb0b20138684c8f20242641')
+source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz")
+sha256sums=('047c7a4424ba5db95425d7c1c11f28aada618715ee7d23ba02738d86c380a7c8')
 
 prepare() {
   cd "$srcdir/pamac-$_pkgver"
   # patches here
-  patch -p1 -i $srcdir/fix-confirm-dialog.patch
-  patch -p1 -i $srcdir/fix-ignore-pkg-list.patch
+
   # adjust version string
   sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala
 }
