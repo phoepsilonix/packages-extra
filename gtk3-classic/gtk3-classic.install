@@ -11,7 +11,7 @@ msg "gtk3-classic disables Client Side Decorations by default !
   -> They are needed for GNOME desktop with Wayland !
   -> To enable CSD set environment variable 'GTK_CSD=1'.
 
-  -> For more details see /etc/gtk-3.0/README.md
+  -> For more details see /usr/share/gtk-3.0/README.md
   "
 }
 
