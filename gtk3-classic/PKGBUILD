@@ -4,12 +4,13 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="712b5a879d9389efba706c8817607fa65ac562e9"
 _repo=gtk3-mushrooms
+_commit=0c2a04f3237639f8da136f934548be987f344836
+__arch_pkg_commit=712b5a879d9389efba706c8817607fa65ac562e9
 
 pkgname=gtk3-classic
 pkgver=3.22.21
-pkgrel=5
+pkgrel=6
 pkgdesc="GTK3 library modified for classic GTK-based desktops."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3)
@@ -66,52 +67,9 @@ sha256sums=('1bd3c1a85cfb4db112cabb5379abb05a1a94fe43052d309d573493fca00e6b87'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
             'SKIP')
 
-__patch_makefiles() {
-
-    __replace_string_in_file() {
-        sed -i".bak" "s/$1/$2/" "$3"
-        [[ "$(cat "$3")" != "$(cat "$3.bak")" ]] || return 1
-        rm "$3.bak"
-    }
-
-    __replace_string_in_file \
-        "SRC_SUBDIRS = gdk gtk libgail-util modules demos tests testsuite examples" \
-        "SRC_SUBDIRS = gdk gtk libgail-util modules demos" \
-        "Makefile.am"
-
-    __replace_string_in_file \
-        "SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" \
-        "SUBDIRS = po \$(SRC_SUBDIRS) m4macros build" \
-        "Makefile.am"
-
-    __replace_string_in_file \
-        "SUBDIRS = gtk-demo widget-factory icon-browser" \
-        "SUBDIRS = widget-factory" \
-        "demos/Makefile.am"
-
-    __replace_string_in_file "SUBDIRS += cloudprint" "" "modules/printbackends/Makefile.am"
-    __replace_string_in_file "SUBDIRS += cups" 	     "" "modules/printbackends/Makefile.am"
-    __replace_string_in_file "gtk-update-icon-cache" "" "gtk/Makefile.am"
-}
-
-__patch_gtk_code() {
-    for patchfile in $srcdir/$_repo/*.patch; do
-        patch -d "gtk" -p 3 -i "$patchfile"
-    done
-
-    cat "$srcdir/$_repo/smaller-adwaita.css" >> "gtk/theme/Adwaita/gtk-contained.css"
-    cat "$srcdir/$_repo/smaller-adwaita.css" >> "gtk/theme/Adwaita/gtk-contained-dark.css"
-}
-
 prepare() {
     cd gtk+-$pkgver
-
-    # Make building faster by skipping tests, code examples and unused elements.
-    __patch_makefiles
-
-    # Apply patches to GTK code.
-    __patch_gtk_code
-
+    $srcdir/$_repo/do-mushrooms.sh
     NOCONFIGURE=1 ./autogen.sh
 }
 
@@ -120,7 +78,7 @@ build() {
 
     CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
       --enable-x11-backend --enable-wayland-backend --disable-schemas-compile \
-      --disable-gtk-doc-html --disable-installed-tests  --disable-maintainer-mode
+      --disable-gtk-doc-html
 
     # https://bugzilla.gnome.org/show_bug.cgi?id=655517
     sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
