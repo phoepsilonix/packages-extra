@@ -2,9 +2,9 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-_pkgver=6.0.0
+_pkgver=6.0.1
 pkgver=$_pkgver
-pkgrel=1
+pkgrel=2
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
@@ -15,12 +15,24 @@ depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' '
 makedepends=('gettext' 'itstool' 'vala>=0.36' 'libappindicator-gtk3')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz")
-sha256sums=('047c7a4424ba5db95425d7c1c11f28aada618715ee7d23ba02738d86c380a7c8')
+source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
+        'update-trans.patch::https://github.com/manjaro/pamac/commit/e1ead00c6295ef9b5e14eecfafe4611832b6d244.patch'
+        'close-notification-as-needed.patch::https://github.com/manjaro/pamac/commit/669316872f1a5dbf1bf1eb4240d793ea6d23dcdf.patch'
+        'fix-db-refresh.patch::https://github.com/manjaro/pamac/commit/34130bb2f5f49fcf3dd17624986fb5fb5e093b47.patch'
+        'fix-303.patch::https://github.com/manjaro/pamac/commit/83dedfc08f8e85f2f96760f4edb857b77ad3fc93.patch')
+sha256sums=('1357f0dfb90578f160c852dd59e3ac22a595255d8e40d02ed36a3fb9b402e8b9'
+            '3882ebd9d1cc0b20ec8daab7641a21678390f058e222a0eea7ed8e29491f4b6f'
+            'ab69379ab3f078a631facd08102c56d7338d9772d99d3346cfb847462e893f13'
+            '828afd3ca0dfca8c67a48c151afa9ed6a7aa6b84e9352f6fd2379d69ae86ef37'
+            'a3de2d425b811f1eb4a9fc8607e3cf018bf4c89c3a6e909253169c1c2e89ef3e')
 
 prepare() {
   cd "$srcdir/pamac-$_pkgver"
   # patches here
+  patch -p1 -i $srcdir/update-trans.patch
+  patch -p1 -i $srcdir/close-notification-as-needed.patch
+  patch -p1 -i $srcdir/fix-db-refresh.patch
+  patch -p1 -i $srcdir/fix-303.patch
 
   # adjust version string
   sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala
@@ -34,9 +46,7 @@ build() {
 }
 
 package_pamac() {
-  optdepends=('polkit-gnome: needed for authentification in Cinnamon, Gnome'
-              'lxsession: needed for authentification in Xfce, LXDE etc.'
-              'pamac-tray-appindicator: tray icon for KDE')
+  optdepends=('pamac-tray-appindicator: tray icon for KDE')
   backup=('etc/pamac.conf')
   replaces=('pamac-aur')
   install=pamac.install
