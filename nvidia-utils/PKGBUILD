@@ -3,7 +3,7 @@
 
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
-pkgver=375.82
+pkgver=384.90
 pkgrel=1
 epoch=1
 arch=('i686' 'x86_64')
@@ -18,8 +18,8 @@ source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 sha256sums=('11176f1c070bbdbfaa01a3743ec065fe71ff867b9f72f1dce0de0339b5873bb5'
             '37e2e35fcfc536a47212d57420ee3d8502b541a18027367104052aca63e63266')
-sha256sums_i686=('620629a35b1773e7eefddb9ea7982a4a75ecf65c1ea6f7ba83b94a84b269f561')
-sha256sums_x86_64=('bfbff9d4bf567b62d5298d36c7981abfc3344b9dedc1f463c96055997f2b6c4e')
+sha256sums_i686=('97a667de9fd7fdaa2f47b75d4049394224788931c2df2848de3f5553de810057')
+sha256sums_x86_64=('2b96394931d3caf635aeb5c1b02244c76de9be54f4af944b8f7743eae570302a')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 #[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"
@@ -40,6 +40,8 @@ prepare() {
 
     cd "${_pkg}"
     bsdtar -xf nvidia-persistenced-init.tar.bz2
+
+    sed -i 's/__NV_VK_ICD__/libGLX_nvidia.so.0/' nvidia_icd.json.template
 }
 
 package_opencl-nvidia() {
@@ -81,7 +83,7 @@ package_nvidia-utils() {
     optdepends=('gtk2: nvidia-settings'
                 'xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
-    provides=('nvidia-libgl')
+    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl')
     conflicts=('nvidia-libgl')
     replaces=('nvidia-libgl')
     install="${pkgname}.install"
@@ -99,8 +101,9 @@ package_nvidia-utils() {
     #ln -s "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
 
     # Wayland
-    install -D -m755 "libnvidia-egl-wayland.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.${pkgver}"
-    ln -s "libnvidia-egl-wayland.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.0"
+    install -D -m755 "libnvidia-egl-wayland.so.1.0.1" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.1.0.1"
+    ln -s "libnvidia-egl-wayland.so.1.0.1" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.1"
+    install -D -m644 "10_nvidia_wayland.json" "${pkgdir}/usr/share/egl/egl_external_platform.d/10_nvidia_wayland.json"
 
     # OpenGL library
     install -D -m755 "libGL.so.1.0.0" "${pkgdir}/usr/lib/nvidia/libGL.so.1.0.0"
@@ -123,7 +126,7 @@ package_nvidia-utils() {
     install -D -m755 "libnvidia-ml.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ml.so.${pkgver}"
 
     # Vulkan ICD
-    install -D -m644 "nvidia_icd.json" "${pkgdir}/usr/share/vulkan/icd.d/nvidia_icd.json"
+    install -D -m644 "nvidia_icd.json.template" "${pkgdir}/usr/share/vulkan/icd.d/nvidia_icd.json"
 
     # VDPAU
     install -D -m755 "libvdpau_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/vdpau/libvdpau_nvidia.so.${pkgver}"
@@ -194,7 +197,7 @@ package_nvidia-utils() {
 
     # distro specific files must be installed in /usr/share/X11/xorg.conf.d
     install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
-    install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/"
+    install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf"
 
     create_links
 }

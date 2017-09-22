@@ -8,8 +8,8 @@ _linuxprefix=linux413
 _extramodules=extramodules-4.13-MANJARO
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
-pkgver=340.102
-pkgrel=3
+pkgver=340.104
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -21,16 +21,12 @@ conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia" "$_linuxprefix-nv
 license=('custom')
 install=nvidia.install
 options=(!strip !ccache)
-source=('nvidia-3.18.patch' 'linux49.patch' 'linux410.patch' 'linux411.patch' 'linux-4.12.patch')
+source=('kernel-4.11.patch')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('79671a27131da619a33eb02ed0c2c031'
-         '04092c500e507ada8644337d99f4d903'
-         '22167828192490d57551d9ca05318770'
-         '84ad7814274d28a7e3df2c76d33e658f'
-         '6b50ecdb60a38c5177bfea93cc89754c')
-md5sums_i686=('61aad6a98238bc61466e6a9e392cfd08')
-md5sums_x86_64=('81e720487caa2823586b32659da9acc1')
+md5sums=('cf31ff666e3789cde5307b6ad50cb9fd')
+md5sums_i686=('42e9c98e156f6ac2658ee526d796a428')
+md5sums_x86_64=('efbd37cde63d50f657d55a6f2b321142')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -39,25 +35,9 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    # https://devtalk.nvidia.com/default/topic/783364/343-22-driver-incompatible-with-linux-3-18-/
-    patch -Np0 -i ${srcdir}/nvidia-3.18.patch
-
-    # page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
-    # get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
-    sed -i 's|page_cache_release|put_page|g' kernel/os-mlock.c
-    sed -i 's|get_user_pages(current, mm, |get_user_pages(|g' kernel/os-mlock.c
-
-    # Fix "already registered" problem with 4.9
-    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux49.patch)
-
-    # Fix compile problem with 4.10
-    (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/linux410.patch)
 
     # Fix compile problem with 4.11
-    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux411.patch)
-
-    # Fix compile problem with 4.12
-    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux-4.12.patch)
+    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-4.11.patch)
 
     export DISTCC_DISABLE=1
     export CCACHE_DISABLE=1

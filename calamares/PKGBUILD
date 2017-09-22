@@ -3,7 +3,7 @@
 pkgname=calamares
 pkgver=3.1.4
 _pkgver=3.1.4
-pkgrel=12
+pkgrel=13
 _commit=aeb936e1c03d897bf66ff1256cf9d4cb6dc2c893
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -20,9 +20,9 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
          "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
-         "revert-decf83d.patch::https://github.com/manjaro/calamares/commit/decf83d4033cd5735f4f731f689e63dab425fb1e.patch")
+         "fix-decf83d.patch::https://github.com/calamares/calamares/commit/d20285d4f20a3f7ff76ea145b50bdec0b7d0ef2f.patch")
 sha256sums=('7193c53e0ccdbfab3734b5f8f141fc650d50d6cdbd1c41358833a52a8ced8d80'
-            'e1a49a1e69660080c010d1c39627fb4c49f090f194e1ffc2b78697a9447283d2')
+            '842f2357fdf5c0f7f26ac723ec8c507ee4e5e3b50164e83493c2a16bdf876a2e')
 
 prepare() {
 	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
@@ -33,7 +33,7 @@ prepare() {
 	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver-$pkgrel|g" CMakeLists.txt
 
 	# patches here
-	patch -Rp1 -i "$srcdir/revert-decf83d.patch"
+	patch -p1 -i "$srcdir/fix-decf83d.patch"
 }
 
 build() {

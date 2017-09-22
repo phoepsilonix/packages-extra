@@ -1,14 +1,14 @@
 #!/bin/bash
 rm -Rf */*nvidia/{src,pkg}
-cd linux310*/*nvidia
-makepkg -df
-cd ../../linux312*/*nvidia
-makepkg -df
+#cd linux310*/*nvidia
+#makepkg -df
+#cd ../../linux312*/*nvidia
+#makepkg -df
 #cd ../../linux313*/*nvidia
 #makepkg -df
 #cd ../../linux314*/*nvidia
 #makepkg -df
-cd ../../linux316*/*nvidia
+cd linux316*/*nvidia
 makepkg -df
 cd ../../linux318*/*nvidia
 makepkg -df
@@ -30,11 +30,13 @@ cd ../../linux48*/*nvidia
 makepkg -df
 cd ../../linux49*/*nvidia
 makepkg -df
-cd ../../linux410*/*nvidia
-makepkg -df
-cd ../../linux411*/*nvidia
-makepkg -df
+#cd ../../linux410*/*nvidia
+#makepkg -df
+#cd ../../linux411*/*nvidia
+#makepkg -df
 cd ../../linux412*/*nvidia
 makepkg -df
 cd ../../linux413*/*nvidia
+makepkg -df
+cd ../../linux414*/*nvidia
 makepkg -df
