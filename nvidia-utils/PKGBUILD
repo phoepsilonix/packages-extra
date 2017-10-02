@@ -4,7 +4,7 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=384.90
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -48,7 +48,7 @@ package_opencl-nvidia() {
     pkgdesc="OpenCL implemention for NVIDIA"
     depends=('zlib')
     optdepends=('opencl-headers: headers necessary for OpenCL development')
-    provides=('opencl-nvidia' 'opencl-driver')
+    provides=("opencl-nvidia=$pkgver" 'opencl-driver')
     cd "${_pkg}"
 
     # OpenCL
@@ -83,7 +83,7 @@ package_nvidia-utils() {
     optdepends=('gtk2: nvidia-settings'
                 'xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
-    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl')
+    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl' "nvidia-utils=$pkgver")
     conflicts=('nvidia-libgl')
     replaces=('nvidia-libgl')
     install="${pkgname}.install"

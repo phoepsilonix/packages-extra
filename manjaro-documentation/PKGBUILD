@@ -2,8 +2,8 @@
 # Contributor: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
 
 pkgname=('manjaro-documentation-en')
-pkgver=20170326
-_gitcommit=c4892f38aecd13332bdb3d0b8bb7dd05714748e4
+pkgver=20170926
+_gitcommit=4777a4696f76b67f90d454a416cd3f6790af4aa4
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
@@ -11,9 +11,9 @@ makedepends=('ghostscript' 'lyx' 'python2' 'texlive-core' 'texlive-latexextra' '
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz"
 	'manjaro-documentation'
 	'manjaro-documentation.desktop')
-sha256sums=('e64b4bba6f1f5ab13558109022533f63d64707c7ad52098f3726d7b17cc92bd9'
+sha256sums=('cd279ddaf7f6d82df7b66835cc805449607a92d770ad3c4047826cce31e92396'
             'b122d1f817d60b5a18b2bb404d54c2267307b6bb0c215fc897c58cc81226a80e'
-            '51b209d9da5bb7d7a6b88abe097702b603c9bcfea340753187221a12955a92dd')
+            'cccdd31319b8157162a42d80e41b5606dce9aeb30587eca0d8b0e056b3b4717a')
 
 prepare() {
   cd ${srcdir}/manjaro-user-guide-$_gitcommit

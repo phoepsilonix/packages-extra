@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.1.4.r3915.cd379d131
-pkgrel=3
+pkgver=3.1.5.r3949.6c2b3cfbd
+pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -11,7 +11,7 @@ license=('LGPL')
 conflicts=('calamares' 'calamares-dev')
 provides=('calamares' 'calamares-dev')
 replaces=('calamares-dev')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.1.0' 'mkinitcpio-openswap'
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 # backup=('usr/share/calamares/modules/bootloader.conf'
@@ -20,9 +20,9 @@ makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 #         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(git+https://github.com/manjaro/calamares.git#branch=development
-         "revert-decf83d.patch::https://github.com/manjaro/calamares/commit/decf83d4033cd5735f4f731f689e63dab425fb1e.patch")
+         'kpmcore-3.2.patch')
 sha256sums=('SKIP'
-            'e1a49a1e69660080c010d1c39627fb4c49f090f194e1ffc2b78697a9447283d2')
+            '12b7aabd15be3fe9322197a11de30bfa42e167540ec420d12bd5e44a5aca56bd')
 
 pkgver() {
 	cd ${srcdir}/calamares
@@ -41,7 +41,7 @@ prepare() {
 	git submodule update
 
 	# patches here
-	patch -Rp1 -i "$srcdir/revert-decf83d.patch"
+	patch -p1 -i "$srcdir/kpmcore-3.2.patch"
 }
 
 build() {
