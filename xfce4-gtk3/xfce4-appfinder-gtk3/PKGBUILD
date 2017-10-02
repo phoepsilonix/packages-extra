@@ -6,19 +6,19 @@
 _pkgname=xfce4-appfinder
 pkgname=$_pkgname-gtk3
 pkgver=4.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An application finder for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4-gtk3')
-depends=('libxfce4ui-gtk3' 'garcon-gtk3' 'hicolor-icon-theme')
-makedepends=('intltool')
-conflicts=($_pkgname)
-provides=(_pkgname)
-_commit=27eea4663d627bdcdba15b233b1f1419ff90f5e3
+depends=('exo-gtk3' 'garcon-gtk3' 'hicolor-icon-theme' 'libxfce4ui-gtk3')
+makedepends=('intltool' 'xfce4-dev-tools')
+conflicts=("$_pkgname")
+provides=("$_pkgname")
+_commit=3d707ce8b59411fa9f265a6aa706b88f16427d2c
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('996eb4cf8d2ff4eecd40db66813132357a7c4a30ec93cb8b5de148e4cc6d3bfb')
+sha256sums=('b7a35d2be3556cbcf938643a837fc21bf3b5184d0d78f7b893277399f37d88b4')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
