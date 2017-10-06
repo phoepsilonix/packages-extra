@@ -5,7 +5,7 @@
 pkgname=xfconf-gtk3
 _pkgname=xfconf
 pkgver=4.13.4
-pkgrel=2
+pkgrel=3
 pkgdesc="A simple client-server configuration storage and query system"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -17,9 +17,9 @@ makedepends=('perl-extutils-depends' 'perl-extutils-pkgconfig' 'glib-perl'
 options=('!emptydirs')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=c38105c0987c0ed997fe24c486ad1de55610b0f5
+_commit=3bbbb3da63a26f7dfc0326af69fce82b285d7230
 source=(https://git.xfce.org/xfce/xfconf/snapshot/xfconf-$_commit.tar.bz2)
-sha256sums=('dd2153a984bd9b2df8b5d4b0b70872be3cc504ab6f436b57fd637d2da9fb95c0')
+sha256sums=('65ddd6e5b0f76a6f5b58596ec9cba4e8ad530c1fafcf7167707daa7ac2140ce4')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -47,4 +47,9 @@ package() {
 
   # Fix insecure rpath, http://bugs.archlinux.org/task/19980
   find "$pkgdir" -name Xfconf.so -exec chrpath -d {} +
+
+  # Backward compatibility with applications linked to Xfconf v2.0.0.
+  cd "$pkgdir/usr/lib"
+  ln -s libxfconf-0.so libxfconf-0.so.2.0.0
+  ln -s libxfconf-0.so libxfconf-0.so.2
 }

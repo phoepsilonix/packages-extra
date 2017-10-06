@@ -4,23 +4,23 @@
 # Contributor: Jakub Schmidtke <sjakub@gmail.com>
 
 pkgname=firefox
-pkgver=55.0.3
-_pkgrel=3
-pkgrel=3
+pkgver=56.0
+_pkgrel=1
+pkgrel=2
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/firefox/"
-depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
-         nss hunspell sqlite ttf-font libpulse icu libvpx)
+depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib ffmpeg
+         nss hunspell sqlite ttf-font libpulse)
 optdepends=('networkmanager: Location detection via available WiFi networks'
             'libnotify: Notification integration'
             'pulseaudio: Audio support'
             'speech-dispatcher: Text-to-Speech')
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
 source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
-md5sums_i686=('5289862a862759096b27426d6957f0be')
-md5sums_x86_64=('c2d3b61eadbe1a8fe1f4ee4e3bc127c5')
+md5sums_i686=('f32b9023f191f635bf46eb969b185e5d')
+md5sums_x86_64=('b7fa089bea420d8b5482a64b7c4f3925')
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
