@@ -53,9 +53,9 @@ package() {
   cd "$srcdir/$_pkgname-$_commit"
   make DESTDIR="$pkgdir" install
   # workaround as xfsettingsd crashes on SX-SF
-  mv "$pkgdir"/usr/bin/xfsettingsd "$pkgdir"/usr/bin/xfsettings
-  echo "#!bin/bash" > "$pkgdir"/usr/bin/xfsettingsd
+  mv "$pkgdir"/usr/bin/xfsettingsd "$pkgdir"/usr/bin/xfce4-settings
+  echo "#!/bin/bash" > "$pkgdir"/usr/bin/xfsettingsd
   echo "export XFSETTINGSD_DEBUG=1" >> "$pkgdir"/usr/bin/xfsettingsd
-  echo "xfsettings --replace --no-daemon >> /tmp/xfsettingsd.log 2>&1" "$pkgdir"/usr/bin/xfsettingsd
+  echo "xfce4-settings --replace --no-daemon >> /tmp/xfsettingsd.log 2>&1" >> "$pkgdir"/usr/bin/xfsettingsd
   chmod a+x "$pkgdir"/usr/bin/xfsettingsd
 }
