@@ -7,29 +7,29 @@
 # Contributor: Anders Bostrom <anders.bostrom@home.se>
 
 pkgname=thunderbird
-pkgver=52.3.0
-pkgrel=2
-_pkgrel=2
+pkgver=52.4.0
+pkgrel=1
+_pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/thunderbird/"
-depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
-         nss hunspell sqlite ttf-font icu libvpx)
-optdepends=('libcanberra: sound support')
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
 source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
-md5sums_i686=('371a279de20351f549fe0e6d27c39457')
-md5sums_x86_64=('d6275b18195e7ed82a50af9f3a9f4fa1')
+md5sums_i686=('791196d64c60634963fa5e0e5f130832')
+md5sums_x86_64=('aba4d7cc796d64cba20eeee9ff438317')
 
 prepare() {
   rm -rf $srcdir/usr/lib/firefox/distribution
 }
 
 package() {
-  cp -r $srcdir/usr $pkgdir
-  _distini="$pkgdir/usr/lib/thunderbird/distribution/distribution.ini"
-  install -Dm644 /dev/stdin "$_distini" <<END
+    depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
+         nss hunspell sqlite ttf-font icu libvpx)
+    optdepends=('libcanberra: sound support')
+    cp -r $srcdir/usr $pkgdir
+    _distini="$pkgdir/usr/lib/thunderbird/distribution/distribution.ini"
+    install -Dm644 /dev/stdin "$_distini" <<END
 [Global]
 id=Manjaro
 version=Rolling
