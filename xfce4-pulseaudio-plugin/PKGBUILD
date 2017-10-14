@@ -1,50 +1,54 @@
-# Based on the file created for Arch Linux by:
-# Contributor: twa022 <twa022 at gmail dot com>
-
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
-# Maintainer: Roland Singer <roland@manjaro.org>
 
 pkgname=xfce4-pulseaudio-plugin
-pkgver=0.2.5
-pkgrel=1.1
+pkgver=0.3.1.r8.gabdc05a
+pkgrel=1
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
 license=('GPL2')
-url="http://goodies.xfce.org/projects/panel-plugins/xfce4-pulseaudio-plugin"
+url="http://goodies.xfce.org/projects/panel-plugins/$pkgname"
 groups=('xfce4-goodies')
-depends=('xfce4-panel' 'libpulse' 'libkeybinder3' 'gtk-update-icon-cache' 'libnotify')
+depends=('xfce4-panel' 'libpulse' 'libkeybinder3' 'libnotify')
+makedepends=('git' 'intltool' 'python' 'xfce4-dev-tools')
 optdepends=('ido: appindicator support'
-            'pavucontrol: default pulseaudio mixer')
-makedepends=('intltool' 'dbus-glib')
-source=(http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
-        use-panel-icons.patch)
-sha256sums=('087441331240f8fca6cbcc2839251ad7e8d624fed7b4b7b4cd4e6938cb26c0b2'
-            'bce647fdeea4bc682a5eec0a84f57996690cbc982efbfeb0691e8d9eb4e9405e')
+    'pavucontrol: default pulseaudio mixer')
+source=( #http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
+#    "https://git.xfce.org/panel-plugins/$pkgname/snapshot/$pkgname-$_commit.tar.bz2"
+    "git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin"
+#    'use-panel-icons.patch'
+    )
+sha256sums=('SKIP')
 
-prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
-  patch -Np1 -i $srcdir/use-panel-icons.patch
+pkgver() {
+    cd $pkgname
+    git describe --long --tags | sed -r "s:^${pkgname}.::;s/^v//;s/([^-]*-g)/r\1/;s/-/./g"
 }
 
+#prepare() {
+#    cd $pkgname
+#    patch -Np1 -i $srcdir/use-panel-icons.patch
+#}
+
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --libexecdir=/usr/lib \
-    --localstatedir=/var \
-    --disable-static \
-    --disable-debug \
-    --enable-keybinder \
-    --enable-libnotify
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+    cd $pkgname
+    ./autogen.sh \
+      --prefix=/usr \
+      --sysconfdir=/etc \
+      --libexecdir=/usr/lib \
+      --localstatedir=/var \
+      --disable-static \
+      --disable-debug \
+      --enable-keybinder \
+      --enable-libnotify
+    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+    make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install
+    cd $pkgname
+    make DESTDIR="$pkgdir" install
 
-  # clean-up as we don't use these icons
-  rm -r $pkgdir/usr/share/icons/hicolor/scalable/status/
+    # clean-up as we don't use these icons
+#    rm -r $pkgdir/usr/share/icons/hicolor/scalable/status/
 }
