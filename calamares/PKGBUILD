@@ -1,16 +1,16 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=3.1.5
-_pkgver=3.1.5
+pkgver=3.1.6
+_pkgver=3.1.6
 pkgrel=1
-_commit=921440375ac5f45953f7430d42d26385b32bcac3
+_commit=5359bab006a9630bf81d666f8cbede21f04f24aa
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
+depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
@@ -21,7 +21,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
          "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
          'kpmcore-3.2.patch')
-sha256sums=('c0b674ad39cdb3ec5bcfc1aee73f4e3bc29fd0ad3202ec734f542b2c4563b1b5'
+sha256sums=('3e0ef8f6c40276caaf56f5ec2ceb0dcf10420eca5d73add75dc44f97a275c53f'
             '12b7aabd15be3fe9322197a11de30bfa42e167540ec420d12bd5e44a5aca56bd')
 
 prepare() {

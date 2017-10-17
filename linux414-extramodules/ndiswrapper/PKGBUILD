@@ -14,7 +14,7 @@ pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
 _pkgname=ndiswrapper
 groups=("$_linuxprefix-extramodules")
 pkgver=1.61
-pkgrel=0.9
+pkgrel=0.10
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -78,7 +78,7 @@ package_linux414-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=0.9
+  pkgrel=0.10
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"
 }

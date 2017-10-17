@@ -2,7 +2,7 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-_pkgver=6.1.0
+_pkgver=6.1.1
 pkgver=$_pkgver
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
@@ -16,7 +16,7 @@ makedepends=('gettext' 'meson' 'vala>=0.36' 'libappindicator-gtk3' 'git')
 options=(!emptydirs)
 
 source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz")
-sha256sums=('2d63d33517c288f899eedab08c46dbae859d72b7c3f3a455a3e6622ce9b7851d')
+sha256sums=('fb4d8f9754ca11d32132cbf5d8c8cb49963e53e39069d3801ced45d3902544a5')
 
 prepare() {
   cd "$srcdir/pamac-$pkgver"
