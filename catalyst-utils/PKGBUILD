@@ -5,7 +5,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=10
+pkgrel=11
 epoch=1
 _pkgver=15.201.1151
 _tarball=15.9-linux-installer-15.201.1151
@@ -217,10 +217,11 @@ package_catalyst-utils() {
 
 package_opencl-catalyst() {
       pkgdesc="OpenCL implemention from AMD"
-      provides=('libcl')
-      conflicts=('libcl' 'opencl-catalyst-legacy' 'opencl-catalyst-13.4')
+      provides=('opencl-driver')
+      conflicts=('opencl-amd' 'opencl-catalyst-legacy' 'opencl-catalyst-13.4')
       depends=('gcc-libs')
-      optdepends=('opencl-headers: headers necessary for OpenCL development')
+      optdepends=('opencl-headers: headers necessary for OpenCL development'
+                  'opencl-icd-loader: OpenCL ICD Bindings')
 
       cd ${srcdir}/fglrx-$_pkgver
       
@@ -240,8 +241,8 @@ package_opencl-catalyst() {
       install -m755 usr/bin/clinfo "${pkgdir}/usr/bin/"
       install -m644 etc/OpenCL/vendors/amdocl*.icd "${pkgdir}/etc/OpenCL/vendors/"
       install -m755 usr/lib${_ARCHLIB}/libamdocl*.so "${pkgdir}/usr/lib/"
-      install -m755 usr/lib${_ARCHLIB}/libOpenCL.so.1 "${pkgdir}/usr/lib/"
-      ln -s libOpenCL.so.1 "${pkgdir}/usr/lib/libOpenCL.so"
+#      install -m755 usr/lib${_ARCHLIB}/libOpenCL.so.1 "${pkgdir}/usr/lib/"      #opencl-icd-loader provides this
+#      ln -s libOpenCL.so.1 "${pkgdir}/usr/lib/libOpenCL.so"
       # license
       install -m644 "${srcdir}/fglrx-$_pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
