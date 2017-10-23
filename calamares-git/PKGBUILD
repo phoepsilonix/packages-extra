@@ -12,7 +12,7 @@ conflicts=('calamares' 'calamares-dev')
 provides=('calamares' 'calamares-dev')
 replaces=('calamares-dev')
 depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
-         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
+         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 # backup=('usr/share/calamares/modules/bootloader.conf'
 #         'usr/share/calamares/modules/displaymanager.conf'

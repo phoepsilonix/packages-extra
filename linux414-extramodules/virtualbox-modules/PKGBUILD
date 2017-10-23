@@ -9,16 +9,16 @@ _linuxprefix=linux414
 _extramodules=extramodules-4.14-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.1.30
+pkgver=5.2.0
 _pkgver="${pkgver}_OSE"
-pkgrel=0.10
+pkgrel=0.11
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
 depends=("$_linuxprefix")
 groups=("$_linuxprefix-extramodules")
 source=('linux-4.14.patch' 'linux-4.14-host.patch')
-sha256sums=('16a2abc7c1c6b72e85979fddee65e381637bb5c6b2e4a8b8b9bcf4d77bc926e0'
+sha256sums=('73b409110fea751ffafc71165c0299b919164585f01889d3f30cd9a05853c532'
             '8cd613def98c57f8622c7662c6c2ed2a1880c8f68d93c8443695186b0925abc1')
 
 makedepends=("virtualbox-host-dkms>=$pkgver"
@@ -37,7 +37,7 @@ prepare() {
   mv "$srcdir/dkms/vboxguest/${pkgver}_OSE/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
 
   cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source"
-  patch -p1 -i "$srcdir/linux-4.14.patch"
+  patch -p4 -i "$srcdir/linux-4.14.patch"
 
   rm "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
   cp -r "/usr/src/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/"
