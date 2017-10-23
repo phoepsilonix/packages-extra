@@ -5,7 +5,7 @@
 _pkgname=thunar-archive-plugin
 pkgname=$_pkgname-gtk3
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 _commit=cf91e938eacf9291f9f2616e48cbd70a501724be
 pkgdesc="Create and extract archives in Thunar"
 arch=('i686' 'x86_64')
@@ -15,7 +15,6 @@ groups=('xfce4-gtk3-goodies')
 depends=('thunar-gtk3' 'hicolor-icon-theme')
 makedepends=('intltool' 'xfce4-dev-tools')
 conflicts=(${_pkgname})
-replaces=(${_pkgname})
 optdepends=('file-roller'
             'kdeutils-ark'
             'xarchiver')

@@ -1,7 +1,7 @@
 # Maintainer: Stefano Capitani <stefanoatmanjarodotorg>
 
 pkgname=manjaro-settings-samba
-pkgver=$(date +%Y.%m)
+pkgver=20171022
 pkgrel=1
 pkgdesc="Adds a smb.conf file for Manjaro and enables samba"
 arch=('any')
@@ -9,9 +9,14 @@ url="https://github.com/manjaro/packages-extra"
 license=('GPL')
 depends=('samba')
 install=manjaro-settings-samba.install
+backup=('etc/samba/smb.conf')
 source=("smb.conf")
-md5sums=('SKIP')
+md5sums=('a80861df407091de32e19488c8252033')
+
+pkgver() {
+	date +%Y%m%d
+}
 
 package() {
-  install -Dm644 smb.conf $pkgdir/etc/samba/smb.conf
+  	install -Dm644 smb.conf $pkgdir/etc/samba/smb.conf
 }
