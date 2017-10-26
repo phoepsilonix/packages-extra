@@ -1,10 +1,10 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=3.1.6
-_pkgver=3.1.6
+pkgver=3.1.7
+_pkgver=3.1.7
 pkgrel=1
-_commit=5359bab006a9630bf81d666f8cbede21f04f24aa
+_commit=95e3b7650c77e2ca0cd7f790c9130eed77e5a268
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -21,7 +21,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
          "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
          'kpmcore-3.2.patch')
-sha256sums=('3e0ef8f6c40276caaf56f5ec2ceb0dcf10420eca5d73add75dc44f97a275c53f'
+sha256sums=('297b606635f28cdc01ad17167f78cc73885e41ae3a0f5442975f0f98385f712a'
             '12b7aabd15be3fe9322197a11de30bfa42e167540ec420d12bd5e44a5aca56bd')
 
 prepare() {

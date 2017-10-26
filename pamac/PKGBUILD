@@ -2,7 +2,7 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-_pkgver=6.1.2
+_pkgver=6.2.0
 pkgver=$_pkgver
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
@@ -16,14 +16,14 @@ makedepends=('gettext' 'meson' 'vala>=0.36' 'libappindicator-gtk3' 'git')
 options=(!emptydirs)
 
 source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
-        "translations.patch::https://github.com/manjaro/pamac/commit/4547f8dff7b2a4a5134fff0d5955d15b9ff9bc57.patch")
-sha256sums=('9b8501b412575f07b029cb909de3c7a27a6d5ec057aee31ef14caa718cbc5b21'
-            '2a21021cda4f05d65e898c8dc6f8f4a78a4d8f850d4d9f085e39c47f5c24e82b')
+        "translations-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/commit/681d8852694cdfe5d1e72c95727203c2330773b8.patch")
+sha256sums=('902334564669a007b5ea3aac8f5488f8b8777c1e0f91320dca2b04e27f5a0542'
+            '68bb602dea74aee17eab3e5fbbc11712eee97a7d7f3a89dfabc67d7f74cebc19')
 
 prepare() {
   cd "$srcdir/pamac-$pkgver"
   # patches here
-  patch -p1 -i "$srcdir/translations.patch"
+  patch -p1 -i "$srcdir/translations-$pkgver-$pkgrel.patch"
 
   # adjust version string
   sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala
