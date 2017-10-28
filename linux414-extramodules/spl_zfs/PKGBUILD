@@ -7,7 +7,7 @@ pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.7.2
 _pkgver=spl-0.7.2
-pkgrel=0.12
+pkgrel=0.14
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -16,13 +16,16 @@ makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
-        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        'spl-vfs_read-write.patch::https://github.com/zfsonlinux/spl/pull/659.patch')
 sha256sums=('c85f5cbd50596194ad08a26df7aa4d7c7c7356c8b98bdf488c2895d64ffc2222'
-            'f75f4d8bbb8241e3d06321b53914e53fa22d1ccc8be89819b578b46e5d3e5cf4')
+            'f75f4d8bbb8241e3d06321b53914e53fa22d1ccc8be89819b578b46e5d3e5cf4'
+            '3a70a97a376465ec33bbae32b18900814d3782a9e590ba2fbf8fb042aa090119')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"
   # patches here
+  patch -p1 -i "${srcdir}/spl-vfs_read-write.patch"
   cd "${srcdir}/zfs-${pkgver}"
   # patches here
 }
