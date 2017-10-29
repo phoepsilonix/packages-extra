@@ -3,7 +3,7 @@
 
 pkgname=manjaro-base-skel
 pkgver=20171029
-pkgrel=1
+pkgrel=2
 pkgdesc='Manjaro Linux base skeleton files'
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -19,6 +19,5 @@ pkgver() {
 
 package() {
 	install -d $pkgdir/etc
-	cp -r $srcdir/desktop-settings/shared/bash $pkgdir/etc
 	cp -r $srcdir/desktop-settings/shared/skel $pkgdir/etc
 }
