@@ -11,7 +11,7 @@ pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
 pkgver=5.2.0
 _pkgver="${pkgver}_OSE"
-pkgrel=0.13
+pkgrel=0.15
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -19,7 +19,7 @@ depends=("$_linuxprefix")
 groups=("$_linuxprefix-extramodules")
 source=('linux-4.14.patch' 'linux-4.14-host.patch')
 sha256sums=('73b409110fea751ffafc71165c0299b919164585f01889d3f30cd9a05853c532'
-            '8cd613def98c57f8622c7662c6c2ed2a1880c8f68d93c8443695186b0925abc1')
+            'ed543b0343e1dee5928fa69cccb28bd9d1e74a4d2a68e3651f05a352c4d6c769')
 
 makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"

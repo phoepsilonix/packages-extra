@@ -6,45 +6,21 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-pkg'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
-pkgver=0.15.3
-pkgrel=7
+pkgver=0.15.4
+pkgrel=1
 arch=('any')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        'relro-bind-now.patch::https://github.com/manjaro/manjaro-tools/commit/b8255e9e175ed287e7d91f96fc8733b7956ebbce.patch'
-        'mhwd_used.patch::https://github.com/manjaro/manjaro-tools/commit/21deb78026b2db5ad24996053b6d431327f88b02.patch'
-        'oem_used.patch::https://github.com/manjaro/manjaro-tools/commit/ed0903bf3fd7472e79b2fb204fdff207cb2637ca.patch'
-        'use-site-redirection.patch::https://github.com/manjaro/manjaro-tools/commit/37c3daa526b29d5d2f32bd8ee932283b9891f144.patch'
-        'locale-workaround.patch::https://github.com/manjaro/manjaro-tools/commit/11dc24934af85b848225057a465e639abdd22fe3.patch'
-        'oem_used-settings.patch::https://github.com/manjaro/manjaro-tools/commit/5f53d251c9f7f2b5fbe357789d997b1e471dd7e8.patch'
-        'utf8-locale-workaround.patch::https://github.com/manjaro/manjaro-tools/commit/b0cd0c481f9f8228a098dcbfe295ed2f59b188c8.patch'
-        'partly-revert-oem_used.patch::https://github.com/manjaro/manjaro-tools/commit/473a294f6ab02a24fd2a46440cb812d75c592d6f.patch')
-sha256sums=('965184fc77b5f01da76108012962abb4867f5d0a0276afbb458fd389df7efd9a'
-            'da87197ca017ed62f61b657c165db6dc8cb3aa3af539bfbf15d5815c9c0da29c'
-            '3c8de1dbe35c4e3444de8f526ef2f8602d0cba6b151133a09745945216e8b95d'
-            '6fab4a29105f198b83610f51a1085ee1b1f530c35dbff9f008c7b0cd8696746b'
-            'effecbfec33e183bc92221deb4d32838cabf7ae2343bb0fb73123e51ae8a5c8d'
-            '350ff8b565bb14d728028d8c43390c6a5140453d06a57b484ec083ab176b1b9b'
-            '5d23575f6c6d65bc02174f8cf50a54ac7179dec8c971d5120ab171829a176d8d'
-            '3667b806af3bc8e97bd326834a08b4371a4157ea3fca2255e0aadfacc61020be'
-            'f3d3f7587047976fabae61e59a9b3c6f2d1064127d4a74576a27391e0a4f12c9')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('6c81d5e3548864e1f7e512e92850800426b2352ee5568aa517e035ea59314fd9')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
     sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
-    patch -p1 -i "$srcdir/relro-bind-now.patch"
-    patch -p1 -i "$srcdir/mhwd_used.patch"
-    patch -p1 -i "$srcdir/oem_used.patch"
-    patch -p1 -i "$srcdir/use-site-redirection.patch"
-    patch -p1 -i "$srcdir/locale-workaround.patch"
-    patch -p1 -i "$srcdir/oem_used-settings.patch"
-    patch -p1 -i "$srcdir/utf8-locale-workaround.patch"
-    patch -p1 -i "$srcdir/partly-revert-oem_used.patch"
 }
 
 build() {

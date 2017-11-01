@@ -28,3 +28,15 @@
              && vboxNetFltLinuxCanForwardAsGso(pThis, pBuf, fSrc, &GsoCtx) )
              vboxNetFltLinuxForwardAsGso(pThis, pBuf, fSrc, &GsoCtx);
          else
+diff -Npur a/vboxpci/linux/VBoxPci-linux.c b/vboxpci/linux/VBoxPci-linux.c
+--- a/vboxpci/linux/VBoxPci-linux.c	2017-10-27 15:43:49.927830000 -0400
++++ b/vboxpci/linux/VBoxPci-linux.c	2017-10-28 08:23:54.946946774 -0400
+@@ -357,7 +357,7 @@ static int vboxPciFileWrite(struct file*
+ 
+     fs_save = get_fs();
+     set_fs(get_ds());
+-    ret = vfs_write(file, data, size, &offset);
++    ret = kernel_write(file, data, size, &offset);
+     set_fs(fs_save);
+     if (ret < 0)
+         printk(KERN_DEBUG "vboxPciFileWrite: error %d\n", ret);
