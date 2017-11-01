@@ -3,10 +3,10 @@
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 _pkgname=xfce4-notifyd
-_commit=344947b0f524f4f8684c6432ab75087fcae3047f
+_commit=8cc2825d454108d3fd99086480bb8c6ca59b886b
 pkgname=$_pkgname-gtk3
 pkgver=0.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Notification daemon for the Xfce desktop"
 arch=('i686' 'x86_64')
 url="http://goodies.xfce.org/projects/applications/xfce4-notifyd"
@@ -20,7 +20,7 @@ makedepends=('intltool' 'python' 'xfce4-dev-tools' 'xfce4-panel-gtk3')
 conflicts=("$_pkgname")
 provides=("$_pkgname")
 source=(https://git.xfce.org/apps/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('2d00e49c2eecbf308a00aca4373be5c815f8668eec8732317e6b364045151db8')
+sha256sums=('ae16c97601cc23660067f63becb6452914bc9c536d76aba0ed8a3f5acae7c453')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
