@@ -16,6 +16,7 @@ sha256sums=('9fdb3ede16f73c3509f673833591f43e908ab5c20815c9da1baaed1d582db033'
             'cccdd31319b8157162a42d80e41b5606dce9aeb30587eca0d8b0e056b3b4717a')
 
 prepare() {
+  updmap-user --cnffile=/etc/texmf/web2c/updmap.cfg
   cd ${srcdir}/manjaro-user-guide-$_gitcommit
   lyx --export pdflatex manjaro-user-guide.lyx
   pdflatex manjaro-user-guide
