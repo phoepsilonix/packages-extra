@@ -26,8 +26,8 @@ makepkg -df
 #makepkg -df
 #cd ../../linux47*/*nvidia
 #makepkg -df
-cd ../../linux48*/*nvidia
-makepkg -df
+#cd ../../linux48*/*nvidia
+#makepkg -df
 cd ../../linux49*/*nvidia
 makepkg -df
 #cd ../../linux410*/*nvidia
