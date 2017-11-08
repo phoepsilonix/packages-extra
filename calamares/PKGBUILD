@@ -3,8 +3,8 @@
 pkgname=calamares
 pkgver=3.1.7
 _pkgver=3.1.7
-pkgrel=3
-_commit=6f950e5e38d4e591229129314e0ebb94a78d989f
+pkgrel=4
+_commit=b3ab2dfaabaceedd8be5b7c7d4f97c7a14828f88
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -23,7 +23,7 @@ source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive
          'revert-5474dc6.patch::https://github.com/manjaro/calamares/commit/5474dc6d2b1bbe947b71a503253646fb637c9248.patch'
          'revert-3b30bbd.patch::https://github.com/manjaro/calamares/commit/3b30bbde679ce67f6478b537270876f117d19aad.patch'
          'kpmcore-3.2.patch')
-sha256sums=('5f2d5b16f52fc7de0a99952c9f71619fb1988926440dd0a3b283178fe0dea4b3'
+sha256sums=('f44ee6b94e6c5f8cae89974369ffcd4384f7416e0e297d04a90081650c3c1d1b'
             '651faaa40d1fc0de766f3232fd6d6c9b74069d2a986d5c2b0769a9408898b875'
             '0016cdc729a25489e8b5e93d84172801066a1852b6c25e34ee5ba7baab1f4140'
             '12b7aabd15be3fe9322197a11de30bfa42e167540ec420d12bd5e44a5aca56bd')
