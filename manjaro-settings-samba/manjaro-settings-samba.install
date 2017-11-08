@@ -1,7 +1,7 @@
 post_install() {
   
-    systemctl enable smbd nmbd
-  fi
+  systemctl is-active smbd >/dev/null || systemctl enable smbd
+  systemctl is-active nmbd >/dev/null || systemctl enable nmbd
   
   echo ""
   msg "Samba services should now be enabled."
@@ -11,8 +11,8 @@ post_install() {
 
 post_remove() {
  
-    systemctl disable smbd nmbd
-  fi
+  ! systemctl is-active smbd >/dev/null || systemctl disable smbd
+  ! systemctl is-active nmbd >/dev/null || systemctl disable nmbd
   
   echo ""
   msg "Samba services should now be disabled."
