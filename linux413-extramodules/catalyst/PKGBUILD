@@ -10,7 +10,7 @@ pkgver=15.201.1151
 pkgrel=9
 epoch=1
 _pkgver=15.201.1151
-_tarball=15.9-linux-installer-15.201.1151
+_tarball=amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64
 provides=("$_pkgname=$_pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -22,7 +22,7 @@ makedepends=("$_linuxprefix-headers" "gcc49")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip
         #https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
