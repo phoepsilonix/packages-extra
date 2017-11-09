@@ -70,6 +70,6 @@ sha256sums=('c994f4befbc8fbf815d29cbb46ce77c7b6a6b73e27120bc8e0bff1777ebcc4a1'
 fi
 
 package() {
-  cp -rPf usr ${pkgdir}
+  cp -rPf usr "${pkgdir}"
 }
 

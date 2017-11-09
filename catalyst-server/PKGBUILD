@@ -100,8 +100,8 @@ sha256sums_x86_64=('ba3143b01f81b9d77f7b8aa8138e2cf123fd19c2fb5397845ba19f6b6bb2
                    'ba4854e070fee4285960aa9a3d68d8e8c99cbd15f60355152dc182acaf04c970')
 
 package() {
-  cp -rPf usr ${pkgdir}
-  cp -rPf etc ${pkgdir}
-  cp -rPf var ${pkgdir}
+  cp -rPf usr "${pkgdir}"
+  cp -rPf etc "${pkgdir}"
+  cp -rPf var "${pkgdir}"
 }
 

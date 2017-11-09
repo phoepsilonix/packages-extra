@@ -80,14 +80,14 @@ build() {
 
 	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
 	## works only in combination with ati_make.sh script
-	patch -Np1 -i ${srcdir}/makefile_compat.patch
-	patch -Np1 -i ${srcdir}/lano1106_fglrx_intel_iommu.patch
-	patch -Np1 -i ${srcdir}/lano1106_kcl_agp_13_4.patch
-        patch -Np1 -i ${srcdir}/cold-fglrx-3.14-current_euid.patch
+	patch -Np1 -i "${srcdir}/makefile_compat.patch"
+	patch -Np1 -i "${srcdir}/lano1106_fglrx_intel_iommu.patch"
+	patch -Np1 -i "${srcdir}/lano1106_kcl_agp_13_4.patch"
+        patch -Np1 -i "${srcdir}/cold-fglrx-3.14-current_euid.patch"
 
 	cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
-        patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
-        patch -Np5 -i ${srcdir}/manjaro_fglrx_31817.patch
+        patch -Np1 -i "${srcdir}/kolasa_fglrx_312.patch"
+        patch -Np5 -i "${srcdir}/manjaro_fglrx_31817.patch"
 	cp "${srcdir}/fglrx-$_pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
 	cp 2.6.x/Makefile .
 
@@ -109,6 +109,6 @@ package() {
 	install -m644 "${srcdir}/fglrx-$_pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
 
 	## Install script
-	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
-	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" $startdir/*.install
+	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" "$startdir"/*.install
+	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" "$startdir"/*.install
 }
