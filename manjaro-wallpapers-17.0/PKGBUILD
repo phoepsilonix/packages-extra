@@ -8,7 +8,7 @@ pkgrel=2
 pkgdesc="Official Wallpapers for the Manjarolinux 17.0 release"
 arch=('any')
 license=('GPL3')
-url="https://github.com/oberon2007/$pkgname"
+url="https://github.com/manjaro/$pkgname"
 source=("$url/archive/$pkgver.tar.gz")
 md5sums=('cab26310856532d43970f843d4cb5a73')
 
