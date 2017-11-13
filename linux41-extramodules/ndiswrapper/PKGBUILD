@@ -16,7 +16,6 @@ pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
 url="http://ndiswrapper.sourceforge.net"
-depends=('linux41' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux41-headers')
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
         "kernel-4.0.patch")
@@ -46,6 +45,7 @@ build() {
 package_linux41-ndiswrapper() {
   _extramodules=extramodules-4.1-MANJARO
   _kver="$(cat /usr/lib/modules/${_extramodules}/version)"
+  depends=('linux41' "$_pkgname-utils")
   provides=("$_pkgname=$pkgver")
   groups=('linux41-extramodules')
   install=ndiswrapper.install
@@ -67,8 +67,8 @@ package_linux41-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=9
-  depends=()
+  pkgrel=2
+  depends=('wireless_tools' 'perl')
   groups=()
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"

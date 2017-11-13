@@ -5,7 +5,7 @@
 pkgname=xfdesktop-gtk3
 _pkgname=xfdesktop
 pkgver=4.13.1
-pkgrel=4
+pkgrel=6
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -21,9 +21,9 @@ makedepends=('intltool' 'xfce4-dev-tools')
 conflicts=('xfce4-menueditor' "$_pkgname")
 provides=("$_pkgname")
 replaces=('xfce4-menueditor')
-_commit=a194b8e6d6d91094a890f0bf6a650a4d1dfba8aa
+_commit=795eec8d3c05ac0b04b5a06c78590ad806f1ad3d
 source=(https://git.xfce.org/xfce/xfdesktop/snapshot/xfdesktop-$_commit.tar.bz2)
-sha256sums=('e1fdb6342757d6336a3297ecbde761af063597f92aa2a945fb317949882a98e3')
+sha256sums=('82a46545d40573ab7351c11bfc035c3fa2cdccbfd112d72f93fd1889145f3a87')
 
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"

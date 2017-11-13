@@ -16,7 +16,6 @@ pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
 url="http://ndiswrapper.sourceforge.net"
-depends=('linux44' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux44-headers')
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
         "kernel-4.0.patch"
@@ -50,6 +49,7 @@ package_linux44-ndiswrapper() {
   _extramodules=extramodules-4.4-MANJARO
   _kver="$(cat /usr/lib/modules/${_extramodules}/version)"
   provides=("$_pkgname=$pkgver")
+  depends=('linux44' "$_pkgname-utils")
   groups=('linux44-extramodules')
   install=ndiswrapper.install
   cd "$srcdir/$_pkgname-$pkgver"
@@ -70,8 +70,8 @@ package_linux44-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=34
-  depends=()
+  pkgrel=2
+  depends=('wireless_tools' 'perl')
   groups=()
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"

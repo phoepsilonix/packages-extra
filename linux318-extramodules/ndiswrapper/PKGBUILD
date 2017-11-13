@@ -16,7 +16,6 @@ pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
 url="http://ndiswrapper.sourceforge.net"
-depends=('linux318' 'wireless_tools' 'perl' "$_pkgname-utils")
 makedepends=('linux318-headers')
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz")
 options=('!strip')
@@ -40,6 +39,7 @@ package_linux318-ndiswrapper() {
   _extramodules=extramodules-3.18-MANJARO
   _kver="$(cat /usr/lib/modules/${_extramodules}/version)"
   provides=("$_pkgname=$pkgver")
+  depends=('linux318' "$_pkgname-utils")
   groups=('linux318-extramodules')
   install=ndiswrapper.install
   cd "$srcdir/$_pkgname-$pkgver"
@@ -60,7 +60,8 @@ package_linux318-ndiswrapper() {
 
 package_ndiswrapper-utils() {
   pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
-  pkgrel=16
+  depends=('wireless_tools' 'perl')
+  pkgrel=2
   cd $srcdir/tmp-ndis-utils
   mv -v usr "$pkgdir"
 }
