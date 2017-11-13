@@ -1,0 +1,81 @@
+# maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# maintainer: Roland Singer <roland[at]manjaro[dog]org>
+
+pkgbase=boxit
+pkgname=(boxit-32 boxit-32-server)
+#pkgver=2.0.$(date +%m%d)
+pkgver=2.1.2
+pkgrel=1
+arch=('i686' 'x86_64')
+url="http://git.manjaro.org"
+license=('GPL')
+depends=('qt4' 'readline' 'icu')
+makedepends=('git')
+_git=Yes
+
+if [ "$_git" == "Yes" ]; then
+   source=(git+https://github.com/manjaro/boxit.git#branch=32-bit)
+   sha256sums=('SKIP')
+else
+   source=("boxit-$pkgver.tar.gz::http://git.manjaro.org/core/boxit/repository/archive.tar.gz?ref=v$pkgver")
+   sha256sums=('SKIP')
+fi
+
+build() {
+  msg "build $pkgbase"
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase/src"
+  else
+     cd "$srcdir/$pkgbase/$pkgbase/src"
+  fi
+
+  qmake-qt4
+
+  # Build fix
+  make sub-DBus
+  cp DBus/libDBus.a libDBus.a
+
+  make all
+
+  msg "build $pkgbase-server"
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase-server/src"
+  else
+     cd "$srcdir/$pkgbase/$pkgbase-server/src"
+  fi
+
+  qmake-qt4
+
+  make all
+}
+
+package_boxit-32() {
+  pkgdesc="Manjaro Linux repository management system - client"
+  depends=('qt4' 'readline' 'icu')
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase/src"
+  else
+     cd "$srcdir/$pkgbase/$pkgbase/src"
+  fi
+  make INSTALL_ROOT="${pkgdir}" install
+}
+
+package_boxit-32-server() {
+  pkgdesc="Manjaro Linux repository management system - server"
+  depends=('qt4' 'readline' 'icu' 'boxit-server')
+  if [ -e "$srcdir/core-$pkgbase" ]; then
+	   cd "$srcdir/core-$pkgbase/$pkgbase-server/src"
+  else
+     cd "$srcdir/$pkgbase/$pkgbase-server/src"
+  fi
+  # TODO - convert to systemd-scripts
+  #mkdir -p ${pkgdir}/etc/init.d
+  #mkdir -p ${pkgdir}/usr/bin
+  #mkdir -p ${pkgdir}/etc/boxit
+  make INSTALL_ROOT="${pkgdir}" install
+
+  # clean-up conflicting files
+  rm "${pkgdir}"/etc/boxit -r
+  rm "${pkgdir}"/usr/bin/repo*
+  rm "${pkgdir}"/usr/bin/pkgdelta
+}
