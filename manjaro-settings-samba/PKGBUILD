@@ -11,7 +11,7 @@ depends=('samba')
 install=manjaro-settings-samba.install
 backup=('etc/samba/smb.conf')
 source=("smb.conf")
-md5sums=('a80861df407091de32e19488c8252033')
+md5sums=('ecaf7b0106620aebbebd8248cb0937df')
 
 pkgver() {
 	date +%Y%m%d
