@@ -1,0 +1,36 @@
+# Maintainer: Capitani Stefano <stefanoatmanjarodotorg>
+
+pkgname=manjaro-gdm-check
+pkgver=20171119
+pkgrel=1
+pkgdesc='Systemd service to disable wayland if Nvidia closed drivers are active'
+arch=(any)
+url="https://github.com/manjaro}"
+license=('GPL3')
+source=('check_vga_driver'
+		"$pkgname.script"
+		"$pkgname.hook"
+		"$pkgname-remove.hook"
+		"$pkgname.service")
+depends=('gdm')
+
+sha256sums=('88dd0f87d8dacaa3b0fae58e4059bf6c439c2a62cff80900f1ed14f9dbda008d'
+            'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+            '3e850d70a4118e6f2f2490cd2b49d86a0d5222dfe08ab238d26497372c20c583'
+            'c605f5a72883728e0a1210f9a9cc08aa48d8204d27cfe7434442b03b1fe39b4a'
+            '9dadc3bbfe32079b4b16942aab4e6340f3769393de059fe2ecd0c91e806a4f43')
+
+pkgver() {
+	date +%Y%m%d
+}
+
+package() {
+#install systemd service
+cd $startdir
+	install -Dm755 check_vga_driver $pkgdir/usr/bin/check_vga_driver
+	install -Dm644 $pkgname.service $pkgdir/etc/systemd/system/$pkgname.service
+	
+#install hook and script	
+	install -Dm644 $pkgname.hook ${pkgdir}/usr/share/libalpm/hooks/$pkgname.hook
+	install -Dm644 $pkgname.hook ${pkgdir}/usr/share/libalpm/hooks/$pkgname-remove.hook
+}

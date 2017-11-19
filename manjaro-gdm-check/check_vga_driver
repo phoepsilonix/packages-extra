@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#Check if nvidia driver is in use
+set -x
+test=$(lspci -v | perl -ne '/VGA/../^$/ and /VGA|Kern/ and print' | awk 'NR == 2 {print $5}')
+
+first-run() {
+if [ ! -f /etc/gdm/.custom.conf ]; then
+	cp /etc/gdm/custom.conf /etc/gdm/.custom.conf
+	sed -i -e 's,.*WaylandEnable=true.*,WaylandEnable=false,' /etc/gdm/custom.conf	
+fi
+}
+
+back() {
+if [ -f /etc/gdm/.custom.conf ]; then
+	rm /etc/gdm/custom.conf
+	mv /etc/gdm/.custom.conf /etc/gdm/custom.conf 
+fi
+}
+
+if [ $test = nvidia ]; then
+	first-run
+else back
+fi
+	
