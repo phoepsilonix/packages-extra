@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.1.7.r4004.ee9860dc3
+pkgver=3.1.8.r4083.5cbc2273d
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
@@ -22,7 +22,7 @@ makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 source+=(git+https://github.com/manjaro/calamares.git#branch=development
          'kpmcore-3.2.patch')
 sha256sums=('SKIP'
-            '12b7aabd15be3fe9322197a11de30bfa42e167540ec420d12bd5e44a5aca56bd')
+            'bff82b04cb9c9c0f971e02e0d10cad9e3b88b359b2256f823c4ecda426c221f0')
 
 pkgver() {
 	cd ${srcdir}/calamares

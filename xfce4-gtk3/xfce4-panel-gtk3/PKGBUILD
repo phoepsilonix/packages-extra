@@ -5,7 +5,7 @@
 _pkgname=xfce4-panel
 pkgname="$_pkgname-gtk3"
 pkgver=4.13.1
-pkgrel=6
+pkgrel=7
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -20,11 +20,11 @@ depends=('desktop-file-utils'
     'vala'
     'xfconf-gtk3>=4.13.3')
 makedepends=('intltool' 'xfce4-dev-tools')
-_commit=617aa7c7b9056ede24607e3c95555653bfbeabc8
+_commit=7b563743b14914a074652a1e6db9949fcae294a0
 provides=($_pkgname)
 conflicts=($_pkgname)
 source=(https://git.xfce.org/xfce/xfce4-panel/snapshot/xfce4-panel-$_commit.tar.bz2)
-sha256sums=('59a9d4b507aa5c10c0b534ecf42708ac18db7726b87274ddac0edce01d71db22')
+sha256sums=('14e35e6c77f4d081488bc7724269616831fdac60736200a44907cdcfebc2eab9')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"

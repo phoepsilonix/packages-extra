@@ -8,16 +8,14 @@
 
 pkgname=thunderbird
 pkgver=52.4.0
-pkgrel=1
-_pkgrel=1
+pkgrel=2
+_pkgrel=2
 pkgdesc="Standalone mail and news reader from mozilla.org"
-arch=(i686 x86_64)
+arch=(x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/thunderbird/"
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
-source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::http://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
-md5sums_i686=('791196d64c60634963fa5e0e5f130832')
-md5sums_x86_64=('aba4d7cc796d64cba20eeee9ff438317')
+md5sums_x86_64=('fdac68d4aecadc98be9b5280f59b7691')
 
 prepare() {
   rm -rf $srcdir/usr/lib/firefox/distribution

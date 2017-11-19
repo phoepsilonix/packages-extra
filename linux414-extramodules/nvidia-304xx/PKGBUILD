@@ -9,7 +9,7 @@ _extramodules=extramodules-4.14-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
 pkgver=304.137
-pkgrel=0.18
+pkgrel=0.19
 epoch=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('i686' 'x86_64')
@@ -26,7 +26,7 @@ options=(!strip)
 source=('linux-4.14.patch')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('10e4d311dfc467e70bc2d1cec92c4ee8')
+md5sums=('badddcff69fc8a2d5026f927b7311869')
 md5sums_i686=('133098e70581f6b81c481338cc20f100')
 md5sums_x86_64=('485506ee6a7c54780488dacddf1d56b1')
 
