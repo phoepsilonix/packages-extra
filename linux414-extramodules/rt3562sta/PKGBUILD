@@ -11,8 +11,8 @@ pkgbase=rt3562sta
 pkgname=("$_linuxprefix-rt3562sta" 'rt3562sta-common')
 pkgver=2.4.1.1_r4
 _patchrel=${pkgver/*_r/}
-pkgrel=0.18
-_subpkgrel=0.18
+pkgrel=1
+_subpkgrel=1
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
