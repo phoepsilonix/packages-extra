@@ -16,18 +16,6 @@ diff -Npur xfce4-pulseaudio-plugin-0.2.4.orig/panel-plugin/pulseaudio-button.c x
    NULL
  };
  
-diff -Npur xfce4-pulseaudio-plugin-0.2.4.orig/panel-plugin/pulseaudio-menu.c xfce4-pulseaudio-plugin-0.2.4/panel-plugin/pulseaudio-menu.c
---- xfce4-pulseaudio-plugin-0.2.4.orig/panel-plugin/pulseaudio-menu.c	2015-05-03 22:52:14.000000000 +0200
-+++ xfce4-pulseaudio-plugin-0.2.4/panel-plugin/pulseaudio-menu.c	2015-12-13 12:30:28.228724714 +0100
-@@ -236,7 +236,7 @@ pulseaudio_menu_new (PulseaudioVolume *v
-   volume_max = pulseaudio_config_get_volume_max (menu->config);
-   mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
- 
--  img = gtk_image_new_from_icon_name ("audio-volume-high-symbolic", GTK_ICON_SIZE_DND);
-+  img = gtk_image_new_from_icon_name ("audio-volume-high-panel", GTK_ICON_SIZE_DND);
-   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), img);
-   gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
- 
 diff -Npur xfce4-pulseaudio-plugin-0.2.4.orig/panel-plugin/pulseaudio-notify.c xfce4-pulseaudio-plugin-0.2.4/panel-plugin/pulseaudio-notify.c
 --- xfce4-pulseaudio-plugin-0.2.4.orig/panel-plugin/pulseaudio-notify.c	2015-06-10 23:56:50.000000000 +0200
 +++ xfce4-pulseaudio-plugin-0.2.4/panel-plugin/pulseaudio-notify.c	2015-12-13 12:30:28.228724714 +0100
