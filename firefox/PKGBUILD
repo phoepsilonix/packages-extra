@@ -5,8 +5,8 @@
 
 pkgname=firefox
 pkgver=57.0
-_pkgrel=1
-pkgrel=1
+_pkgrel=2
+pkgrel=2
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
@@ -20,7 +20,7 @@ optdepends=('networkmanager: Location detection via available WiFi networks'
 source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::https://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
 #source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::https://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
 #sha256sums_i686=('3301d5a351ad0c715326cb8f8d6874b05e1ec6f02f755f98c337d50387d7547c')
-sha256sums_x86_64=('a90b0c8c6e4fce11222bd5d708f8136d5c685acec310465b7158c620930b67a8')
+sha256sums_x86_64=('60bd9231c15d549b779b2adb6071997973219ad80c9505ee99b81a1c7c7dce8f')
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
