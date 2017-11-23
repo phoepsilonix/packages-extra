@@ -8,7 +8,7 @@ pkgver=57.0
 _pkgrel=2
 pkgrel=2
 pkgdesc="Standalone web browser from mozilla.org"
-arch=(i686 x86_64)
+arch=(x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/firefox/"
 depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib ffmpeg
@@ -17,10 +17,12 @@ optdepends=('networkmanager: Location detection via available WiFi networks'
             'libnotify: Notification integration'
             'pulseaudio: Audio support'
             'speech-dispatcher: Text-to-Speech')
-source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::https://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
+source=(https://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
 #source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::https://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
 #sha256sums_i686=('3301d5a351ad0c715326cb8f8d6874b05e1ec6f02f755f98c337d50387d7547c')
-sha256sums_x86_64=('60bd9231c15d549b779b2adb6071997973219ad80c9505ee99b81a1c7c7dce8f')
+sha256sums=('60bd9231c15d549b779b2adb6071997973219ad80c9505ee99b81a1c7c7dce8f'
+            'SKIP')
+validpkgkeys=('8218F88849AAC522E94CF470A5E9288C4FA415FA') # Jan Alexander Steffens (heftig)
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
