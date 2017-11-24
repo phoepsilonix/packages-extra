@@ -14,8 +14,10 @@ pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=(x86_64)
 license=(MPL GPL LGPL)
 url="https://www.mozilla.org/thunderbird/"
-source_x86_64=("$pkgname-$pkgver-$_pkgrel-x86_64.tar.xz::http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz")
-md5sums_x86_64=('fdac68d4aecadc98be9b5280f59b7691')
+source=(http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
+md5sums=('fdac68d4aecadc98be9b5280f59b7691'
+         'SKIP')
+validpkgkeys=('B5971F2C5C10A9A08C60030F786C63F330D7CB92' # Felix Yan <felixonmars@archlinux.org>
 
 prepare() {
   rm -rf $srcdir/usr/lib/firefox/distribution
