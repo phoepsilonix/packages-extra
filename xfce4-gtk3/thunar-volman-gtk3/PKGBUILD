@@ -3,10 +3,10 @@
 # Contributor: Tobias Kieslich <tobias (at) archlinux.org>
 
 _pkgname=thunar-volman
-_commit=9928e6269d457ce7c715687b84c14c48f38b787f
+_commit=8e42d3fe1d63d3bd3c87a307d2fa01fc02350840
 pkgname=thunar-volman-gtk3
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Automatic management of removeable devices in Thunar"
 arch=('i686' 'x86_64')
 url="http://goodies.xfce.org/projects/thunar-plugins/thunar-volman"
@@ -17,7 +17,7 @@ makedepends=('intltool' 'xfce4-dev-tools')
 conflicts=($_pkgname)
 provides=($_pkgname)
 source=(https://git.xfce.org/xfce/thunar-volman/snapshot/thunar-volman-$_commit.tar.gz)
-sha256sums=('c7de8d360e235657e4ee95f4e70ba8af51b040941c95bb1f6696bd3e7ca2b0ab')
+sha256sums=('a55098dd9dbdcb90c5807779d3343320e984db040feb4581a1489d8364f1fe50')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
