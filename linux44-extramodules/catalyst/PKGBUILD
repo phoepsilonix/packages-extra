@@ -10,7 +10,6 @@ pkgver=15.201.1151
 pkgrel=69
 epoch=1
 _pkgver=15.201.1151
-_tarball=15.9-linux-installer-$pkgver
 provides=("$_pkgname=$_pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
@@ -22,7 +21,7 @@ makedepends=("$_linuxprefix-headers" "gcc49")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-${_tarball}-x86.x86_64.zip
+source=(http://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip
         #https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
         ati_make.sh
         lano1106_fglrx_intel_iommu.patch
@@ -89,18 +88,18 @@ build() {
 
 	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
 	## works only in combination with ati_make.sh script
-	patch -Np1 -i ${srcdir}/makefile_compat.patch
-	patch -Np1 -i ${srcdir}/lano1106_fglrx_intel_iommu.patch
-	patch -Np1 -i ${srcdir}/lano1106_kcl_agp_13_4.patch
-        patch -Np1 -i ${srcdir}/cold-fglrx-3.14-current_euid.patch
+	patch -Np1 -i "${srcdir}/makefile_compat.patch"
+	patch -Np1 -i "${srcdir}/lano1106_fglrx_intel_iommu.patch"
+	patch -Np1 -i "${srcdir}/lano1106_kcl_agp_13_4.patch"
+        patch -Np1 -i "${srcdir}/cold-fglrx-3.14-current_euid.patch"
 
 	cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
-        patch -Np1 -i ${srcdir}/kolasa_fglrx_312.patch
-        patch -Np5 -i ${srcdir}/manjaro_fglrx_40.patch
-        patch -Np1 -i ${srcdir}/kolasa_fglrx_4.1.patch
-        patch -Np1 -i ${srcdir}/manjaro_fglrx_4.2.patch
-        patch -Np1 -i ${srcdir}/manjaro_fglrx_4.3.patch
-        patch -Np6 -i ${srcdir}/gentoo_fglrx_4.3_mtrr.patch
+        patch -Np1 -i "${srcdir}/kolasa_fglrx_312.patch"
+        patch -Np5 -i "${srcdir}/manjaro_fglrx_40.patch"
+        patch -Np1 -i "${srcdir}/kolasa_fglrx_4.1.patch"
+        patch -Np1 -i "${srcdir}/manjaro_fglrx_4.2.patch"
+        patch -Np1 -i "${srcdir}/manjaro_fglrx_4.3.patch"
+        patch -Np6 -i "${srcdir}/gentoo_fglrx_4.3_mtrr.patch"
 
 	## fix linux44 build
 	sed -i -e s'|XSTATE_FP|XFEATURE_MASK_FP|g' firegl_public.c
@@ -126,6 +125,6 @@ package() {
 	install -m644 "${srcdir}/fglrx-$_pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
 
 	## Install script
-	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
-	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" $startdir/*.install
+	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" "$startdir"/*.install
+	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" "$startdir"/*.install
 }
