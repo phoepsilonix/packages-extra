@@ -1,0 +1,77 @@
+# Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
+# Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
+
+_linuxprefix=linux415
+_extramodules=extramodules-4.15-MANJARO
+pkgbase=$_linuxprefix-spl_zfs
+pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
+pkgver=0.7.2
+_pkgver=spl-0.7.2
+pkgrel=0.1
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=("$_linuxprefix" "kmod")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+install=install
+source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        'spl-vfs_read-write.patch::https://github.com/zfsonlinux/spl/pull/659.patch')
+sha256sums=('c85f5cbd50596194ad08a26df7aa4d7c7c7356c8b98bdf488c2895d64ffc2222'
+            'f75f4d8bbb8241e3d06321b53914e53fa22d1ccc8be89819b578b46e5d3e5cf4'
+            '3a70a97a376465ec33bbae32b18900814d3782a9e590ba2fbf8fb042aa090119')
+
+prepare() {
+  cd "${srcdir}/spl-${_pkgver}"
+  # patches here
+  patch -p1 -i "${srcdir}/spl-vfs_read-write.patch"
+  cd "${srcdir}/zfs-${pkgver}"
+  # patches here
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+  cd "${srcdir}/spl-${_pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-config=kernel
+  make
+  cd "${srcdir}/zfs-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
+              --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
+              --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-spl=${srcdir}/spl-${_pkgver}
+  make
+}
+
+package_linux415-spl(){
+  _pkgname=spl
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("spl-utils=${pkgver}")
+
+  cd "${srcdir}/spl-${_pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}
+
+package_linux415-zfs(){
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
+
+  cd "${srcdir}/zfs-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}

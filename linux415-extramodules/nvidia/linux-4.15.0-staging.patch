@@ -1,0 +1,99 @@
+diff -u -r NVIDIA-Linux-x86_64-387.22/kernel/nvidia-drm/nvidia-drm-connector.c NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-drm/nvidia-drm-connector.c
+--- NVIDIA-Linux-x86_64-387.22/kernel/nvidia-drm/nvidia-drm-connector.c	2017-10-26 09:29:25.000000000 +0200
++++ NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-drm/nvidia-drm-connector.c	2017-11-16 20:15:35.123121624 +0100
+@@ -107,7 +107,7 @@
+             break;
+         }
+ 
+-        encoder = drm_encoder_find(dev, id);
++        encoder = drm_encoder_find(dev, NULL, id);
+ 
+         if (encoder == NULL)
+         {
+diff -u -r NVIDIA-Linux-x86_64-387.22/kernel/nvidia-drm/nvidia-drm-linux.c NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-drm/nvidia-drm-linux.c
+--- NVIDIA-Linux-x86_64-387.22/kernel/nvidia-drm/nvidia-drm-linux.c	2017-10-26 09:29:26.000000000 +0200
++++ NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-drm/nvidia-drm-linux.c	2017-11-14 01:47:40.815680166 +0100
+@@ -185,7 +185,7 @@
+ module_exit(nv_linux_drm_exit);
+ 
+ #if defined(MODULE_LICENSE)
+-  MODULE_LICENSE("MIT");
++  MODULE_LICENSE("GPL");
+ #endif
+ #if defined(MODULE_INFO)
+   MODULE_INFO(supported, "external");
+diff -u -r NVIDIA-Linux-x86_64-387.22/kernel/nvidia-drm/nvidia-drm-modeset.c NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-drm/nvidia-drm-modeset.c
+--- NVIDIA-Linux-x86_64-387.22/kernel/nvidia-drm/nvidia-drm-modeset.c	2017-10-26 09:29:25.000000000 +0200
++++ NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-drm/nvidia-drm-modeset.c	2017-11-17 01:16:51.188958966 +0100
+@@ -252,7 +252,7 @@
+ 
+     /* Loops over all crtcs and fill head configuration for changes */
+ 
+-    for_each_crtc_in_state(state, crtc, crtc_state, i)
++    for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+     {
+         struct nvidia_drm_crtc *nv_crtc;
+         struct NvKmsKapiHeadRequestedConfig *head_requested_config;
+@@ -303,7 +303,7 @@
+ 
+             head_requested_config->flags.displaysChanged = NV_TRUE;
+ 
+-            for_each_connector_in_state(state, connector, connector_state, j) {
++            for_each_new_connector_in_state(state, connector, connector_state, j) {
+                 if (connector_state->crtc != crtc) {
+                     continue;
+                 }
+@@ -324,7 +324,7 @@
+ 
+     /* Loops over all planes and fill plane configuration for changes */
+ 
+-    for_each_plane_in_state(state, plane, plane_state, i)
++    for_each_new_plane_in_state(state, plane, plane_state, i)
+     {
+         struct NvKmsKapiHeadRequestedConfig *head_requested_config;
+ 
+@@ -634,7 +634,7 @@
+          nvidia_drm_write_combine_flush();
+     }
+ 
+-    for_each_crtc_in_state(state, crtc, crtc_state, i) {
++    for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+         struct nvidia_drm_crtc *nv_crtc = DRM_CRTC_TO_NV_CRTC(crtc);
+         struct nv_drm_crtc_state *nv_crtc_state = to_nv_crtc_state(crtc->state);
+         struct nv_drm_flip *nv_flip = nv_crtc_state->nv_flip;
+diff -u -r NVIDIA-Linux-x86_64-387.22/kernel/nvidia-uvm/uvm8_va_block.c NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-uvm/uvm8_va_block.c
+--- NVIDIA-Linux-x86_64-387.22/kernel/nvidia-uvm/uvm8_va_block.c	2017-10-26 09:29:23.000000000 +0200
++++ NVIDIA-Linux-x86_64-387.22.patched/kernel/nvidia-uvm/uvm8_va_block.c	2017-11-14 01:43:56.176693556 +0100
+@@ -36,6 +36,8 @@
+ #include "uvm8_perf_prefetch.h"
+ #include "uvm8_mem.h"
+ 
++#include <linux/sched/task_stack.h>
++
+ typedef enum
+ {
+     BLOCK_PTE_OP_MAP,
+diff -Npur a/kernel/nvidia/nv-frontend.c b/kernel/nvidia/nv-frontend.c
+--- a/kernel/nvidia/nv-frontend.c	2017-07-19 22:43:50.000000000 -0400
++++ b/kernel/nvidia/nv-frontend.c	2017-09-13 10:00:07.552395161 -0400
+@@ -15,7 +15,7 @@
+ #include "nv-frontend.h"
+ 
+ #if defined(MODULE_LICENSE)
+-MODULE_LICENSE("NVIDIA");
++MODULE_LICENSE("GPL");
+ #endif
+ #if defined(MODULE_INFO)
+ MODULE_INFO(supported, "external");
+diff -Npur a/kernel/nvidia/nv.c b/kernel/nvidia/nv.c
+--- a/kernel/nvidia/nv.c	2017-07-19 22:43:50.000000000 -0400
++++ b/kernel/nvidia/nv.c	2017-09-13 09:59:32.984665063 -0400
+@@ -38,7 +38,7 @@
+ 
+ #if (NV_BUILD_MODULE_INSTANCES != 0)
+ #if defined(MODULE_LICENSE)
+-MODULE_LICENSE("NVIDIA");
++MODULE_LICENSE("GPL");
+ #endif
+ #if defined(MODULE_INFO)
+ MODULE_INFO(supported, "external");
