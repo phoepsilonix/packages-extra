@@ -2,8 +2,8 @@
 # Contributor: Jonathon Fernyhough (jonathon[at]manjaro[dot]org)
 
 pkgname=('manjaro-documentation-fr')
-pkgver=20171118
-_gitcommit=1d8bd00e5c83449835c8029450444845d814ffd3
+pkgver=20171125
+_gitcommit=4356eaaba9b8451b3ab0a5244a324fdec1985eed
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-user-guide"
@@ -11,7 +11,7 @@ makedepends=('ghostscript' 'lyx' 'python2' 'texlive-core' 'texlive-latexextra' '
 source=("manjaro-documentation-$pkgver-$pkgrel.tar.gz::$url/archive/$_gitcommit.tar.gz"
 	'manjaro-documentation'
 	'manjaro-documentation.desktop')
-sha256sums=('3ab459ecdd06f0dfc3523669f52de8cea7466bfb368a54d66b67b79bd393e8ee'
+sha256sums=('9f00cb8283eac50fbbb79bda82e9e62fc0218d6587ea94dfc85e148f4ef4cec7'
             'fc9a1d22ba5a70ff95a52baadba1df4ec2a07f9474c8b20af24646f01b3783ea'
             'cfdc3cc5fb759b835f2cb9bca830ea0ea48b4ab98b58867c0420930e890d74c6')
 
