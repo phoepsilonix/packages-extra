@@ -52,7 +52,6 @@ makedepends=(
     'libcanberra'
 )
 optdepends=(
-    'gtk3-print-backends: printing'
     'dconf: default GSettings backend'
     'adwaita-icon-theme: default icon theme'
     'cantarell-fonts: default font'
