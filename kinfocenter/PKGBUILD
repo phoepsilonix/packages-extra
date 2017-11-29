@@ -5,7 +5,7 @@
 
 pkgname=kinfocenter
 pkgver=5.11.4
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
@@ -23,9 +23,6 @@ validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell
 
 prepare() {
   mkdir -p build
-  # https://github.com/manjaro/packages-extra/issues/138
-  sed -i -e 's|/kcms||' ${pkgname}-${pkgver}/Modules/energy/CMakeLists.txt
-  sed -i -e 's|/kcms||' ${pkgname}-${pkgver}/Modules/fileindexermonitor/CMakeLists.txt
 }
 
 build() {
