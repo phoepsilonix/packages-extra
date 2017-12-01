@@ -9,7 +9,7 @@ _extramodules=extramodules-4.14-MANJARO
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
 pkgver=340.104
-pkgrel=2
+pkgrel=3
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -41,7 +41,7 @@ prepare() {
     (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-4.11.patch)
 
     # Fix compile problem with 4.14
-    (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-4.14.patch)
+    (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/kernel-4.14.patch)
 
     export DISTCC_DISABLE=1
     export CCACHE_DISABLE=1

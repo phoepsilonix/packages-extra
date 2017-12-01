@@ -3,10 +3,11 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Jakub Schmidtke <sjakub@gmail.com>
 
+
 pkgname=firefox
-pkgver=57.0
-_pkgrel=2
-pkgrel=2
+pkgver=57.0.1
+_pkgrel=1
+pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(x86_64)
 license=(MPL GPL LGPL)
@@ -17,10 +18,10 @@ optdepends=('networkmanager: Location detection via available WiFi networks'
             'libnotify: Notification integration'
             'pulseaudio: Audio support'
             'speech-dispatcher: Text-to-Speech')
-source=(https://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
-#source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::https://archlinux.thaller.ws/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
+source=(https://mirrors.niyawe.de/archlinux/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
+#source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::https://mirrors.niyawe.de/archlinux/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
 #sha256sums_i686=('3301d5a351ad0c715326cb8f8d6874b05e1ec6f02f755f98c337d50387d7547c')
-sha256sums=('60bd9231c15d549b779b2adb6071997973219ad80c9505ee99b81a1c7c7dce8f'
+sha256sums=('306f6b3f022c144291eb44cb3558c4c5ebd11442dd44ae8614a02c81e06e42b5'
             'SKIP')
 validpkgkeys=('8218F88849AAC522E94CF470A5E9288C4FA415FA') # Jan Alexander Steffens (heftig)
 
