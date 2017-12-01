@@ -6,7 +6,7 @@
 # Co-Maintainer: Clittle <philm@manjarolinux.org>
 
 pkgname=('zfs-utils')
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="User-Mode utils for the Zettabyte File System."
 depends=("spl-utils=$pkgver")
@@ -18,7 +18,7 @@ source=(https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${
         zfs-utils.initcpio.install
         zfs-utils.service)
 groups=('manjarozfs')
-sha256sums=('f75f4d8bbb8241e3d06321b53914e53fa22d1ccc8be89819b578b46e5d3e5cf4'
+sha256sums=('cb8fc606835d3f91471e49aca31a6a0a71733b1cbe74fa510e0fe0efa670fe51'
             '15e742477fad0104871fc055b6ce9bf803540070e47fa515ea7ca3c1a401f831'
             '73662d13e6231c5034df6046926bcaf25fdba0aa53c9064693bcf2147f9c400a'
             '1ea6d2cdd27798680a96c9ebf18e9167b0575d032c7cfc731f16456cd38f2040'
