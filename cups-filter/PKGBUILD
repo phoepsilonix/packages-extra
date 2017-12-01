@@ -1,9 +1,9 @@
-# $Id$
+# Maintainer: Stefano Capitani <stefanoatmanjarodotorg>
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
-_pkgname=cups-filters
-pkgname=$_pkgname-dev
+
+pkgname=cups-filters
 pkgver=1.17.9
-pkgrel=1
+pkgrel=4
 pkgdesc="OpenPrinting CUPS Filters"
 arch=('x86_64')
 url="https://wiki.linuxfoundation.org/openprinting/cups-filters"
@@ -15,11 +15,11 @@ optdepends=('ghostscript: for non-PostScript printers to print with CUPS to conv
 	    'foomatic-db-engine: drivers use Ghostscript to convert PostScript to a printable form directly'
 	    'foomatic-db-nonfree: drivers use Ghostscript to convert PostScript to a printable form directly'
 	    'antiword: needed to convert MS Word documents (requires also docx2txt (AUR)')
-provides=("$_pkgname=1.0.42")
-conflicts=("$_pkgname")
+conflicts=("$pkgname-dev")
+replace=("$pkgname-dev")
 backup=(etc/fonts/conf.d/99pdftoopvp.conf
         etc/cups/cups-browsed.conf)
-source=("https://www.openprinting.org/download/cups-filters/$_pkgname-$pkgver.tar.xz"
+source=("https://www.openprinting.org/download/cups-filters/$pkgname-$pkgver.tar.xz"
 		'0001-utils-Enable-driverless-configuration-automagically.patch'
 		'0002-utils-Fix-broken-systemd-unit.patch')
 sha256sums=('98ae3f8c8309ea950144e582d252e65f4636e8812832a982edd0ab83eddef544'
@@ -27,14 +27,15 @@ sha256sums=('98ae3f8c8309ea950144e582d252e65f4636e8812832a982edd0ab83eddef544'
             'eea2c326b59e593a7a8f8fd789db4ca0fad581247d2f9e45c118d6dedf54cedb')
 
 prepare() {
-	cd $_pkgname-$pkgver
-	
+	cd $pkgname-$pkgver
+	#enabling driverless configuration
+	#https://dev.solus-project.com/source/cups-filters/browse/master/files/
  	patch -Np1 -i ../0001-utils-Enable-driverless-configuration-automagically.patch
 	patch -Np1 -i ../0002-utils-Fix-broken-systemd-unit.patch
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname-$pkgver
   ./configure --prefix=/usr  \
     --sysconfdir=/etc \
     --sbindir=/usr/bin \
@@ -53,12 +54,12 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $pkgname-$pkgver
   make check
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $pkgname-$pkgver
   make DESTDIR="$pkgdir/" install
   
   # add upstream systemd support file
@@ -70,7 +71,8 @@ package() {
   chgrp -R lp ${pkgdir}/etc/cups
 
   # license
-  mkdir -p "${pkgdir}"/usr/share/licenses/${_pkgname}
-  install -m644 "${srcdir}"/${_pkgname}-${pkgver}/COPYING "${pkgdir}"/usr/share/licenses/${_pkgname}/
+  mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 "${srcdir}"/${pkgname}-${pkgver}/COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
+
 
