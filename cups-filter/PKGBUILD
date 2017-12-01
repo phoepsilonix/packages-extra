@@ -3,7 +3,7 @@
 
 pkgname=cups-filters
 pkgver=1.17.9
-pkgrel=4
+pkgrel=5
 pkgdesc="OpenPrinting CUPS Filters"
 arch=('x86_64')
 url="https://wiki.linuxfoundation.org/openprinting/cups-filters"
@@ -16,7 +16,7 @@ optdepends=('ghostscript: for non-PostScript printers to print with CUPS to conv
 	    'foomatic-db-nonfree: drivers use Ghostscript to convert PostScript to a printable form directly'
 	    'antiword: needed to convert MS Word documents (requires also docx2txt (AUR)')
 conflicts=("$pkgname-dev")
-replace=("$pkgname-dev")
+replaces=("$pkgname-dev")
 backup=(etc/fonts/conf.d/99pdftoopvp.conf
         etc/cups/cups-browsed.conf)
 source=("https://www.openprinting.org/download/cups-filters/$pkgname-$pkgver.tar.xz"
