@@ -2,7 +2,7 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=xfce4-pulseaudio-plugin
-pkgver=0.3.2.r13.g553691a
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
@@ -13,26 +13,26 @@ depends=('xfce4-panel' 'libpulse' 'libkeybinder3' 'libnotify')
 makedepends=('git' 'intltool' 'python' 'xfce4-dev-tools')
 optdepends=('ido: appindicator support'
     'pavucontrol: default pulseaudio mixer')
-source=( #http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
+source=("http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2"
 #    "https://git.xfce.org/panel-plugins/$pkgname/snapshot/$pkgname-$_commit.tar.bz2"
-    "git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin"
+#    "git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin"
     'use-panel-icons.patch')
-sha256sums=('SKIP'
+sha256sums=('43fa39400eccab1f3980064f42dde76f5cf4546a6ea0a5dc5c4c5b9ed2a01220'
             '0fdf37ef543a197e0df474c7d80f0c1b77206d8a204eea37f9150f5be64fbbe1')
 
-pkgver() {
-    cd $pkgname
-    git describe --long --tags | sed -r "s:^${pkgname}.::;s/^v//;s/([^-]*-g)/r\1/;s/-/./g"
-}
+#pkgver() {
+#    cd $pkgname
+#    git describe --long --tags | sed -r "s:^${pkgname}.::;s/^v//;s/([^-]*-g)/r\1/;s/-/./g"
+#}
 
 prepare() {
-    cd $pkgname
+    cd $pkgname-$pkgver
     patch -Np1 -i $srcdir/use-panel-icons.patch
 }
 
 build() {
-    cd $pkgname
-    ./autogen.sh \
+    cd $pkgname-$pkgver
+    ./configure \
       --prefix=/usr \
       --sysconfdir=/etc \
       --libexecdir=/usr/lib \
@@ -46,7 +46,7 @@ build() {
 }
 
 package() {
-    cd $pkgname
+    cd $pkgname-$pkgver
     make DESTDIR="$pkgdir" install
 
     # clean-up as we don't use these icons
