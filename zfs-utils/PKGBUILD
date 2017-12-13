@@ -56,6 +56,9 @@ package() {
   cp ${pkgdir}/sbin/mount.zfs ${pkgdir}/usr/bin/mount.zfs
   rm -r ${pkgdir}/sbin
 
+  # align permissions on /etc/sudoers.d with those in `sudo` package
+  chmod 750 ${pkgdir}/etc/sudoers.d
+
   install -D -m644 ${srcdir}/zfs-utils.initcpio.hook ${pkgdir}/usr/lib/initcpio/hooks/zfs
   install -D -m644 ${srcdir}/zfs-utils.initcpio.install ${pkgdir}/usr/lib/initcpio/install/zfs
   install -D -m644 ${srcdir}/zfs-utils.service ${pkgdir}/usr/lib/systemd/system/zfs.service
