@@ -2,8 +2,8 @@
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
 pkgname=("spl-dkms")
-pkgver=0.7.3
-_pkgver=spl-0.7.3
+pkgver=0.7.4
+_pkgver=spl-0.7.4
 pkgrel=1
 pkgdesc="Solaris Porting Layer kernel modules."
 depends=("spl-utils=${pkgver}" "dkms")
@@ -11,7 +11,7 @@ arch=("any")
 url="http://zfsonlinux.org/"
 source=(https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz)
 groups=("manjarozfs")
-sha256sums=('0c15747027c7b90f1c683d045f247d5e9f2479a3e1b2f0094b2f571e2f39610f')
+sha256sums=('30c575ef51f9a940b01f2adafa53d28c98239733f2497fc912a76015537df2e3')
 license=("CDDL")
 install=spl-dkms.install
 
