@@ -1,0 +1,37 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Contributor: artoo <artoo@manjaro.org>
+# Contributor: anex <assassin.anex[@]gmail.com>
+
+
+pkgbase=grub-theme-live
+pkgname=('grub-theme-live-common' 'grub-theme-live-manjaro-dev' 'grub-theme-live-sonar')
+pkgver=17.1
+pkgrel=1
+pkgdesc='Manjaro Linux grub theme for install media'
+arch=('any')
+url="https://github.com/Ste74/grub-theme-dev"
+license=('GPL')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+package_grub-theme-live-common() {
+    depends=('grub')
+    conflicts=('grub-theme-live')
+   replaces=('grub-theme-live')
+
+    cd grub-theme-dev
+    make PREFIX=/usr DESTDIR=${pkgdir} install_common
+}
+package_grub-theme-live-manjaro-dev() {
+    depends=('grub-theme-live-common')
+
+    cd grub-theme-dev
+    make PREFIX=/usr DESTDIR=${pkgdir} install_manjaro
+}
+package_grub-theme-live-sonar() {
+    depends=('grub-theme-live-common')
+
+    cd grub-theme-dev
+    make PREFIX=/usr DESTDIR=${pkgdir} install_sonar
+}
