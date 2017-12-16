@@ -1,0 +1,11 @@
+build() {
+        # add tux bootsplash
+	add_binary /usr/share/bootsplash-themes/tux/bootsplash /bootsplash
+}
+
+help() {
+	echo "This hook includes plymouth in the initramfs image."
+}
+
+# vim: set ft=sh:
+#EOF

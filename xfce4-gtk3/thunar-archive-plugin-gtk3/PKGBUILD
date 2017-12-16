@@ -4,9 +4,9 @@
 
 _pkgname=thunar-archive-plugin
 pkgname=$_pkgname-gtk3
-pkgver=0.3.1
-pkgrel=3
-_commit=7d3aa2864f09665975b51657f22d7cda50d1d656
+pkgver=0.4.0
+pkgrel=1
+_commit=b63862f03a041c2467c18dc8828f3a63a2d00328
 pkgdesc="Create and extract archives in Thunar"
 arch=('i686' 'x86_64')
 url="http://goodies.xfce.org/projects/thunar-plugins/thunar-archive-plugin"
@@ -19,7 +19,7 @@ optdepends=('file-roller'
             'kdeutils-ark'
             'xarchiver')
 source=(https://git.xfce.org/thunar-plugins/${_pkgname}/snapshot/${_pkgname}-${_commit}.tar.bz2)
-sha256sums=('808fa296f09067b7926a53615e28138c14feaa535c5decaf1921484bfdbd85da')
+sha256sums=('55bb250945c1cbb459c315e9d8aabafd57c2de92fd53c5f2833da9cbd8917610')
 
 prepare() {
   cd "$srcdir/${_pkgname}-${_commit}"

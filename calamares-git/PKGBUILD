@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.2.0.r4158.f131c96c0
+pkgver=3.2.0.r4205.e6e172db9
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ conflicts=('calamares' 'calamares-dev')
 provides=('calamares' 'calamares-dev')
 replaces=('calamares-dev')
 depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
-         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
+         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 # backup=('usr/share/calamares/modules/bootloader.conf'
 #         'usr/share/calamares/modules/displaymanager.conf'
