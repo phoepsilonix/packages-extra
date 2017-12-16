@@ -9,6 +9,7 @@ url="https://github.com/manjaro/$pkgname"
 arch=('any')
 license=('GPL')
 depends=('gtk3' 'manjaro-icons' 'python-gobject')
+makedepends=('git')
 optdepends=('calamares: universal installer framework')
 replaces=('manjaro-welcome')
 #source=("$url/archive/$pkgver.tar.gz")
