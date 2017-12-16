@@ -1,6 +1,7 @@
 build() {
         # add tux bootsplash
 	add_binary /usr/share/bootsplash-themes/tux/bootsplash /bootsplash
+	add_binary /usr/share/bootsplash-themes/tux/bootsplash /bootsplash.55561
 }
 
 help() {

@@ -1,6 +1,6 @@
 pkgname=bootsplash-theme-tux
 pkgver=0.1
-pkgrel=1
+pkgrel=1.1
 pkgdesc="Bootsplash Theme Tux"
 url="https://lists.freedesktop.org/archives/dri-devel/2017-December/160242.html"
 arch=('x86_64')
@@ -13,7 +13,7 @@ source=('bootsplash-tux'
 	'bootsplash-tux.initcpio_install')
 
 sha256sums=('1bc4c5e498801c39a87782e48b42395e7a3d8d45aafcfacf4906e918e85ae9af'
-            'ff36559939f9b7ba4ef5d39cf181ce98c8eaf4920eb5b7dc39231136afc3f06d')
+            'afc75eb4a17f57e126febb159dad6f663c0aee9e177693824c681398cbd39c4d')
 
 package() {
   cd "$srcdir"
