@@ -1,7 +1,7 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.2.0.r4205.e6e172db9
+pkgver=3.2.0.r4223.fc49a1a8b
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
@@ -11,7 +11,7 @@ license=('LGPL')
 conflicts=('calamares' 'calamares-dev')
 provides=('calamares' 'calamares-dev')
 replaces=('calamares-dev')
-depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
+depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.3.0' 'mkinitcpio-openswap'
          'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 # backup=('usr/share/calamares/modules/bootloader.conf'
@@ -19,10 +19,8 @@ makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 #         'usr/share/calamares/modules/initcpio.conf'
 #         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/manjaro/calamares.git#branch=development
-         'kpmcore-3.2.patch')
-sha256sums=('SKIP'
-            'bff82b04cb9c9c0f971e02e0d10cad9e3b88b359b2256f823c4ecda426c221f0')
+source+=(git+https://github.com/manjaro/calamares.git#branch=development)
+sha256sums=('SKIP')
 
 pkgver() {
 	cd ${srcdir}/calamares
@@ -41,7 +39,6 @@ prepare() {
 	git submodule update
 
 	# patches here
-	patch -p1 -i "$srcdir/kpmcore-3.2.patch"
 }
 
 build() {

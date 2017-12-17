@@ -4,8 +4,8 @@
 
 pkgname=libxfce4ui-gtk3
 _pkgname=libxfce4ui
-pkgver=4.13.3
-pkgrel=2
+pkgver=4.13.4
+pkgrel=1
 pkgdesc="Commonly used Xfce widgets among Xfce applications (GTK3)"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -21,9 +21,9 @@ depends=('gtk2'
 makedepends=('intltool' 'xfce4-dev-tools' 'exo-gtk3')
 conflicts=($_pkgname)
 provides=("$_pkgname=$pkgver")
-_commit=bffab34c0b8d17b6abd3889fa016dade90e56b0a
+_commit=a663a5344d405eb93192ada5e0990ee9a5269b4c
 source=("https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2")
-sha256sums=('118b17d1fb33cd0cb069dad20e9e42676e40b18162a9b5e90e6984597a9f6a8d')
+sha256sums=('eec9c2521cecf7fd406a5f8daa65c4dd76e9e6493fbb4431eae0b58f36d9faea')
 
 build() {
   cd $_pkgname-$_commit

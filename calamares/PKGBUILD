@@ -3,14 +3,14 @@
 pkgname=calamares
 pkgver=3.1.10
 _pkgver=3.1.10
-pkgrel=2
-_commit=5ebd62930733e7e12d4330ed57761c364a48117a
+pkgrel=3
+_commit=85d60158fa17b6ee27da72bcbde6cf60d5973fb4
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
-depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.2.0' 'mkinitcpio-openswap'
+depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.3.0' 'mkinitcpio-openswap'
          'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
@@ -19,20 +19,14 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
-         'revert-5474dc6.patch::https://github.com/manjaro/calamares/commit/5474dc6d2b1bbe947b71a503253646fb637c9248.patch'
-         'kpmcore-3.2.patch')
-sha256sums=('fafa5cfd09f47f849012c0b647d3b4180a5762a535bcaff78d8748c684accb0e'
-            '651faaa40d1fc0de766f3232fd6d6c9b74069d2a986d5c2b0769a9408898b875'
-            '12b7aabd15be3fe9322197a11de30bfa42e167540ec420d12bd5e44a5aca56bd')
+         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
+sha256sums=('c8a25e00540b8895f974d70dffc706f59e988231dedfa8b7fe48bd291df8331b')
 
 prepare() {
 	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 
 	# patches here
-	patch -Rp1 -i "$srcdir/revert-5474dc6.patch"
-	patch -p1 -i "$srcdir/kpmcore-3.2.patch"
 
 	# add revision
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
