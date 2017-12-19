@@ -2,7 +2,7 @@
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
 pkgname=("zfs-dkms")
-pkgver=0.7.4
+pkgver=0.7.5
 pkgrel=1
 pkgdesc="Kernel modules for the Zettabyte File System."
 depends=("spl-dkms=${pkgver}" "zfs-utils=${pkgver}" "dkms")
@@ -10,7 +10,7 @@ arch=("any")
 url="http://zfsonlinux.org/"
 source=(https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz)
 groups=("manjarozfs")
-sha256sums=('9536a9be5d05329570afc9fc168be45cd38f832e2e7ede15f2c5cd223beb16d3')
+sha256sums=('1b826407418423379ff898c0e6ee0ada59c70754e6085a7663028330d0d8a44a')
 license=("CDDL")
 install=zfs-dkms.install
 
