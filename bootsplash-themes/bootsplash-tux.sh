@@ -61,6 +61,6 @@ convert -alpha remove \
 	--blob throbber09.rgb \
 	--blob throbber10.rgb \
 	--blob throbber11.rgb \
-	bootsplash
+	bootsplash-tux
 
 rm *.rgb

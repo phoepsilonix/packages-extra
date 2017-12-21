@@ -33,9 +33,9 @@ convert -alpha remove \
 
 # Let's put Tux in the center of an orange background.
 ./bootsplash-packer \
-	--bg_red 0xff \
-	--bg_green 0x3a \
-	--bg_blue 0x40 \
+	--bg_red 0x00 \
+	--bg_green 0x00 \
+	--bg_blue 0x00 \
 	--frame_ms 48 \
 	--picture \
 	--pic_width $LOGO_WIDTH \
@@ -61,6 +61,6 @@ convert -alpha remove \
 	--blob throbber09.rgb \
 	--blob throbber10.rgb \
 	--blob throbber11.rgb \
-	bootsplash
+	bootsplash-manjaro-elegant
 
 rm *.rgb
