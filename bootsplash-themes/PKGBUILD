@@ -1,7 +1,7 @@
-pkgname=bootsplash-theme-tux
+pkgbase=bootsplash-themes
+pkgname=('bootsplash-theme-tux' 'bootsplash-theme-manjaro-elegant')
 pkgver=0.1
 pkgrel=2
-pkgdesc="Bootsplash Theme Tux"
 url="https://lists.freedesktop.org/archives/dri-devel/2017-December/160242.html"
 arch=('x86_64')
 license=('GPL')
@@ -10,14 +10,27 @@ depends=('linux414' 'systemd')
 options=('!libtool' '!emptydirs')
 
 source=('bootsplash-tux'
-	'bootsplash-tux.initcpio_install')
+	'bootsplash-tux.initcpio_install'
+        'bootsplash-manjaro-elegant'
+	'bootsplash-manjaro-elegant.initcpio_install')
 
 sha256sums=('1bc4c5e498801c39a87782e48b42395e7a3d8d45aafcfacf4906e918e85ae9af'
-            'bcc1da803dfef9edd32f9fb245593c67de500437a02a1d266e3e63af64d8ef4f')
+            'bcc1da803dfef9edd32f9fb245593c67de500437a02a1d266e3e63af64d8ef4f'
+            'e61555c2bcdc5cbca2226db0fe750a55dc9c7752d476dce4519d0e49268ead90'
+            'e8deebc1e8350a22daa6abb2c2d5a9cfbf3f28785d12eea77dce9fc8da1097fc')
 
-package() {
+package_bootsplash-theme-tux() {
+  pkgdesc="Bootsplash Theme Tux"
   cd "$srcdir"
 
   install -Dm644 "$srcdir/bootsplash-tux" "$pkgdir/usr/lib/firmware/bootsplash-themes/tux/bootsplash"
   install -Dm644 "$srcdir/bootsplash-tux.initcpio_install" "$pkgdir/usr/lib/initcpio/install/bootsplash-tux"
+}
+
+package_bootsplash-theme-manjaro-elegant() {
+  pkgdesc="Bootsplash Theme 'Manjaro elegant'"
+  cd "$srcdir"
+
+  install -Dm644 "$srcdir/bootsplash-manjaro-elegant" "$pkgdir/usr/lib/firmware/bootsplash-themes/manjaro-elegant/bootsplash"
+  install -Dm644 "$srcdir/bootsplash-manjaro-elegant.initcpio_install" "$pkgdir/usr/lib/initcpio/install/bootsplash-manjaro-elegant"
 }
