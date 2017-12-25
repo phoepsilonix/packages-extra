@@ -5,7 +5,7 @@
 _pkgname=libxfce4util
 pkgname=$_pkgname-gtk3
 pkgver=4.13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Basic utility non-GUI functions for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -14,10 +14,10 @@ depends=('glib2')
 makedepends=('gobject-introspection' 'xfce4-dev-tools')
 conflicts=($_pkgname)
 provides=($_pkgname)
-_commit=6c41dea244bf308116069063bea5b42257c756fd
+_commit=0f7678b152d738ed3895f91249c6e96b74d499ab
 options=(!libtool)
 source=("https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2")
-sha256sums=('d53a3ab06fad736c71e625651e2652ecf686f4bdd7f42744b378d7d441962150')
+sha256sums=('39749b7b039aa22401bd27e498f81f1fc05181a96ba71d4ab2c29d1450c84fe2')
 
 build() {
   cd $_pkgname-$_commit

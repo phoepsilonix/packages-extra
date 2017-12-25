@@ -5,7 +5,7 @@
 pkgname=xfwm4-gtk3
 _pkgname=xfwm4
 pkgver=4.13.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Xfce window manager"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -15,9 +15,9 @@ depends=('exo-gtk3' 'hicolor-icon-theme' 'libxfce4ui-gtk3' 'libwnck3' 'libdrm')
 makedepends=('intltool' 'xfce4-dev-tools')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=adb42111e27fb5d85f85a29b4b0cc70d13495018
+_commit=6e3ee161c9461fb4fe559a4d8873e32c92363e5b
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('5ae9ca5841711c68dbbf0aaa1e27275692e6ec09c7e58ae0fbc2291f339b9f6c')
+sha256sums=('7428080368fdc2fdf25c6c87436653a8bb847636432b59f2e3d8bf756b8b5009')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
