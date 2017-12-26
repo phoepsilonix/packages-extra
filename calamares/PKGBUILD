@@ -3,7 +3,7 @@
 pkgname=calamares
 pkgver=3.1.11
 _pkgver=3.1.11
-pkgrel=5
+pkgrel=7
 _commit=0f138c148180357560aa2e73be20cb5abb44226c
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -19,14 +19,19 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
-sha256sums=('d19b097a084b1d346526e42816428cf44a5ea6bbf438f1b8bb036d61bdfdb44a')
+         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz"
+	 'https://patch-diff.githubusercontent.com/raw/calamares/calamares/pull/875.patch'
+         )
+sha256sums=('d19b097a084b1d346526e42816428cf44a5ea6bbf438f1b8bb036d61bdfdb44a'
+            'ffa6e31c80989d61fa58da44fbd5523f551a579988cf481f9092d0b148976439')
 
 prepare() {
 	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 
 	# patches here
+	# https://github.com/calamares/calamares/issues/882
+	patch -Rp1 -i "${srcdir}/875.patch"
 
 	# add revision
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"

@@ -7,8 +7,8 @@
 # Contributor: Anders Bostrom <anders.bostrom@home.se>
 
 pkgname=thunderbird
-pkgver=52.5.0
-pkgrel=2
+pkgver=52.5.2
+pkgrel=1
 _pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=(x86_64)
@@ -16,7 +16,7 @@ license=(MPL GPL LGPL)
 url="https://www.mozilla.org/thunderbird/"
 replaces=('thunderbird-kde')
 source=(http://archlinux.thaller.ws/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
-md5sums=('cf49cb2378cd5fef939936362a17b83f'
+md5sums=('4de8a9aaaaeefda0baf214be1ff685c0'
          'SKIP')
 validpkgkeys=('B5971F2C5C10A9A08C60030F786C63F330D7CB92') # Felix Yan <felixonmars@archlinux.org>
 
