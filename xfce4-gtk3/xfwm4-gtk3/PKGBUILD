@@ -5,19 +5,19 @@
 pkgname=xfwm4-gtk3
 _pkgname=xfwm4
 pkgver=4.13.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Xfce window manager"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
 license=('GPL2')
 groups=('xfce4-gtk3')
-depends=('exo-gtk3' 'hicolor-icon-theme' 'libxfce4ui-gtk3' 'libwnck3' 'libdrm')
+depends=('exo-gtk3' 'hicolor-icon-theme' 'libxfce4ui-gtk3' 'libwnck3' 'libdrm' 'libxpresent')
 makedepends=('intltool' 'xfce4-dev-tools')
 provides=($_pkgname)
 conflicts=($_pkgname)
-_commit=6e3ee161c9461fb4fe559a4d8873e32c92363e5b
+_commit=dec64dd6775125603150a121802b82ca60931801
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('7428080368fdc2fdf25c6c87436653a8bb847636432b59f2e3d8bf756b8b5009')
+sha256sums=('7e95f469928b2747bed3c3a37c2ce81fb404dee298524efe56d60e7b5e42b419')
 
 build() {
   cd "$srcdir/$_pkgname-$_commit"
@@ -28,10 +28,13 @@ build() {
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-static \
+    --enable-epoxy \
     --enable-startup-notification \
-    --enable-randr \
-    --enable-compositor \
     --enable-xsync \
+    --enable-render \
+    --enable-randr \
+    --enable-xpresent \
+    --enable-compositor \
     --disable-debug
   make
 }
