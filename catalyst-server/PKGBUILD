@@ -4,9 +4,9 @@
 
 pkgname=('catalyst-server')
 pkgver=1.17.4
-_pkgver=1.17.4-4
-pkgrel=4
-arch=('i686' 'x86_64')
+_pkgver=1.17.4-5
+pkgrel=5
+arch=('x86_64')
 depends=(catalyst-input
          fontsproto
          libxdmcp
@@ -66,14 +66,6 @@ pkgdesc="Xorg-Server for Catalyst"
 url="http://manjaro.org"
 _url="http://downloads.sourceforge.net/project/manjarodev/users/philm/xorg117/"
 license=('custom')
-source_i686=(${_url}/xorg-server-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-common-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-devel-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-xdmx-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-xephyr-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-xnest-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-xvfb-${_pkgver}-i686.pkg.tar.xz
-        ${_url}/xorg-server-xwayland-${_pkgver}-i686.pkg.tar.xz)
 source_x86_64=(${_url}/xorg-server-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-common-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-devel-${_pkgver}-x86_64.pkg.tar.xz
@@ -82,22 +74,14 @@ source_x86_64=(${_url}/xorg-server-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-xnest-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-xvfb-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-xwayland-${_pkgver}-x86_64.pkg.tar.xz)
-sha256sums_i686=('457ca70493f5225f7d7299c37ddfa701d2f1941117fc3b608aa8e211e056ee9f'
-                 'a69a2e60edf910b80cef585fea88aec326ffe9a523edcc247bfa95a88fac2618'
-                 'eee6b231d7c01e63de8b1177cbae11deff408b929df09a6dd8b8601c2509ceb1'
-                 'f158b2818680cd8faa9d3ac6b3ad6344194fc77eb56ca8e405c1756ebec7abac'
-                 '7cdf73f3c20e8332ca49260a6a9fd0bae83a559bd95d411318a8d73cd0dfd579'
-                 'dfb1c79fc0957acf6456b7c1cc31b4359d383fb6c2c1d3aef16cc4a121364d9d'
-                 'f928cf371fc1c2fc3e0a469f9bd3756ff205e86af6fb86ea4755ae2b0a546edc'
-                 '3c08a9c2aafd909f07e476ff53fe36493ed52843b3653a18c553118f12a05513')
-sha256sums_x86_64=('ba3143b01f81b9d77f7b8aa8138e2cf123fd19c2fb5397845ba19f6b6bb2fa7c'
-                   '2566fb14913db43b6c3ad7732b99ea3820ea08a4ef15b56a23ce0ffd442fd73d'
-                   '5759656426e1abf24e2db957aa3731516c5a3ca83df42a45a049a32fd6ce2883'
-                   '314fb497bbda83cbd45a1162f168559c0cbfc4bbb6695680f0e38a137d9071c9'
-                   '14e36af83aa8285bbc0002405a50a0b8e99895c86e4f6eb1c45786209f766ed1'
-                   'f30e84e3c5950bc8ba39131d4305f84f7ac406ba8f125bab6bdfc7fdad5c8d1b'
-                   '59a0f08dca33307c2c2da3dbce5d8b863ecb3f626eedc1359455884e0c8958c2'
-                   'ba4854e070fee4285960aa9a3d68d8e8c99cbd15f60355152dc182acaf04c970')
+sha256sums_x86_64=('f569cf9675982af88b5028cd8cad0027a0ac563a8c3cd49cd0c1cfc3e0b02545'
+                   '82f8e979a5224bb5d4ee9a0b6e4b3b7cb4a69acb0ab89c0210629998113dcb01'
+                   '0231211b648185f309ca53f10ad8c38fc4f1ea62df2bee94990b86567198ec29'
+                   '2bcd14143e82c85a2dc0fcb1713308e0a660246ef6811cd545568efe1305c2ec'
+                   'f844908fbde93ecdd8b693c5e901f347b3cb8e97f476db15c8680aaba7bd53bb'
+                   '5864ffb26c04a75110c2a627f26dda29807f80615c182397309a876d8a365539'
+                   'ad70c00492896da96778022fe73b148753c26829dbda2d3f36819621e4f4cac0'
+                   'ac09b3c3559c49f9a534aab80e4dc70b1b6c3f84056a581d9123f3de19b068fd')
 
 package() {
   cp -rPf usr "${pkgdir}"
