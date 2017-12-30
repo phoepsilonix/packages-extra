@@ -1,7 +1,7 @@
 # Maintainer: Capitani Stefano <stefanoatmanjarodotorg>
 
 pkgname=manjaro-gdm-check
-pkgver=20171122
+pkgver=20171230
 pkgrel=1
 pkgdesc='Systemd service to disable wayland if Nvidia closed drivers are active'
 arch=(any)
@@ -13,7 +13,7 @@ source=('check_vga_driver'
 		"$pkgname.service")
 depends=('gdm')
 
-sha256sums=('7004b6aa6520f7c047ce7f1c8af1445ca0ba734b938a259794b248b38c39fba5'
+sha256sums=('e930496eff6afee5e7c52c9e89c147fb26f5d319135fe209b7074b67ae268ce1'
             '3e850d70a4118e6f2f2490cd2b49d86a0d5222dfe08ab238d26497372c20c583'
             'b19e9b10f3be0d1553cff218f3a9396e89b3537b612799c75ad817a7ff98eac2'
             '9dadc3bbfe32079b4b16942aab4e6340f3769393de059fe2ecd0c91e806a4f43')
