@@ -8,3 +8,22 @@
  #include <asm/uaccess.h>
  
  #ifdef __x86_64__
+--- a/firegl_public.c	2018-01-01 13:04:22.463932831 +0100
++++ b/firegl_public.c	2018-01-01 13:17:28.934083474 +0100
+@@ -6624,10 +6624,13 @@ void ATI_API_CALL KCL_fpu_begin(void)
+     /* The thread structure is changed with the commit below for kernel 3.3:
+      * https://github.com/torvalds/linux/commit/7e16838d94b566a17b65231073d179bc04d590c8
+      */
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,2,0)
+-    if (cur_task->thread.fpu.fpregs_active)
+-#else
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,2,0)
+     if (cur_task->thread.fpu.has_fpu)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,14,0)
++    if (cur_task->thread.fpu.initialized)
++#else
++    if (cur_task->thread.fpu.fpregs_active)
++#endif
+ #endif
+ #else
+     if (cur_task->thread.has_fpu)
