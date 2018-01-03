@@ -4,8 +4,8 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.11.4
-pkgrel=1.2
+pkgver=5.11.5
+pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
@@ -15,11 +15,13 @@ makedepends=(extra-cmake-modules python plasma-framework kdoctools)
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"{,.sig}
         'kcm-about-distrorc')
-sha256sums=('c4e1cc4fda2b7f7799c00cea1d4e5e03ad70e711776721167d0705e940dac339'
+sha256sums=('2e36ac5817ca8fbba264ae2ba0061b97ae740690525160296ba823328989a77a'
             'SKIP'
             '5e0c86c13b97a7bdd9a0662656cfe750489852bd9ecf19f7354d194624a98522')
 validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell
-              'D07BD8662C56CB291B316EB2F5675605C74E02CF') # David Edmundson
+              '348C8651206633FD983A8FC4DEACEA00075E1D76'  # KDE Neon
+              'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson
+              '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
 prepare() {
   mkdir -p build
