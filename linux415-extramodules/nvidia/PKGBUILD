@@ -7,8 +7,8 @@ _linuxprefix=linux415
 _extramodules=extramodules-4.15-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=384.98
-pkgrel=0.8
+pkgver=384.111
+pkgrel=0.1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -22,10 +22,10 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=("linux-4.15.0-staging.patch")
+source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('181efa0eb3243cf5e5ccea1a13052bf27bdb7f94dd66ae99dc8a2c5eb8d1b890')
-sha256sums_x86_64=('169909c756ce01abcb676d704638003f3b782173a8ea82f2de798e40212780f5')
+sha256sums_i686=('89fff5466abd0ad212bedd9587cc86d617b70ad23aaebad424e0ae63e1f1948f')
+sha256sums_x86_64=('56b8c993c697aa37fe9ab1b6764304b82c86d5c745cd98dd8492be27f596ead7')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -34,7 +34,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -p1 -i "${srcdir}/linux-4.15.0-staging.patch"
 }
 
 build() {

@@ -5,7 +5,7 @@
 
 
 pkgname=firefox
-pkgver=57.0.3
+pkgver=57.0.4
 _pkgrel=1
 pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org"
@@ -19,12 +19,13 @@ optdepends=('networkmanager: Location detection via available WiFi networks'
             'pulseaudio: Audio support'
             'speech-dispatcher: Text-to-Speech')
 replaces=('firefox-kde')
-source=(https://mirrors.niyawe.de/archlinux/extra/os/x86_64/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
+source=(https://mirrors.niyawe.de/archlinux/pool/packages/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
 #source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::https://mirrors.niyawe.de/archlinux/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
 #sha256sums_i686=('3301d5a351ad0c715326cb8f8d6874b05e1ec6f02f755f98c337d50387d7547c')
-sha256sums=('e32d67b456ab0543c05e9beb74d10164d2f060165185e81bd36b5434e54868d8'
+sha256sums=('8e342f055c10a9ef8580aab2c0ab0db8758692a2915552a1f02c0deb81d1c383'
             'SKIP')
-validpkgkeys=('8218F88849AAC522E94CF470A5E9288C4FA415FA') # Jan Alexander Steffens (heftig)
+validpkgkeys=('8218F88849AAC522E94CF470A5E9288C4FA415FA' # Jan Alexander Steffens (heftig)
+              '02FD1C7A934E614545849F19A6234074498E9CEE') # Christian Hesse (Arch Linux Package Signing) <arch@eworm.de>
 
 prepare() {
     rm -rf $srcdir/usr/lib/firefox/distribution
