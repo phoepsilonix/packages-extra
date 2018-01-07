@@ -6,7 +6,7 @@ pkgname=('catalyst-server')
 pkgver=1.17.4
 _pkgver=1.17.4-5
 pkgrel=5
-arch=('x86_64')
+arch=('i686' 'x86_64')
 depends=(catalyst-input
          fontsproto
          libxdmcp
@@ -66,6 +66,14 @@ pkgdesc="Xorg-Server for Catalyst"
 url="http://manjaro.org"
 _url="http://downloads.sourceforge.net/project/manjarodev/users/philm/xorg117/"
 license=('custom')
+source_i686=(${_url}/xorg-server-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-common-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-devel-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-xdmx-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-xephyr-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-xnest-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-xvfb-${_pkgver}-i686.pkg.tar.xz
+        ${_url}/xorg-server-xwayland-${_pkgver}-i686.pkg.tar.xz)
 source_x86_64=(${_url}/xorg-server-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-common-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-devel-${_pkgver}-x86_64.pkg.tar.xz
@@ -74,6 +82,14 @@ source_x86_64=(${_url}/xorg-server-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-xnest-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-xvfb-${_pkgver}-x86_64.pkg.tar.xz
         ${_url}/xorg-server-xwayland-${_pkgver}-x86_64.pkg.tar.xz)
+sha256sums_i686=('3fe84a13a062506a1f72a741f1d9b8fa6d4e8a48f20b69ad152f013c66596549'
+                 'e73b906305b4e9c3e33a10954f238cc1cf424ce96b5193b3cd5abf7ed97327d7'
+                 '0209ab1c48bbf3671c8d1ca79f67b36a730b95eee701691d35a0ab144d972f40'
+                 'bf65485b46f15b01fc55a644ab5c9a84b7a5c9dd0d29be676382ebe226e169be'
+                 '8ed0f4ce7c7b8e1aebecbdb8c89195278f8113a3605faa29a5b8b86edcc24b92'
+                 'f654a13bde59b1396cbf16c3b70dada1554e10075e9d2d472c6513ebdddd1887'
+                 'd2beb4001654c8d453299eb598a19aca5caf1fff8bbab439ebb4a0142c1031da'
+                 'eed72aed9047fbc79e1b5cf89f83a1dba6969c13f571f29c5a0eb1d9524c76e5')
 sha256sums_x86_64=('f569cf9675982af88b5028cd8cad0027a0ac563a8c3cd49cd0c1cfc3e0b02545'
                    '82f8e979a5224bb5d4ee9a0b6e4b3b7cb4a69acb0ab89c0210629998113dcb01'
                    '0231211b648185f309ca53f10ad8c38fc4f1ea62df2bee94990b86567198ec29'
