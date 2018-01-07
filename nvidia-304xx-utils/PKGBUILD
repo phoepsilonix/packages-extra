@@ -11,11 +11,12 @@ arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
-source=('mhwd-nvidia' 'nvidia-drm-outputclass.conf')
+source=('mhwd-nvidia' 'nvidia-drm-outputclass.conf' '99-nvidia.conf')
 source_i686=("http://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 md5sums=('364555382ca8fe8b815af43d6f7e65bc'
-         'a433deeb5f9cc661e537f42bde2f1df7')
+         'a433deeb5f9cc661e537f42bde2f1df7'
+         'f7a849a925ae3e49da045e8ae6f5328d')
 md5sums_i686=('133098e70581f6b81c481338cc20f100')
 md5sums_x86_64=('485506ee6a7c54780488dacddf1d56b1')
 
@@ -24,7 +25,7 @@ md5sums_x86_64=('485506ee6a7c54780488dacddf1d56b1')
 
 create_links() {
     # create soname links
-    for _lib in $(find "${pkgdir}" -type f -name '*.so*' | grep -v 'xorg/'); do
+    find "$pkgdir" -type f -name '*.so*' ! -path '*xorg/*' -print0 | while read -d $'\0' _lib; do
         _soname=$(dirname "${_lib}")/$(readelf -d "${_lib}" | grep -Po 'SONAME.*: \[\K[^]]*' || true)
         _base=$(echo ${_soname} | sed -r 's/(.*).so.*/\1.so/')
         [[ -e "${_soname}" ]] || ln -s $(basename "${_lib}") "${_soname}"
@@ -145,6 +146,7 @@ package_nvidia-304xx-utils() {
     # distro specific files must be installed in /usr/share/X11/xorg.conf.d
     install -m755 -d "${pkgdir}/usr/share/X11/xorg.conf.d"
     install -m644 "${srcdir}/nvidia-drm-outputclass.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf"
+    install -D -m644 "${srcdir}/99-nvidia.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/99-nvidia.conf"
 
     create_links
 
