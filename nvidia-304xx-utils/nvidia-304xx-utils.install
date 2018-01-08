@@ -16,8 +16,8 @@ msg() {
 
 post_install() {
 	mhwd-gpu --check
+	msg "If you run into trouble with CUDA not being available, run nvidia-modprobe first."
 }
-
 
 post_upgrade() {
 	post_install
