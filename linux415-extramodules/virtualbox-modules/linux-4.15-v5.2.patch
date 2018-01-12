@@ -1,0 +1,27 @@
+--- a/linux-4.15-v5.1.patch	2018-01-12 18:08:25.250206798 -0500
++++ b/linux-4.15-v5.1.patch	2018-01-12 18:34:23.882985991 -0500
+@@ -165,16 +165,15 @@ Index: VirtualBox-5.1.30/src/VBox/Additi
+ ===================================================================
+ --- VirtualBox-5.1.30.orig/src/VBox/Additions/linux/drm/vbox_mode.c
+ +++ VirtualBox-5.1.30/src/VBox/Additions/linux/drm/vbox_mode.c
+-@@ -369,7 +369,12 @@ static struct drm_encoder *vbox_best_sin
+-     LogFunc(("vboxvideo: %d: connector=%p\n", __LINE__, connector));
+-     /* pick the encoder ids */
+-     if (enc_id)
++@@ -396,7 +396,11 @@ static struct drm_encoder *vbox_best_sin
++ 
++ 	/* pick the encoder ids */
++ 	if (enc_id)
+ +#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
+-+        return drm_encoder_find(connector->dev, NULL, enc_id);
+++		return drm_encoder_find(connector->dev, NULL, enc_id);
+ +#else
+-         return drm_encoder_find(connector->dev, enc_id);
++ 		return drm_encoder_find(connector->dev, enc_id);
+ +#endif
+-+
+-     LogFunc(("vboxvideo: %d\n", __LINE__));
+-     return NULL;
++ 
++ 	return NULL;
+  }
