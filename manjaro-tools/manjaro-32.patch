@@ -38,3 +38,33 @@
      vars+=("${target_arch}")
      for n in ${vars[@]};do
          name=${name:-}${name:+-}${n}
+diff --git a/manjaro-tools/data/pacman-mirrors.conf b/manjaro-tools/data/pacman-mirrors.conf
+index 7141548..e33e526 100644
+--- a/manjaro-tools/data/pacman-mirrors.conf
++++ b/manjaro-tools/data/pacman-mirrors.conf
+@@ -2,8 +2,8 @@
+ ## /etc/pacman-mirrors.conf
+ ##
+ 
+-## Branch Pacman should use (stable, testing, unstable)
+-Branch = stable
++## Branch Pacman should use (x32-stable, x32-testing, x32-unstable)
++Branch = x32-stable
+ 
+ ## Generation method
+ ## 1) rank   - rank mirrors depending on their access time
+
+diff --git a/manjaro-tools/data/manjaro-tools.conf b/manjaro-tools/data/manjaro-tools.conf
+index 52f5866..05b20d1 100644
+--- a/manjaro-tools/data/manjaro-tools.conf
++++ b/manjaro-tools/data/manjaro-tools.conf
+@@ -3,7 +3,7 @@
+ ######################################################
+ 
+ # default target branch
+-# target_branch=stable
++# target_branch=x32-stable
+ 
+ # default taget arch: auto detect
+ # target_arch=$(uname -m)
+

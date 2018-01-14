@@ -7,20 +7,23 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
 pkgver=0.15.4
-pkgrel=1.1
+pkgrel=1.2
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz" 'manjaro-32.patch')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz" 'manjaro-32.patch'
+        "${pkgbase}-${pkgver}-${pkgrel}.patch::${url}/compare/0.15.4...stable-0.15.x.patch")
 sha256sums=('6c81d5e3548864e1f7e512e92850800426b2352ee5568aa517e035ea59314fd9'
-            '1f2c0f4c8d2913c1cfea09a85fa2a4fc6c8ce530c9d5cd11ab1d4efb3dcc47c5')
+            'c943bcad1b1dfa87df94429db9c137c5d166dbd986add624f6fd22fdb984c785'
+            '0dcca458190107810a26d173a331e42ddfebe569f0ca3d244238a9561d134f90')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
+    patch -p1 -i ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}.patch
     sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
     [[ "$CARCH" = "i686" ]] && patch -p2 -i ${srcdir}/manjaro-32.patch
 }
