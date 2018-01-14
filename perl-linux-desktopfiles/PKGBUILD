@@ -3,14 +3,14 @@
 
 pkgname=perl-linux-desktopfiles
 _pkgname=Linux-DesktopFiles
-pkgver=0.13
+pkgver=0.25
 pkgrel=1
 pkgdesc="Perl module to get and parse the Linux .desktop files"
 arch=('any')
 url="https://metacpan.org/module/Linux::DesktopFiles"
 
 source=("http://cpan.metacpan.org/authors/id/T/TR/TRIZEN/${_pkgname}-${pkgver}.tar.gz")
-sha256sums=('5ed7aa22895a33d2d3ad1e053273996550a446a37a9a0aecad131f6c75adf266')
+sha256sums=('60377a74fba90fa465200ee1c7430dbdde69d454d85f9ee101c039803a07e5f5')
 
 license=('GPLv3')
 
