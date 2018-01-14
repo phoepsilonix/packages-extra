@@ -4,10 +4,10 @@
 
 
 pkgbase=grub-theme-live
-pkgname=('grub-theme-live-common-dev' 'grub-theme-live-manjaro-dev' 'grub-theme-live-sonar')
+pkgname=('grub-theme-live-common-dev' 'grub-theme-live-manjaro-dev' 'grub-theme-live-sonar' 'grub-theme-manjaro-dev')
 pkgver=17.1.1
-pkgrel=1
-pkgdesc='Manjaro Linux grub theme for install media'
+pkgrel=2
+pkgdesc='Manjaro Linux grub theme'
 arch=('any')
 url="https://github.com/Ste74/grub-theme-dev"
 license=('GPL')
@@ -18,7 +18,7 @@ sha256sums=('SKIP')
 package_grub-theme-live-common-dev() {
     depends=('grub')
     conflicts=('grub-theme-live')
-   replaces=('grub-theme-live')
+    replaces=('grub-theme-live')
 
     cd grub-theme-dev
     make PREFIX=/usr DESTDIR=${pkgdir} install_common
@@ -35,3 +35,14 @@ package_grub-theme-live-sonar() {
     cd grub-theme-dev
     make PREFIX=/usr DESTDIR=${pkgdir} install_sonar
 }
+
+package_grub-theme-manjaro-dev() {
+	depends=('grub')
+	install=manjaro-theme.install
+    
+    cd grub-theme-dev/manjaro-live
+    find . -type f -exec install -D -m644 {} ${pkgdir}/usr/share/grub/themes/manjaro/{} \;
+}
+
+
+
