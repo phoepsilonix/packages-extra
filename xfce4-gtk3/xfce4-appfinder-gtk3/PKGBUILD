@@ -6,7 +6,7 @@
 _pkgname=xfce4-appfinder
 pkgname=$_pkgname-gtk3
 pkgver=4.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An application finder for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

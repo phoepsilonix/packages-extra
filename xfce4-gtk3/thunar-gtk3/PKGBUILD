@@ -5,7 +5,7 @@
 _pkgname=thunar
 pkgname=$_pkgname-gtk3
 pkgver=1.7.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Modern file manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://thunar.xfce.org"

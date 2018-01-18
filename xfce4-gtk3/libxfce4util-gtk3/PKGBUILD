@@ -5,7 +5,7 @@
 _pkgname=libxfce4util
 pkgname=$_pkgname-gtk3
 pkgver=4.13.1
-pkgrel=1
+pkgrel=3
 pkgdesc="Basic utility non-GUI functions for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

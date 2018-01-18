@@ -5,7 +5,7 @@
 pkgname=xfdesktop-gtk3
 _pkgname=xfdesktop
 pkgver=4.13.1
-pkgrel=1
+pkgrel=9
 pkgdesc="A desktop manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

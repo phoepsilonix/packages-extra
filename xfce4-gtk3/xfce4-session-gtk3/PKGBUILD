@@ -5,7 +5,7 @@
 _pkgname=xfce4-session
 pkgname=$_pkgname-gtk3
 pkgver=4.13.0
-pkgrel=1
+pkgrel=6
 pkgdesc="A session manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

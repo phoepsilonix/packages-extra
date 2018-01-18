@@ -6,7 +6,7 @@
 pkgname=exo-gtk3
 _pkgname=exo
 pkgver=0.11.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensions to Xfce by os-cillation"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

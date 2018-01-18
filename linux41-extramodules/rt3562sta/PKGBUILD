@@ -9,8 +9,8 @@ pkgbase=rt3562sta
 pkgname=('linux41-rt3562sta' 'rt3562sta-common')
 pkgver=2.4.1.1_r4
 _patchrel=${pkgver/*_r/}
-pkgrel=1
-pkgrel=1
+pkgrel=11
+_subpkgrel=11
 arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
@@ -31,7 +31,7 @@ build() {
 package_rt3562sta-common() {
     pkgdesc="Ralink RT3562 PCI WLAN adaptors common files"
     arch=(any)
-pkgrel=1
+    pkgrel="$_subpkgrel"
     cd "$srcdir/rt3562sta-linux-r$_patchrel"
 
     install -Dm 0640 RT3562STA.dat "$pkgdir/etc/Wireless/RT3562STA/RT3562STA.dat"
