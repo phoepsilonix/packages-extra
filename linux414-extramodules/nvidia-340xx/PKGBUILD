@@ -25,7 +25,7 @@ source=('kernel-4.11.patch' 'kernel-4.14.patch')
 source_i686=("https://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 md5sums=('cf31ff666e3789cde5307b6ad50cb9fd'
-         'cf9259b845e53903586c29a27de29ddb')
+         'c412f6f4e96d752bcd39a3cf467a3738')
 md5sums_i686=('a2895c566341506677d8293b4aec0dc0')
 md5sums_x86_64=('37c84428b64696be2b104edbc9855f57')
 

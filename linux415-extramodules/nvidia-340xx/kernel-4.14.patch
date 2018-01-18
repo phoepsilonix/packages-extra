@@ -1,59 +1,29 @@
-From 5c9e8a994fe8529388ab159e0aa371c75bc3d17b Mon Sep 17 00:00:00 2001
-From: MilhouseVH <milhouseVH.github@nmacleod.com>
-Date: Thu, 21 Sep 2017 04:22:12 +0100
-Subject: [PATCH] drm/pci: drm_pci_init/exit now deprecated
-
-As per: https://github.com/torvalds/linux/commit/10631d724deff712343d96dd3017cd323349f761
-
-Use legacy variant, as pci_[un]register_driver currently fails.
----
- kernel/nv-drm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/nv-drm.c b/kernel/nv-drm.c
-index 2aa7cc8..23df996 100644
---- a/nv-drm.c
-+++ b/nv-drm.c
-@@ -173,7 +173,7 @@ int __init nv_drm_init(
+diff -u -r NVIDIA-Linux-x86_64-340.104-no-compat32/kernel/nv-drm.c NVIDIA-Linux-x86_64-340.104-no-compat32/kernel/nv-drm.c
+--- NVIDIA-Linux-x86_64-340.104-no-compat32/kernel/nv-drm.c	2017-09-15 01:16:51.000000000 +0200
++++ NVIDIA-Linux-x86_64-340.104-no-compat32/kernel/nv-drm.c	2017-11-19 00:51:45.006654148 +0100
+@@ -181,8 +181,12 @@ int __init nv_drm_init(
  {
      int ret = 0;
  #if defined(NV_DRM_AVAILABLE)
--    ret = drm_pci_init(&nv_drm_driver, pci_driver);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 0)
 +    ret = drm_legacy_pci_init(&nv_drm_driver, pci_driver);
++#else
+     ret = nv_drm_pci_init(&nv_drm_driver, pci_driver);
  #endif
++#endif
      return ret;
  }
-@@ -183,7 +183,7 @@ void nv_drm_exit(
+ 
+@@ -191,8 +195,12 @@ void nv_drm_exit(
  )
  {
  #if defined(NV_DRM_AVAILABLE)
--    drm_pci_exit(&nv_drm_driver, pci_driver);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 0)
 +    drm_legacy_pci_exit(&nv_drm_driver, pci_driver);
++#else
+     nv_drm_pci_exit(&nv_drm_driver, pci_driver);
  #endif
++#endif
  }
  
---- a/nv.c	2017-01-16 20:15:32.000000000 +0000
-+++ b/nv.c	2017-09-07 21:07:40.187189426 +0100
-@@ -30,7 +30,7 @@
- 
- #if defined(NV_VMWARE) || (NV_BUILD_MODULE_INSTANCES != 0)
- #if defined(MODULE_LICENSE)
--MODULE_LICENSE("NVIDIA");
-+MODULE_LICENSE("GPL");
- #endif
- #if defined(MODULE_INFO)
- MODULE_INFO(supported, "external");
---- a/nv-frontend.c	2017-01-16 20:15:33.000000000 +0000
-+++ b/nv-frontend.c	2017-09-07 21:12:00.114570158 +0100
-@@ -15,7 +15,7 @@
- #include "nv-frontend.h"
- 
- #if defined(MODULE_LICENSE)
--MODULE_LICENSE("NVIDIA");
-+MODULE_LICENSE("GPL");
- #endif
- #if defined(MODULE_INFO)
- MODULE_INFO(supported, "external");
--- 
-2.7.4
-
+ RM_STATUS NV_API_CALL nv_alloc_os_descriptor_handle(
