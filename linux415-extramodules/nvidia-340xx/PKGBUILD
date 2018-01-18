@@ -21,11 +21,10 @@ conflicts=('nvidia-96xx' 'nvidia-173xx' "$_linuxprefix-nvidia" "$_linuxprefix-nv
 license=('custom')
 install=nvidia.install
 options=(!strip !ccache)
-source=('kernel-4.11.patch' 'kernel-4.14.patch')
+source=('kernel-4.11.patch')
 source_i686=("https://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums=('cf31ff666e3789cde5307b6ad50cb9fd'
-         'c412f6f4e96d752bcd39a3cf467a3738')
+md5sums=('cf31ff666e3789cde5307b6ad50cb9fd')
 md5sums_i686=('a2895c566341506677d8293b4aec0dc0')
 md5sums_x86_64=('37c84428b64696be2b104edbc9855f57')
 
@@ -39,9 +38,6 @@ prepare() {
 
     # Fix compile problem with 4.11
     (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-4.11.patch)
-
-    # Fix compile problem with 4.14
-    (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/kernel-4.14.patch)
 
     export DISTCC_DISABLE=1
     export CCACHE_DISABLE=1
