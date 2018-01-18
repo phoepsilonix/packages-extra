@@ -9,9 +9,9 @@ _linuxprefix=linux415
 _extramodules=extramodules-4.15-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.2.4
+pkgver=5.2.6
 _pkgver="${pkgver}_OSE"
-pkgrel=0.11
+pkgrel=0.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -22,10 +22,8 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
              'dkms'
              "$_linuxprefix" "$_linuxprefix-headers")
 
-source=('linux-4.15.patch::http://www.virtualbox.org/pipermail/vbox-dev/attachments/20171202/8606bf99/attachment.bin'
-        'linux-4.15-v5.2.patch')
-sha256sums=('24554e675dc568b4315225b7e5aaa354b1e54a66b041de7b4fc1b94b5f983e46'
-            '0ad8c4d8d4a1eedf0dff8a2ca4112c9a41e727cb46876933bc706b0e4de7162c')
+source=('linux-4.15-v5.2.patch')
+sha256sums=('647932ffe502bc65ea1ab9a043432db0103e40ffc680ff1d56e23ffcb702824b')
 
 prepare() {
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
@@ -33,28 +31,12 @@ prepare() {
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
-  cat "$srcdir/linux-4.15.patch" > "$srcdir/linux-4.15-v5.1.patch"
-  patch -p1 -i "$srcdir/linux-4.15-v5.2.patch"
-
-  sed -n 20,63p $srcdir/linux-4.15.patch > $srcdir/linux-4.15-host.patch
-  sed -i -e 's|src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c|vboxhost/5.2.4_OSE/source/vboxdrv/r0drv/linux/timer-r0drv-linux.c|g' linux-4.15-host.patch
-  sed -i -e 's|src/VBox/Additions/linux/drm/vbox_mode.c|vboxguest/5.2.4_OSE/source/vboxvideo/vbox_mode.c|g' $srcdir/linux-4.15-v5.1.patch
-  sed -i -e 's|src/VBox/Additions/common/VBoxGuest/VBoxGuest-linux.c|vboxguest/5.2.4_OSE/source/vboxguest/VBoxGuest-linux.c|g' linux-4.15-v5.1.patch
-  sed -i -e 's|src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c|vboxguest/5.2.4_OSE/source/vboxguest/r0drv/linux/timer-r0drv-linux.c|g' linux-4.15-v5.1.patch
-
   rm "$srcdir/dkms/vboxguest/${pkgver}_OSE/source"
   cp -r "/usr/src/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/"
   mv "$srcdir/dkms/vboxguest/${pkgver}_OSE/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
 
   cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source"
-  patch -p4 -i "$srcdir/linux-4.15-v5.1.patch"
-
-  rm "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
-  cp -r "/usr/src/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/"
-  mv "$srcdir/dkms/vboxhost/${pkgver}_OSE/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
-
-  cd "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
-  patch -p4 -i "$srcdir/linux-4.15-host.patch"
+  patch -p4 -i "$srcdir/linux-4.15-v5.2.patch"
 }
 
 build() {

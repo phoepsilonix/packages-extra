@@ -5,7 +5,7 @@
 _pkgname=garcon
 pkgname=$_pkgname-gtk3
 pkgver=0.6.1
-pkgrel=3
+pkgrel=1
 pkgdesc="Implementation of the freedesktop.org menu specification"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"

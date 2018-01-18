@@ -5,7 +5,7 @@
 _pkgname=parole
 pkgname=$_pkgname-gtk3
 pkgver=0.9.2
-pkgrel=2
+pkgrel=1
 pkgdesc="A modern media player based on the GStreamer framework"
 arch=('i686' 'x86_64')
 url="http://goodies.xfce.org/projects/applications/$_pkgname"
