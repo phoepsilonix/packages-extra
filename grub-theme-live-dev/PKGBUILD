@@ -6,7 +6,7 @@
 pkgbase=grub-theme-live
 pkgname=('grub-theme-live-common-dev' 'grub-theme-live-manjaro-dev' 'grub-theme-live-sonar' 'grub-theme-manjaro-dev')
 pkgver=17.1.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Manjaro Linux grub theme'
 arch=('any')
 url="https://github.com/Ste74/grub-theme-dev"
@@ -41,6 +41,7 @@ package_grub-theme-manjaro-dev() {
 	install=manjaro-theme.install
     
     cd grub-theme-dev/manjaro-live
+    sed -i -e 's,.*text = "Welcome to Manjaro".*,#text = "Welcome to Manjaro",' theme.txt #remove welcome message
     find . -type f -exec install -D -m644 {} ${pkgdir}/usr/share/grub/themes/manjaro/{} \;
 }
 
