@@ -31,7 +31,7 @@ url_ref="http://support.amd.com/en-us/download/desktop?os=Linux+x86"
 DLAGENTS="http::/usr/bin/curl --referer ${url_ref} -o %o %u"
 
 sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
-            '6b5d9dd23bf226ae36f00dc2fb5bbe925e39e03233d556bb63369d206dfaad64'
+            'c97ea84588ed07c6fff6f66d9a4a319f3411212cab8c9e8b947110a47cced862'
             'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
             '9b347c3f518ddf12bb08a3cf09afcc3096e5dd4488e7ca3445df97b392985e8b'
             '398bade6ea2cb084043d87f6580569dd54b769055cdb518e2a074124c20f2606'
