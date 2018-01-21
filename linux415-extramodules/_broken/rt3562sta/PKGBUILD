@@ -17,12 +17,14 @@ arch=(i686 x86_64)
 url="http://www.mediatek.com/en/Products/support.php?sn=501"
 license=('GPL')
 makedepends=("$_linuxprefix" "$_linuxprefix-headers")
-source=($pkgbase-$pkgver.tar.gz::https://github.com/mtorromeo/$pkgbase-linux/archive/r$_patchrel.tar.gz)
-sha256sums=('6af6dd13ae1e1075974c8d0a54a0c9f73624cecf153f1f75c8c4f106f4719a1d')
+source=($pkgbase-$pkgver.tar.gz::https://github.com/mtorromeo/$pkgbase-linux/archive/r$_patchrel.tar.gz linux-4.15.patch)
+sha256sums=('6af6dd13ae1e1075974c8d0a54a0c9f73624cecf153f1f75c8c4f106f4719a1d'
+            'fc5e00a557f8acdd494029aa82290bcacec9328aac7100eacbd562bac32eed9e')
 
 prepare() {
 	cd "$srcdir"/rt3562sta-linux-r$_patchrel
 	sed -i -e 's|vfs_write|kernel_write|' os/linux/rt_linux.c
+	patch -p2 -i $srcdir/linux-4.15.patch
 }
 
 build() {
