@@ -22,14 +22,17 @@ makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install="${_pkgname}.install"
 source=("https://github.com/downloads/evgeni/${_pkgname}/${_pkgname}-${pkgver}.tar.gz"
-        "change_type_of_force_io_to_bool.patch::https://github.com/evgeni/tp_smapi/commit/8f40fcf3d9a4bfb9c3dae1caa2107ea3a367a609.patch")
+        "change_type_of_force_io_to_bool.patch::https://github.com/evgeni/tp_smapi/commit/8f40fcf3d9a4bfb9c3dae1caa2107ea3a367a609.patch"
+        "timer.patch::https://github.com/evgeni/tp_smapi/commit/76c5120f7be4880cf2c6801f872327e4e70c449f.patch")
 md5sums=('63c683415c764568f6bf17c7eabe4752'
-         'fd46e3ac1b0e2ab7d0614531a693ccae')
+         'fd46e3ac1b0e2ab7d0614531a693ccae'
+         'abf71871b54f1fef7c9e7da64c918780')
 
 prepare() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
 
   patch -Np1 -i "../change_type_of_force_io_to_bool.patch"
+  patch -Np1 -i "../timer.patch"
 }
 
 build() {
