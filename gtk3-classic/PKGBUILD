@@ -5,12 +5,12 @@
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 _repo=gtk3-mushrooms
-_commit=2068ccbbe6d0cadc5db3777686ca9fb431ff0002
-__arch_pkg_commit=ced279e9020925d34991926230a754bd1650da2f
+_commit=df0622d0b0fb5065cb3428a35ec12190254bfb94
+__arch_pkg_commit=3ed0d6c684888661be2a74a200571d981a3275d0
 
 pkgname=gtk3-classic
 pkgver=3.22.26
-pkgrel=3
+pkgrel=4
 pkgdesc="GTK3 library modified for classic GTK-based desktops."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -48,23 +48,27 @@ makedepends=(
     'git'
     'gobject-introspection'
     'gtk-doc'
-    'libcanberra'
+    'sassc'
 )
 optdepends=(
     'dconf: default GSettings backend'
     'adwaita-icon-theme: default icon theme'
     'cantarell-fonts: default font'
+    'libcanberra: sounds library'
+    'colord: for printing backends'
+    'rest: for printing backends'
+    'libcups: for printing backends'
 )
 source=(
     # GTK source code.
-    "https://github.com/GNOME/gtk/archive/$pkgver.tar.gz"
+    "https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
     # ArchLinux package files.
     "settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
     "gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
     # gtk3-mushrooms patches
     "git+$url.git#commit=$_commit"
 )
-sha256sums=('6d952d9962aa5105fd5b3549d6bba115e6b4081e00a62079304989cc7787bbb5'
+sha256sums=('61eef0d320e541976e2dfe445729f12b5ade53050ee9de6184235cb60cd4b967'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
             'SKIP')
@@ -105,7 +109,7 @@ __patch_gtk_code() {
 }
 
 prepare() {
-    cd "$srcdir/gtk-$pkgver"
+    cd "gtk+-$pkgver"
 
     # Make building faster by skipping tests, code examples and unused elements.
     __patch_makefiles
@@ -117,7 +121,7 @@ prepare() {
 }
 
 build() {
-    cd "$srcdir/gtk-$pkgver"
+    cd "gtk+-$pkgver"
 
     CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
         --enable-x11-backend --enable-wayland-backend --disable-schemas-compile --disable-gtk-doc-html
@@ -129,9 +133,10 @@ build() {
 }
 
 package() {
-    cd "$srcdir/gtk-$pkgver"
+    cd "gtk+-$pkgver"
 
     make -j 15 DESTDIR="$pkgdir" install
+
     install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
     install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
 }
