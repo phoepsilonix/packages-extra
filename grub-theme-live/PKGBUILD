@@ -1,13 +1,15 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 # Contributor: artoo <artoo@manjaro.org>
 # Contributor: anex <assassin.anex[@]gmail.com>
+# Contributor: Stefano Capitani <stefano@manjaro.org>
+# Contributor: Matti Hyttinen <matti@manjaro.org> 
 
 
 pkgbase=grub-theme-live
-pkgname=('grub-theme-live-common' 'grub-theme-live-manjaro' 'grub-theme-live-sonar')
-pkgver=17.1
+pkgname=('grub-theme-live-common' 'grub-theme-live-manjaro' 'grub-theme-live-sonar' 'grub-theme-manjaro')
+pkgver=17.1.1
 pkgrel=1
-pkgdesc='Manjaro Linux grub theme for install media'
+pkgdesc='Manjaro Linux grub theme'
 arch=('any')
 url="https://github.com/manjaro/grub-theme"
 license=('GPL')
@@ -35,3 +37,15 @@ package_grub-theme-live-sonar() {
     cd grub-theme
     make PREFIX=/usr DESTDIR=${pkgdir} install_sonar
 }
+
+package_grub-theme-manjaro() {
+	depends=('grub')
+	install=manjaro-theme.install
+    
+    cd grub-theme/manjaro-live
+    sed -i -e 's,.*text = "Welcome to Manjaro".*,#text = "Welcome to Manjaro",' theme.txt #remove welcome message
+    find . -type f -exec install -D -m644 {} ${pkgdir}/usr/share/grub/themes/manjaro/{} \;
+}
+
+
+
