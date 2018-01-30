@@ -24,7 +24,7 @@ sha256sums=('6af6dd13ae1e1075974c8d0a54a0c9f73624cecf153f1f75c8c4f106f4719a1d'
 prepare() {
 	cd "$srcdir"/rt3562sta-linux-r$_patchrel
 	sed -i -e 's|vfs_write|kernel_write|' os/linux/rt_linux.c
-	patch -p2 -i $srcdir/linux-4.15.patch
+	#patch -p2 -i $srcdir/linux-4.15.patch
 }
 
 build() {
