@@ -3,7 +3,7 @@
 
 _pkgname=cups-filters
 pkgname=$_pkgname-driverless
-pkgver=1.19.0
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="OpenPrinting CUPS Filters"
 arch=('x86_64')
@@ -21,10 +21,12 @@ provides=("$_pkgname=1.0.42")
 backup=(etc/cups/cups-browsed.conf)
 source=("https://www.openprinting.org/download/cups-filters/$_pkgname-$pkgver.tar.xz"
 		'0001-utils-Enable-driverless-configuration-automagically.patch'
-		'0002-utils-Fix-broken-systemd-unit.patch')
-sha256sums=('629705414869b0b0f45bdadea5c4ea803d55605442e09cce22c91cfb308d6b56'
+		'0002-utils-Fix-broken-systemd-unit.patch'
+		'0001-Use-absolute-paths-for-font-directory-and-do-not-mak.patch')
+sha256sums=('d7f65710960d6fe7c94e54cafdb3f8e4d23b7972db556f22ee95b35059bcd63c'
             '8cdc7fc6e9baeb92dce2e459927b389db9eb6d1ae192a285901ae36f6048da54'
-            'eea2c326b59e593a7a8f8fd789db4ca0fad581247d2f9e45c118d6dedf54cedb')
+            'eea2c326b59e593a7a8f8fd789db4ca0fad581247d2f9e45c118d6dedf54cedb'
+            '543f990094fd61b8cc7adb4d821a1fbda19a752959aec4a518f5692ea0a7c856')
 
 prepare() {
 	cd $_pkgname-$pkgver
@@ -32,6 +34,7 @@ prepare() {
 	#https://dev.solus-project.com/source/cups-filters/browse/master/files/
  	patch -Np1 -i ../0001-utils-Enable-driverless-configuration-automagically.patch
 	patch -Np1 -i ../0002-utils-Fix-broken-systemd-unit.patch
+	patch -Np1 -i ../0001-Use-absolute-paths-for-font-directory-and-do-not-mak.patch
 }
 
 build() {
@@ -40,16 +43,15 @@ build() {
     --sysconfdir=/etc \
     --sbindir=/usr/bin \
     --localstatedir=/var \
+    --without-rcdir \
     --disable-static \
-    --enable-imagefilters \
     --disable-mutool \
-    --with-gs-path=/usr/bin/gs \
-    --with-pdftops-path=/usr/bin/gs \
-    --with-rcdir=no \
-    --enable-avahi \
-    --with-browseremoteprotocols=DNSSD,CUPS \
+    --enable-imagefilters \
     --enable-auto-setup-driverless \
-    --with-test-font-path=/usr/share/fonts/TTF/DejaVuSans.ttf
+    --with-fontdir=/usr/share/fonts/conf.d \
+    --with-cups-rundir=/run/cups \
+    --with-test-font-path=/usr/share/fonts/TTF/DejaVuSans.ttf \
+ 	--enable-ijs --enable-opvp
   make
 }
 
@@ -66,6 +68,10 @@ package() {
   install -Dm644 utils/cups-browsed.service ${pkgdir}/usr/lib/systemd/system/cups-browsed.service
   sed -i "s|/usr/sbin/cups-browsed|/usr/bin/cups-browsed|" ${pkgdir}/usr/lib/systemd/system/cups-browsed.service
   sed -i "s|cups.service|org.cups.cupsd.service|g" ${pkgdir}/usr/lib/systemd/system/cups-browsed.service
+  
+  # Enable to start on boot
+  install -D -d -m 755 ${pkgdir}/usr/lib/systemd/system/multi-user.target.wants
+  ln -sv ../cups-browsed.service ${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/.
   
   # use cups group from cups pkg FS#56818
   chgrp -R 209 ${pkgdir}/etc/cups
