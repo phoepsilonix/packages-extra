@@ -5,9 +5,9 @@
 
 
 pkgname=firefox
-pkgver=58.0.1
-_pkgrel=2
-pkgrel=2
+pkgver=58.0.2
+_pkgrel=1
+pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(x86_64)
 license=(MPL GPL LGPL)
@@ -22,7 +22,7 @@ replaces=('firefox-kde')
 source=(https://mirrors.niyawe.de/archlinux/pool/packages/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz{,.sig})
 #source_i686=("$pkgname-$pkgver-$_pkgrel-i686.tar.xz::https://mirrors.niyawe.de/archlinux/extra/os/i686/$pkgname-$pkgver-$_pkgrel-i686.pkg.tar.xz")
 #sha256sums_i686=('3301d5a351ad0c715326cb8f8d6874b05e1ec6f02f755f98c337d50387d7547c')
-sha256sums=('51277d9dfac5930c8ab9c6aa52544ff9cd7f2a3fc539be2cdfc25b67eeec4848'
+sha256sums=('3f4397d7c757c91ab0ab84b291e54bb67fd8331eacd3f6629b68f5551b8b4d7a'
             'SKIP')
 validpkgkeys=('8218F88849AAC522E94CF470A5E9288C4FA415FA' # Jan Alexander Steffens (heftig)
               '02FD1C7A934E614545849F19A6234074498E9CEE') # Christian Hesse (Arch Linux Package Signing) <arch@eworm.de>
