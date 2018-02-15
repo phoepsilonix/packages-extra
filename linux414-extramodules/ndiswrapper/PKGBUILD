@@ -19,7 +19,7 @@ pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
 url="http://ndiswrapper.sourceforge.net"
-makedepends=("$_linuxprefix-headers")
+makedepends=("$_linuxprefix-headers" "$_linuxprefix")
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
         "kernel-4.0.patch"
         "kernel-4.2.patch"
