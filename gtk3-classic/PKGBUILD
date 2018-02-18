@@ -5,12 +5,12 @@
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 _repo=gtk3-mushrooms
-_commit=df0622d0b0fb5065cb3428a35ec12190254bfb94
-__arch_pkg_commit=3ed0d6c684888661be2a74a200571d981a3275d0
+_commit=9f143fdb96a425da6d1902bbca83f955ad2beac1
+__arch_pkg_commit=77104ae740d96bb94a329151aef97176ef6cd000
 
 pkgname=gtk3-classic
-pkgver=3.22.26
-pkgrel=4
+pkgver=3.22.28
+pkgrel=1
 pkgdesc="GTK3 library modified for classic GTK-based desktops."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -68,7 +68,7 @@ source=(
     # gtk3-mushrooms patches
     "git+$url.git#commit=$_commit"
 )
-sha256sums=('61eef0d320e541976e2dfe445729f12b5ade53050ee9de6184235cb60cd4b967'
+sha256sums=('d299612b018cfed7b2c689168ab52b668023708e17c335eb592260d186f15e1f'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
             'SKIP')
