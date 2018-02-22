@@ -4,7 +4,7 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=390.25
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -82,7 +82,7 @@ package_mhwd-nvidia() {
 
 package_nvidia-utils() {
     pkgdesc="NVIDIA drivers utilities"
-    depends=('xorg-server' 'libglvnd' 'mhwd')
+    depends=('xorg-server' 'libglvnd' 'mhwd>=0.6.2')
     optdepends=('gtk2: nvidia-settings'
                 'xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
