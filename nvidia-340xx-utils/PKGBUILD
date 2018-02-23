@@ -5,7 +5,7 @@
 pkgbase=nvidia-340xx-utils
 pkgname=('nvidia-340xx-utils' 'opencl-nvidia-340xx' 'mhwd-nvidia-340xx')
 pkgver=340.106
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -73,7 +73,7 @@ package_mhwd-nvidia-340xx() {
 
 package_nvidia-340xx-utils() {
     pkgdesc="NVIDIA drivers utilities"
-    depends=('xorg-server' 'mesa' 'mhwd>=0.6.2')
+    depends=('xorg-server' 'mesa' 'mhwd')
     optdepends=('gtk2: nvidia-settings'
                 'xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia-340xx: OpenCL support')
