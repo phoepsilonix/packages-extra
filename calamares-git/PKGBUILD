@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.2.0.r4348.567c5f332
-pkgrel=2
+pkgver=3.2.0.r4418.6590a06d9
+pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
