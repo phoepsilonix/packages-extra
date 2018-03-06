@@ -29,3 +29,5 @@ cd ../../linux414*/*virtualbox-modules
 makepkg -sf
 cd ../../linux415*/*virtualbox-modules
 makepkg -sf
+cd ../../linux416*/*virtualbox-modules
+makepkg -sf

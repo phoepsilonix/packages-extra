@@ -4,7 +4,7 @@
 # Contributor: Antonio Rojas
 
 pkgname=kinfocenter
-pkgver=5.12.2
+pkgver=5.12.3
 pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ makedepends=(extra-cmake-modules python plasma-framework kdoctools)
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"{,.sig}
         'kcm-about-distrorc')
-sha256sums=('114b66b938c53aacffe88eacc8105c044861697d7f52bafb0fdb92d4c5f14f69'
+sha256sums=('d98ff9309ba5ab7cc340b446fb5c4e12f9be07b9efc0e807ae3939467d773551'
             'SKIP'
             '5e0c86c13b97a7bdd9a0662656cfe750489852bd9ecf19f7354d194624a98522')
 validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell

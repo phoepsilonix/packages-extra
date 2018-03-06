@@ -7,7 +7,7 @@
 
 pkgname=linux316-acpi_call
 pkgver=1.1.0
-pkgrel=39
+pkgrel=40
 _extramodules=extramodules-3.16-MANJARO
 pkgdesc='A linux kernel module that enables calls to ACPI methods through /proc/acpi/call'
 arch=('i686' 'x86_64')
