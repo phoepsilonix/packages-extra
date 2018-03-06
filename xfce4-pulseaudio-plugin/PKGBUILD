@@ -2,7 +2,7 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=xfce4-pulseaudio-plugin
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=1
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ source=("http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkg
 #    "https://git.xfce.org/panel-plugins/$pkgname/snapshot/$pkgname-$_commit.tar.bz2"
 #    "git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin"
     'use-panel-icons.patch')
-sha256sums=('43fa39400eccab1f3980064f42dde76f5cf4546a6ea0a5dc5c4c5b9ed2a01220'
+sha256sums=('25e7bc414edf6e16140c31ca4e7dcedd4e17d40ea23a2921beb799fed11a99bb'
             '0fdf37ef543a197e0df474c7d80f0c1b77206d8a204eea37f9150f5be64fbbe1')
 
 #pkgver() {
