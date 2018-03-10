@@ -10,9 +10,9 @@ cd ../../linux44*/*spl_zfs
 makepkg -df
 cd ../../linux49*/*spl_zfs
 makepkg -df
-cd ../../linux412*/*spl_zfs
-makepkg -df
-cd ../../linux413*/*spl_zfs
-makepkg -df
 cd ../../linux414*/*spl_zfs
+makepkg -df
+cd ../../linux415*/*spl_zfs
+makepkg -df
+cd ../../linux416*/*spl_zfs
 makepkg -df
