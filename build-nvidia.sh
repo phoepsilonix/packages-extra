@@ -14,3 +14,5 @@ cd ../../linux414*/*nvidia
 makepkg -df
 cd ../../linux415*/*nvidia
 makepkg -df
+cd ../../linux416*/*nvidia
+makepkg -df
