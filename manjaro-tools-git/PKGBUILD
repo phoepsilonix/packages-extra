@@ -2,23 +2,23 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 _pkgbase=manjaro-tools
-_ver=0.15.2
-_branch=master
+_ver=0.15.5
+_branch=stable-0.15.x
 
 pkgbase=manjaro-tools-git
 pkgname=('manjaro-tools-base-git'
         'manjaro-tools-pkg-git'
         'manjaro-tools-iso-git'
         'manjaro-tools-yaml-git')
-pkgver=r2585.1d3003e
+pkgver=r2618.9d5526c
 pkgrel=1
-arch=('any')
+arch=('x86_64' 'i686')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('git' 'docbook2x')
-source=("git+$url.git#branch=$_branch")
+source=("manjaro-tools::git+$url.git#branch=$_branch")
 sha256sums=('SKIP')
 
 prepare() {
@@ -26,6 +26,9 @@ prepare() {
     # patches here
     sed -e "s/^Version=.*/Version=$_ver/" -i Makefile
     #sed -e "s/^Version=.*/Version=$pkgver/" -i Makefile
+        if [ "${CARCH}" = "i686" ]; then
+        patch -p2 -i ${srcdir}/manjaro-32.patch
+    fi
 }
 
 pkgver() {
