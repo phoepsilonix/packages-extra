@@ -2,53 +2,51 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=xfce4-pulseaudio-plugin
-pkgver=0.3.5
-pkgrel=1.1
+pkgver=0.4.0
+_commit=06b74caec7edfde6e45e58b81655495c76e913b0  # tags/xfce4-pulseaudio-plugin-0.4.0^0
+pkgrel=1
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://goodies.xfce.org/projects/panel-plugins/$pkgname"
 groups=('xfce4-goodies')
 depends=('xfce4-panel' 'libpulse' 'libkeybinder3' 'libnotify')
-makedepends=('git' 'intltool' 'python' 'xfce4-dev-tools')
+makedepends=('dbus-glib' 'git' 'intltool' 'xfce4-dev-tools')
 optdepends=('ido: appindicator support'
     'pavucontrol: default pulseaudio mixer')
-source=("http://archive.xfce.org/src/panel-plugins/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2"
-#    "https://git.xfce.org/panel-plugins/$pkgname/snapshot/$pkgname-$_commit.tar.bz2"
-#    "git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin"
+_commit=06b74caec7edfde6e45e58b81655495c76e913b0  # tags/xfce4-pulseaudio-plugin-0.4.0^0
+source=("git+https://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/#commit=$_commit"
     'use-panel-icons.patch')
-sha256sums=('25e7bc414edf6e16140c31ca4e7dcedd4e17d40ea23a2921beb799fed11a99bb'
+sha256sums=('SKIP'
             '0fdf37ef543a197e0df474c7d80f0c1b77206d8a204eea37f9150f5be64fbbe1')
 
-#pkgver() {
-#    cd $pkgname
-#    git describe --long --tags | sed -r "s:^${pkgname}.::;s/^v//;s/([^-]*-g)/r\1/;s/-/./g"
-#}
-
 prepare() {
-    cd $pkgname-$pkgver
+    cd $pkgname
+    NOCONFIGURE=1 ./autogen.sh
     patch -Np1 -i $srcdir/use-panel-icons.patch
 }
 
 build() {
-    cd $pkgname-$pkgver
-    ./configure \
-      --prefix=/usr \
-      --sysconfdir=/etc \
-      --libexecdir=/usr/lib \
-      --localstatedir=/var \
-      --disable-static \
-      --disable-debug \
-      --enable-keybinder \
-      --enable-libnotify
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-    make
+    cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --enable-keybinder \
+    --enable-libnotify \
+    --enable-maintainer-mode
+
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+  make
 }
 
+
 package() {
-    cd $pkgname-$pkgver
+    cd $pkgname
     make DESTDIR="$pkgdir" install
 
     # clean-up as we don't use these icons
-#    rm -r $pkgdir/usr/share/icons/hicolor/scalable/status/
+    rm -r $pkgdir/usr/share/icons/hicolor/scalable/status/
 }
