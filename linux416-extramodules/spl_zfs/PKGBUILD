@@ -1,0 +1,86 @@
+# Maintainer: Jesus Alvarez <jeezusjr at gmail dot com>
+# Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
+
+_linuxprefix=linux416
+_extramodules=extramodules-4.16-MANJARO
+pkgbase=$_linuxprefix-spl_zfs
+pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
+pkgver=0.7.6
+_pkgver=spl-0.7.6
+pkgrel=0.11
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=("$_linuxprefix" "kmod")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+install=install
+source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        '0001-linux-4.16-inode_set_iversion.patch::https://github.com/zfsonlinux/zfs/commit/18f57327e0c2c669034e1fff1260877fd70c3038.patch'
+        '0002-linux-4.16-avoid-refcount_t-name-conflict.patch::https://github.com/zfsonlinux/zfs/commit/f54976dc881549cc3222887188b110f2e8d05f0b.patch'
+        '0003-linux-4.16-use-correct_dec_and_test.patch::https://github.com/zfsonlinux/zfs/commit/a5369b61a24cf75d8188af8ee554123cf7fae14c.patch'
+        '0004-linux-4.16-get_disk_and_module.patch::https://github.com/zfsonlinux/zfs/commit/dd3e1e3083e6b80ac7cc4dabfbf9b5036b7a889d.patch')
+sha256sums=('29df5f6e758733b5e68685b1a20c9e79d8bcc51b66d8bfdb5217ce0c3c4c6ddc'
+            '1687f4041a990e35caccc4751aa736e8e55123b81d5f5a35b11916d9e580c23d'
+            '30a658b075446f6fa1283c02559317fa430e48b82f5d99bd432a0ca640b5f884'
+            '515a3892564d8ff31e01fec0fc626174b753b11b7b417687871707441fa78da4'
+            '7b89face689db37dec18ae365295d592885b5e99ef776af0be90875e63c3356f'
+            '3d8226cc64541cde9def833b58473e1f8cbf4286ea0c52ca5141b724858c6908')
+
+prepare() {
+  cd "${srcdir}/spl-${_pkgver}"
+  # patches here
+  cd "${srcdir}/zfs-${pkgver}"
+  # patches here
+  patch -p1 -i "${srcdir}/0001-linux-4.16-inode_set_iversion.patch"
+  patch -p1 -i "${srcdir}/0002-linux-4.16-avoid-refcount_t-name-conflict.patch"
+  patch -p1 -i "${srcdir}/0003-linux-4.16-use-correct_dec_and_test.patch"
+  patch -p1 -i "${srcdir}/0004-linux-4.16-get_disk_and_module.patch"
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+  cd "${srcdir}/spl-${_pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-config=kernel
+  make
+  cd "${srcdir}/zfs-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
+              --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
+              --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-spl=${srcdir}/spl-${_pkgver}
+  make
+}
+
+package_linux416-spl(){
+  _pkgname=spl
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("spl-utils=${pkgver}")
+
+  cd "${srcdir}/spl-${_pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}
+
+package_linux416-zfs(){
+  _pkgname=zfs
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("$_pkgname=$pkgver")
+  depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
+
+  cd "${srcdir}/zfs-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}
