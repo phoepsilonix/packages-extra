@@ -10,7 +10,7 @@ pkgdesc="Manjaro Linux repository management system - client"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
 license=('GPL')
-depends=('qt5-base' 'readline' 'icu')
+depends=('qt4' 'readline' 'icu')
 makedepends=('git')
 _git=Yes
 
@@ -30,7 +30,7 @@ build() {
      cd "$srcdir/$pkgbase/$pkgbase/src"
   fi
 
-  qmake-qt5
+  qmake-qt4
 
   # Build fix
   make sub-DBus
@@ -45,7 +45,7 @@ build() {
      cd "$srcdir/$pkgbase/$pkgbase-server/src"
   fi
 
-  qmake-qt5
+  qmake-qt4
 
   make all
 }
