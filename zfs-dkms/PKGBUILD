@@ -2,33 +2,20 @@
 # Contributor: Kyle Fuller <inbox at kylefuller dot co dot uk>
 
 pkgname=("zfs-dkms")
-pkgver=0.7.6
+pkgver=0.7.7
 pkgrel=1
 pkgdesc="Kernel modules for the Zettabyte File System."
 depends=("spl-dkms=${pkgver}" "zfs-utils=${pkgver}" "dkms")
 arch=("any")
 url="http://zfsonlinux.org/"
-source=(https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz
-        '0001-linux-4.16-inode_set_iversion.patch::https://github.com/zfsonlinux/zfs/commit/18f57327e0c2c669034e1fff1260877fd70c3038.patch'
-        '0002-linux-4.16-avoid-refcount_t-name-conflict.patch::https://github.com/zfsonlinux/zfs/commit/f54976dc881549cc3222887188b110f2e8d05f0b.patch'
-        '0003-linux-4.16-use-correct_dec_and_test.patch::https://github.com/zfsonlinux/zfs/commit/a5369b61a24cf75d8188af8ee554123cf7fae14c.patch'
-        '0004-linux-4.16-get_disk_and_module.patch::https://github.com/zfsonlinux/zfs/commit/dd3e1e3083e6b80ac7cc4dabfbf9b5036b7a889d.patch')
+source=(https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz)
 groups=("manjarozfs")
-sha256sums=('1687f4041a990e35caccc4751aa736e8e55123b81d5f5a35b11916d9e580c23d'
-            '30a658b075446f6fa1283c02559317fa430e48b82f5d99bd432a0ca640b5f884'
-            '515a3892564d8ff31e01fec0fc626174b753b11b7b417687871707441fa78da4'
-            '7b89face689db37dec18ae365295d592885b5e99ef776af0be90875e63c3356f'
-            '3d8226cc64541cde9def833b58473e1f8cbf4286ea0c52ca5141b724858c6908')
+sha256sums=('db8ca69dc1d257175421a86bc81c861b2b24cc48db0832c954d9553fe50d0bb9')
 license=("CDDL")
 install=zfs-dkms.install
 
 prepare() {
  cd "$srcdir/zfs-${pkgver}"
- # patches here
- patch -p1 -i "${srcdir}/0001-linux-4.16-inode_set_iversion.patch"
- patch -p1 -i "${srcdir}/0002-linux-4.16-avoid-refcount_t-name-conflict.patch"
- patch -p1 -i "${srcdir}/0003-linux-4.16-use-correct_dec_and_test.patch"
- patch -p1 -i "${srcdir}/0004-linux-4.16-get_disk_and_module.patch"
 }
 
 build() {

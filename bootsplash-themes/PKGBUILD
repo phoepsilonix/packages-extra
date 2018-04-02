@@ -1,12 +1,12 @@
 pkgbase=bootsplash-themes
 pkgname=('bootsplash-theme-tux' 'bootsplash-theme-manjaro-elegant')
 pkgver=0.1
-pkgrel=3
+pkgrel=4
 url="https://lists.freedesktop.org/archives/dri-devel/2017-December/160242.html"
 arch=('x86_64')
 license=('GPL')
 
-depends=('linux414' 'systemd')
+depends=('linux>=4.14.6' 'systemd')
 builddepends=('imagemagick')
 options=('!libtool' '!emptydirs')
 

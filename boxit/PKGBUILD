@@ -5,21 +5,23 @@ pkgbase=boxit
 pkgname=(boxit boxit-server)
 #pkgver=2.0.$(date +%m%d)
 pkgver=2.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Manjaro Linux repository management system - client"
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
 license=('GPL')
-depends=('qt4' 'readline' 'icu')
+depends=('qt5-base' 'readline' 'icu')
 makedepends=('git')
 _git=Yes
 
 if [ "$_git" == "Yes" ]; then
-   source=(git+https://github.com/manjaro/boxit.git)
-   sha256sums=('SKIP')
+   source=(git+https://github.com/manjaro/boxit.git
+           "https://gist.githubusercontent.com/Kirek/2e227ce1b44a7f18d589c99283f32a37/raw/38eedf144ee0f1df1d56fc38395e3f18cb245c84/qt5_v2.patch")
+sha256sums=('SKIP'
+            '77c65e8f05b644f0c1b942266738f9f107935fcd983e0e15ce251d06a312ea9c')
 else
-   source=("boxit-$pkgver.tar.gz::http://git.manjaro.org/core/boxit/repository/archive.tar.gz?ref=v$pkgver")
-   sha256sums=('SKIP')
+   source=("boxit-$pkgver.tar.gz::http://git.manjaro.org/core/boxit/repository/archive.tar.gz?ref=v$pkgver"
+           "https://gist.githubusercontent.com/Kirek/d073372ab5e310b68abcfa0c2ee1c4b5/raw/5645a7e0b9cd059b1bab81ab29bc6105eb5ce2ac/qt5boxit.patch")
 fi
 
 build() {
@@ -30,7 +32,9 @@ build() {
      cd "$srcdir/$pkgbase/$pkgbase/src"
   fi
 
-  qmake-qt4
+  patch -p3 -i $srcdir/qt5_v2.patch
+
+  qmake-qt5
 
   # Build fix
   make sub-DBus
@@ -45,7 +49,7 @@ build() {
      cd "$srcdir/$pkgbase/$pkgbase-server/src"
   fi
 
-  qmake-qt4
+  qmake-qt5
 
   make all
 }
