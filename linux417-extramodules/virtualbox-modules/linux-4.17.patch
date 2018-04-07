@@ -1,0 +1,72 @@
+--- Makefile	2018-04-03 00:56:47.017349965 +0200
++++ Makefile	2018-04-03 00:59:06.307074936 +0200
+@@ -19,7 +19,7 @@ ifneq ($(KBUILD_EXTMOD),)
+ # Building from kBuild (make -C <kernel_directory> M=`pwd`).
+ # KBUILD_EXTMOD is set to $(M) in this case.
+ 
+-obj-m = vboxguest/ vboxsf/ vboxvideo/
++obj-m = vboxguest/ vboxsf/
+ 
+ else # ! KBUILD_EXTMOD
+ 
+@@ -47,49 +47,28 @@ all:
+ 	    fi; \
+ 	    echo; \
+ 	fi
+-	@if [ -d vboxvideo ]; then \
+-	    if [ -f vboxguest/Module.symvers ]; then \
+-	        cp vboxguest/Module.symvers vboxvideo; \
+-	    fi; \
+-	    echo "=== Building 'vboxvideo' module ==="; \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxvideo || exit 1; \
+-	    if [ -f vboxvideo/vboxvideo.ko ]; then \
+-	        cp vboxvideo/vboxvideo.ko .; \
+-	    elif [ -f vboxvideo/vboxvideo.o ]; then \
+-	        cp vboxvideo/vboxvideo.o .; \
+-	    fi; \
+-	    echo; \
+-	fi
+ 
+ install:
+ 	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxguest install
+ 	@if [ -d vboxsf ]; then \
+ 	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxsf install; \
+ 	fi
+-	@if [ -d vboxvideo ]; then \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxvideo install; \
+-	fi
+ 
+ clean:
+ 	@$(MAKE) -C vboxguest clean
+ 	@if [ -d vboxsf ]; then \
+ 	    $(MAKE) -C vboxsf clean; \
+ 	fi
+-	@if [ -d vboxvideo ]; then \
+-	    $(MAKE) -C vboxvideo clean; \
+-	fi
+-	rm -f vboxguest.*o vboxsf.*o vboxvideo.*o
++	rm -f vboxguest.*o vboxsf.*o
+ 
+ check:
+ 	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxguest check
+ 
+ load:
+-	@/sbin/rmmod vboxvideo || true
+ 	@/sbin/rmmod vboxvfs || true
+ 	@/sbin/rmmod vboxsf || true
+ 	@/sbin/rmmod vboxguest || true
+ 	@/sbin/insmod vboxguest.ko
+ 	@if [ -f vboxsf.ko ]; then /sbin/insmod vboxsf.ko; fi
+-	@if [ -f vboxvideo.ko ]; then /sbin/insmod vboxvideo.ko; fi
+ 
+ endif # ! KBUILD_EXTMOD
+--- dkms.conf	2018-04-03 01:00:03.916631694 +0200
++++ dkms.conf	2018-04-03 01:05:58.913399138 +0200
+@@ -25,7 +25,3 @@ DEST_MODULE_LOCATION[0]="/kernel/misc"
+ BUILT_MODULE_NAME[1]="vboxsf"
+ BUILT_MODULE_LOCATION[1]="vboxsf"
+ DEST_MODULE_LOCATION[1]="/kernel/misc"
+-
+-BUILT_MODULE_NAME[2]="vboxvideo"
+-BUILT_MODULE_LOCATION[2]="vboxvideo"
+-DEST_MODULE_LOCATION[2]="/kernel/misc"
