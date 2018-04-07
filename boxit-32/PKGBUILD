@@ -5,7 +5,7 @@ pkgbase=boxit
 pkgname=(boxit-32 boxit-32-server)
 #pkgver=2.0.$(date +%m%d)
 pkgver=2.1.2
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 url="http://git.manjaro.org"
 license=('GPL')
@@ -55,7 +55,7 @@ build() {
 
 package_boxit-32() {
   pkgdesc="Manjaro Linux repository management system - client"
-  depends=('qt5' 'readline' 'icu')
+  depends=('qt5-base' 'readline' 'icu')
   if [ -e "$srcdir/core-$pkgbase" ]; then
 	   cd "$srcdir/core-$pkgbase/$pkgbase/src"
   else
@@ -66,7 +66,7 @@ package_boxit-32() {
 
 package_boxit-32-server() {
   pkgdesc="Manjaro Linux repository management system - server"
-  depends=('qt5' 'readline' 'icu' 'boxit-server')
+  depends=('qt5-base' 'readline' 'icu' 'boxit-server')
   if [ -e "$srcdir/core-$pkgbase" ]; then
 	   cd "$srcdir/core-$pkgbase/$pkgbase-server/src"
   else
