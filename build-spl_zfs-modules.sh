@@ -16,3 +16,5 @@ cd ../../linux415*/*spl_zfs
 makepkg -df
 cd ../../linux416*/*spl_zfs
 makepkg -df
+cd ../../linux417*/*spl_zfs
+makepkg -df
