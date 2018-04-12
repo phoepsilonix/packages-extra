@@ -1,13 +1,14 @@
 # Maintainer: artoo <artoo@manjaro.org>
 # Maintainer: Philip Müller <philm@manjaro.org>
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgbase=manjaro-tools
 pkgname=('manjaro-tools-base'
         'manjaro-tools-pkg'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
-pkgver=0.15.5
-pkgrel=1.1
+pkgver=0.15.6
+pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
@@ -15,7 +16,7 @@ groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz" 'manjaro-32.patch')
-sha256sums=('46bf05e477731edf035af64fa1e1b75e864ff2ed757082f6b9540a7f96ad87b5'
+sha256sums=('b0fcee7c2dae9e94f2af804767967a05b080b750e98b006260dbbbdd9813c0c7'
             'c943bcad1b1dfa87df94429db9c137c5d166dbd986add624f6fd22fdb984c785')
 
 prepare() {
