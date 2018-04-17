@@ -5,14 +5,15 @@
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 _repo=gtk3-mushrooms
-_commit=695ca98cf8e85b778f3ab1e0f39c16cb8d67f7e5
-__arch_pkg_commit=4ac05111e37186cebac1c4fa22610abddb1c2d52
+_commit=37ca324e00372ebf9995e38bc363a06338ec974b
+__arch_pkg_commit=711373d553d34c1a8c7ff973eaba4dd388c1d9b3
 
 pkgname=gtk3-classic
-pkgver=3.22.29
-pkgrel=2
+pkgver=3.22.30
+pkgrel=0.1
 pkgdesc="GTK3 library modified for classic GTK-based desktops."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
+_archgit=https://git.archlinux.org/svntogit/packages.git/plain/trunk
 conflicts=(gtk3 gtk3-print-backends)
 provides=(gtk3=$pkgver gtk3-print-backends)
 arch=(x86_64)
@@ -48,6 +49,7 @@ makedepends=(
     'git'
     'gobject-introspection'
     'gtk-doc'
+    'libcanberra'
     'sassc'
 )
 optdepends=(
@@ -63,12 +65,12 @@ source=(
     # GTK source code.
     "https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
     # ArchLinux package files.
-    "settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
-    "gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
+    "settings.ini::$_archgit/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
+    "gtk-query-immodules-3.0.hook::$_archgit/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
     # gtk3-mushrooms patches
     "git+$url.git#commit=$_commit"
 )
-sha256sums=('a07d64b939fcc034a066b7723fdf9b24e92c9cfb6a8497593f3471fe56fbbbf8'
+sha256sums=('a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
             'SKIP')
@@ -105,7 +107,7 @@ __patch_gtk_code() {
         patch -d "gtk" -p 3 -i "$patch_file"
     done
 
-    cat "$srcdir/smaller-adwaita.css" | tee -a gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
+    cat "$srcdir/$_repo/smaller-adwaita.css" | tee -a gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
 }
 
 prepare() {
