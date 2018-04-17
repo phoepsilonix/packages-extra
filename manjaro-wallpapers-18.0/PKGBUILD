@@ -3,7 +3,7 @@
 
 pkgname=manjaro-wallpapers-18.0
 pkgver=1.0
-pkgrel=0.2
+pkgrel=0.4
 _commit=f29412ff31bee599ad9fcd05d22f116324d75b47
 pkgdesc="Official Wallpapers for the Manjarolinux 18.x release"
 arch=('any')
