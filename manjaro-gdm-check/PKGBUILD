@@ -1,7 +1,7 @@
 # Maintainer: Capitani Stefano <stefanoatmanjarodotorg>
 
 pkgname=manjaro-gdm-check
-pkgver=20171230
+pkgver=20180419
 pkgrel=1
 pkgdesc='Systemd service to disable wayland if Nvidia closed drivers are active'
 arch=(any)
