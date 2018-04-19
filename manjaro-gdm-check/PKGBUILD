@@ -5,7 +5,7 @@ pkgver=20171230
 pkgrel=1
 pkgdesc='Systemd service to disable wayland if Nvidia closed drivers are active'
 arch=(any)
-url="https://github.com/manjaro}"
+url="https://github.com/manjaro"
 license=('GPL3')
 source=('check_vga_driver'
 		"$pkgname.hook"
