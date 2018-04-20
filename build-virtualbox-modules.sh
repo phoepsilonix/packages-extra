@@ -23,11 +23,13 @@ makepkg -sf
 #makepkg -sf
 cd ../../linux412*/*virtualbox-modules
 makepkg -sf
-cd ../../linux413*/*virtualbox-modules
-makepkg -sf
+#cd ../../linux413*/*virtualbox-modules
+#makepkg -sf
 cd ../../linux414*/*virtualbox-modules
 makepkg -sf
 cd ../../linux415*/*virtualbox-modules
 makepkg -sf
 cd ../../linux416*/*virtualbox-modules
+makepkg -sf
+cd ../../linux417*/*virtualbox-modules
 makepkg -sf

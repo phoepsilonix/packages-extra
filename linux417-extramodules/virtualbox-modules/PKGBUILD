@@ -9,7 +9,7 @@ _linuxprefix=linux417
 _extramodules=extramodules-4.17-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.2.8
+pkgver=5.2.10
 _pkgver="${pkgver}_OSE"
 pkgrel=0.7
 arch=('i686' 'x86_64')
@@ -21,10 +21,8 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
              'dkms'
              "$_linuxprefix" "$_linuxprefix-headers")
-source=('linux-4.16.patch' 'linux-4.17.patch' 'linux-4.17-host.patch')
-sha256sums=('a3926201d1542709da072954db06f23ea00690c142a3b1adda8384824935ae7b'
-            '0a234107ecbe46a74cb5e8efe512559252b40fe2ca9d1f02981ba3e6e120de08'
-            '07afac2afcc45149e87486dc5f96a7a2d93c2366067d21f419cf2f8038ef7a85')
+source=('linux-4.17-host.patch')
+sha256sums=('07afac2afcc45149e87486dc5f96a7a2d93c2366067d21f419cf2f8038ef7a85')
 
 prepare() {
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
@@ -32,21 +30,16 @@ prepare() {
   cp -r /var/lib/dkms .
   echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
+  mkdir -p "$srcdir/dkms/vboxsf-4.17"
+  cp -r "/usr/src/vboxsf-4.16-${pkgver}_OSE/" "$srcdir/dkms/vboxsf-4.17/${pkgver}_OSE/source/"
+  sed -i -e 's|.16|.17|g' "$srcdir/dkms/vboxsf-4.17/${pkgver}_OSE/source/dkms.conf"
+
   rm "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
   cp -r "/usr/src/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/"
   mv "$srcdir/dkms/vboxhost/${pkgver}_OSE/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
 
   cd "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
   patch -p0 -i "$srcdir/linux-4.17-host.patch"
-
-  rm "$srcdir/dkms/vboxguest/${pkgver}_OSE/source"
-  cp -r "/usr/src/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/"
-  mv "$srcdir/dkms/vboxguest/${pkgver}_OSE/vboxguest-${pkgver}_OSE/" "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
-
-  cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/vboxvideo/"
-  patch -p0 -i "$srcdir/linux-4.16.patch"
-  cd "$srcdir/dkms/vboxguest/${pkgver}_OSE/source/"
-  patch -p0 -i "$srcdir/linux-4.17.patch"
 }
 
 build() {
@@ -56,7 +49,7 @@ build() {
   dkms --dkmsframework dkms.conf build "vboxhost/$_pkgver" -k "$_kernver"
   # build guest modules  
   msg2 'Guest modules'
-  dkms --dkmsframework dkms.conf build "vboxguest/$_pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "vboxsf-4.17/$_pkgver" -k "$_kernver"
 }
 
 package_linux417-virtualbox-host-modules(){
@@ -91,13 +84,11 @@ package_linux417-virtualbox-guest-modules(){
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
-  cd "dkms/vboxguest/$_pkgver/$_kernver/$CARCH/module"
+  cd "dkms/vboxsf-4.17/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extramodules"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/virtualbox-guest-modules.install"
 
   mkdir -p "$pkgdir/etc/modules-load.d"
-  echo "vboxguest" > "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
   echo "vboxsf" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
-  #echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
 }
