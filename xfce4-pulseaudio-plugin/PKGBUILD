@@ -2,9 +2,9 @@
 # Maintainer: Philip Müller <philm@manjaro.org>
 
 pkgname=xfce4-pulseaudio-plugin
-pkgver=0.4.0
+pkgver=0.4.1
 _commit=06b74caec7edfde6e45e58b81655495c76e913b0  # tags/xfce4-pulseaudio-plugin-0.4.0^0
-pkgrel=1
+pkgrel=1.1
 pkgdesc="Pulseaudio plugin for Xfce4 panel"
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -14,7 +14,7 @@ depends=('xfce4-panel' 'libpulse' 'libkeybinder3' 'libnotify')
 makedepends=('dbus-glib' 'git' 'intltool' 'xfce4-dev-tools')
 optdepends=('ido: appindicator support'
     'pavucontrol: default pulseaudio mixer')
-_commit=06b74caec7edfde6e45e58b81655495c76e913b0  # tags/xfce4-pulseaudio-plugin-0.4.0^0
+_commit=66231b3503a74faea7bdbb925f08d7967016df6a # tags/xfce4-pulseaudio-plugin-0.4.1^0
 source=("git+https://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/#commit=$_commit"
     'use-panel-icons.patch')
 sha256sums=('SKIP'
