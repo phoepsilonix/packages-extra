@@ -2,7 +2,7 @@
 
 pkgname=manjaro-settings-samba
 pkgver=20180422
-pkgrel=1
+pkgrel=2
 pkgdesc="Adds a smb.conf file for Manjaro and enables samba"
 arch=('any')
 url="https://github.com/manjaro/packages-extra"
