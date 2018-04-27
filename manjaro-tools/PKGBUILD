@@ -7,23 +7,22 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-pkg'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
-_pkgver=0.15.7
 pkgver=0.15.7
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
 groups=('manjaro-tools')
 url='https://github.com/manjaro/manjaro-tools'
 makedepends=('docbook2x')
-source=("${pkgbase}-${_pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz" 'manjaro-32.patch'
-        "${pkgbase}-${pkgver}-${pkgrel}.patch::https://github.com/manjaro/manjaro-tools/compare/${_pkgver}...stable-0.15.x.patch")
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz" 'manjaro-32.patch'
+        "${pkgbase}-${pkgver}-${pkgrel}.patch::https://github.com/manjaro/manjaro-tools/compare/${pkgver}...stable-0.15.x.patch")
 sha256sums=('9c5600d82714c941cc1b705a1028bf475d37d0c37013c6cdf5c1fc0e87447bc6'
             'c943bcad1b1dfa87df94429db9c137c5d166dbd986add624f6fd22fdb984c785'
-            'a979b8f39fe2f58735f450bbc8bc1e1ebdc904a99de610be038590219a496c0f')
+            'ee852dbde2ddef9aa23ac3ef4adaf463f9d052a607971a09510f1134014c7c23')
 
 prepare() {
-    cd ${srcdir}/${pkgbase}-${_pkgver}
+    cd ${srcdir}/${pkgbase}-${pkgver}
     # patches here
     sed -e "s/^Version=.*/Version=${pkgver}/" -i Makefile
     patch -p1 -i ${srcdir}/${pkgbase}-${pkgver}-${pkgrel}.patch
@@ -33,7 +32,7 @@ prepare() {
 }
 
 build() {
-    cd ${srcdir}/${pkgbase}-${_pkgver}
+    cd ${srcdir}/${pkgbase}-${pkgver}
     make SYSCONFDIR=/etc PREFIX=/usr
 }
 
@@ -45,7 +44,7 @@ package_manjaro-tools-base() {
                 'manjaro-tools-yaml: Manjaro Linux yaml tools')
     backup=('etc/manjaro-tools/manjaro-tools.conf')
 
-    cd ${srcdir}/${pkgbase}-${_pkgver}
+    cd ${srcdir}/${pkgbase}-${pkgver}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_base
 }
 
@@ -54,7 +53,7 @@ package_manjaro-tools-pkg() {
     depends=('namcap' 'manjaro-tools-base')
     conflicts=('devtools')
 
-    cd ${srcdir}/${pkgbase}-${_pkgver}
+    cd ${srcdir}/${pkgbase}-${pkgver}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_pkg
 }
 
@@ -62,7 +61,7 @@ package_manjaro-tools-yaml() {
     pkgdesc='Development tools for Manjaro Linux (yaml tools)'
     depends=('manjaro-tools-base' 'calamares-tools' 'ruby-kwalify' 'manjaro-iso-profiles-base')
 
-    cd ${srcdir}/${pkgbase}-${_pkgver}
+    cd ${srcdir}/${pkgbase}-${pkgver}
     make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_yaml
 }
 
@@ -72,7 +71,7 @@ package_manjaro-tools-iso() {
             'mkinitcpio' 'mktorrent' 'grub')
     optdepends=('qemu: quickly test isos')
 
-	cd ${srcdir}/${pkgbase}-${_pkgver}
+	cd ${srcdir}/${pkgbase}-${pkgver}
 	make SYSCONFDIR=/etc PREFIX=/usr DESTDIR=${pkgdir} install_iso
 }
 
