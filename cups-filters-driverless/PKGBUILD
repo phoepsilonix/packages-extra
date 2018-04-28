@@ -3,8 +3,8 @@
 
 _pkgname=cups-filters
 pkgname=$_pkgname-driverless
-pkgver=1.20.1
-pkgrel=2
+pkgver=1.20.3
+pkgrel=1
 pkgdesc="OpenPrinting CUPS Filters"
 arch=('x86_64')
 url="https://wiki.linuxfoundation.org/openprinting/cups-filters"
@@ -17,13 +17,13 @@ optdepends=('ghostscript: for non-PostScript printers to print with CUPS to conv
 	    'foomatic-db-nonfree: drivers use Ghostscript to convert PostScript to a printable form directly'
 	    'antiword: needed to convert MS Word documents (requires also docx2txt (AUR)')
 conflicts=("$_pkgname")
-provides=("$_pkgname=1.0.42")
+provides=("$_pkgname=$pkgver")
 backup=(etc/cups/cups-browsed.conf)
 source=("https://www.openprinting.org/download/cups-filters/$_pkgname-$pkgver.tar.xz"
 		'0001-utils-Enable-driverless-configuration-automagically.patch'
 		'0002-utils-Fix-broken-systemd-unit.patch'
 		'0001-Use-absolute-paths-for-font-directory-and-do-not-mak.patch')
-sha256sums=('b36b58f8d4d776d337f22b7b89794afbce6fd10e8e9066a89591d8f2210f3d62'
+sha256sums=('3b9a171c8270fcffc168845325c5358bdc38f716fad115278bbdfd44f7c428bc'
             '8cdc7fc6e9baeb92dce2e459927b389db9eb6d1ae192a285901ae36f6048da54'
             'eea2c326b59e593a7a8f8fd789db4ca0fad581247d2f9e45c118d6dedf54cedb'
             '543f990094fd61b8cc7adb4d821a1fbda19a752959aec4a518f5692ea0a7c856')
@@ -51,7 +51,7 @@ build() {
     --with-fontdir=/usr/share/fonts/conf.d \
     --with-cups-rundir=/run/cups \
     --with-test-font-path=/usr/share/fonts/TTF/DejaVuSans.ttf \
- 	--enable-ijs --enable-opvp
+    --enable-ijs #--enable-opvp
   make
 }
 
