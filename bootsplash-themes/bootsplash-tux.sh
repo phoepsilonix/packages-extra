@@ -31,7 +31,7 @@ convert -alpha remove \
 #make bootsplash-packer
 
 
-# Let's put Tux in the centre of an grey background.
+# Let's put Tux in the centre of a grey background.
 ./bootsplash-packer \
 	--bg_red 0x31 \
 	--bg_green 0x36 \
