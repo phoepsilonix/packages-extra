@@ -17,12 +17,12 @@ THROBBER_HEIGHT=$(identify $THROBBER | head -1 | cut -d " " -f 3 | \
 						 cut -d x -f 2)
 
 convert -alpha remove \
-	-background "#ff3a40" \
+	-background "#31363b" \
 	$LOGO \
 	logo.rgb
 
 convert -alpha remove \
-	-background "#ff3a40" \
+	-background "#31363b" \
 	$THROBBER \
 	throbber%02d.rgb
 
@@ -31,11 +31,11 @@ convert -alpha remove \
 #make bootsplash-packer
 
 
-# Let's put Tux in the center of an orange background.
+# Let's put Tux in the centre of an grey background.
 ./bootsplash-packer \
-	--bg_red 0xff \
-	--bg_green 0x3a \
-	--bg_blue 0x40 \
+	--bg_red 0x31 \
+	--bg_green 0x36 \
+	--bg_blue 0x3b \
 	--frame_ms 48 \
 	--picture \
 	--pic_width $LOGO_WIDTH \
@@ -45,8 +45,8 @@ convert -alpha remove \
 	--picture \
 	--pic_width $THROBBER_WIDTH \
 	--pic_height $THROBBER_HEIGHT \
-	--pic_position 0x14 \
-	--pic_position_offset 20 \
+	--pic_position 0x05 \
+	--pic_position_offset 200 \
 	--pic_anim_type 1 \
 	--pic_anim_loop 0 \
 	--blob throbber00.rgb \
