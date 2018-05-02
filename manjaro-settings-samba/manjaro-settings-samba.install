@@ -39,8 +39,8 @@ post_upgrade() {
 
 post_install() {
   msg "Attempting to enable Samba services..."
-  systemctl is-active smbd >/dev/null || systemctl enable smbd
-  systemctl is-active nmbd >/dev/null || systemctl enable nmbd
+  systemctl is-active smb >/dev/null || systemctl enable smb
+  systemctl is-active nmb >/dev/null || systemctl enable nmb
   add_group
   echo ""
   msg "Samba services should now be enabled."
@@ -51,8 +51,8 @@ post_install() {
 
 post_remove() {
   msg "Attempting to disable Samba services..."
-  ! systemctl is-active smbd >/dev/null || systemctl disable smbd
-  ! systemctl is-active nmbd >/dev/null || systemctl disable nmbd
+  ! systemctl is-active smb >/dev/null || systemctl disable smb
+  ! systemctl is-active nmb >/dev/null || systemctl disable nmb
   ! getent group sambashare || groupadd -r sambashare
   echo ""
   msg "Samba services should now be disabled. Reboot your system."
