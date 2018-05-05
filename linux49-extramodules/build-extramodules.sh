@@ -18,6 +18,7 @@ cd ${pwd}/*ndiswrapper && makepkg -sf --noconfirm
 cd ${pwd}/*nvidia && makepkg -sf -d --noconfirm
 cd ${pwd}/*nvidia-304xx && makepkg -d --noconfirm
 cd ${pwd}/*nvidia-340xx && makepkg -d --noconfirm
+cd ${pwd}/*nvidia-390xx && makepkg -d --noconfirm
 cd ${pwd}/*nvidiabl && makepkg -sf --noconfirm
 cd ${pwd}/*spl_zfs && makepkg -sf --noconfirm
 cd ${pwd}/*r8168 && makepkg -sf --noconfirm
