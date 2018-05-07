@@ -20,7 +20,7 @@ source=('bootsplash-packer'
 	'manjaro-elegant.gif')
 
 sha256sums=('51559d3ccfb448b03fa6439faf5869dbd0c2fbda1b5d5bf5d4ba70e60937472a'
-            '5b634d8448f6f1f80c47d05a176682d35ae386dfc9e4f3c4217d80113d55802a'
+            '8bf059902476d1114a851ffd1e94b0e0338cea34a15772a24642a57a53f90f26'
             'bcc1da803dfef9edd32f9fb245593c67de500437a02a1d266e3e63af64d8ef4f'
             '7a5aed60818fe0629cbc9956901bfc360add1d0e609821ab7331e0e66c05c918'
             'e8deebc1e8350a22daa6abb2c2d5a9cfbf3f28785d12eea77dce9fc8da1097fc'
