@@ -1,7 +1,7 @@
 pkgbase=bootsplash-themes
 pkgname=('bootsplash-theme-tux' 'bootsplash-theme-manjaro-elegant')
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 url="https://lists.freedesktop.org/archives/dri-devel/2017-December/160242.html"
 arch=('x86_64')
 license=('GPL')
@@ -20,7 +20,7 @@ source=('bootsplash-packer'
 	'manjaro-elegant.gif')
 
 sha256sums=('51559d3ccfb448b03fa6439faf5869dbd0c2fbda1b5d5bf5d4ba70e60937472a'
-            '9532d99e99239a8f4c78e777e5b9d544124af30addabea63c97c1f4d5d8cb1ea'
+            '5b634d8448f6f1f80c47d05a176682d35ae386dfc9e4f3c4217d80113d55802a'
             'bcc1da803dfef9edd32f9fb245593c67de500437a02a1d266e3e63af64d8ef4f'
             '7a5aed60818fe0629cbc9956901bfc360add1d0e609821ab7331e0e66c05c918'
             'e8deebc1e8350a22daa6abb2c2d5a9cfbf3f28785d12eea77dce9fc8da1097fc'
