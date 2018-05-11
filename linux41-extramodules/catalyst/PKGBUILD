@@ -7,7 +7,7 @@ _extramodules=extramodules-4.1-MANJARO
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=32
+pkgrel=33
 epoch=1
 _pkgver=15.201.1151
 provides=("$_pkgname=$_pkgver")
