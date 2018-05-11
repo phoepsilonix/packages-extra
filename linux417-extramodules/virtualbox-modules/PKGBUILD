@@ -9,9 +9,9 @@ _linuxprefix=linux417
 _extramodules=extramodules-4.17-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.2.10
+pkgver=5.2.12
 _pkgver="${pkgver}_OSE"
-pkgrel=0.14
+pkgrel=0.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -21,8 +21,6 @@ makedepends=("virtualbox-host-dkms>=$pkgver"
              "virtualbox-guest-dkms>=$pkgver"
              'dkms'
              "$_linuxprefix" "$_linuxprefix-headers")
-source=('linux-4.17-host.patch')
-sha256sums=('07afac2afcc45149e87486dc5f96a7a2d93c2366067d21f419cf2f8038ef7a85')
 
 prepare() {
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
@@ -37,9 +35,6 @@ prepare() {
   rm "$srcdir/dkms/vboxhost/${pkgver}_OSE/source"
   cp -r "/usr/src/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/"
   mv "$srcdir/dkms/vboxhost/${pkgver}_OSE/vboxhost-${pkgver}_OSE/" "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
-
-  cd "$srcdir/dkms/vboxhost/${pkgver}_OSE/source/"
-  patch -p0 -i "$srcdir/linux-4.17-host.patch"
 }
 
 build() {
