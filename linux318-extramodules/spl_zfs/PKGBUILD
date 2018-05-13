@@ -5,9 +5,9 @@ _linuxprefix=linux318
 _extramodules=extramodules-3.18-MANJARO
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
-pkgver=0.7.8
-_pkgver=spl-0.7.8
-pkgrel=4
+pkgver=0.7.9
+_pkgver=spl-0.7.9
+pkgrel=1
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -17,8 +17,8 @@ groups=("$_linuxprefix-extramodules")
 install=install
 source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
         "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=('4df2287853a2c1444ab020e68846dc446a2934f9c377fb14e9ed68481dc4bd64'
-            '70ba0edd72914d4bfc9a9426cf26725e955a9509acbddb6902efb9eebb35f150')
+sha256sums=('432b2ef0ca1f5cf7c1a64dec643ab5d92681a5097bf95b336aabaa252bad96e1'
+            'f50ca2441c6abde4fe6b9f54d5583a45813031d6bb72b0011b00fc2683cd9f7a')
 
 prepare() {
   cd "${srcdir}/spl-${_pkgver}"

@@ -8,7 +8,7 @@ pkgname=('manjaro-tools-base'
         'manjaro-tools-iso'
         'manjaro-tools-yaml')
 pkgver=0.15.7
-pkgrel=4
+pkgrel=5
 arch=('i686' 'x86_64')
 pkgdesc='Development tools for Manjaro Linux'
 license=('GPL')
@@ -19,7 +19,7 @@ source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz" 'manjaro-
         "${pkgbase}-${pkgver}-${pkgrel}.patch::https://github.com/manjaro/manjaro-tools/compare/${pkgver}...stable-0.15.x.patch")
 sha256sums=('9c5600d82714c941cc1b705a1028bf475d37d0c37013c6cdf5c1fc0e87447bc6'
             'c943bcad1b1dfa87df94429db9c137c5d166dbd986add624f6fd22fdb984c785'
-            '3121292376b9ca50dfd28682e6272d1bc8b3d758f26f788ffcf2ccacc507cae0')
+            'a9eb67aa5d6a8015d1789627e2d038a07dd580fdca2bd289a637840bfabd978e')
 
 prepare() {
     cd ${srcdir}/${pkgbase}-${pkgver}
