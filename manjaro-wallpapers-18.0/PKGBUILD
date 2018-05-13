@@ -1,18 +1,25 @@
 # Maintainers: Bernhard Landauer <oberon@manjaro.org>
 # Contributor: FadeMind <fademind@gmail.com>
 
-pkgname=manjaro-wallpapers-18.0
+pkgbase=manjaro-wallpapers-18.0
+pkgname=("$pkgbase" 'illyria-wallpaper')
 pkgver=1.0
-pkgrel=0.4
-_commit=f29412ff31bee599ad9fcd05d22f116324d75b47
+pkgrel=1
 pkgdesc="Official Wallpapers for the Manjarolinux 18.x release"
 arch=('any')
 license=('GPL3')
-makedepends=('git')
 url="https://github.com/manjaro/$pkgname"
-source=("git+$url.git")
-md5sums=('SKIP')
+source=("$url/archive/$pkgver.tar.gz")
+md5sums=('72f665c77f0b00544809034c0ef20d28')
 
-package() {
-    make -C "${pkgname}" install DESTDIR="$pkgdir"
+package_manjaro-wallpapers-18.0() {
+    depends=('illyria-wallpaper')
+    make -C "${pkgname}-${pkgver}" install DESTDIR="$pkgdir"
+    rm $pkgdir/usr/share/backgrounds/illyria-default{,-lockscreen}.jpg
+}
+
+package_illyria-wallpaper() {
+    cd $pkgbase-$pkgver
+    install -Dm644 illyria-default.jpg $pkgdir/usr/share/backgrounds/illyria-default.jpg
+    install -m644 illyria-default-lockscreen.jpg $pkgdir/usr/share/backgrounds/illyria-default-lockscreen.jpg
 }
