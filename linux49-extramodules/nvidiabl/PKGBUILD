@@ -6,11 +6,11 @@ _extramodules=extramodules-4.9-MANJARO
 pkgname=$_linuxprefix-nvidiabl
 _pkgname=nvidiabl
 pkgver=0.88
-pkgrel=77
+pkgrel=78
 epoch=
 pkgdesc="Driver to adjust display backlight on modern mobile NVidia graphics adapters."
 arch=('x86_64' 'i686')
-url="https://github.com/guillaumezin/nvidiabl"
+url="https://github.com/guillaumezin/$_pkgname"
 license=('GPL')
 depends=()
 makedepends=("$_linuxprefix-headers")
@@ -19,7 +19,7 @@ conflicts=(nvidia-bl)
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 install=$_pkgname.install
-source=(https://github.com/guillaumezin/nvidiabl/archive/master.zip 
+source=("$_pkgname-$pkgver::$url/archive/master.zip" 
         nvidiabl-master.patch
         kernel-4.8.patch)
 md5sums=('c1cec85b0a9f4469d433a2756bdb2497'

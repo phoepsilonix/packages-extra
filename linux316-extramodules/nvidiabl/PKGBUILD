@@ -8,7 +8,7 @@ pkgrel=31
 epoch=
 pkgdesc="Driver to adjust display backlight on modern mobile NVidia graphics adapters."
 arch=('x86_64' 'i686')
-url="https://github.com/guillaumezin/nvidiabl"
+url="https://github.com/guillaumezin/$_pkgname"
 license=('GPL')
 depends=()
 makedepends=("linux316-headers")
@@ -22,9 +22,9 @@ changelog=
 _extramodules=extramodules-3.16-MANJARO
 _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
-source=(https://github.com/guillaumezin/nvidiabl/archive/master.zip 
+source=("$_pkgname-$pkgver::$url/archive/master.zip" 
         nvidiabl-master.patch)
-md5sums=('5fdda33fedcb78320c1581e84b395d39'
+md5sums=('c1cec85b0a9f4469d433a2756bdb2497'
          '79e5699da970908d6ec8dba114df87cb')
 
 prepare() {
