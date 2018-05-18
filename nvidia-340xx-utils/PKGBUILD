@@ -5,7 +5,7 @@
 pkgbase=nvidia-340xx-utils
 pkgname=('nvidia-340xx-utils' 'opencl-nvidia-340xx' 'mhwd-nvidia-340xx')
 pkgver=340.106
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')

@@ -4,7 +4,7 @@
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia' 'mhwd-nvidia')
 pkgver=396.24
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -201,4 +201,3 @@ package_nvidia-utils() {
 
     create_links
 }
-
