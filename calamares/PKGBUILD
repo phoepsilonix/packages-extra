@@ -1,10 +1,10 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
-pkgver=3.1.13
-_pkgver=3.1.13
+pkgver=3.2.0
+_pkgver=3.2.0
 pkgrel=3
-_commit=ee72adcfb5288c38ac2eaa9889c63c289f3625eb
+_commit=
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,15 +18,18 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz")
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
-sha256sums=('1805a280a96bcad133d3eaceb4076f7ef86be27925c9d871022b0d4b9738e62c')
+source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
+         "$pkgname-$pkgver-$pkgrel.patch::https://github.com/manjaro/calamares/compare/v3.2.0...3.2.x-stable.patch")
+         #"$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
+sha256sums=('fe69f23f3abc0edec729ae236ca21c689099c43ac34d635c8fa2f489146ca2d0'
+            '62e1a2093aa5faca1242001ad1f1d89fd43e3b9d75668a0a2ad9ce385040cf1f')
 
 prepare() {
-	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
+	#mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 
 	# patches here
+	git apply -p1 < ${srcdir}/$pkgname-$pkgver-$pkgrel.patch
 
 	# add revision
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
