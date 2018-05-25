@@ -5,9 +5,9 @@
 
 pkgbase=grub-theme-live
 pkgname=('grub-theme-live-common-dev' 'grub-theme-live-manjaro-dev' 'grub-theme-live-sonar' 'grub-theme-manjaro-dev')
-pkgver=17.1.1
-pkgrel=9
-_branch=devel
+pkgver=18.0
+pkgrel=1
+_branch=master
 
 pkgdesc='Manjaro Linux grub theme (devel)'
 arch=('any')
