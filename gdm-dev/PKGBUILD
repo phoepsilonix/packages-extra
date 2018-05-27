@@ -3,7 +3,7 @@
 # Maintainer: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=gdm
-pkgname=(gdm libgdm)
+pkgname=(gdm-dev libgdm-dev)
 pkgver=3.28.1
 pkgrel=1.1
 pkgdesc="Display manager and login screen"
@@ -79,8 +79,8 @@ check() {
   make check
 }
 
-package_gdm() {
-  depends+=(libgdm)
+package_gdm-dev() {
+  depends+=(libgdm-dev)
   optdepends=('fprintd: fingerprint authentication')
   backup=(etc/pam.d/gdm-autologin etc/pam.d/gdm-fingerprint etc/pam.d/gdm-launch-environment
           etc/pam.d/gdm-password etc/pam.d/gdm-smartcard etc/gdm/custom.conf
@@ -102,7 +102,7 @@ package_gdm() {
   mv "$pkgdir/usr/share/glib-2.0/schemas/org.gnome.login-screen.gschema.xml" "$srcdir"
 }
 
-package_libgdm() {
+package_libgdm-dev() {
   pkgdesc="GDM support library"
   depends=(systemd glib2 dconf)
 
