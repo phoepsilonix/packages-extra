@@ -5,7 +5,7 @@
 pkgbase=gdm
 pkgname=(gdm-dev libgdm-dev)
 pkgver=3.28.1
-pkgrel=1.1
+pkgrel=1
 pkgdesc="Display manager and login screen"
 url="https://wiki.gnome.org/Projects/GDM"
 arch=(x86_64)
@@ -81,6 +81,8 @@ check() {
 
 package_gdm-dev() {
   depends+=(libgdm-dev)
+  conflicts=(gdm)
+  provides=(gdm)
   optdepends=('fprintd: fingerprint authentication')
   backup=(etc/pam.d/gdm-autologin etc/pam.d/gdm-fingerprint etc/pam.d/gdm-launch-environment
           etc/pam.d/gdm-password etc/pam.d/gdm-smartcard etc/gdm/custom.conf
@@ -105,6 +107,8 @@ package_gdm-dev() {
 package_libgdm-dev() {
   pkgdesc="GDM support library"
   depends=(systemd glib2 dconf)
+  conflicts=(libgdm-dev)
+  provides=(libgdm)
 
   cd $pkgbase
   make -C libgdm DESTDIR="$pkgdir" install
