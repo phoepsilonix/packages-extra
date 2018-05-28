@@ -1,8 +1,8 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.2.0.r4639.2b4a087f3
-pkgrel=2
+pkgver=3.2.0.r4663.e31cb0a77
+pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -19,8 +19,10 @@ makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 #         'usr/share/calamares/modules/initcpio.conf'
 #         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/manjaro/calamares.git#branch=development)
-sha256sums=('SKIP')
+source+=(git+https://github.com/manjaro/calamares.git#branch=development
+         "${srcdir}/timezone_0.0.png")
+sha256sums=('SKIP'
+            '852becf04751280e8385a37c9d21c9fa12bc2eb302c56149973e1df74ad84e37')
 
 pkgver() {
 	cd ${srcdir}/calamares
@@ -39,6 +41,10 @@ prepare() {
 	git submodule update
 
 	# patches here
+
+    # temp workaround for correct display of Iceland's timezone
+    # https://github.com/calamares/calamares/issues/967
+    cp $srcdir/timezone_0.0.png $srcdir/calamares/src/modules/locale/images/
 }
 
 build() {

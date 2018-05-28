@@ -3,7 +3,7 @@
 pkgname=calamares
 pkgver=3.2.0
 _pkgver=3.2.0
-pkgrel=3
+pkgrel=4
 _commit=
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -19,10 +19,12 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=("$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         "$pkgname-$pkgver-$pkgrel.patch::https://github.com/manjaro/calamares/compare/v3.2.0...3.2.x-stable.patch")
+         "$pkgname-$pkgver-$pkgrel.patch::https://github.com/manjaro/calamares/compare/v3.2.0...3.2.x-stable.patch"
+         "${srcdir}/timezone_0.0.png")
          #"$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
 sha256sums=('fe69f23f3abc0edec729ae236ca21c689099c43ac34d635c8fa2f489146ca2d0'
-            '62e1a2093aa5faca1242001ad1f1d89fd43e3b9d75668a0a2ad9ce385040cf1f')
+            '62e1a2093aa5faca1242001ad1f1d89fd43e3b9d75668a0a2ad9ce385040cf1f'
+            '852becf04751280e8385a37c9d21c9fa12bc2eb302c56149973e1df74ad84e37')
 
 prepare() {
 	#mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
@@ -34,6 +36,10 @@ prepare() {
 	# add revision
 	_patchver="$(cat CMakeLists.txt | grep -m3 -e CALAMARES_VERSION_PATCH | grep -o "[[:digit:]]*" | xargs)"
 	sed -i -e "s|CALAMARES_VERSION_PATCH $_patchver|CALAMARES_VERSION_PATCH $_patchver-$pkgrel|g" CMakeLists.txt
+
+    # temp workaround for correct display of Iceland's timezone
+    # https://github.com/calamares/calamares/issues/967
+    cp $srcdir/timezone_0.0.png $srcdir/calamares-$_pkgver/src/modules/locale/images/
 }
 
 build() {
