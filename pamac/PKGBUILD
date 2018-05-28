@@ -2,27 +2,27 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-_pkgver=6.3.2
-pkgver=$_pkgver
-pkgrel=2
+_pkgver=6.3.3
+pkgver=6.3.91
+pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
 depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.22'
-         'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls>=3.4'
+         'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.2' 'gnutls>=3.4'
          'appstream-glib' 'archlinux-appstream-data' 'pacman-mirrors>=4.9.1')
 makedepends=('gettext' 'meson' 'vala>=0.36.6' 'libappindicator-gtk3' 'git')
 options=(!emptydirs)
 
-source=("pamac-$pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
+source=("pamac-$_pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
         "git-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...master.patch"
        )
-sha256sums=('e37b61bb5dce96e284562d10bcf84444a5e2698a85d38702888fdbd21685be38'
-            '2adfae8c93883ea8e316408bf555d65a4377ef2ecb4c76516f822f72e7d2143d')
+sha256sums=('b4e62b9fb602ca4c2ac30b829200484d4177a9cf944ab86c5eaaf583509e4766'
+            'a66770d194c90b4c967608746e109cd0a1d89796aa862af17c219ed580c04d9c')
 
 prepare() {
-  cd "$srcdir/pamac-$pkgver"
+  cd "$srcdir/pamac-$_pkgver"
   # patches here
   patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
 
@@ -31,7 +31,7 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/pamac-$pkgver"
+  cd "$srcdir/pamac-$_pkgver"
   mkdir -p builddir
   cd builddir
   meson --prefix=/usr --sysconfdir=/etc -Denable-appindicator=true
@@ -45,7 +45,7 @@ package_pamac() {
   backup=('etc/pamac.conf')
   replaces=('pamac-aur')
   install=pamac.install
-  cd "$srcdir/pamac-$pkgver"
+  cd "$srcdir/pamac-$_pkgver"
   cd builddir
   DESTDIR="$pkgdir" ninja install
   # remove pamac-tray-appindicator
@@ -56,7 +56,7 @@ package_pamac() {
 package_pamac-tray-appindicator() {
   pkgdesc="Tray icon using appindicator which feets better in KDE"
   depends=('pamac' 'libappindicator-gtk3')
-  cd "$srcdir/pamac-$pkgver"
+  cd "$srcdir/pamac-$_pkgver"
   install -Dm755 "builddir/src/pamac-tray-appindicator" "$pkgdir/usr/bin/pamac-tray-appindicator"
   install -Dm644 "data/applications/pamac-tray-appindicator.desktop" "$pkgdir/etc/xdg/autostart/pamac-tray-appindicator.desktop"
 }
