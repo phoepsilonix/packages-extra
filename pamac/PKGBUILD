@@ -3,14 +3,14 @@
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
 _pkgver=6.3.3
-pkgver=6.3.91
+pkgver=6.3.92
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
 url="https://github.com/manjaro/pamac"
 license=('GPL3')
 depends=('glib2>=2.42' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3>=0.38' 'gtk3>=3.22'
-         'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.2' 'gnutls>=3.4'
+         'libnotify' 'desktop-file-utils' 'pacman>=5.1' 'pacman<5.2' 'gnutls>=3.4'
          'appstream-glib' 'archlinux-appstream-data' 'pacman-mirrors>=4.9.1')
 makedepends=('gettext' 'meson' 'vala>=0.36.6' 'libappindicator-gtk3' 'git')
 options=(!emptydirs)
@@ -19,7 +19,7 @@ source=("pamac-$_pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
         "git-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...master.patch"
        )
 sha256sums=('b4e62b9fb602ca4c2ac30b829200484d4177a9cf944ab86c5eaaf583509e4766'
-            'a66770d194c90b4c967608746e109cd0a1d89796aa862af17c219ed580c04d9c')
+            '901941eaa835ef175b3f2bab7c212ea071096c4389e32da9b4cc4c6c77ce04ab')
 
 prepare() {
   cd "$srcdir/pamac-$_pkgver"
