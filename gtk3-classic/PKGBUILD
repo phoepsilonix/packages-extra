@@ -10,8 +10,8 @@ __arch_pkg_commit=711373d553d34c1a8c7ff973eaba4dd388c1d9b3
 
 pkgname=gtk3-classic
 pkgver=3.22.30
-pkgrel=1
-pkgdesc="GTK3 library modified for classic GTK-based desktops."
+pkgrel=2
+pkgdesc="GTK3 patched for classic desktops like MATE/XFCE (see README)."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 _archgit=https://git.archlinux.org/svntogit/packages.git/plain/trunk
 conflicts=(gtk3 gtk3-print-backends)
@@ -22,13 +22,18 @@ install=$pkgname.install
 
 depends=(
     'adwaita-icon-theme'
-    'atk'
     'at-spi2-atk'
+    'atk'
     'cairo'
+    'cantarell-fonts'
+    'colord'
+    'dconf'
     'desktop-file-utils'
     'gdk-pixbuf2'
     'gtk-update-icon-cache'
     'json-glib'
+    'libcanberra'
+    'libcups'
     'libepoxy'
     'librsvg'
     'libxcomposite'
@@ -40,6 +45,7 @@ depends=(
     'libxrandr'
     'mesa'
     'pango'
+    'rest'
     'shared-mime-info'
     'wayland'
     'wayland-protocols'
@@ -51,15 +57,6 @@ makedepends=(
     'gtk-doc'
     'libcanberra'
     'sassc'
-)
-optdepends=(
-    'dconf: default GSettings backend'
-    'adwaita-icon-theme: default icon theme'
-    'cantarell-fonts: default font'
-    'libcanberra: sounds library'
-    'colord: for printing backends'
-    'rest: for printing backends'
-    'libcups: for printing backends'
 )
 source=(
     # GTK source code.
