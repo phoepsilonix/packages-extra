@@ -10,7 +10,7 @@ __arch_pkg_commit=711373d553d34c1a8c7ff973eaba4dd388c1d9b3
 
 pkgname=gtk3-classic
 pkgver=3.22.30
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK3 patched for classic desktops like MATE/XFCE (see README)."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 _archgit=https://git.archlinux.org/svntogit/packages.git/plain/trunk
@@ -104,7 +104,7 @@ __patch_makefiles() {
 
 __patch_gtk_code() {
     for patch_file in $srcdir/$_repo/*.patch; do
-        patch -d "gtk" -p 3 -i "$patch_file"
+        patch -d "gtk" -p3 -i "$patch_file"
     done
 
     cat "$srcdir/$_repo/smaller-adwaita.css" | tee -a gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
@@ -120,7 +120,10 @@ prepare() {
     __patch_gtk_code
 
     # Temporary patch. Will be removed with next GTK3 release.
-    patch -p 1 -i "$srcdir/upstream_window_background._patch"
+    patch -p1 -i "$srcdir/upstream_window_background._patch"
+
+    # rename 'mushrooms' > 'classic'
+    sed -i 's/mushrooms/classic/g' $srcdir/$_repo/README.md
 
     NOCONFIGURE=1 ./autogen.sh
 }
@@ -140,9 +143,10 @@ build() {
 
 package() {
     cd "gtk+-$pkgver"
-
     make -j 15 DESTDIR="$pkgdir" install
 
-    install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
-    install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
+    cd $srcdir
+    install -Dm644 settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
+    install -Dm644 gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
+    install -Dm644 $_repo/README.md "$pkgdir/usr/share/gtk-3.0/README.md"
 }
