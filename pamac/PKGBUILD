@@ -2,8 +2,8 @@
 
 pkgbase=pamac
 pkgname=('pamac' 'pamac-tray-appindicator')
-_pkgver=6.3.3
-pkgver=6.3.92
+_pkgver=6.4.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="A Gtk3 frontend for libalpm"
 arch=('i686' 'x86_64')
@@ -16,15 +16,14 @@ makedepends=('gettext' 'meson' 'vala>=0.36.6' 'libappindicator-gtk3' 'git')
 options=(!emptydirs)
 
 source=("pamac-$_pkgver-$pkgrel.tar.gz::$url/archive/v$_pkgver.tar.gz"
-        "git-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...master.patch"
+        #"git-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...master.patch"
        )
-sha256sums=('b4e62b9fb602ca4c2ac30b829200484d4177a9cf944ab86c5eaaf583509e4766'
-            '901941eaa835ef175b3f2bab7c212ea071096c4389e32da9b4cc4c6c77ce04ab')
+sha256sums=('4bb1223d318037f9b17c3b44197aae40ae19fb8a508e2540d6d09959796a0265')
 
 prepare() {
   cd "$srcdir/pamac-$_pkgver"
   # patches here
-  patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
+  #patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
 
   # adjust version string
   sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala

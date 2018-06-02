@@ -6,7 +6,7 @@
 _pkgname=xfce4-settings
 pkgname=$_pkgname-gtk3
 pkgver=4.13.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Settings manager for xfce"
 arch=('i686' 'x86_64')
 url="http://www.xfce.org/"
@@ -20,14 +20,19 @@ provides=($_pkgname)
 conflicts=($_pkgname)
 _commit=869838e7e1612d5c30cfdeb6f8a6c9e0854a1d8f
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2
+        no-dbus-glib.patch::https://bugzilla.xfce.org/attachment.cgi?id=7766
         default-xsettings-xml.patch)
 sha256sums=('7212c6063ef5798c6d7ef40520c9985368de3bf6ee835492d2adcb18f24df430'
+            'e600d75f8a473aec28042f61d040e4ad195953ed98227937bee12dfc87ee217c'
             '1c4110fd5ce0f17564cda892b72d59a87b515fdb4580c7154bbb4c1979f5ade7')
 prepare() {
   cd "$srcdir/$_pkgname-$_commit"
 
   # Enable GNOME icon theme, Adwaita theme and font hinting by default
   patch -Np1 -i "$srcdir/default-xsettings-xml.patch"
+
+  # Replace dbus-glib with gdbus from gio. - https://mail.xfce.org/pipermail/xfce4-dev/2018-June/032121.html
+  patch -Np1 -i "$srcdir/no-dbus-glib.patch"
 }
 
 build() {
