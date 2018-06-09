@@ -7,7 +7,7 @@ pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.7.9
 _pkgver=spl-0.7.9
-pkgrel=1
+pkgrel=2
 url="http://zfsonlinux.org/"
 arch=('i686' 'x86_64')
 license=("CDDL")
@@ -49,9 +49,8 @@ build() {
 }
 
 package_linux316-spl(){
-  _pkgname=spl
   pkgdesc='Solaris Porting Layer kernel modules.'
-  provides=("$_pkgname=$pkgver")
+  provides=("spl=$pkgver")
   depends+=("spl-utils=${pkgver}")
 
   cd "${srcdir}/spl-${_pkgver}"
@@ -62,9 +61,8 @@ package_linux316-spl(){
 }
 
 package_linux316-zfs(){
-  _pkgname=zfs
   pkgdesc='Kernel modules for the Zettabyte File System.'
-  provides=("$_pkgname=$pkgver")
+  provides=("zfs=$pkgver")
   depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
 
   cd "${srcdir}/zfs-${pkgver}"

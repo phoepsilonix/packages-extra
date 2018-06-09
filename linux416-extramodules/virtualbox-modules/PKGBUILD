@@ -11,7 +11,7 @@ pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
 pkgver=5.2.12
 _pkgver="${pkgver}_OSE"
-pkgrel=5
+pkgrel=6
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -36,7 +36,7 @@ build() {
   dkms --dkmsframework dkms.conf build "vboxhost/$_pkgver" -k "$_kernver"
   # build guest modules  
   msg2 'Guest modules'
-  dkms --dkmsframework dkms.conf build "vboxsf-4.16/$_pkgver" -k "$_kernver"
+  dkms --dkmsframework dkms.conf build "vboxsf/$_pkgver" -k "$_kernver"
 }
 
 package_linux416-virtualbox-host-modules(){
@@ -71,7 +71,7 @@ package_linux416-virtualbox-guest-modules(){
   _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 
   install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
-  cd "dkms/vboxsf-4.16/$_pkgver/$_kernver/$CARCH/module"
+  cd "dkms/vboxsf/$_pkgver/$_kernver/$CARCH/module"
   install -m644 * "$pkgdir/usr/lib/modules/$_extramodules"
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
   sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/virtualbox-guest-modules.install"
