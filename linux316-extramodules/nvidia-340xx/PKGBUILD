@@ -9,8 +9,8 @@ _linuxprefix=linux316
 _extramodules=extramodules-3.16-MANJARO
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
-pkgver=340.106
-pkgrel=8
+pkgver=340.107
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -24,8 +24,8 @@ install=nvidia.install
 options=(!strip)
 source_i686=("https://us.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-md5sums_i686=('a2895c566341506677d8293b4aec0dc0')
-md5sums_x86_64=('37c84428b64696be2b104edbc9855f57')
+md5sums_i686=('9a4b382ef545d836033630224735d5dd')
+md5sums_x86_64=('ffca1879d77dfc491dfb0276ceb56cc1')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"

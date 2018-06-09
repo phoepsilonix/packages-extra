@@ -4,8 +4,8 @@
 
 pkgbase=nvidia-340xx-utils
 pkgname=('nvidia-340xx-utils' 'opencl-nvidia-340xx' 'mhwd-nvidia-340xx')
-pkgver=340.106
-pkgrel=4
+pkgver=340.107
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -16,8 +16,8 @@ source_x86_64=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NV
 md5sums=('2f767e7d0c63e6f943edcb82ef09a389'
          '768a64259f7e8d8a46a13b876d6c443c'
          '3d2894e71d81570bd00bce416d3e547d')
-md5sums_i686=('a2895c566341506677d8293b4aec0dc0')
-md5sums_x86_64=('37c84428b64696be2b104edbc9855f57')
+md5sums_i686=('9a4b382ef545d836033630224735d5dd')
+md5sums_x86_64=('ffca1879d77dfc491dfb0276ceb56cc1')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
