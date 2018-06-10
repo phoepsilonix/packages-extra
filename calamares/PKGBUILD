@@ -3,12 +3,11 @@
 pkgname=calamares
 pkgver=3.2.0
 _pkgver=3.2.0
-pkgrel=5
-_commit=bec08053abda04f179a6c82112940df5eeeff037
+pkgrel=6
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
-url="https://github.com/calamares"
+url="https://gitlab.manjaro.org/applications/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=3.3.0' 'mkinitcpio-openswap'
          'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'pythonqt>=3.2')
@@ -19,11 +18,11 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(#"$pkgname-$pkgver.tar.gz::https://github.com/manjaro/calamares/archive/v${_pkgver}.tar.gz"
-         "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/manjaro/calamares/archive/${_commit}.tar.gz")
-sha256sums=('4b4e1a40fe807079b092d2f2a714f25dbc721006a38c9e3ce0488cbbb591bdc5')
+         "$pkgname-$pkgver-$pkgrel.tar.gz::$url/-/archive/3.2.x-stable/calamares-3.2.x-stable.tar.gz")
+sha256sums=('06cf6c4f7b9ff3b5a74eda44d25c3ea7fe697ca5af1dc1c691543b138c69fc5a')
 
 prepare() {
-	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${_pkgver}
+	mv ${srcdir}/calamares-3.2.x-stable ${srcdir}/calamares-${_pkgver}
 	cd ${srcdir}/calamares-${_pkgver}
 
 	# patches here

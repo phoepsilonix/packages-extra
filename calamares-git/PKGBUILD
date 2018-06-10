@@ -1,12 +1,12 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares-git
-pkgver=3.2.0.r4680.518a94488
+pkgver=3.2.0.r4698.c652970f0
 pkgrel=1
 pkgdesc='Distribution-independent installer framework (development version)'
 arch=('i686' 'x86_64')
 license=(GPL)
-url="https://github.com/calamares"
+url="https://gitlab.manjaro.org/applications/calamares"
 license=('LGPL')
 conflicts=('calamares' 'calamares-dev')
 provides=('calamares' 'calamares-dev')
@@ -19,7 +19,7 @@ makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 #         'usr/share/calamares/modules/initcpio.conf'
 #         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=(git+https://github.com/manjaro/calamares.git#branch=development)
+source+=(git+https://gitlab.manjaro.org/applications/calamares.git#branch=development)
 sha256sums=('SKIP')
 
 pkgver() {

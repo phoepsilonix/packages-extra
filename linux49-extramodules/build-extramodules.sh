@@ -23,7 +23,7 @@ cd ${pwd}/*nvidiabl && makepkg -sf --noconfirm
 cd ${pwd}/*spl_zfs && makepkg -sf --noconfirm
 cd ${pwd}/*r8168 && makepkg -sf --noconfirm
 cd ${pwd}/*rt3562sta && makepkg -sf --noconfirm
-#cd ${pwd}/*tp_smapi && makepkg -sf --noconfirm
+cd ${pwd}/*tp_smapi && makepkg -sf --noconfirm
 cd ${pwd}/*vhba-module && makepkg -sf --noconfirm
 
 cd ${pwd}/*virtualbox-modules && makepkg -sf --noconfirm
