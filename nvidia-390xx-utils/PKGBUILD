@@ -3,7 +3,7 @@
 
 pkgbase=nvidia-390xx-utils
 pkgname=('nvidia-390xx-utils' 'opencl-nvidia-390xx' 'mhwd-nvidia-390xx')
-pkgver=390.59
+pkgver=390.67
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -18,8 +18,8 @@ source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.r
 sha256sums=('11176f1c070bbdbfaa01a3743ec065fe71ff867b9f72f1dce0de0339b5873bb5'
             '089d6dc247c9091b320c418b0d91ae6adda65e170934d178cdd4e9bd0785b182'
             'd8d1caa5d72c71c6430c2a0d9ce1a674787e9272ccce28b9d5898ca24e60a167')
-sha256sums_i686=('7a27c26e8985428b87ce7466e12d3f33e4b0e0b19a2584f8f3cedd9b2b762e37')
-sha256sums_x86_64=('397adf2f725f6d27aaf583431efe8d1182d926930e73f1bfd6f9e6fbc03c0484')
+sha256sums_i686=('6f4af70ee3d03ed31c497a5d555164c56057b53ecedfc0d2c8de4b0b90728805')
+sha256sums_x86_64=('4d9d4a636d568a93412cd9a2db08c594adef20861707dfdfbd6ae15db3292b26')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 #[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}"
@@ -82,7 +82,7 @@ package_mhwd-nvidia-390xx() {
 
 package_nvidia-390xx-utils() {
     pkgdesc="NVIDIA drivers utilities"
-    depends=('xorg-server' 'libglvnd' 'mhwd')
+    depends=('xorg-server' 'libglvnd' 'egl-wayland' 'mhwd')
     optdepends=('gtk2: nvidia-settings'
                 'xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
@@ -102,11 +102,6 @@ package_nvidia-390xx-utils() {
     ln -s "libglx.so.${pkgver}" "${pkgdir}/usr/lib/nvidia/xorg/libglx.so"	# X doesn't find glx otherwise
     install -D -m755 "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_nvidia.so.${pkgver}"
     #ln -s "libGLX_nvidia.so.${pkgver}" "${pkgdir}/usr/lib/libGLX_indirect.so.0"
-
-    # Wayland
-    install -D -m755 "libnvidia-egl-wayland.so.1.0.2" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.1.0.2"
-    ln -s "libnvidia-egl-wayland.so.1.0.2" "${pkgdir}/usr/lib/libnvidia-egl-wayland.so.1"
-    install -D -m644 "10_nvidia_wayland.json" "${pkgdir}/usr/share/egl/egl_external_platform.d/10_nvidia_wayland.json"
 
     # OpenGL library
     install -D -m755 "libGL.so.1.7.0" "${pkgdir}/usr/lib/nvidia/libGL.so.1.7.0"

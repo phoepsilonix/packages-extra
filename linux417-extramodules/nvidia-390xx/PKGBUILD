@@ -7,8 +7,8 @@ _linuxprefix=linux417
 _extramodules=extramodules-4.17-MANJARO
 pkgname=$_linuxprefix-nvidia-390xx
 _pkgname=nvidia
-pkgver=390.59
-pkgrel=1
+pkgver=390.67
+pkgrel=2
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -23,8 +23,8 @@ options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums_i686=('7a27c26e8985428b87ce7466e12d3f33e4b0e0b19a2584f8f3cedd9b2b762e37')
-sha256sums_x86_64=('397adf2f725f6d27aaf583431efe8d1182d926930e73f1bfd6f9e6fbc03c0484')
+sha256sums_i686=('6f4af70ee3d03ed31c497a5d555164c56057b53ecedfc0d2c8de4b0b90728805')
+sha256sums_x86_64=('4d9d4a636d568a93412cd9a2db08c594adef20861707dfdfbd6ae15db3292b26')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
