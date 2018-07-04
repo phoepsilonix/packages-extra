@@ -4,12 +4,12 @@
 
 _pkgname=thunar
 pkgname=$_pkgname-gtk3
-pkgver=1.8.0
-pkgrel=1
+pkgver=1.8.1
+pkgrel=2
 pkgdesc="Modern file manager for Xfce"
 arch=('i686' 'x86_64')
 url="http://thunar.xfce.org"
-_commit=43f0fee9e01b8cf547528a63d8276f2d4f690407
+_commit=79e0b9b0be5d40a51a0833023afafecb535d61cd
 license=('GPL2' 'LGPL2.1')
 groups=('xfce4-gtk3')
 depends=('desktop-file-utils' 'libexif' 'hicolor-icon-theme' 'libnotify'
@@ -25,7 +25,7 @@ conflicts=($_pkgname)
 provides=($_pkgname)
 #source=(http://archive.xfce.org/src/xfce/$_pkgname/${pkgver%.*}/Thunar-$pkgver.tar.bz2)
 source=(https://git.xfce.org/xfce/$_pkgname/snapshot/$_pkgname-$_commit.tar.bz2)
-sha256sums=('6710ddb05b0fae16bdf6a9f35f653be2005401a39530da1619d92fad780340af')
+sha256sums=('c552564e046387298bf8a673be090eaac20006b01995c8e93317e32e16e92249')
 
 build() {
   cd "$_pkgname-$_commit"

@@ -3,9 +3,9 @@
 
 pkgname=manjaro-hello
 pkgver=0.5.11
-pkgrel=2
+pkgrel=3
 pkgdesc="A tool providing access to documentation and support for new Manjaro users."
-url="https://github.com/manjaro/$pkgname"
+url="https://gitlab.manjaro.org/applications/manjaro-hello"
 arch=('any')
 license=('GPL')
 depends=('gtk3' 'manjaro-icons' 'python-gobject')
