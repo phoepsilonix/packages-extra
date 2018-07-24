@@ -21,7 +21,7 @@ makedepends=("$_linuxprefix-headers")
 conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
 install=catalyst.install
 
-source=(http://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip
+source=(https://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip
         #https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
         ati_make.sh
         makefile_compat.patch
@@ -47,7 +47,7 @@ source=(http://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.2
 	LICENSE.TXT)
 
 url_ref="http://support.amd.com/en-us/download/desktop?os=Linux+x86"
-DLAGENTS="http::/usr/bin/curl --referer ${url_ref} -o %o %u"
+DLAGENTS="https::/usr/bin/curl --referer ${url_ref} -o %o %u"
 
 sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'

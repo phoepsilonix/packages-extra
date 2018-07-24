@@ -6,7 +6,7 @@
 pkgbase=catalyst-utils
 pkgname=('catalyst-utils' 'opencl-catalyst' 'mhwd-catalyst')
 pkgver=15.201.1151
-pkgrel=11
+pkgrel=12
 epoch=1
 _execlineorig="Exec=amdxdg-su -c amdcccle"
 _execlinenew="Exec=xdg-su amdcccle"
@@ -14,7 +14,7 @@ pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.amd.com"
 license=('custom')
-source=("http://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip"
+source=("https://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip"
 	"https://raw.githubusercontent.com/pciutils/pciids/ab8e0dc2f9bcc6d7cf49866c769175cf0e119dd2/pci.ids"
     #https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
     catalyst.sh
@@ -27,7 +27,7 @@ source=("http://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.
     LICENSE.TXT)
 
 url_ref="http://support.amd.com/en-us/download/desktop?os=Linux+x86"
-DLAGENTS="http::/usr/bin/curl --referer ${url_ref} -o %o %u"
+DLAGENTS="https::/usr/bin/curl --referer ${url_ref} -o %o %u"
 
 sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             '0e068f26d4cb9eb2569adda650f8536e7c4a11d307eaf4585c882c475c821c1a'
@@ -157,6 +157,10 @@ package_catalyst-utils() {
     ## QT libs (only 2 files) - un-comment 2 lines below if you don't want to install qt package
 #      install -m755 -d "${pkgdir}/usr/share/ati/${_lib}"
 #      install -m755 share/ati/${_lib}/*.so* "${pkgdir}/usr/share/ati/${_lib}"
+
+    #fix AIGLX open error (laptops wake on 4.15+?)
+      install -m755 -d ${pkgdir}/usr/X11R6/${_lib}/modules/dri
+      ln -snf /usr/lib/xorg/modules/dri/fglrx_dri.so ${pkgdir}/usr/X11R6/${_lib}/modules/dri/fglrx_dri.so
 
       ln -snf /usr/lib/xorg/modules/dri/fglrx_dri.so "${pkgdir}/usr/lib/dri/fglrx_dri.so"
       ln -snf libfglrx_dm.so.1.0 "${pkgdir}/usr/lib/libfglrx_dm.so.1"
